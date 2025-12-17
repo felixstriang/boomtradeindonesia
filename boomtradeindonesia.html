@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOM TRADE INDONESIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. PENGATURAN GLOBAL --- */
+        :root {
+            /* Warna Global Website (Boom Trade Style) */
+            --bg-body: #0f172a;       
+            --card-dark: #1e293b;     
+            --primary-blue: #3b82f6;  
+            --text-light: #f3f4f6;
+            --text-gray: #9ca3af;
+            --profit-green: #10b981;
+
+            /* Warna Khusus Hero Section (Metacorp Style) */
+            --hero-bg: #0a1128;       /* Navy Gelap */
+            --hero-yellow: #ffc107;   /* Kuning Terang */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-body);
+        }
+
+        a { text-decoration: none; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER & NAVIGASI --- */
+        header {
+            background-color: rgba(10, 17, 40, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- PERBAIKAN UTAMA DI SINI --- */
+        .logo-img {
+            height: 50px; /* Tinggi logo */
+            width: auto;  /* Lebar menyesuaikan agar tidak gepeng */
+            
+            /* Agar background hitam pada JPG menjadi transparan */
+            mix-blend-mode: screen; 
+            
+            /* HAPUS SEMUA KODE 'mask-image' DI SINI AGAR GAMBAR MUNCUL */
+            display: block;
+        }
+
+        nav ul { display: flex; gap: 20px; }
+        nav ul li a {
+            color: var(--text-light);
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        nav ul li a:hover { color: var(--hero-yellow); }
+
+        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- 3. HERO SECTION --- */
+        .hero-metacorp {
+            min-height: 100vh;
+            padding: 100px 5% 50px;
+            
+            background: linear-gradient(rgba(10, 17, 40, 0.92), rgba(10, 17, 40, 0.85)), 
+                        url('https://source.unsplash.com/1600x900/?stock-market,trading-chart');
+            background-size: cover;
+            background-position: center;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .text-highlight { color: var(--hero-yellow); }
+
+        .pain-points li {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+        }
+        .pain-points li::before {
+            content: '✔';
+            color: var(--hero-yellow);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        .hero-desc {
+            margin-top: 1.5rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-yellow {
+            background-color: var(--hero-yellow);
+            color: #000;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            border: none;
+        }
+        .btn-yellow:hover {
+            transform: scale(1.05);
+            background-color: #ffca2c;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .hero-img-wrapper img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- 4. PRODUK SECTION --- */
+        .section-title {
+            text-align: center;
+            margin: 4rem 0 1rem;
+            color: var(--text-light);
+            font-size: 2rem;
+        }
+        .section-title span { border-bottom: 3px solid var(--primary-blue); padding-bottom: 5px; }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-gray);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding-bottom: 4rem;
+        }
+
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .cluster-card {
+            background: var(--card-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            border: 1px solid #334155;
+            position: relative;
+        }
+        .cluster-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-blue);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--hero-yellow);
+            color: black;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .card-img {
+            height: 180px;
+            width: 100%;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content { padding: 1.5rem; }
+        .card-title { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1.3rem; }
+        .card-price { color: var(--profit-green); font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; display: block; }
+
+        .specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .btn-detail {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            background-color: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--text-light);
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-detail:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* --- 5. FOOTER & FLOAT --- */
+        footer {
+            background-color: #020617;
+            color: var(--text-gray);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--hero-yellow);
+            color: black;
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+            font-weight: bold;
+            font-size: 1rem;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .wa-float:hover { transform: translateY(-3px); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 968px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .hero-text h1 { font-size: 2rem; }
+            .pain-points li { justify-content: center; }
+            .menu-toggle { display: block; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-body);
+                padding: 20px 0;
+                border-bottom: 1px solid #333;
+            }
+            nav ul.active { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="images/boomtrade2.png" alt="Boom Trade Logo" class="logo-img">
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav>
+            <ul id="nav-list">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero-metacorp">
+        <div class="hero-container">
+            
+            <div class="hero-text">
+                <h1>Kamu merasa banyak sekali masalah ketika <br>
+                <span class="text-highlight">menghadapi market?</span></h1>
+
+                <ul class="pain-points">
+                    <li>Masih Sering Loss</li>
+                    <li>Belum Konsisten</li>
+                    <li>Harus Mantengin Chart Terus</li>
+                    <li>Ragu untuk open posisi</li>
+                    <li>Sifat Serakah</li>
+                </ul>
+
+                <p class="hero-desc">
+                    Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA "Your Partner Trading System".
+                </p>
+
+                <a href="#products" class="btn-yellow">
+                    💬 Join Now
+                </a>
+            </div>
+
+            <div class="hero-img-wrapper">
+                <img src="images/trader2.jpg" alt="Trader Stres">
+            </div>
+
+        </div>
+    </section>
+
+    <h2 id="products" class="section-title"><span>Produk & Layanan Unggulan</span></h2>
+    <p class="section-subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
+
+    <div class="container">
+        <div class="cluster-grid">
+            
+            <div class="cluster-card">
+                <div class="badge">BEST SELLER</div>
+                <div class="card-img" style="background-image: url('images/gladiator1.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">GLADIATOR EA v1.0</h3>
+                    <span class="card-price">Lifetime License $399</span>
+                    <div class="specs">
+                        <span>📈 MT4/MT5</span>
+                        <span>🤖 Best EA</span>
+                        <span>📉 Profit Lock</span>
+                        <span>⚡ Scalper Hedge</span>
+                    </div>
+                    <a href="https://wa.me/6282115846263?text=Halo%20Boom%20Trade,%20minat%20EA" class="btn-detail" target="_blank">Order Now</a>
+                </div>
+            </div>
+
+            <div class="cluster-card">
+		<div class="badge">PREMIUM</div>
+                <div class="card-img" style="background-image: url('images/copytrade.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">PREMIUM COPYTRADE</h3>
+                    <span class="card-price">Profit Sharing 80 : 20</span>
+                    <div class="specs">
+                        <span>💰 Avg 10-20%</span>
+                        <span>🛡️ Full Auto Pilot</span>
+                        <span>📱 Fast Acces</span>
+                        <span>🔄 VPS $20</span>
+                    </div>
+                    <a href="https://wa.me/6282115846263?text=Halo%20Boom%20Trade,%20minat%20Copytrade" class="btn-detail" target="_blank">Join Copytrade</a>
+                </div>
+            </div>
+
+            <div class="cluster-card">
+		<div class="badge">VIP</div>
+                <div class="card-img" style="background-image: url('images/signal.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">VIP SIGNAL</h3>
+                    <span class="card-price">$5 / Month</span>
+                    <div class="specs">
+                        <span>🎯 Scalping</span>
+                        <span>📊 XAUUSD Only</span>
+                        <span>🔔 Realtime</span>
+                        <span>📚 Group Class</span>
+                    </div>
+                    <a href="https://wa.me/6282115846263?text=Halo%20Boom%20Trade,%20minat%20Signal" class="btn-detail" target="_blank">Subcribe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <h3>BOOM TRADE INDONESIA</h3>
+        <p>Your Partner Trading System</p>
+        <p>Kediri, Jawa Timur - Indonesia</p>
+        <br>
+        <small>&copy; 2025 Boom Trade Indonesia. All rights reserved.</small>
+    </footer>
+
+    <a href="https://wa.me/6282115846263?text=Halo%20Boom%20Trade,%20saya%20mau%20bergabung" class="wa-float" target="_blank">
+        💬 Join Now
+    </a>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-list');
+            nav.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
