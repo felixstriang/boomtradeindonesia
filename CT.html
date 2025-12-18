@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOM TRADE | Premium Copytrade Service</title>
+    
+    <link rel="icon" type="image/png" href="images/boomtrade2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #020617;
+            --card: rgba(15, 23, 42, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+            --blue: #3b82f6;
+            --green: #10b981;
+            --text: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* Floating Info */
+        .floating-info {
+            position: fixed; top: 100px; right: -10px; background: var(--gold); color: #000;
+            padding: 10px 25px; border-radius: 10px 0 0 10px; font-weight: 800; font-size: 0.8rem;
+            box-shadow: -5px 5px 20px rgba(251, 191, 36, 0.3); z-index: 1000; animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn { from { right: -100px; } to { right: -10px; } }
+
+        /* Header */
+        header {
+            padding: 20px 8%; display: flex; justify-content: center;
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border); position: fixed; width: 100%; top: 0; z-index: 999;
+        }
+        .logo { display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 1.4rem; letter-spacing: 2px; }
+        .logo img { height: 45px; filter: drop-shadow(0 0 10px var(--blue)); }
+
+        /* Main Container */
+        .container { max-width: 900px; margin: 120px auto 50px; padding: 0 20px; }
+
+        .hero-text { text-align: center; margin-bottom: 40px; }
+        .hero-text h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-text p { color: #94a3b8; font-size: 1rem; }
+
+        /* Cards */
+        .card { 
+            background: var(--card); border: 1px solid var(--border); border-radius: 30px; 
+            padding: 40px; margin-bottom: 30px; backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); transition: 0.5s;
+        }
+
+        /* Step 1: Referral Button */
+        .btn-broker {
+            background: #fff; color: #000; padding: 20px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            font-weight: 800; text-decoration: none; transition: 0.3s; width: 100%; border: none; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1); font-size: 1rem;
+        }
+        .btn-broker:hover { transform: scale(1.02); background: var(--gold); }
+
+        .verify-box { margin-top: 20px; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
+        .verify-box input { width: 22px; height: 22px; accent-color: var(--green); cursor: pointer; }
+        .verify-box label { font-size: 0.85rem; color: #cbd5e1; cursor: pointer; }
+
+        /* Step 2: VPS Form */
+        .locked { opacity: 0.3; filter: blur(5px); pointer-events: none; }
+        .lock-indicator { color: #ef4444; font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; display: block; }
+
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px; }
+        .input-dark { 
+            width: 100%; padding: 15px 20px; background: rgba(0,0,0,0.3); 
+            border: 1px solid var(--border); color: #fff; border-radius: 12px; outline: none; transition: 0.3s;
+        }
+        .input-dark:focus { border-color: var(--gold); }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #d97706); color: #000;
+            padding: 18px; border-radius: 15px; font-weight: 800; border: none;
+            width: 100%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4); }
+
+        .bank-info { 
+            background: linear-gradient(to right, rgba(251, 191, 36, 0.1), transparent); 
+            padding: 20px; border-radius: 15px; border-left: 5px solid var(--gold); margin-bottom: 25px;
+        }
+
+        /* Loading */
+        .loading-overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.9); 
+            z-index: 9999; align-items: center; justify-content: center; flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-info">
+        <i class="fas fa-coins"></i> PROFIT SHARING 20% / BULAN
+    </div>
+
+    <div id="loading" class="loading-overlay">
+        <i class="fas fa-circle-notch fa-spin fa-3x" style="color: var(--gold);"></i>
+        <p style="margin-top: 20px; font-weight: 700;">PROSES ENKRIPSI DATA...</p>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="images/boomtrade2.png" alt="Logo">
+            <span>BOOM TRADE INDONESIA</span>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="hero-text">
+            <h1>Premium Copytrade</h1>
+            </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 15px;"><i class="fas fa-user-plus" style="color: var(--blue);"></i> Langkah 1: Registrasi Akun Trading Anda</h3>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 25px;">Klik tombol di bawah untuk mendaftar. Data pendaftaran akan kami verifikasi sebelum mengaktifkan sistem copytrade.</p>
+            
+            <button onclick="openBroker()" class="btn-broker">
+                <i class="fas fa-external-link-alt"></i> DAFTAR AKUN TRADING SEKARANG
+            </button>
+
+            <div class="verify-box">
+                <input type="checkbox" id="check-referral" disabled onchange="unlockForm(this)">
+                <label for="check-referral">Saya mengonfirmasi telah mendaftar melalui link di atas saya akan aktivasi akun dan pembayaran VPS.</label>
+            </div>
+        </div>
+
+        <div id="vps-section" class="card locked">
+            <span id="lock-status" class="lock-indicator"><i class="fas fa-lock"></i> SELESAIKAN LANGKAH 1 UNTUK MEMBUKA FORM</span>
+            <h3 style="margin-bottom: 15px;"><i class="fas fa-server" style="color: var(--gold);"></i> Langkah 2: Aktivasi VPS & Data Akun</h3>
+            
+            <div class="bank-info">
+                <p style="font-size: 0.8rem; color: #94a3b8;">Biaya Sewa VPS: <strong>Rp 299.000 / 3 Bulan</strong></p>
+                <p style="font-size: 1.2rem; font-weight: 800; color: #fff; margin: 5px 0;">BCA: 0332204732</p>
+                <p style="font-size: 0.8rem;">A/N: Felixs Triang Rosario Alves</p>
+            </div>
+
+            <form id="activationForm">
+                <div class="input-group">
+                    <label>Username Anda</label>
+                    <input type="text" id="user-name" class="input-dark" placeholder="Nama Akun Trading" required>
+                </div>
+                <div class="input-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="text" id="user-wa" class="input-dark" placeholder="0821xxxx" required>
+                </div>
+                <div class="input-group">
+                    <label>ID Akun MT5</label>
+                    <input type="text" id="mt5-id" class="input-dark" placeholder="Contoh: 12345678" required>
+                </div>
+                <div class="input-group">
+                    <label>Password Akun Trading MT5</label>
+                    <input type="password" id="mt5-pass" class="input-dark" placeholder="••••••••" required>
+                </div>
+                <div class="input-group">
+                    <label>Server MT5</label>
+                    <input type="text" id="mt5-srv" class="input-dark" placeholder="Contoh: HFM-Demo" required>
+                </div>
+                
+                <button type="submit" class="btn-gold">
+                    <i class="fas fa-shield-alt"></i> AKTIFKAN COPYTRADE SEKARANG
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        const waAdmin = "6282115846263";
+        const sheetDbUrl = "https://sheetdb.io/api/v1/kqowpzx6i6ur2";
+        const linkReff = "https://register.broker-hfmint.com/int/id/new-live-account?refid=30473238"; // GANTI DENGAN LINK ANDA
+
+        function showLoading(state) {
+            document.getElementById('loading').style.display = state ? 'flex' : 'none';
+        }
+
+        // Buka Link & Aktifkan Checklist
+        function openBroker() {
+            window.open(linkReff, '_blank');
+            document.getElementById('check-referral').disabled = false;
+        }
+
+        // Unlock Form VPS
+        function unlockForm(el) {
+            const vpsCard = document.getElementById('vps-section');
+            const lockStatus = document.getElementById('lock-status');
+            if(el.checked) {
+                vpsCard.classList.remove('locked');
+                lockStatus.style.color = "#10b981";
+                lockStatus.innerHTML = `<i class="fas fa-unlock"></i> FORM AKTIVASI TERBUKA`;
+            } else {
+                vpsCard.classList.add('locked');
+                lockStatus.style.color = "#ef4444";
+                lockStatus.innerHTML = `<i class="fas fa-lock"></i> SELESAIKAN LANGKAH 1 UNTUK MEMBUKA FORM`;
+            }
+        }
+
+        // Submit Data ke Google Sheet & WA
+        document.getElementById('activationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showLoading(true);
+
+            const name = document.getElementById('user-name').value;
+            const wa = document.getElementById('user-wa').value;
+            const mt5id = document.getElementById('mt5-id').value;
+            const mt5pass = document.getElementById('mt5-pass').value;
+            const mt5srv = document.getElementById('mt5-srv').value;
+
+            try {
+                await fetch(sheetDbUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        "data": [{
+                            "Username": name,
+                            "WhatsApp": wa,
+                            "Password": mt5pass,
+                            "Status": "Aktif",
+                            "Jenis_Laporan": "AKTIVASI VPS",
+                            "Keterangan": `ID:${mt5id} | SRV:${mt5srv}`
+                        }]
+                    })
+                });
+
+                showLoading(false);
+                const textWA = `KONFIRMASI AKTIVASI COPYTRADE%0A%0A` +
+                               `Nama: ${name}%0A` +
+                               `WhatsApp: ${wa}%0A` +
+                               `ID MT5: ${mt5id}%0A` +
+                               `Pass MT5: ${mt5pass}%0A` +
+                               `Server: ${mt5srv}%0A%0A` +
+                               `SAYA AKAN TRANSFER BIAYA VPS RP 299.000 KE REKENING BCA 0332204732.`;
+                
+                window.open(`https://wa.me/${waAdmin}?text=${textWA}`, '_blank');
+                alert("Data berhasil dikirim! Silakan teruskan pesan WhatsApp yang terbuka untuk aktivasi cepat.");
+            } catch (err) {
+                showLoading(false);
+                alert("Terjadi kesalahan jaringan.");
+            }
+        });
+    </script>
+</body>
+</html>
