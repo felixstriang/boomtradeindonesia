@@ -13,17 +13,14 @@
     <style>
         /* --- 1. PENGATURAN GLOBAL --- */
         :root {
-            /* Warna Global Website (Boom Trade Style) */
             --bg-body: #0f172a;       
             --card-dark: #1e293b;     
             --primary-blue: #3b82f6;  
             --text-light: #f3f4f6;
             --text-gray: #9ca3af;
             --profit-green: #10b981;
-
-            /* Warna Khusus Hero Section (Metacorp Style) */
-            --hero-bg: #0a1128;       /* Navy Gelap */
-            --hero-yellow: #ffc107;   /* Kuning Terang */
+            --hero-bg: #0a1128;       
+            --hero-yellow: #ffc107;   
         }
 
         * {
@@ -57,20 +54,10 @@
             backdrop-filter: blur(10px);
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        /* --- PERBAIKAN UTAMA DI SINI --- */
         .logo-img {
-            height: 50px; /* Tinggi logo */
-            width: auto;  /* Lebar menyesuaikan agar tidak gepeng */
-            
-            /* Agar background hitam pada JPG menjadi transparan */
+            height: 50px;
+            width: auto;  
             mix-blend-mode: screen; 
-            
-            /* HAPUS SEMUA KODE 'mask-image' DI SINI AGAR GAMBAR MUNCUL */
             display: block;
         }
 
@@ -89,12 +76,10 @@
         .hero-metacorp {
             min-height: 100vh;
             padding: 100px 5% 50px;
-            
             background: linear-gradient(rgba(10, 17, 40, 0.92), rgba(10, 17, 40, 0.85)), 
-                        url('https://source.unsplash.com/1600x900/?stock-market,trading-chart');
+                        url('https://images.unsplash.com/photo-1611974717482-482099f9483c?auto=format&fit=crop&q=80&w=1600');
             background-size: cover;
             background-position: center;
-            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -167,7 +152,7 @@
             border: 4px solid rgba(255,255,255,0.1);
         }
 
-        /* --- 4. PRODUK SECTION --- */
+        /* --- 4. PRODUK & RESULT SECTION --- */
         .section-title {
             text-align: center;
             margin: 4rem 0 1rem;
@@ -186,7 +171,7 @@
             width: 90%;
             max-width: 1200px;
             margin: auto;
-            padding-bottom: 4rem;
+            padding-bottom: 2rem;
         }
 
         .cluster-grid {
@@ -257,9 +242,52 @@
             font-weight: bold;
             transition: 0.3s;
         }
-        .btn-detail:hover {
-            background-color: var(--primary-blue);
-            color: white;
+        .btn-detail:hover { background-color: var(--primary-blue); color: white; }
+
+        /* --- TABEL POSISI TENGAH --- */
+        .result-container {
+            background: var(--card-dark);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid #334155;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1000px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            justify-content: center;
+        }
+
+        .table-responsive iframe {
+            width: 100%;
+            height: 550px; 
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* --- STYLE TOMBOL DOWNLOAD --- */
+        .btn-download-pdf {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: var(--hero-yellow);
+            color: black;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .btn-download-pdf:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
         }
 
         /* --- 5. FOOTER & FLOAT --- */
@@ -268,7 +296,7 @@
             color: var(--text-gray);
             text-align: center;
             padding: 3rem 2rem;
-            margin-top: 2rem;
+            margin-top: 4rem;
             border-top: 1px solid #1e293b;
         }
 
@@ -291,7 +319,6 @@
         }
         .wa-float:hover { transform: translateY(-3px); }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 968px) {
             .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
             .hero-text h1 { font-size: 2rem; }
@@ -323,6 +350,7 @@
             <ul id="nav-list">
                 <li><a href="#home">Beranda</a></li>
                 <li><a href="#products">Produk</a></li>
+                <li><a href="#results">Hasil Trade</a></li>
                 <li><a href="#contact">Kontak</a></li>
             </ul>
         </nav>
@@ -330,11 +358,9 @@
 
     <section id="home" class="hero-metacorp">
         <div class="hero-container">
-            
             <div class="hero-text">
                 <h1>Kamu merasa banyak sekali masalah ketika <br>
                 <span class="text-highlight">menghadapi market?</span></h1>
-
                 <ul class="pain-points">
                     <li>Masih Sering Loss</li>
                     <li>Belum Konsisten</li>
@@ -342,20 +368,14 @@
                     <li>Ragu untuk open posisi</li>
                     <li>Sifat Serakah</li>
                 </ul>
-
                 <p class="hero-desc">
                     Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA "Your Partner Trading System".
                 </p>
-
-                <a href="#products" class="btn-yellow">
-                    💬 Join Now
-                </a>
+                <a href="#products" class="btn-yellow">💬 Join Now</a>
             </div>
-
             <div class="hero-img-wrapper">
                 <img src="images/trader2.jpg" alt="Trader Stres">
             </div>
-
         </div>
     </section>
 
@@ -364,13 +384,12 @@
 
     <div class="container">
         <div class="cluster-grid">
-            
             <div class="cluster-card">
                 <div class="badge">BEST SELLER</div>
                 <div class="card-img" style="background-image: url('images/gladiator1.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">GLADIATOR EA v1.0</h3>
-                    <span class="card-price">Lifetime License $399</span>
+                    <span class="card-price">Lifetime License $499</span>
                     <div class="specs">
                         <span>📈 MT4/MT5</span>
                         <span>🤖 Best EA</span>
@@ -382,7 +401,7 @@
             </div>
 
             <div class="cluster-card">
-		<div class="badge">PREMIUM</div>
+				<div class="badge">PREMIUM</div>
                 <div class="card-img" style="background-image: url('images/copytrade.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">PREMIUM COPYTRADE</h3>
@@ -398,7 +417,7 @@
             </div>
 
             <div class="cluster-card">
-		<div class="badge">VIP</div>
+				<div class="badge">VIP</div>
                 <div class="card-img" style="background-image: url('images/signal.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">VIP SIGNAL</h3>
@@ -413,6 +432,21 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <h2 id="results" class="section-title"><span>Real Trading Result</span></h2>
+    <p class="section-subtitle">Pantau performa harian GLADIATOR EA secara transparan</p>
+    
+    <div class="container" style="text-align: center;">
+        <div class="result-container">
+            <div class="table-responsive">
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbLhg8dB-Z0_zToSdapEAtlMyAj8_xgnQjPDq7Qe8diBnv22Py5z6u4gqip2t77Vypaw2dUYDMA2mp/pubhtml?gid=485236148&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+            </div>
+        </div>
+
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbLhg8dB-Z0_zToSdapEAtlMyAj8_xgnQjPDq7Qe8diBnv22Py5z6u4gqip2t77Vypaw2dUYDMA2mp/pub?gid=485236148&output=pdf" class="btn-download-pdf">
+            <i class="fas fa-file-pdf"></i> Download Report (PDF)
+        </a>
     </div>
 
     <footer id="contact">
@@ -435,12 +469,4 @@
     </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
