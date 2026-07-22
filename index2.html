@@ -198,7 +198,7 @@
     </div>
 
     <script>
-        const Admin = "@bangrioboomtrade";
+        const Admin = "bangrioboomtrade";
         const sheetDbUrl = "https://sheetdb.io/api/v1/kqowpzx6i6ur2";
         const linkReff = "https://secure.cxmid.com/links/go/274801"; 
 
@@ -260,7 +260,7 @@
                                `Server: ${mt5srv}%0A%0A` +
                                `SAYA AKAN TRANSFER BIAYA VPS RP 299.000 KE REKENING BCA 0332204732.`;
                 
-                window.open(`https://t.me/${Admin}?text=${textWA}`, '_blank');
+                window.open(`https://t.me/${Admin}?text=${encodeURIComponent(rawText)}`, '_blank');
                 alert("Data berhasil dikirim! Teruskan pesan WhatsApp untuk aktivasi cepat.");
             } catch (err) {
                 showLoading(false);
