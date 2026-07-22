@@ -198,7 +198,8 @@
     </div>
 
     <script>
-        const Admin = "bangrioboomtrade";
+        // Hapus simbol '@' dari variabel Admin
+        const Admin = "bangrioboomtrade"; 
         const sheetDbUrl = "https://sheetdb.io/api/v1/kqowpzx6i6ur2";
         const linkReff = "https://secure.cxmid.com/links/go/274801"; 
 
@@ -252,16 +253,15 @@
                 });
 
                 showLoading(false);
-                const textWA = `KONFIRMASI AKTIVASI COPYTRADE%0A%0A` +
-                               `Nama: ${name}%0A` +
-                               `WhatsApp: ${wa}%0A` +
-                               `ID MT5: ${mt5id}%0A` +
-                               `Pass MT5: ${mt5pass}%0A` +
-                               `Server: ${mt5srv}%0A%0A` +
-                               `SAYA AKAN TRANSFER BIAYA VPS RP 299.000 KE REKENING BCA 0332204732.`;
                 
+                // Gunakan backtick (`) dan enter biasa, lalu encodeURIComponent agar aman untuk URL Telegram
+                const rawText = `KONFIRMASI AKTIVASI COPYTRADE\n\nNama: ${name}\nWhatsApp: ${wa}\nID MT5: ${mt5id}\nPass MT5: ${mt5pass}\nServer: ${mt5srv}\n\nSAYA AKAN TRANSFER BIAYA VPS RP 299.000 KE REKENING BCA 0332204732.`;
+                
+                // Buka Telegram secara otomatis dan rapi
                 window.open(`https://t.me/${Admin}?text=${encodeURIComponent(rawText)}`, '_blank');
-                alert("Data berhasil dikirim! Teruskan pesan WhatsApp untuk aktivasi cepat.");
+                
+                // Perbaikan notifikasi alert
+                alert("Data berhasil dikirim! Silakan lanjutkan pesan di Telegram untuk aktivasi cepat.");
             } catch (err) {
                 showLoading(false);
                 alert("Kesalahan jaringan. Cek koneksi Anda.");
@@ -269,5 +269,4 @@
         });
     </script>
 </body>
-
 </html>
