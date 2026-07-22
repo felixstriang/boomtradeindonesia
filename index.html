@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Jual Expert Advisor Terbaik, Copytrade Sultan, dan Sinyal Gold. Boom Trade Indonesia solusi trading terbaik.">
-	<meta name="keywords" content="Jual EA Forex, Robot Trading, Copytrade Indonesia, Signal Forex Akurat, Boom Trade, EA GLADIATOR Scalper.">
-    <title>BOOM TRADE INDONESIA</title>
-	<link rel="icon" type="image/png" href="images/boomtrade2.png">
+    <meta name="description" content="Jual Expert Advisor Terbaik, Copytrade Sultan, dan Sinyal Gold. Boom Trade Indonesia solusi trading terbaik.">
+    <meta name="keywords" content="Jual EA Forex, Robot Trading, Copytrade Indonesia, Signal Forex Akurat, Boom Trade, EA GLADIATOR Scalper.">
+    <title>BOOM TRADE INDONESIA | 3D Vibe</title>
+    <link rel="icon" type="image/png" href="images/boomtrade2.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- 1. PENGATURAN GLOBAL --- */
         :root {
-            --bg-body: #0f172a;       
-            --card-dark: #1e293b;     
+            --bg-body: #050b14;       
+            --card-dark: rgba(30, 41, 59, 0.75);     
             --primary-blue: #3b82f6;  
             --text-light: #f3f4f6;
             --text-gray: #9ca3af;
             --profit-green: #10b981;
-            --hero-bg: #0a1128;       
             --hero-yellow: #ffc107;   
         }
 
@@ -34,6 +33,43 @@
             line-height: 1.6;
             color: var(--text-light);
             background-color: var(--bg-body);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND 3D ANIMATED GRID --- */
+        .bg-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a1128 0%, #020617 100%);
+            perspective: 800px;
+            overflow: hidden;
+        }
+        
+        .bg-3d::after {
+            content: "";
+            position: absolute;
+            bottom: -40%;
+            left: -50%;
+            width: 200%;
+            height: 120%;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.3) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.3) 2px, transparent 2px);
+            background-size: 60px 60px;
+            transform: rotateX(75deg);
+            transform-origin: center top;
+            animation: gridMove 3s linear infinite;
+            box-shadow: inset 0 100px 150px #020617; /* Fading effect at the horizon */
+        }
+
+        @keyframes gridMove {
+            0% { transform: rotateX(75deg) translateY(0); }
+            100% { transform: rotateX(75deg) translateY(60px); }
         }
 
         a { text-decoration: none; }
@@ -41,17 +77,17 @@
 
         /* --- 2. HEADER & NAVIGASI --- */
         header {
-            background-color: rgba(10, 17, 40, 0.95);
+            background-color: rgba(5, 11, 20, 0.85);
             padding: 1rem 5%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
         .logo-img {
@@ -68,21 +104,19 @@
             transition: 0.3s;
             font-size: 0.95rem;
         }
-        nav ul li a:hover { color: var(--hero-yellow); }
+        nav ul li a:hover { color: var(--hero-yellow); text-shadow: 0 0 10px var(--hero-yellow); }
 
         .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
         /* --- 3. HERO SECTION --- */
         .hero-metacorp {
             min-height: 100vh;
-            padding: 100px 5% 50px;
-            background: linear-gradient(rgba(10, 17, 40, 0.92), rgba(10, 17, 40, 0.85)), 
-                        url('https://images.unsplash.com/photo-1611974717482-482099f9483c?auto=format&fit=crop&q=80&w=1600');
-            background-size: cover;
-            background-position: center;
+            padding: 120px 5% 50px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-container {
@@ -95,14 +129,15 @@
         }
 
         .hero-text h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             line-height: 1.3;
             margin-bottom: 1.5rem;
             font-weight: 700;
             color: white;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
-        .text-highlight { color: var(--hero-yellow); }
+        .text-highlight { color: var(--hero-yellow); text-shadow: 0 0 15px rgba(255, 193, 7, 0.4); }
 
         .pain-points li {
             display: flex;
@@ -123,7 +158,7 @@
             margin-top: 1.5rem;
             color: #cbd5e1;
             margin-bottom: 2rem;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .btn-yellow {
@@ -138,26 +173,35 @@
             gap: 10px;
             transition: 0.3s;
             border: none;
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
         }
         .btn-yellow:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-3px);
             background-color: #ffca2c;
-            box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.6);
         }
 
         .hero-img-wrapper img {
             width: 100%;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            border: 4px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: 0.5s;
+        }
+        .hero-img-wrapper img:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
         }
 
-        /* --- 4. PRODUK & RESULT SECTION --- */
+        /* --- 4. PRODUK SECTION (3D & MEMANJANG) --- */
         .section-title {
             text-align: center;
             margin: 4rem 0 1rem;
             color: var(--text-light);
-            font-size: 2rem;
+            font-size: 2.2rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
         }
         .section-title span { border-bottom: 3px solid var(--primary-blue); padding-bottom: 5px; }
         
@@ -165,139 +209,139 @@
             text-align: center;
             margin-bottom: 3rem;
             color: var(--text-gray);
+            position: relative;
+            z-index: 1;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: auto;
-            padding-bottom: 2rem;
+            padding-bottom: 4rem;
+            position: relative;
+            z-index: 1;
         }
 
+        /* TAMPILAN TENGAH DAN MEMANJANG */
         .cluster-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Posisikan produk di tengah website */
+            justify-content: center;
+            gap: 3rem;
         }
 
         .cluster-card {
+            display: flex;
+            flex-direction: row; /* Memanjang secara horizontal */
             background: var(--card-dark);
-            border-radius: 12px;
+            backdrop-filter: blur(12px); /* Efek kaca untuk blend dengan 3D background */
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: 0.3s;
-            border: 1px solid #334155;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
             position: relative;
+            width: 100%;
+            max-width: 950px; /* Lebar maksimal kotak memanjang */
+            transform-style: preserve-3d;
         }
+        
         .cluster-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-blue);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 0 2px var(--hero-yellow);
         }
 
         .badge {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            left: -10px;
             background: var(--hero-yellow);
             color: black;
-            padding: 5px 10px;
-            font-size: 0.8rem;
+            padding: 8px 15px;
+            font-size: 0.85rem;
             font-weight: bold;
-            border-radius: 4px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+            z-index: 10;
         }
 
         .card-img {
-            height: 180px;
-            width: 100%;
+            flex: 0 0 40%; /* Mengambil 40% dari lebar container */
+            min-height: 350px;
             background-color: #333;
             background-size: cover;
             background-position: center;
+            position: relative;
         }
         
-        .card-content { padding: 1.5rem; }
-        .card-title { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1.3rem; }
-        .card-price { color: var(--profit-green); font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; display: block; }
+        .card-img::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(to right, transparent, var(--card-dark));
+        }
+        
+        .card-content { 
+            flex: 1; /* Mengambil sisa ruang (60%) */
+            padding: 2.5rem; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+        
+        .card-title { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1.8rem; }
+        .card-price { color: var(--profit-green); font-weight: bold; font-size: 1.3rem; margin-bottom: 1rem; display: block; }
+        
+        .ea-desc {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
 
         .specs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
+            gap: 12px;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
             color: var(--text-gray);
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            padding: 15px 20px;
             border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .btn-detail {
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 12px;
+            display: inline-block;
+            width: fit-content;
+            padding: 12px 35px;
             background-color: transparent;
             border: 2px solid var(--primary-blue);
             color: var(--text-light);
-            border-radius: 6px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn-detail:hover { background-color: var(--primary-blue); color: white; }
-
-        /* --- TABEL POSISI TENGAH --- */
-        .result-container {
-            background: var(--card-dark);
-            border-radius: 12px;
-            padding: 10px;
-            border: 1px solid #334155;
-            overflow: hidden;
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 1000px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto; 
-            -webkit-overflow-scrolling: touch;
-            display: flex;
-            justify-content: center;
-        }
-
-        .table-responsive iframe {
-            width: 100%;
-            height: 550px; 
-            border: none;
-            border-radius: 8px;
-        }
-
-        /* --- STYLE TOMBOL DOWNLOAD --- */
-        .btn-download-pdf {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background-color: var(--hero-yellow);
-            color: black;
             border-radius: 50px;
             font-weight: bold;
             transition: 0.3s;
             text-align: center;
         }
-        .btn-download-pdf:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+        .btn-detail:hover { 
+            background-color: var(--primary-blue); 
+            color: white; 
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
         }
 
         /* --- 5. FOOTER & FLOAT --- */
         footer {
-            background-color: #020617;
+            background-color: rgba(2, 6, 23, 0.9);
             color: var(--text-gray);
             text-align: center;
             padding: 3rem 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid #1e293b;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
         }
 
         .wa-float {
@@ -306,9 +350,9 @@
             right: 30px;
             background-color: var(--hero-yellow);
             color: black;
-            padding: 12px 25px;
+            padding: 15px 25px;
             border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.5);
             font-weight: bold;
             font-size: 1rem;
             z-index: 1001;
@@ -317,12 +361,16 @@
             gap: 10px;
             transition: 0.3s;
         }
-        .wa-float:hover { transform: translateY(-3px); }
+        .wa-float:hover { transform: translateY(-5px) scale(1.05); }
 
+        /* RESPONSIVE DESAIN UNTUK HP (Kembali jadi atas-bawah jika layar kecil) */
         @media (max-width: 968px) {
             .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-            .hero-text h1 { font-size: 2rem; }
+            .hero-text h1 { font-size: 2.2rem; }
             .pain-points li { justify-content: center; }
+            .hero-img-wrapper img { transform: none; }
+            .hero-img-wrapper img:hover { transform: none; }
+            
             .menu-toggle { display: block; }
             nav ul {
                 display: none;
@@ -331,15 +379,41 @@
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: var(--bg-body);
+                background-color: rgba(5, 11, 20, 0.95);
                 padding: 20px 0;
-                border-bottom: 1px solid #333;
+                border-bottom: 1px solid rgba(59, 130, 246, 0.2);
             }
             nav ul.active { display: flex; }
+
+            /* Ubah orientasi card menjadi kolom pada tablet/HP */
+            .cluster-card {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            .card-img {
+                flex: none;
+                width: 100%;
+                height: 250px;
+                min-height: 250px;
+            }
+            .card-img::after {
+                background: linear-gradient(to bottom, transparent, var(--card-dark));
+            }
+            .card-content {
+                padding: 1.5rem;
+                text-align: center;
+                align-items: center;
+            }
+            .badge {
+                top: 15px; left: 15px; border-radius: 4px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- LAYER BACKGROUND 3D -->
+    <div class="bg-3d"></div>
 
     <header>
         <div class="logo">
@@ -383,13 +457,20 @@
     <p class="section-subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
 
     <div class="container">
+        <!-- PRODUK MEMANJANG DAN DIPOSISIKAN TENGAH (FLEX COLUMN & ALIGN CENTER) -->
         <div class="cluster-grid">
+            
             <div class="cluster-card">
                 <div class="badge">BEST SELLER</div>
                 <div class="card-img" style="background-image: url('images/gladiator1.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">ZenithPro Scalper v1.0</h3>
                     <span class="card-price">Lifetime License $499</span>
+                    
+                    <p class="ea-desc">
+                        Expert Advisor canggih yang dirancang secara khusus untuk gaya trading scalping. Mampu beradaptasi dengan tingkat volatilitas market serta dilengkapi dengan sistem Profit Lock dan manajemen risiko otomatis. Cocok bagi Anda yang menginginkan pertumbuhan akun secara konsisten.
+                    </p>
+
                     <div class="specs">
                         <span>📈 MT4/MT5</span>
                         <span>🤖 Best EA</span>
@@ -401,11 +482,16 @@
             </div>
 
             <div class="cluster-card">
-				<div class="badge">PREMIUM</div>
+                <div class="badge">PREMIUM</div>
                 <div class="card-img" style="background-image: url('images/copytrade.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">PREMIUM COPYTRADE</h3>
                     <span class="card-price">Profit Sharing 80 : 20</span>
+                    
+                    <p class="ea-desc">
+                        Layanan Copytrade Auto-Pilot 100%. Master trader kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi tersebut secara instan. Duduk manis dan nikmati profit konsisten tanpa harus memantau market setiap saat.
+                    </p>
+
                     <div class="specs">
                         <span>💰 Avg 10-20%</span>
                         <span>🛡️ Full Auto Pilot</span>
@@ -416,30 +502,15 @@
                 </div>
             </div>
 
-            <div class="cluster-card">
-				<div class="badge">VIP</div>
-                <div class="card-img" style="background-image: url('images/signal.jpg');"></div>
-                <div class="card-content">
-                    <h3 class="card-title">VIP SIGNAL</h3>
-                    <span class="card-price">$5 / Month</span>
-                    <div class="specs">
-                        <span>🎯 Scalping</span>
-                        <span>📊 XAUUSD Only</span>
-                        <span>🔔 Realtime</span>
-                        <span>📚 Group Class</span>
-                    </div>
-                    <a href="https://wa.me/6288971470499?text=Halo%20Boom%20Trade,%20saya tertarik dengan%20Signal" class="btn-detail" target="_blank">Subcribe</a>
-                </div>
-            </div>
         </div>
     </div>
-	
+    
     <footer id="contact">
         <h3>BOOM TRADE INDONESIA</h3>
         <p>Your Partner Trading System</p>
         <p>Kediri, Jawa Timur - Indonesia</p>
         <br>
-        <small>&copy; 2025 Boom Trade Indonesia. All rights reserved.</small>
+        <small>&copy; 2026 Boom Trade Indonesia. All rights reserved.</small>
     </footer>
 
     <a href="https://wa.me/6288971470499?text=Halo%20Boom%20Trade,%20saya%20mau%20bergabung" class="wa-float" target="_blank">
