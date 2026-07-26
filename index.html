@@ -19,7 +19,7 @@
             --text-light: #f3f4f6;
             --text-gray: #9ca3af;
             --profit-green: #10b981;
-            --hero-yellow: #ffc107;   
+            --hero-yellow: #ffc107;    
         }
 
         * {
@@ -95,6 +95,28 @@
             width: auto;  
             mix-blend-mode: screen; 
             display: block;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Tombol Pengganti Bahasa Manual */
+        .lang-switch {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid var(--primary-blue);
+            color: var(--text-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .lang-switch:hover {
+            background: var(--primary-blue);
         }
 
         nav ul { display: flex; gap: 20px; }
@@ -222,7 +244,6 @@
             z-index: 1;
         }
 
-        /* TAMPILAN TENGAH DAN MEMANJANG */
         .cluster-grid {
             display: flex;
             flex-direction: column;
@@ -423,12 +444,16 @@
         <div class="logo">
             <img src="images/boomtrade2.png" alt="Boom Trade Logo" class="logo-img">
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="header-right">
+            <!-- Tombol Pilih Bahasa Manual / Auto Indicator -->
+            <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()">🌐 ID</button>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        </div>
         <nav>
             <ul id="nav-list">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#products">Produk</a></li>
-                <li><a href="#contact">Kontak</a></li>
+                <li><a href="#home" data-key="nav_home">Beranda</a></li>
+                <li><a href="#products" data-key="nav_products">Produk</a></li>
+                <li><a href="#contact" data-key="nav_contact">Kontak</a></li>
             </ul>
         </nav>
     </header>
@@ -436,19 +461,19 @@
     <section id="home" class="hero-metacorp">
         <div class="hero-container">
             <div class="hero-text">
-                <h1>Kamu merasa banyak sekali masalah ketika <br>
+                <h1 data-key="hero_title">Kamu merasa banyak sekali masalah ketika <br>
                 <span class="text-highlight">menghadapi market?</span></h1>
                 <ul class="pain-points">
-                    <li>Masih Sering Loss</li>
-                    <li>Belum Konsisten</li>
-                    <li>Harus Mantengin Chart Terus</li>
-                    <li>Ragu untuk open posisi</li>
-                    <li>Sifat Serakah</li>
+                    <li data-key="pain_1">Masih Sering Loss</li>
+                    <li data-key="pain_2">Belum Konsisten</li>
+                    <li data-key="pain_3">Harus Mantengin Chart Terus</li>
+                    <li data-key="pain_4">Ragu untuk open posisi</li>
+                    <li data-key="pain_5">Sifat Serakah</li>
                 </ul>
-                <p class="hero-desc">
+                <p class="hero-desc" data-key="hero_desc">
                     Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA "Your Partner Trading System"
                 </p>
-                <a href="#products" class="btn-yellow">💬 Join Now</a>
+                <a href="#products" class="btn-yellow" data-key="btn_join_now">💬 Join Now</a>
             </div>
             <div class="hero-img-wrapper">
                 <img src="images/trader2.jpg" alt="Trader Stres">
@@ -456,46 +481,46 @@
         </div>
     </section>
 
-    <h2 id="products" class="section-title"><span>Produk & Layanan Unggulan</span></h2>
-    <p class="section-subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
+    <h2 id="products" class="section-title"><span data-key="sec_title">Produk & Layanan Unggulan</span></h2>
+    <p class="section-subtitle" data-key="sec_subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
 
     <div class="container">
         <div class="cluster-grid">
             
             <div class="cluster-card">
-                <div class="badge">BEST SELLER</div>
+                <div class="badge" data-key="badge_best">BEST SELLER</div>
                 <div class="card-img" style="background-image: url('images/zenith.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">Zenith Pro Scalper</h3>
                     <span class="card-price" style="font-size: 1.1rem; color: var(--hero-yellow);">Lifetime Access $499</span>
                     
                     <div class="ea-desc">
-                        <p style="margin-bottom: 15px;">
+                        <p style="margin-bottom: 15px;" data-key="zenith_desc">
                             EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di Market. Menggunakan algoritma scalping presisi tinggi, lengkap dengan dashboard on-chart.
                         </p>
 
-                        <h4 style="color: white; margin-bottom: 12px; font-size: 1rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);">🌟 Fitur Unggulan Sistem:</h4>
+                        <h4 style="color: white; margin-bottom: 12px; font-size: 1rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);" data-key="feat_title">🌟 Fitur Unggulan Sistem:</h4>
                         
                         <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
                             <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div><strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %) untuk ketahanan dana.</div>
+                                <div data-key="feat_1"><strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %) untuk ketahanan dana.</div>
                             </li>
                             <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div><strong>Dynamic Trailing Stop :</strong> Sistem Profit Lock yang mengunci keuntungan saat harga melesat.</div>
+                                <div data-key="feat_2"><strong>Dynamic Trailing Stop :</strong> Sistem Profit Lock yang mengunci keuntungan saat harga melesat.</div>
                             </li>
                             <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div><strong>Proteksi Ekuitas :</strong> Target TakeProfit & Cutloss otomatis berbasis persentase batas kerugian.</div>
+                                <div data-key="feat_3"><strong>Proteksi Ekuitas :</strong> Target TakeProfit & Cutloss otomatis berbasis persentase batas kerugian.</div>
                             </li>
                             <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div><strong>Smart Add-Order :</strong> Buka posisi tambahan cerdas saat tren berlanjut sesuai batasan akun.</div>
+                                <div data-key="feat_4"><strong>Smart Add-Order :</strong> Buka posisi tambahan cerdas saat tren berlanjut sesuai batasan akun.</div>
                             </li>
                             <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div><strong>Trading Time Filter :</strong> Atur jam aktif EA untuk menghindari likuiditas buruk & spread melar.</div>
+                                <div data-key="feat_5"><strong>Trading Time Filter :</strong> Atur jam aktif EA untuk menghindari likuiditas buruk & spread melar.</div>
                             </li>
                         </ul>
                     </div>
@@ -503,51 +528,51 @@
                     <div class="specs">
                         <span>📈 MT4</span>
                         <span>🥇 XAUUSD</span>
-                        <span>🛡️ Protection with trailing</span>
-                        <span>⚡ Adaptive Grid Scalper</span>
+                        <span data-key="spec_prot">🛡️ Protection with trailing</span>
+                        <span data-key="spec_scalp">⚡ Adaptive Grid Scalper</span>
                     </div>
 
                     <!-- MQL5 Market Style Info -->
                     <div class="mql5-stats" style="margin-bottom: 1.5rem; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
-                            <span><i class="fas fa-download" style="color: var(--hero-yellow); margin-right: 5px;"></i> Demo downloaded:</span>
+                            <span><i class="fas fa-download" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_download">Demo downloaded:</span></span>
                             <strong id="demo-count" style="color: white;">0</strong>
                         </div>
                         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
-                            <span><i class="fas fa-calendar-check" style="color: var(--hero-yellow); margin-right: 5px;"></i> Published:</span>
+                            <span><i class="fas fa-calendar-check" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_pub">Published:</span></span>
                             <strong style="color: white;">22 July 2026</strong>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-code-branch" style="color: var(--hero-yellow); margin-right: 5px;"></i> Current version:</span>
+                            <span><i class="fas fa-code-branch" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_ver">Current version:</span></span>
                             <strong style="color: white;">1.0</strong>
                         </div>
                     </div>
 
                     <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Zenith%20Pro" class="btn-detail" target="_blank">Order Now</a>
-                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 35px; background-color: var(--primary-blue); color: white; border-radius: 50px; font-weight: bold; transition: 0.3s; text-align: center; border: none; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); text-decoration: none;">📥 Free Demo</a>
+                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Zenith%20Pro" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
+                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 35px; background-color: var(--primary-blue); color: white; border-radius: 50px; font-weight: bold; transition: 0.3s; text-align: center; border: none; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); text-decoration: none;" data-key="btn_free_demo">📥 Free Demo</a>
                     </div>
                 </div>
             </div>
             
             <div class="cluster-card">
-                <div class="badge">PREMIUM</div>
+                <div class="badge" data-key="badge_prem">PREMIUM</div>
                 <div class="card-img" style="background-image: url('images/copytrade.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">PREMIUM COPYTRADE</h3>
-                    <span class="card-price">Profit Sharing 80 : 20</span>
+                    <span class="card-price" data-key="copy_price">Profit Sharing 80 : 20</span>
                     
-                    <p class="ea-desc">
+                    <p class="ea-desc" data-key="copy_desc">
                         Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten tanpa harus memantau market setiap saat.
                     </p>
 
                     <div class="specs">
-                        <span>💰 Avg 10-20%/Month</span>
-                        <span>🛡️ Full Auto Pilot</span>
-                        <span>📱 Fast Acces</span>
-                        <span>🔄 VPS $15 3 Month</span>
+                        <span data-key="spec_cp1">💰 Avg 10-20%/Month</span>
+                        <span data-key="spec_cp2">🛡️ Full Auto Pilot</span>
+                        <span data-key="spec_cp3">📱 Fast Acces</span>
+                        <span data-key="spec_cp4">🔄 VPS $15 3 Month</span>
                     </div>
-                    <a href="index2.html" class="btn-detail">Join Copytrade</a>
+                    <a href="index2.html" class="btn-detail" data-key="btn_join_copy">Join Copytrade</a>
                 </div>
             </div>
 
@@ -556,27 +581,155 @@
     
     <footer id="contact">
         <h3>BOOM TRADE INDONESIA</h3>
-        <p>Your Partner Trading System</p>
-        <p>Jawa Timur - Indonesia</p>
+        <p data-key="footer_tag">Your Partner Trading System</p>
+        <p data-key="footer_loc">Jawa Timur - Indonesia</p>
         <br>
         <small>&copy; 2026 Boom Trade Indonesia. All rights reserved.</small>
     </footer>
 
     <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20mau%20bergabung" class="wa-float" target="_blank">
-        💬 Join Now
+        💬 <span data-key="wa_btn">Join Now</span>
     </a>
 
-<!-- LIBRARY FIREBASE V8 AGAR BISA BERJALAN TANPA BUILD TOOL -->
+    <!-- LIBRARY FIREBASE V8 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        // --- KAMUS TERJEMAHAN BAHASA (ID & EN) ---
+        const translations = {
+            id: {
+                nav_home: "Beranda",
+                nav_products: "Produk",
+                nav_contact: "Kontak",
+                hero_title: "Kamu merasa banyak sekali masalah ketika <br><span class=\"text-highlight\">menghadapi market?</span>",
+                pain_1: "Masih Sering Loss",
+                pain_2: "Belum Konsisten",
+                pain_3: "Harus Mantengin Chart Terus",
+                pain_4: "Ragu untuk open posisi",
+                pain_5: "Sifat Serakah",
+                hero_desc: "Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA \"Your Partner Trading System\"",
+                btn_join_now: "💬 Join Now",
+                sec_title: "Produk & Layanan Unggulan",
+                sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
+                badge_best: "BEST SELLER",
+                zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di Market. Menggunakan algoritma scalping presisi tinggi, lengkap dengan dashboard on-chart.",
+                feat_title: "🌟 Fitur Unggulan Sistem:",
+                feat_1: "<strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %) untuk ketahanan dana.",
+                feat_2: "<strong>Dynamic Trailing Stop :</strong> Sistem Profit Lock yang mengunci keuntungan saat harga melesat.",
+                feat_3: "<strong>Proteksi Ekuitas :</strong> Target TakeProfit & Cutloss otomatis berbasis persentase batas kerugian.",
+                feat_4: "<strong>Smart Add-Order :</strong> Buka posisi tambahan cerdas saat tren berlanjut sesuai batasan akun.",
+                feat_5: "<strong>Trading Time Filter :</strong> Atur jam aktif EA untuk menghindari likuiditas buruk & spread melar.",
+                spec_prot: "🛡️ Protection with trailing",
+                spec_scalp: "⚡ Adaptive Grid Scalper",
+                stats_download: "Demo downloaded:",
+                stats_pub: "Published:",
+                stats_ver: "Current version:",
+                btn_order: "Order Now",
+                btn_free_demo: "📥 Free Demo",
+                badge_prem: "PREMIUM",
+                copy_price: "Profit Sharing 80 : 20",
+                copy_desc: "Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten tanpa harus memantau market setiap saat.",
+                spec_cp1: "💰 Avg 10-20%/Month",
+                spec_cp2: "🛡️ Full Auto Pilot",
+                spec_cp3: "📱 Fast Acces",
+                spec_cp4: "🔄 VPS $15 3 Month",
+                btn_join_copy: "Join Copytrade",
+                footer_tag: "Your Partner Trading System",
+                footer_loc: "Jawa Timur - Indonesia",
+                wa_btn: "Join Now"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_contact: "Contact",
+                hero_title: "Do you face many problems when <br><span class=\"text-highlight\">dealing with the market?</span>",
+                pain_1: "Still Frequently Losing",
+                pain_2: "Not Consistent Yet",
+                pain_3: "Stuck Watching Charts All Day",
+                pain_4: "Hesitant to Open Positions",
+                pain_5: "Greedy Behavior",
+                hero_desc: "If you have problems like that, the solution is to join us at BOOM TRADE INDONESIA \"Your Partner Trading System\"",
+                btn_join_now: "💬 Join Now",
+                sec_title: "Featured Products & Services",
+                sec_subtitle: "Choose the best trading weapon for your investment style",
+                badge_best: "BEST SELLER",
+                zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard.",
+                feat_title: "🌟 System Highlight Features:",
+                feat_1: "<strong>Smart Money Management :</strong> Auto Lot based on risk percentage (Risk %) for account endurance.",
+                feat_2: "<strong>Dynamic Trailing Stop :</strong> Profit Lock system that secures gains when prices surge.",
+                feat_3: "<strong>Equity Protection :</strong> Automatic TakeProfit & Cutloss targets based on loss percentage limits.",
+                feat_4: "<strong>Smart Add-Order :</strong> Intelligent extra position opening when trends continue within limits.",
+                feat_5: "<strong>Trading Time Filter :</strong> Configure active EA hours to avoid poor liquidity & widening spreads.",
+                spec_prot: "🛡️ Protection with trailing",
+                spec_scalp: "⚡ Adaptive Grid Scalper",
+                stats_download: "Demo downloaded:",
+                stats_pub: "Published:",
+                stats_ver: "Current version:",
+                btn_order: "Order Now",
+                btn_free_demo: "📥 Free Demo",
+                badge_prem: "PREMIUM",
+                copy_price: "Profit Sharing 80 : 20",
+                copy_desc: "Our 100% Expert Advisor Auto-Pilot Copytrade service executes trades while your account copies positions instantly. Sit back and enjoy consistent profits without monitoring the market 24/7.",
+                spec_cp1: "💰 Avg 10-20%/Month",
+                spec_cp2: "🛡️ Full Auto Pilot",
+                spec_cp3: "📱 Fast Acces",
+                spec_cp4: "🔄 VPS $15 3 Month",
+                btn_join_copy: "Join Copytrade",
+                footer_tag: "Your Partner Trading System",
+                footer_loc: "East Java - Indonesia",
+                wa_btn: "Join Now"
+            }
+        };
+
+        // --- FUNGSI DETEKSI LOKASI & BAHASA OTOMATIS ---
+        let currentLang = 'id'; // Default Bahasa Indonesia
+
+        function detectUserLanguage() {
+            // Cek bahasa yang disetel di browser pengunjung
+            const browserLang = navigator.language || navigator.userLanguage || 'id';
+            // Cek zona waktu (Timezone) untuk memastikan jika dibuka dari luar Indonesia
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+
+            // Jika browser berbahasa Inggris / zona waktu di luar Asia/Jakarta atau Asia/Makassar/Jayapura, set ke English
+            if (!browserLang.toLowerCase().includes('id') && !timezone.includes('Asia/Jakarta') && !timezone.includes('Asia/Surabaya')) {
+                currentLang = 'en';
+            } else {
+                currentLang = 'id';
+            }
+            applyLanguage(currentLang);
+        }
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.getElementById('lang-btn').innerText = lang === 'id' ? '🌐 ID' : '🌐 EN';
+
+            // Ubah semua elemen teks yang memiliki atribut data-key
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        // Tombol manual jika user ingin mengganti bahasa sendiri
+        function toggleLanguage() {
+            const newLang = currentLang === 'id' ? 'en' : 'id';
+            applyLanguage(newLang);
+        }
+
         function toggleMenu() {
             const nav = document.getElementById('nav-list');
             nav.classList.toggle('active');
         }
 
+        // Jalankan deteksi bahasa saat halaman pertama kali dimuat
         document.addEventListener("DOMContentLoaded", function() {
+            detectUserLanguage();
+
             const countDisplay = document.getElementById('demo-count');
             const downloadBtn = document.getElementById('btn-download-demo');
             
@@ -597,8 +750,6 @@
                 firebase.initializeApp(firebaseConfig);
             }
             var database = firebase.database();
-            
-            // PENTING: Gunakan path 'downloads/zenith' agar sinkron dengan database server
             var countRef = database.ref('downloads/zenith');
 
             function formatNumber(num) {
@@ -615,7 +766,6 @@
             // MENAMBAH ANGKA SAAT TOMBOL DIKLIK
             if(downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
-                    // Update angka di layar secara instan agar user langsung melihatnya bertambah
                     countRef.transaction(function(currentCount) {
                         if (currentCount === null) {
                             return 1;
