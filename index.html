@@ -566,7 +566,7 @@
         💬 Join Now
     </a>
 
-    <!-- LIBRARY FIREBASE V8 AGAR BISA BERJALAN TANPA BUILD TOOL -->
+<!-- LIBRARY FIREBASE V8 AGAR BISA BERJALAN TANPA BUILD TOOL -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -580,13 +580,6 @@
             const countDisplay = document.getElementById('demo-count');
             const downloadBtn = document.getElementById('btn-download-demo');
             
-            // Base angka awal diubah menjadi 0
-            const baseCount = 0;
-
-            function formatNumber(num) {
-                return Number(num).toLocaleString('fr-FR').replace(/,/g, ' ');
-            }
-
             // KODE KONFIGURASI FIREBASE ANDA
             const firebaseConfig = {
                 apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
@@ -604,34 +597,33 @@
                 firebase.initializeApp(firebaseConfig);
             }
             var database = firebase.database();
-            var countRef = database.ref('downloads/zenith_new');
+            
+            // PENTING: Gunakan path 'downloads/zenith' agar sinkron dengan database server
+            var countRef = database.ref('downloads/zenith');
 
-            // MENDENGARKAN PERUBAHAN ANGKA DARI SERVER (REALTIME)
+            function formatNumber(num) {
+                return Number(num).toLocaleString('fr-FR').replace(/,/g, ' ');
+            }
+
+            // MENDENGARKAN PERUBAHAN ANGKA DARI SERVER SECARA REALTIME
             countRef.on('value', (snapshot) => {
                 const data = snapshot.val();
-                let currentTotal = data ? data : baseCount;
+                let currentTotal = data !== null ? data : 0;
                 countDisplay.innerText = formatNumber(currentTotal);
             });
 
             // MENAMBAH ANGKA SAAT TOMBOL DIKLIK
             if(downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
-                    // Paksa update tampilan HTML saat itu juga agar user langsung melihat angka berubah
-                    let currentText = countDisplay.innerText.replace(/\s/g, '');
-                    let uiCount = parseInt(currentText) || 0;
-                    countDisplay.innerText = formatNumber(uiCount + 1);
-
-                    // Kirim ke server Firebase di latar belakang
+                    // Update angka di layar secara instan agar user langsung melihatnya bertambah
                     countRef.transaction(function(currentCount) {
                         if (currentCount === null) {
-                            return baseCount + 1;
+                            return 1;
                         }
                         return currentCount + 1;
-                    }).catch(function(error) {
-                        console.error("Gagal menambah angka di Firebase:", error);
                     });
                 });
-            }}
+            }
         });
     </script>
 </body>
