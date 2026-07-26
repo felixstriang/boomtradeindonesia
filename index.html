@@ -13,14 +13,16 @@
     <style>
         /* --- 1. PENGATURAN GLOBAL --- */
         :root {
-            --bg-body: #050b14;       
-            --card-dark: rgba(30, 41, 59, 0.75);     
+            --bg-body: #020617; 
+            --card-dark: rgba(30, 41, 59, 0.6); 
             --primary-blue: #3b82f6;  
-            --text-light: #f3f4f6;
-            --text-gray: #9ca3af;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
             --profit-green: #10b981;
             --hero-yellow: #ffc107;    
         }
+
+        html { scroll-behavior: smooth; }
 
         * {
             margin: 0;
@@ -37,39 +39,37 @@
             position: relative;
         }
 
-        /* --- BACKGROUND 3D ANIMATED GRID --- */
-        .bg-3d {
+        /* --- BACKGROUND ELEGAN PROFESIONAL --- */
+        .bg-elegant {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background: radial-gradient(circle at center, #0a1128 0%, #020617 100%);
-            perspective: 800px;
-            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
         }
         
-        .bg-3d::after {
+        .bg-elegant::before {
             content: "";
             position: absolute;
-            bottom: -40%;
-            left: -50%;
-            width: 200%;
-            height: 120%;
-            background-image:
-                linear-gradient(rgba(59, 130, 246, 0.3) 2px, transparent 2px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.3) 2px, transparent 2px);
-            background-size: 60px 60px;
-            transform: rotateX(75deg);
-            transform-origin: center top;
-            animation: gridMove 3s linear infinite;
-            box-shadow: inset 0 100px 150px #020617;
+            top: -20%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
+            border-radius: 50%;
         }
 
-        @keyframes gridMove {
-            0% { transform: rotateX(75deg) translateY(0); }
-            100% { transform: rotateX(75deg) translateY(60px); }
+        .bg-elegant::after {
+            content: "";
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255, 193, 7, 0.03) 0%, transparent 60%);
+            border-radius: 50%;
         }
 
         a { text-decoration: none; }
@@ -77,13 +77,13 @@
 
         /* --- 2. HEADER & NAVIGASI --- */
         header {
-            background-color: rgba(5, 11, 20, 0.85);
+            background-color: rgba(2, 6, 23, 0.85);
             padding: 1rem 5%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -103,10 +103,9 @@
             gap: 20px;
         }
 
-        /* Tombol Pengganti Bahasa Manual */
         .lang-switch {
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid var(--primary-blue);
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.5);
             color: var(--text-light);
             padding: 5px 12px;
             border-radius: 20px;
@@ -117,6 +116,7 @@
         }
         .lang-switch:hover {
             background: var(--primary-blue);
+            border-color: var(--primary-blue);
         }
 
         nav ul { display: flex; gap: 20px; }
@@ -126,7 +126,7 @@
             transition: 0.3s;
             font-size: 0.95rem;
         }
-        nav ul li a:hover { color: var(--hero-yellow); text-shadow: 0 0 10px var(--hero-yellow); }
+        nav ul li a:hover { color: var(--hero-yellow); text-shadow: 0 0 10px rgba(255, 193, 7, 0.5); }
 
         .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
@@ -159,7 +159,7 @@
             text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
-        .text-highlight { color: var(--hero-yellow); text-shadow: 0 0 15px rgba(255, 193, 7, 0.4); }
+        .text-highlight { color: var(--hero-yellow); text-shadow: 0 0 15px rgba(255, 193, 7, 0.2); }
 
         .pain-points li {
             display: flex;
@@ -178,7 +178,7 @@
 
         .hero-desc {
             margin-top: 1.5rem;
-            color: #cbd5e1;
+            color: var(--text-gray);
             margin-bottom: 2rem;
             font-size: 1rem;
         }
@@ -195,19 +195,19 @@
             gap: 10px;
             transition: 0.3s;
             border: none;
-            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.2);
         }
         .btn-yellow:hover {
             transform: scale(1.05) translateY(-3px);
             background-color: #ffca2c;
-            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.6);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.4);
         }
 
         .hero-img-wrapper img {
             width: 100%;
             border-radius: 15px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border: 2px solid rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transform: perspective(1000px) rotateY(-15deg);
             transition: 0.5s;
         }
@@ -215,7 +215,7 @@
             transform: perspective(1000px) rotateY(0deg) scale(1.02);
         }
 
-        /* --- 4. PRODUK SECTION (3D & MEMANJANG) --- */
+        /* --- 4. PRODUK SECTION --- */
         .section-title {
             text-align: center;
             margin: 4rem 0 1rem;
@@ -259,7 +259,8 @@
             backdrop-filter: blur(12px);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s ease;
             position: relative;
             width: 100%;
@@ -268,8 +269,9 @@
         }
         
         .cluster-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 0 2px var(--hero-yellow);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
         .badge {
@@ -282,14 +284,40 @@
             font-size: 0.85rem;
             font-weight: bold;
             border-radius: 0 8px 8px 0;
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2);
             z-index: 10;
+        }
+
+        /* --- TOMBOL RESULT POJOK KANAN ATAS --- */
+        .result-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1);
+            z-index: 10;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .result-badge:hover {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
         }
 
         .card-img {
             flex: 0 0 40%;
             min-height: 350px;
-            background-color: #333;
+            background-color: #111;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -349,44 +377,62 @@
         .btn-detail:hover { 
             background-color: var(--primary-blue); 
             color: white; 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
         .btn-demo:hover {
             transform: scale(1.05) translateY(-3px);
             background-color: #0ea5e9;
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.5);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
         }
 
-        /* --- STYLING MYFXBOOK WIDGET --- */
-        .myfxbook-widget-container {
-            margin-bottom: 1.5rem; 
-            padding: 15px; 
-            background: rgba(0, 0, 0, 0.3); 
-            border-radius: 8px; 
-            border: 1px solid rgba(255,255,255,0.05); 
+        /* --- 5. LIVE PERFORMANCE DI BAWAH --- */
+        .live-bottom-section {
+            width: 90%;
+            max-width: 950px; /* Diubah menjadi 950px agar sejajar sempurna dengan kartu produk */
+            margin: 0 auto 4rem;
+            background: var(--card-dark);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
+
+        .live-bottom-section h3 {
+            color: var(--hero-yellow);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
         .myfxbook-img-link img {
             width: 100%; 
-            max-width: 400px; 
+            max-width: 100%; 
             height: auto; 
-            border-radius: 5px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
             transition: 0.3s;
         }
         .myfxbook-img-link:hover img {
             transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* --- 5. FOOTER & FLOAT --- */
+        /* --- 6. FOOTER & FLOAT --- */
         footer {
-            background-color: rgba(2, 6, 23, 0.9);
+            background-color: rgba(2, 6, 23, 0.95);
             color: var(--text-gray);
             text-align: center;
             padding: 3rem 2rem;
             margin-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 1;
             backdrop-filter: blur(10px);
@@ -400,7 +446,7 @@
             color: black;
             padding: 15px 25px;
             border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.5);
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
             font-weight: bold;
             font-size: 1rem;
             z-index: 1001;
@@ -426,9 +472,9 @@
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: rgba(5, 11, 20, 0.95);
+                background-color: rgba(2, 6, 23, 0.95);
                 padding: 20px 0;
-                border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             }
             nav ul.active { display: flex; }
 
@@ -453,6 +499,9 @@
             .badge {
                 top: 15px; left: 15px; border-radius: 4px;
             }
+            .result-badge {
+                top: 15px; right: 15px; padding: 6px 12px; font-size: 0.75rem;
+            }
             .specs {
                 display: flex;
                 flex-direction: column;
@@ -463,15 +512,13 @@
 </head>
 <body>
 
-    <!-- LAYER BACKGROUND 3D -->
-    <div class="bg-3d"></div>
+    <div class="bg-elegant"></div>
 
     <header>
         <div class="logo">
             <img src="images/boomtrade2.png" alt="Boom Trade Logo" class="logo-img">
         </div>
         <div class="header-right">
-            <!-- Tombol Pilih Bahasa Manual / Auto Indicator -->
             <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()">🌐 ID</button>
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         </div>
@@ -479,6 +526,8 @@
             <ul id="nav-list">
                 <li><a href="#home" data-key="nav_home">Beranda</a></li>
                 <li><a href="#products" data-key="nav_products">Produk</a></li>
+                <!-- MENU RESULT -->
+                <li><a href="#live-performance" data-key="nav_result">Result</a></li>
                 <li><a href="#contact" data-key="nav_contact">Kontak</a></li>
             </ul>
         </nav>
@@ -515,6 +564,11 @@
             
             <div class="cluster-card">
                 <div class="badge" data-key="badge_best">BEST SELLER</div>
+                
+                <a href="#live-performance" class="result-badge">
+                    <i class="fas fa-chart-line"></i> <span data-key="btn_see_result">Live Result</span>
+                </a>
+
                 <div class="card-img" style="background-image: url('images/zenith.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">Zenith Pro Scalper</h3>
@@ -558,7 +612,6 @@
                         <span data-key="spec_scalp">⚡ Adaptive Grid Scalper</span>
                     </div>
 
-                    <!-- MQL5 Market Style Info -->
                     <div class="mql5-stats" style="margin-bottom: 1.5rem; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
                             <span><i class="fas fa-download" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_download">Demo downloaded:</span></span>
@@ -571,18 +624,6 @@
                         <div style="display: flex; justify-content: space-between;">
                             <span><i class="fas fa-code-branch" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_ver">Current version:</span></span>
                             <strong style="color: white;">1.0</strong>
-                        </div>
-                    </div>
-
-                    <!-- WIDGET MYFXBOOK LIVE RESULT -->
-                    <div class="myfxbook-widget-container">
-                        <h4 style="color: var(--hero-yellow); margin-bottom: 12px; font-size: 1rem;" data-key="stats_live">📊 Verified Live Performance</h4>
-                        <a href="https://www.myfxbook.com/portfolio/zenithpro-scalper/12126962" target="_blank" class="myfxbook-img-link" style="display: inline-block;">
-                            <!-- MyFxBook Large Image Widget -->
-                            <img src="https://widgets.myfxbook.com/widgets/12126962/large.jpg" alt="Zenith Pro Scalper MyFxBook Live Result">
-                        </a>
-                        <div style="margin-top: 15px;">
-                            <a href="https://www.myfxbook.com/portfolio/zenithpro-scalper/12126962" target="_blank" class="btn-detail" style="font-size: 0.85rem; padding: 8px 25px;" data-key="btn_myfxbook">Lihat di MyFxBook</a>
                         </div>
                     </div>
 
@@ -617,6 +658,19 @@
         </div>
     </div>
     
+    <!-- WIDGET LIVE PERFORMANCE -->
+    <section id="live-performance" class="live-bottom-section">
+        <h3 data-key="stats_live">📊 Zenith Pro Verified Live Performance</h3>
+        
+        <a href="https://www.myfxbook.com/portfolio/zenithpro-scalper/12126962" target="_blank" class="myfxbook-img-link" style="display: inline-block; width: 100%;">
+            <img src="https://widgets.myfxbook.com/widgets/12126962/large.jpg" alt="Zenith Pro Scalper MyFxBook Live Result">
+        </a>
+        
+        <div style="margin-top: 35px;">
+            <a href="https://www.myfxbook.com/portfolio/zenithpro-scalper/12126962" target="_blank" class="btn-detail" style="font-size: 0.95rem; padding: 12px 35px;" data-key="btn_myfxbook">Lihat Detail di MyFxBook</a>
+        </div>
+    </section>
+
     <footer id="contact">
         <h3>BOOM TRADE INDONESIA</h3>
         <p data-key="footer_tag">Your Partner Trading System</p>
@@ -629,16 +683,15 @@
         💬 <span data-key="wa_btn">Join Now</span>
     </a>
 
-    <!-- LIBRARY FIREBASE V8 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // --- KAMUS TERJEMAHAN BAHASA (ID & EN) ---
         const translations = {
             id: {
                 nav_home: "Beranda",
                 nav_products: "Produk",
+                nav_result: "Result",
                 nav_contact: "Kontak",
                 hero_title: "Kamu merasa banyak sekali masalah ketika <br><span class=\"text-highlight\">menghadapi market?</span>",
                 pain_1: "Masih Sering Loss",
@@ -651,6 +704,7 @@
                 sec_title: "Produk & Layanan Unggulan",
                 sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
                 badge_best: "BEST SELLER",
+                btn_see_result: "Lihat Result", 
                 zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di Market. Menggunakan algoritma scalping presisi tinggi, lengkap dengan dashboard on-chart.",
                 feat_title: "🌟 Fitur Unggulan Sistem:",
                 feat_1: "<strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %) untuk ketahanan dana.",
@@ -663,8 +717,8 @@
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
-                stats_live: "📊 Verified Live Performance", /* Tambahan MyFxBook */
-                btn_myfxbook: "Lihat di MyFxBook", /* Tambahan MyFxBook */
+                stats_live: "ZenithPro Scalper Performance",
+                btn_myfxbook: "Lihat Detail di MyFxBook",
                 btn_order: "Order Now",
                 btn_free_demo: "📥 Free Demo MT4",
                 badge_prem: "PREMIUM",
@@ -682,6 +736,7 @@
             en: {
                 nav_home: "Home",
                 nav_products: "Products",
+                nav_result: "Result",
                 nav_contact: "Contact",
                 hero_title: "Do you face many problems when <br><span class=\"text-highlight\">dealing with the market?</span>",
                 pain_1: "Still Frequently Losing",
@@ -694,6 +749,7 @@
                 sec_title: "Featured Products & Services",
                 sec_subtitle: "Choose the best trading weapon for your investment style",
                 badge_best: "BEST SELLER",
+                btn_see_result: "See Result", 
                 zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard.",
                 feat_title: "🌟 System Highlight Features:",
                 feat_1: "<strong>Smart Money Management :</strong> Auto Lot based on risk percentage (Risk %) for account endurance.",
@@ -706,8 +762,8 @@
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
-                stats_live: "📊 Verified Live Performance", /* Tambahan MyFxBook */
-                btn_myfxbook: "View on MyFxBook", /* Tambahan MyFxBook */
+                stats_live: "ZenithPro Scalper Performance",
+                btn_myfxbook: "View Detail on MyFxBook",
                 btn_order: "Order Now",
                 btn_free_demo: "📥 Free Demo MT4",
                 badge_prem: "PREMIUM",
@@ -724,16 +780,12 @@
             }
         };
 
-        // --- FUNGSI DETEKSI LOKASI & BAHASA OTOMATIS ---
-        let currentLang = 'id'; // Default Bahasa Indonesia
+        let currentLang = 'id'; 
 
         function detectUserLanguage() {
-            // Cek bahasa yang disetel di browser pengunjung
             const browserLang = navigator.language || navigator.userLanguage || 'id';
-            // Cek zona waktu (Timezone) untuk memastikan jika dibuka dari luar Indonesia
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
 
-            // Jika browser berbahasa Inggris / zona waktu di luar Asia/Jakarta atau Asia/Makassar/Jayapura, set ke English
             if (!browserLang.toLowerCase().includes('id') && !timezone.includes('Asia/Jakarta') && !timezone.includes('Asia/Surabaya')) {
                 currentLang = 'en';
             } else {
@@ -747,7 +799,6 @@
             document.documentElement.lang = lang;
             document.getElementById('lang-btn').innerText = lang === 'id' ? '🌐 ID' : '🌐 EN';
 
-            // Ubah semua elemen teks yang memiliki atribut data-key
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-key');
@@ -757,7 +808,6 @@
             });
         }
 
-        // Tombol manual jika user ingin mengganti bahasa sendiri
         function toggleLanguage() {
             const newLang = currentLang === 'id' ? 'en' : 'id';
             applyLanguage(newLang);
@@ -768,14 +818,12 @@
             nav.classList.toggle('active');
         }
 
-        // Jalankan deteksi bahasa saat halaman pertama kali dimuat
         document.addEventListener("DOMContentLoaded", function() {
             detectUserLanguage();
 
             const countDisplay = document.getElementById('demo-count');
             const downloadBtn = document.getElementById('btn-download-demo');
             
-            // KODE KONFIGURASI FIREBASE ANDA
             const firebaseConfig = {
                 apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
                 authDomain: "zenith-demo-download.firebaseapp.com",
@@ -787,7 +835,6 @@
                 measurementId: "G-NTT9L32RTD"
             };
 
-            // Inisialisasi Firebase Database
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
@@ -798,14 +845,12 @@
                 return Number(num).toLocaleString('fr-FR').replace(/,/g, ' ');
             }
 
-            // MENDENGARKAN PERUBAHAN ANGKA DARI SERVER SECARA REALTIME
             countRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 let currentTotal = data !== null ? data : 0;
                 countDisplay.innerText = formatNumber(currentTotal);
             });
 
-            // MENAMBAH ANGKA SAAT TOMBOL DIKLIK
             if(downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
                     countRef.transaction(function(currentCount) {
