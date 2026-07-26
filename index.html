@@ -616,14 +616,22 @@
             // MENAMBAH ANGKA SAAT TOMBOL DIKLIK
             if(downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
+                    // Paksa update tampilan HTML saat itu juga agar user langsung melihat angka berubah
+                    let currentText = countDisplay.innerText.replace(/\s/g, '');
+                    let uiCount = parseInt(currentText) || 0;
+                    countDisplay.innerText = formatNumber(uiCount + 1);
+
+                    // Kirim ke server Firebase di latar belakang
                     countRef.transaction(function(currentCount) {
                         if (currentCount === null) {
                             return baseCount + 1;
                         }
                         return currentCount + 1;
+                    }).catch(function(error) {
+                        console.error("Gagal menambah angka di Firebase:", error);
                     });
                 });
-            }
+            }}
         });
     </script>
 </body>
