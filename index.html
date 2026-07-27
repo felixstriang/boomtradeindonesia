@@ -657,12 +657,13 @@
         </div>
     </div>
     
-    <!-- WIDGET LIVE PERFORMANCE (MENGGUNAKAN KODE BARU DARI MYFXBOOK) -->
+<!-- WIDGET LIVE PERFORMANCE -->
     <section id="live-performance" class="live-bottom-section">
-        <h3 data-key="stats_live">Live Performance</h3>
+        <h3 data-key="stats_live">📊 ZenithPro Scalper Perfomance</h3>
         
         <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper/12126962" target="_blank" class="myfxbook-img-link" style="display: inline-block; width: 100%;">
-            <img src="https://widget.myfxbook.com/widget/widget.png?accountOid=12126962&type=6" alt="Zenith Pro Scalper MyFxBook Live Result">
+            <!-- Diberi ID myfxbook-chart agar bisa dideteksi oleh script -->
+            <img id="myfxbook-chart" src="https://widget.myfxbook.com/widget/widget.png?accountOid=12126962&type=6" alt="Zenith Pro Scalper MyFxBook Live Result">
         </a>
         
         <div style="margin-top: 35px;">
@@ -859,6 +860,12 @@
                         return currentCount + 1;
                     });
                 });
+            }
+            // SCRIPT ANTI-CACHE MYFXBOOK
+            const chartImg = document.getElementById('myfxbook-chart');
+            if (chartImg) {
+                // Menambahkan timestamp unik di akhir URL gambar
+                chartImg.src = chartImg.src + "&update=" + new Date().getTime();
             }
         });
     </script>
