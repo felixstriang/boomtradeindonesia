@@ -389,7 +389,7 @@
         /* --- 5. LIVE PERFORMANCE DI BAWAH --- */
         .live-bottom-section {
             width: 90%;
-            max-width: 950px; /* Diubah menjadi 950px agar sejajar sempurna dengan kartu produk */
+            max-width: 950px; 
             margin: 0 auto 4rem;
             background: var(--card-dark);
             backdrop-filter: blur(12px);
@@ -412,6 +412,7 @@
             gap: 10px;
         }
 
+        /* BAGIAN INI YANG DIUBAH AGAR GAMBAR TIDAK BLANK */
         .myfxbook-img-link img {
             width: 100%; 
             max-width: 100%; 
@@ -419,6 +420,7 @@
             border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.1);
             transition: 0.3s;
+            background-color: rgba(0,0,0,0.5); /* Warna dasar kalau loading */
         }
         .myfxbook-img-link:hover img {
             transform: scale(1.02);
@@ -629,7 +631,7 @@
 
                     <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                         <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Zenith%20Pro" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
-                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 35px; background-color: var(--primary-blue); color: white; border-radius: 50px; font-weight: bold; transition: 0.3s; text-align: center; border: none; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); text-decoration: none;" data-key="btn_free_demo">📥 Free Demo</a>
+                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 35px; background-color: var(--primary-blue); color: white; border-radius: 50px; font-weight: bold; transition: 0.3s; text-align: center; border: none; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); text-decoration: none;" data-key="btn_free_demo">📥 Free Demo MT4</a>
                     </div>
                 </div>
             </div>
@@ -660,7 +662,7 @@
     
     <!-- WIDGET LIVE PERFORMANCE -->
     <section id="live-performance" class="live-bottom-section">
-        <h3 data-key="stats_live">Live Performance</h3>
+        <h3 data-key="stats_live">📊 Zenith Pro Verified Live Performance</h3>
         
         <a href="https://www.myfxbook.com/portfolio/zenithpro-scalper/12126962" target="_blank" class="myfxbook-img-link" style="display: inline-block; width: 100%;">
             <!-- DITAMBAHKAN referrerpolicy="no-referrer" AGAR BISA TEMBUS DARI OFFLINE/LOCALHOST -->
