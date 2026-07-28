@@ -821,6 +821,39 @@
         document.addEventListener("DOMContentLoaded", function() {
             detectUserLanguage();
 
+        / 2. PENGATURAN KONTAK TIM TELEGRAM (Menggunakan parameter ?trade=)
+            const teamDirectory = {
+                "Rayung": "gdrayy",      // Ganti dengan username Telegram
+                "Rendra": "RendraBagus12",    // Ganti dengan username Telegram 
+                "Lose": "flp_lose"         // Ganti dengan username Telegram 
+                "Yoga": "Ky_boomtrade"
+                "Budi": "telegram_budi"
+            };
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const tradeParam = urlParams.get('trade');
+            const activeTelegram = teamDirectory[tradeParam] || "bangrioboomtrade";
+
+            const msgOrder = encodeURIComponent("Halo, saya tertarik dengan EA Zenith Pro melalui referensi " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
+            const msgJoin = encodeURIComponent("Halo, saya mau bergabung dengan tim Boom Trade");
+            const msgCopy = encodeURIComponent("Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui referensi " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
+
+            const orderBtn = document.querySelector('a.btn-detail[data-key="btn_order"]');
+            if (orderBtn) {
+                orderBtn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
+            }
+
+            const floatBtn = document.querySelector('.wa-float');
+            if (floatBtn) {
+                floatBtn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
+            }
+
+            const copyBtn = document.querySelector('a.btn-detail[href="index2.html"]');
+            if (copyBtn) {
+                copyBtn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
+                copyBtn.target = "_blank";
+            }
+
             const countDisplay = document.getElementById('demo-count');
             const downloadBtn = document.getElementById('btn-download-demo');
             
