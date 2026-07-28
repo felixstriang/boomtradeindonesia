@@ -821,33 +821,41 @@
         document.addEventListener("DOMContentLoaded", function() {
             detectUserLanguage();
 
-        / 2. PENGATURAN KONTAK TIM TELEGRAM (Menggunakan parameter ?trade=)
+        // 2. PENGATURAN KONTAK TIM TELEGRAM
             const teamDirectory = {
-                "rayung": "gdrayy",      // Ganti dengan username Telegram
-                "rendra": "RendraBagus12",    // Ganti dengan username Telegram 
-                "lose": "flp_lose",         // Ganti dengan username Telegram 
+                "rayung": "gdrayy",
+                "rendra": "RendraBagus12",
+                "lose": "flp_lose",
                 "yoga": "Ky_boomtrade"
-                //"Budi": "telegram_budi"
             };
 
             const urlParams = new URLSearchParams(window.location.search);
             const tradeParam = urlParams.get('trade');
-            const activeTelegram = teamDirectory[tradeParam] || "bangrioboomtrade";
+            
+            // Mengubah nama dari link menjadi huruf kecil semua agar cocok dengan teamDirectory
+            const agentKey = tradeParam ? tradeParam.toLowerCase() : "";
+            
+            // Jika agen ditemukan, pakai akun agen. Jika tidak, pakai akun Anda
+            const activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
 
+            // Pesan Otomatis
             const msgOrder = encodeURIComponent("Halo, saya tertarik dengan EA Zenith Pro melalui referensi " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
             const msgJoin = encodeURIComponent("Halo, saya mau bergabung dengan tim Boom Trade");
             const msgCopy = encodeURIComponent("Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui referensi " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
 
+            // Tombol Order EA
             const orderBtn = document.querySelector('a.btn-detail[data-key="btn_order"]');
             if (orderBtn) {
                 orderBtn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
             }
 
+            // Tombol Floating Kanan Bawah
             const floatBtn = document.querySelector('.wa-float');
             if (floatBtn) {
                 floatBtn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
             }
 
+            // Tombol Join Copytrade
             const copyBtn = document.querySelector('a.btn-detail[href="index2.html"]');
             if (copyBtn) {
                 copyBtn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
