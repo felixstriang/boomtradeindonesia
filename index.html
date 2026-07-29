@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
+    <!-- TAMBAHAN: Library Chart.js untuk menggambar Grafik Growth dan Radar -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         /* --- 1. PENGATURAN GLOBAL --- */
         :root {
@@ -389,12 +392,12 @@
         /* --- 5. LIVE PERFORMANCE DI BAWAH --- */
         .live-bottom-section {
             width: 90%;
-            max-width: 950px; 
+            max-width: 1050px; 
             margin: 0 auto 4rem;
             background: var(--card-dark);
             backdrop-filter: blur(12px);
             border-radius: 16px;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
@@ -411,19 +414,33 @@
             justify-content: center;
             gap: 10px;
         }
-
-        .myfxbook-img-link img {
-            width: 100%; 
-            max-width: 100%; 
-            height: auto; 
+        
+        /* --- CSS KHUSUS TRACKER UI MQL5 --- */
+        .mql5-tracker-ui {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.5fr;
+            gap: 20px;
+            background: #ffffff; /* Tema terang MQL5 */
+            padding: 25px;
             border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            align-items: center;
         }
-        .myfxbook-img-link:hover img {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .tracker-col { position: relative; }
+        .tracker-stats-right { display: flex; flex-direction: column; gap: 15px; }
+        .stat-item {
+            display: grid;
+            grid-template-columns: 110px 100px 1fr;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.85rem;
         }
+        .stat-label { color: #000; text-align: right; }
+        .stat-val { font-weight: 600; color: #000; text-align: right; }
+        .stat-bar { height: 20px; background: transparent; }
+        .stat-bar .fill { height: 100%; transition: width 1s ease-in-out; }
 
         /* --- 6. FOOTER & FLOAT --- */
         footer {
@@ -507,6 +524,9 @@
                 flex-direction: column;
                 width: 100%;
             }
+            
+            .mql5-tracker-ui { grid-template-columns: 1fr; gap: 40px; }
+            .stat-item { grid-template-columns: 90px 90px 1fr; }
         }
     </style>
 </head>
@@ -657,17 +677,63 @@
         </div>
     </div>
     
-<!-- WIDGET LIVE PERFORMANCE -->
+    <!-- WIDGET LIVE PERFORMANCE (TRACKER MQL5 STYLE) -->
     <section id="live-performance" class="live-bottom-section">
-        <h3 data-key="stats_live">📊 ZenithPro Scalper Perfomance</h3>
+        <h3 data-key="stats_live" style="margin-bottom: 30px;">📊 ZenithPro Scalper Performance</h3>
         
-        <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper/12126962" target="_blank" class="myfxbook-img-link" style="display: inline-block; width: 100%;">
-            <!-- Diberi ID myfxbook-chart agar bisa dideteksi oleh script -->
-            <img id="myfxbook-chart" src="https://widget.myfxbook.com/widget/widget.png?accountOid=12126962&type=6" alt="Zenith Pro Scalper MyFxBook Live Result">
-        </a>
-        
-        <div style="margin-top: 35px;">
-            <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper/12126962" target="_blank" class="btn-detail" style="font-size: 0.95rem; padding: 12px 35px;" data-key="btn_myfxbook">Lihat Detail di MyFxBook</a>
+        <div class="mql5-tracker-ui">
+            <!-- Kolom 1: Line Chart (Growth & Curve) -->
+            <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 0.85rem; color: #555;">growth since 2025</div>
+                    <div id="track-growth" style="font-size: 2.2rem; color: #4CAF50; font-weight: 600; margin-bottom: -10px;">0.00%</div>
+                </div>
+                
+                <!-- Area Canvas Kurva -->
+                <div style="height: 140px; width: 100%; position: relative;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+
+                <!-- Footer Kolom Kiri (Broker & Leverage) -->
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; margin-top: 5px; font-weight: 500;">
+                    <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> ICMarketsEU-MT5-5</div>
+                    <div>1:30</div>
+                </div>
+            </div>
+
+            <!-- Kolom 2: Radar Chart -->
+            <div class="tracker-col" style="height: 200px;">
+                <canvas id="radarChart"></canvas>
+            </div>
+
+            <!-- Kolom 3: Stats -->
+            <div class="tracker-col tracker-stats-right">
+                <div class="stat-item">
+                    <span class="stat-label">Equity</span>
+                    <span class="stat-val" id="track-equity">0.00 EUR</span>
+                    <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Profit</span>
+                    <span class="stat-val" id="track-profit">0.00 EUR</span>
+                    <div class="stat-bar"><div class="fill" id="bar-profit" style="width: 80%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Initial Deposit</span>
+                    <span class="stat-val" id="track-deposit">224.79 EUR</span>
+                    <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-val">0.00 EUR</span>
+                    <div class="stat-bar"><div class="fill" style="width: 1%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Deposits</span>
+                    <span class="stat-val">2.42 EUR</span>
+                    <div class="stat-bar"><div class="fill" style="width: 2%; background: #4CAF50;"></div></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -683,6 +749,7 @@
         💬 <span data-key="wa_btn">Join Now</span>
     </a>
 
+    <!-- SCRIPT FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -717,8 +784,7 @@
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
-                stats_live: "ZenithPro Scalper Perfomance",
-                btn_myfxbook: "Lihat Detail di MyFxBook",
+                stats_live: "ZenithPro Scalper Performance",
                 btn_order: "Order Now",
                 btn_free_demo: "📥 Free Demo MT4",
                 badge_prem: "PREMIUM",
@@ -762,8 +828,7 @@
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
-                stats_live: "ZenithPro Scalper Perfomance",
-                btn_myfxbook: "View Detail on MyFxBook",
+                stats_live: "ZenithPro Scalper Performance",
                 btn_order: "Order Now",
                 btn_free_demo: "📥 Free Demo MT4",
                 badge_prem: "PREMIUM",
@@ -821,7 +886,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             detectUserLanguage();
 
-        // 2. PENGATURAN KONTAK TIM TELEGRAM
+            // PENGATURAN KONTAK TIM TELEGRAM
             const teamDirectory = {
                 "rayung": "gdrayy",
                 "rendra": "RendraBagus12",
@@ -834,30 +899,23 @@
             const urlParams = new URLSearchParams(window.location.search);
             const tradeParam = urlParams.get('trade');
             
-            // Mengubah nama dari link menjadi huruf kecil semua agar cocok dengan teamDirectory
             const agentKey = tradeParam ? tradeParam.toLowerCase() : "";
-            
-            // Jika agen ditemukan, pakai akun agen. Jika tidak, pakai akun Anda
             const activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
 
-            // Pesan Otomatis
             const msgOrder = encodeURIComponent("Halo, saya tertarik dengan EA Zenith Pro melalui Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
             const msgJoin = encodeURIComponent("Halo, saya mau bertanya mengenai informasi lebih lanjut mengenaui website ini dari Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
             const msgCopy = encodeURIComponent("Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
 
-            // Tombol Order EA
             const orderBtn = document.querySelector('a.btn-detail[data-key="btn_order"]');
             if (orderBtn) {
                 orderBtn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
             }
 
-            // Tombol Floating Kanan Bawah
             const floatBtn = document.querySelector('.wa-float');
             if (floatBtn) {
                 floatBtn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
             }
 
-            // Tombol Join Copytrade
             const copyBtn = document.querySelector('a.btn-detail[href="index2.html"]');
             if (copyBtn) {
                 copyBtn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
@@ -867,6 +925,7 @@
             const countDisplay = document.getElementById('demo-count');
             const downloadBtn = document.getElementById('btn-download-demo');
             
+            // FIREBASE INITIALIZATION
             const firebaseConfig = {
                 apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
                 authDomain: "zenith-demo-download.firebaseapp.com",
@@ -882,6 +941,8 @@
                 firebase.initializeApp(firebaseConfig);
             }
             var database = firebase.database();
+            
+            // 1. Download Counter Listener
             var countRef = database.ref('downloads/zenith');
 
             function formatNumber(num) {
@@ -897,19 +958,152 @@
             if(downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
                     countRef.transaction(function(currentCount) {
-                        if (currentCount === null) {
-                            return 1;
-                        }
+                        if (currentCount === null) { return 1; }
                         return currentCount + 1;
                     });
                 });
             }
-            // SCRIPT ANTI-CACHE MYFXBOOK
-            const chartImg = document.getElementById('myfxbook-chart');
-            if (chartImg) {
-                // Menambahkan timestamp unik di akhir URL gambar
-                chartImg.src = chartImg.src + "&update=" + new Date().getTime();
-            }
+
+            // ==========================================
+            // INISIALISASI CHART & LISTENER TRACKER MT5
+            // ==========================================
+
+            // 1. Grafik Garis (Growth Curve)
+            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+
+            let gradientFill = ctxGrowth.createLinearGradient(0, 0, 0, 140);
+            gradientFill.addColorStop(0, 'rgba(41, 182, 246, 0.4)'); 
+            gradientFill.addColorStop(1, 'rgba(41, 182, 246, 0.0)'); 
+
+            const historyLabels = ['2025.09.01', '2025.10.01', '2025.11.01', '2025.12.01', '2026.01.01', '2026.02.01', '2026.03.01', '2026.04.01', '2026.05.01', '2026.06.01'];
+            const historyData = [-2.40, 10.5, 30.2, 75.4, 120.1, 180.5, 170.2, 250.8, 380.0, 412.0];
+
+            const growthChart = new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: historyLabels,
+                    datasets: [{
+                        data: historyData,
+                        borderColor: '#29b6f6', 
+                        backgroundColor: gradientFill,
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4, 
+                        pointRadius: 0, 
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '#ef4444', 
+                        pointHoverBorderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            titleColor: '#555',
+                            bodyColor: '#000',
+                            bodyFont: { weight: 'bold' },
+                            borderColor: 'rgba(0,0,0,0.1)',
+                            borderWidth: 1,
+                            displayColors: false,
+                            padding: 10,
+                            callbacks: {
+                                title: function() { return ''; }, 
+                                label: function(context) {
+                                    return [context.parsed.y.toFixed(2) + '%', context.label];
+                                }
+                            }
+                        }
+                    },
+                    scales: { 
+                        x: { display: false }, 
+                        y: { display: false, min: -10 }  
+                    },
+                    layout: { padding: 0 }
+                }
+            });
+
+            // 2. Inisialisasi Grafik Radar (Radar Chart)
+            const ctxRadar = document.getElementById('radarChart').getContext('2d');
+            const radarChart = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Algo trading', 'Profit Trades', 'Loss Trades', 'Trading activity', 'Max deposit load', 'Maximum drawdown'],
+                    datasets: [{
+                        data: [98, 58.4, 41.6, 8.2, 98.9, 0], 
+                        borderColor: '#29b6f6',
+                        backgroundColor: 'rgba(41, 182, 246, 0.2)',
+                        pointBackgroundColor: '#29b6f6',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            ticks: { display: false, max: 100, min: 0, stepSize: 50 },
+                            pointLabels: { font: { size: 9 }, color: '#333' },
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
+                            grid: { color: 'rgba(0,0,0,0.1)' }
+                        }
+                    },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { 
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw.toFixed(1) + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. Listener Realtime Firebase dari MT5 (Update Angka secara Live)
+            var trackerRef = database.ref('tracker');
+            trackerRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(data !== null) {
+                    // Update Teks Equity & Profit
+                    document.getElementById('track-equity').innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' EUR';
+                    document.getElementById('track-profit').innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' EUR';
+                    
+                    // Update Deposit (opsional dari Firebase)
+                    if(data.deposit !== undefined) {
+                        document.getElementById('track-deposit').innerText = data.deposit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' EUR';
+                    }
+
+                    // Update Growth (Kurva & Persentase)
+                    if(data.growth !== undefined) {
+                        const growthEl = document.getElementById('track-growth');
+                        growthEl.innerText = data.growth.toFixed(2) + '%';
+                        growthEl.style.color = data.growth >= 0 ? '#4CAF50' : '#ef4444';
+                        
+                        let currentData = growthChart.data.datasets[0].data;
+                        currentData[currentData.length - 1] = data.growth;
+                        growthChart.update();
+                    }
+
+                    // Update Maximum Drawdown ke Radar Chart (Index ke 5)
+                    if(data.drawdown !== undefined) {
+                        radarChart.data.datasets[0].data[5] = data.drawdown;
+                        radarChart.update(); 
+                    }
+
+                    // Sesuaikan lebar animasi bar profit proporsional dengan equity
+                    let profitRatio = (data.profit / data.equity) * 100;
+                    if(profitRatio > 100) profitRatio = 100;
+                    if(profitRatio < 0) profitRatio = 0;
+                    document.getElementById('bar-profit').style.width = profitRatio + '%';
+                }
+            });
         });
     </script>
 </body>
