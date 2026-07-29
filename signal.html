@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPro Scalper - Live Signal Performance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --bg-body: #020617; 
+            --card-dark: rgba(30, 41, 59, 0.8); 
+            --primary-blue: #3b82f6;  
+            --text-light: #f8fafc;
+            --hero-yellow: #ffc107;    
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signal-wrapper {
+            width: 100%;
+            max-width: 950px;
+            background: var(--card-dark);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- TOMBOL KEMBALI KE HOME --- */
+        .btn-home {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-home:hover {
+            background: var(--primary-blue);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .signal-wrapper h3 {
+            color: var(--hero-yellow);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .mql5-tracker-ui {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            color: #333;
+            text-align: left;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            align-items: center;
+        }
+
+        .tracker-col { position: relative; }
+        .tracker-stats-right { display: flex; flex-direction: column; gap: 20px; }
+        .stat-item {
+            display: grid;
+            grid-template-columns: 110px 100px 1fr;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+        .stat-label { color: #000; text-align: right; }
+        .stat-val { font-weight: 600; color: #000; text-align: right; }
+        .stat-bar { height: 20px; background: transparent; }
+        .stat-bar .fill { height: 100%; transition: width 1s ease-in-out; }
+
+        .branding-footer {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        .branding-footer a { color: var(--hero-yellow); font-weight: bold; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .signal-wrapper { padding: 4rem 1.5rem 2rem; }
+            .btn-home { top: 15px; left: 15px; padding: 6px 12px; font-size: 0.75rem; }
+            .signal-wrapper h3 { font-size: 1.4rem; margin-top: 10px; }
+            .mql5-tracker-ui { grid-template-columns: 1fr; gap: 30px; }
+            .stat-item { grid-template-columns: 90px 90px 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signal-wrapper">
+        <!-- Tombol Kembali ke Beranda Utama -->
+        <a href="detail.html" class="btn-home">
+            <i class="fas fa-arrow-left"></i> Home
+        </a>
+
+        <h3>ZenithPro Scalper Performance</h3>
+        
+        <div class="mql5-tracker-ui">
+            <!-- Kolom 1: Line Chart -->
+            <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
+                    <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
+                        growth since 2026 
+                        <span id="track-days" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                    </div>
+                    <div id="track-growth" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                </div>
+                
+                <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
+                    <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker">Connecting...</span></div>
+                    <div>1:<span id="track-leverage">0</span></div>
+                </div>
+            </div>
+
+            <!-- Kolom 2: Stats -->
+            <div class="tracker-col tracker-stats-right">
+                <div class="stat-item">
+                    <span class="stat-label">Equity</span>
+                    <span class="stat-val" id="track-equity">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Profit</span>
+                    <span class="stat-val" id="track-profit">0.00</span>
+                    <div class="stat-bar"><div class="fill" id="bar-profit" style="width: 80%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Deposit</span>
+                    <span class="stat-val" id="track-deposit">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-val" id="track-withdrawal">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 1%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Max Drawdown</span>
+                    <span class="stat-val" id="track-drawdown">0.00%</span>
+                    <div class="stat-bar"><div class="fill" id="bar-drawdown" style="width: 0%; background: #ef4444;"></div></div>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0; text-align: center;">
+                <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper/12126962" target="_blank" style="color: var(--primary-blue); font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <i class="fas fa-external-link-alt"></i> View on MyFxBook
+                </a>
+            </div>
+        </div>
+
+        <div class="branding-footer">
+            Powered by <a href="index.html">Boom Trade Indonesia</a> — Your Partner Trading System
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+            let gradientFill = ctxGrowth.createLinearGradient(0, 0, 0, 140);
+            gradientFill.addColorStop(0, 'rgba(41, 182, 246, 0.4)'); 
+            gradientFill.addColorStop(1, 'rgba(41, 182, 246, 0.0)'); 
+
+            const curveShape = [0, 0.1, 0.3, 0.45, 0.6, 0.75, 0.85, 1.0];
+            const historyLabels = ['1','2','3','4','5','6','7','Current'];
+
+            const growthChart = new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: historyLabels,
+                    datasets: [{
+                        data: curveShape.map(val => val * 0),
+                        borderColor: '#29b6f6', 
+                        backgroundColor: gradientFill,
+                        borderWidth: 2, fill: true, tension: 0.4, 
+                        pointRadius: 0, pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '#ef4444', pointHoverBorderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#ffffff', titleColor: '#555', bodyColor: '#000',
+                            bodyFont: { weight: 'bold' }, borderColor: 'rgba(0,0,0,0.1)',
+                            borderWidth: 1, displayColors: false, padding: 10,
+                            callbacks: {
+                                title: function() { return ''; }, 
+                                label: function(context) { return context.parsed.y.toFixed(2) + '%'; }
+                            }
+                        }
+                    },
+                    scales: { x: { display: false }, y: { display: false } },
+                    layout: { padding: { top: 10, bottom: 0, left: 0, right: 0 } }
+                }
+            });
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
+                authDomain: "zenith-demo-download.firebaseapp.com",
+                databaseURL: "https://zenith-demo-download-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "zenith-demo-download",
+                storageBucket: "zenith-demo-download.firebasestorage.app",
+                messagingSenderId: "173090395889",
+                appId: "1:173090395889:web:e8ae52feac5591c8bc3b50",
+                measurementId: "G-NTT9L32RTD"
+            };
+
+            if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+            var database = firebase.database();
+            var trackerRef = database.ref('tracker');
+
+            trackerRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(data !== null) {
+                    const curr = data.currency ? " " + data.currency : " USD";
+
+                    document.getElementById('track-broker').innerText = data.broker || "Unknown Broker";
+                    document.getElementById('track-leverage').innerText = data.leverage || "0";
+                    document.getElementById('track-equity').innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                    document.getElementById('track-profit').innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                    document.getElementById('track-deposit').innerText = data.deposit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                    document.getElementById('track-withdrawal').innerText = data.withdrawal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                    
+                    if(data.drawdown !== undefined) {
+                        document.getElementById('track-drawdown').innerText = data.drawdown.toFixed(2) + '%';
+                        let ddRatio = data.drawdown;
+                        if(ddRatio > 100) ddRatio = 100;
+                        document.getElementById('bar-drawdown').style.width = ddRatio + '%';
+                    }
+
+                    if(data.days !== undefined) {
+                        document.getElementById('track-days').innerText = data.days + ' Hari';
+                    }
+
+                    if(data.growth !== undefined) {
+                        const growthEl = document.getElementById('track-growth');
+                        growthEl.innerText = data.growth.toFixed(2) + '%';
+                        growthEl.style.color = data.growth >= 0 ? '#4CAF50' : '#ef4444';
+                        
+                        growthChart.data.datasets[0].data = curveShape.map(val => val * data.growth);
+                        growthChart.update();
+                    }
+
+                    let profitRatio = data.equity > 0 ? (data.profit / data.equity) * 100 : 0;
+                    if(profitRatio > 100) profitRatio = 100;
+                    if(profitRatio < 0) profitRatio = 0;
+                    document.getElementById('bar-profit').style.width = profitRatio + '%';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
