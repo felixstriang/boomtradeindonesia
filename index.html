@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
+    <!-- Library Chart.js untuk menggambar Grafik Growth -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         /* --- 1. PENGATURAN GLOBAL --- */
         :root {
@@ -288,7 +291,6 @@
             z-index: 10;
         }
 
-        /* --- TOMBOL RESULT POJOK KANAN ATAS --- */
         .result-badge {
             position: absolute;
             top: 20px;
@@ -394,7 +396,7 @@
             background: var(--card-dark);
             backdrop-filter: blur(12px);
             border-radius: 16px;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
@@ -411,19 +413,32 @@
             justify-content: center;
             gap: 10px;
         }
-
-        .myfxbook-img-link img {
-            width: 100%; 
-            max-width: 100%; 
-            height: auto; 
+        
+        .mql5-tracker-ui {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            background: #ffffff;
+            padding: 30px;
             border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            align-items: center;
         }
-        .myfxbook-img-link:hover img {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .tracker-col { position: relative; }
+        .tracker-stats-right { display: flex; flex-direction: column; gap: 20px; }
+        .stat-item {
+            display: grid;
+            grid-template-columns: 110px 100px 1fr;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
         }
+        .stat-label { color: #000; text-align: right; }
+        .stat-val { font-weight: 600; color: #000; text-align: right; }
+        .stat-bar { height: 20px; background: transparent; }
+        .stat-bar .fill { height: 100%; transition: width 1s ease-in-out; }
 
         /* --- 6. FOOTER & FLOAT --- */
         footer {
@@ -507,6 +522,9 @@
                 flex-direction: column;
                 width: 100%;
             }
+            
+            .mql5-tracker-ui { grid-template-columns: 1fr; gap: 40px; }
+            .stat-item { grid-template-columns: 90px 90px 1fr; }
         }
     </style>
 </head>
@@ -526,7 +544,7 @@
             <ul id="nav-list">
                 <li><a href="#home" data-key="nav_home">Beranda</a></li>
                 <li><a href="#products" data-key="nav_products">Produk</a></li>
-                <li><a href="#live-performance" data-key="nav_result">Result</a></li>
+                <li><a href="signal.html" data-key="nav_result">Result</a></li>
                 <li><a href="#contact" data-key="nav_contact">Kontak</a></li>
             </ul>
         </nav>
@@ -564,7 +582,7 @@
             <div class="cluster-card">
                 <div class="badge" data-key="badge_best">BEST SELLER</div>
                 
-                <a href="#live-performance" class="result-badge">
+                <a href="signal.html" class="result-badge">
                     <i class="fas fa-chart-line"></i> <span data-key="btn_see_result">Live Result</span>
                 </a>
 
@@ -656,20 +674,6 @@
 
         </div>
     </div>
-    
-<!-- WIDGET LIVE PERFORMANCE -->
-    <section id="live-performance" class="live-bottom-section">
-        <h3 data-key="stats_live">📊 ZenithPro Scalper Perfomance</h3>
-        
-        <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper/12126962" target="_blank" class="myfxbook-img-link" style="display: inline-block; width: 100%;">
-            <!-- Diberi ID myfxbook-chart agar bisa dideteksi oleh script -->
-            <img id="myfxbook-chart" src="https://widget.myfxbook.com/widget/widget.png?accountOid=12126962&type=6" alt="Zenith Pro Scalper MyFxBook Live Result">
-        </a>
-        
-        <div style="margin-top: 35px;">
-            <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper/12126962" target="_blank" class="btn-detail" style="font-size: 0.95rem; padding: 12px 35px;" data-key="btn_myfxbook">Lihat Detail di MyFxBook</a>
-        </div>
-    </section>
 
     <footer id="contact">
         <h3>BOOM TRADE INDONESIA</h3>
@@ -683,6 +687,7 @@
         💬 <span data-key="wa_btn">Join Now</span>
     </a>
 
+    <!-- SCRIPT FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -717,8 +722,7 @@
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
-                stats_live: "ZenithPro Scalper Perfomance",
-                btn_myfxbook: "Lihat Detail di MyFxBook",
+                stats_live: "ZenithPro Scalper Performance",
                 btn_order: "Order Now",
                 btn_free_demo: "📥 Free Demo MT4",
                 badge_prem: "PREMIUM",
@@ -762,8 +766,7 @@
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
-                stats_live: "ZenithPro Scalper Perfomance",
-                btn_myfxbook: "View Detail on MyFxBook",
+                stats_live: "ZenithPro Scalper Performance",
                 btn_order: "Order Now",
                 btn_free_demo: "📥 Free Demo MT4",
                 badge_prem: "PREMIUM",
@@ -821,7 +824,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             detectUserLanguage();
 
-        // 2. PENGATURAN KONTAK TIM TELEGRAM
             const teamDirectory = {
                 "rayung": "gdrayy",
                 "rendra": "RendraBagus12",
@@ -834,30 +836,23 @@
             const urlParams = new URLSearchParams(window.location.search);
             const tradeParam = urlParams.get('trade');
             
-            // Mengubah nama dari link menjadi huruf kecil semua agar cocok dengan teamDirectory
             const agentKey = tradeParam ? tradeParam.toLowerCase() : "";
-            
-            // Jika agen ditemukan, pakai akun agen. Jika tidak, pakai akun Anda
             const activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
 
-            // Pesan Otomatis
             const msgOrder = encodeURIComponent("Halo, saya tertarik dengan EA Zenith Pro melalui Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
             const msgJoin = encodeURIComponent("Halo, saya mau bertanya mengenai informasi lebih lanjut mengenaui website ini dari Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
             const msgCopy = encodeURIComponent("Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
 
-            // Tombol Order EA
             const orderBtn = document.querySelector('a.btn-detail[data-key="btn_order"]');
             if (orderBtn) {
                 orderBtn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
             }
 
-            // Tombol Floating Kanan Bawah
             const floatBtn = document.querySelector('.wa-float');
             if (floatBtn) {
                 floatBtn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
             }
 
-            // Tombol Join Copytrade
             const copyBtn = document.querySelector('a.btn-detail[href="index2.html"]');
             if (copyBtn) {
                 copyBtn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
@@ -882,6 +877,7 @@
                 firebase.initializeApp(firebaseConfig);
             }
             var database = firebase.database();
+            
             var countRef = database.ref('downloads/zenith');
 
             function formatNumber(num) {
@@ -897,18 +893,10 @@
             if(downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
                     countRef.transaction(function(currentCount) {
-                        if (currentCount === null) {
-                            return 1;
-                        }
+                        if (currentCount === null) { return 1; }
                         return currentCount + 1;
                     });
                 });
-            }
-            // SCRIPT ANTI-CACHE MYFXBOOK
-            const chartImg = document.getElementById('myfxbook-chart');
-            if (chartImg) {
-                // Menambahkan timestamp unik di akhir URL gambar
-                chartImg.src = chartImg.src + "&update=" + new Date().getTime();
             }
         });
     </script>
