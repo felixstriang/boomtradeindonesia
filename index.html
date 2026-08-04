@@ -245,19 +245,24 @@
             padding-bottom: 4rem;
             position: relative;
             z-index: 1;
-        }
-
-        .cluster-grid {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 3rem;
+        }
+
+        /* --- PERUBAHAN GRID UNTUK BERSEBELAHAN --- */
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1100px;
+            align-items: stretch;
         }
 
         .cluster-card {
             display: flex;
-            flex-direction: row; 
+            flex-direction: column;
             background: var(--card-dark);
             backdrop-filter: blur(12px);
             border-radius: 16px;
@@ -267,7 +272,6 @@
             transition: all 0.4s ease;
             position: relative;
             width: 100%;
-            max-width: 950px; 
             transform-style: preserve-3d;
         }
         
@@ -275,6 +279,12 @@
             transform: translateY(-5px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* KHUSUS CARD FULL WIDTH (PREMIUM COPYTRADE) */
+        .cluster-card.full-width {
+            grid-column: span 2;
+            flex-direction: row;
         }
 
         .badge {
@@ -317,8 +327,9 @@
         }
 
         .card-img {
-            flex: 0 0 40%;
-            min-height: 350px;
+            width: 100%;
+            height: 250px;
+            min-height: 250px;
             background-color: #111;
             background-size: cover;
             background-position: center;
@@ -329,37 +340,47 @@
             content: '';
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(to bottom, transparent, var(--card-dark));
+        }
+
+        .cluster-card.full-width .card-img {
+            flex: 0 0 40%;
+            height: auto;
+            min-height: 350px;
+        }
+        .cluster-card.full-width .card-img::after {
             background: linear-gradient(to right, transparent, var(--card-dark));
         }
         
         .card-content { 
             flex: 1; 
-            padding: 2.5rem; 
+            padding: 2rem; 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: left;
         }
         
-        .card-title { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1.8rem; }
-        .card-price { color: var(--profit-green); font-weight: bold; font-size: 1.3rem; margin-bottom: 1rem; display: block; }
+        .card-title { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1.6rem; }
+        .card-price { color: var(--profit-green); font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; display: block; }
         
         .ea-desc {
             color: #cbd5e1;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.6;
             margin-bottom: 1.5rem;
+            flex-grow: 1; /* AGAR KOTAK DESKRIPSI SEJAJAR SEMPURNA */
         }
 
         .specs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
             color: var(--text-gray);
             background: rgba(0,0,0,0.3);
-            padding: 15px 20px;
+            padding: 15px;
             border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.05);
         }
@@ -367,7 +388,7 @@
         .btn-detail {
             display: inline-block;
             width: fit-content;
-            padding: 12px 35px;
+            padding: 10px 25px;
             background-color: transparent;
             border: 2px solid var(--primary-blue);
             color: var(--text-light);
@@ -375,6 +396,7 @@
             font-weight: bold;
             transition: 0.3s;
             text-align: center;
+            font-size: 0.9rem;
         }
         .btn-detail:hover { 
             background-color: var(--primary-blue); 
@@ -382,63 +404,27 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
+        .btn-demo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+            border: none;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
         .btn-demo:hover {
             transform: scale(1.05) translateY(-3px);
             background-color: #0ea5e9;
             box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
         }
-
-        /* --- 5. LIVE PERFORMANCE DI BAWAH --- */
-        .live-bottom-section {
-            width: 90%;
-            max-width: 950px; 
-            margin: 0 auto 4rem;
-            background: var(--card-dark);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .live-bottom-section h3 {
-            color: var(--hero-yellow);
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .mql5-tracker-ui {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 40px;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            color: #333;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-            align-items: center;
-        }
-        .tracker-col { position: relative; }
-        .tracker-stats-right { display: flex; flex-direction: column; gap: 20px; }
-        .stat-item {
-            display: grid;
-            grid-template-columns: 110px 100px 1fr;
-            align-items: center;
-            gap: 15px;
-            font-size: 0.9rem;
-        }
-        .stat-label { color: #000; text-align: right; }
-        .stat-val { font-weight: 600; color: #000; text-align: right; }
-        .stat-bar { height: 20px; background: transparent; }
-        .stat-bar .fill { height: 100%; transition: width 1s ease-in-out; }
 
         /* --- 6. FOOTER & FLOAT --- */
         footer {
@@ -493,19 +479,24 @@
             }
             nav ul.active { display: flex; }
 
-            .cluster-card {
-                flex-direction: column;
-                max-width: 500px;
+            .cluster-grid {
+                grid-template-columns: 1fr;
             }
-            .card-img {
+            
+            .cluster-card.full-width {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+            .cluster-card.full-width .card-img {
                 flex: none;
                 width: 100%;
                 height: 250px;
                 min-height: 250px;
             }
-            .card-img::after {
+            .cluster-card.full-width .card-img::after {
                 background: linear-gradient(to bottom, transparent, var(--card-dark));
             }
+
             .card-content {
                 padding: 1.5rem;
                 text-align: center;
@@ -522,9 +513,6 @@
                 flex-direction: column;
                 width: 100%;
             }
-            
-            .mql5-tracker-ui { grid-template-columns: 1fr; gap: 40px; }
-            .stat-item { grid-template-columns: 90px 90px 1fr; }
         }
     </style>
 </head>
@@ -579,6 +567,7 @@
     <div class="container">
         <div class="cluster-grid">
             
+            <!-- ZENITH CARD -->
             <div class="cluster-card">
                 <div class="badge" data-key="badge_best">BEST SELLER</div>
                 
@@ -589,35 +578,31 @@
                 <div class="card-img" style="background-image: url('images/zenith.jpg');"></div>
                 <div class="card-content">
                     <h3 class="card-title">Zenith Pro Scalper</h3>
-                    <span class="card-price" style="font-size: 1.1rem; color: var(--hero-yellow);">Lifetime Access $499</span>
+                    <span class="card-price" style="color: var(--hero-yellow);">Lifetime Access $499</span>
                     
                     <div class="ea-desc">
                         <p style="margin-bottom: 15px;" data-key="zenith_desc">
-                            EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di Market. Menggunakan algoritma scalping presisi tinggi, lengkap dengan dashboard on-chart.
+                            EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine agar pembukaan layer Grid tetap optimal dan presisi.
                         </p>
 
-                        <h4 style="color: white; margin-bottom: 12px; font-size: 1rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);" data-key="feat_title">🌟 Fitur Unggulan Sistem:</h4>
+                        <h4 style="color: white; margin-bottom: 10px; font-size: 0.95rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);" data-key="feat_title">🌟 Fitur Unggulan Sistem:</h4>
                         
-                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-                            <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
+                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_1"><strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %) untuk ketahanan dana.</div>
+                                <div data-key="feat_1"><strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %).</div>
                             </li>
-                            <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_2"><strong>Dynamic Trailing Stop :</strong> Sistem Profit Lock yang mengunci keuntungan saat harga melesat.</div>
+                                <div data-key="feat_2"><strong>Dynamic Trailing Stop :</strong> Mengunci keuntungan saat harga melesat.</div>
                             </li>
-                            <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_3"><strong>Proteksi Ekuitas :</strong> Target TakeProfit & Cutloss otomatis berbasis persentase batas kerugian.</div>
+                                <div data-key="feat_3"><strong>Proteksi Ekuitas :</strong> TakeProfit & Cutloss berbasis batas kerugian.</div>
                             </li>
-                            <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
                                 <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_4"><strong>Smart Add-Order :</strong> Buka posisi tambahan cerdas saat tren berlanjut sesuai batasan akun.</div>
-                            </li>
-                            <li style="font-size: 0.85rem; color: #cbd5e1; display: flex; gap: 10px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_5"><strong>Trading Time Filter :</strong> Atur jam aktif EA untuk menghindari likuiditas buruk & spread melar.</div>
+                                <div data-key="feat_4"><strong>Smart Add-Order :</strong> Buka posisi cerdas saat tren berlanjut.</div>
                             </li>
                         </ul>
                     </div>
@@ -629,29 +614,64 @@
                         <span data-key="spec_scalp">⚡ Adaptive Grid Scalper</span>
                     </div>
 
-                    <div class="mql5-stats" style="margin-bottom: 1.5rem; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 10px;">
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
-                            <span><i class="fas fa-download" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_download">Demo downloaded:</span></span>
-                            <strong id="demo-count" style="color: white;">0</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
-                            <span><i class="fas fa-calendar-check" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_pub">Published:</span></span>
-                            <strong style="color: white;">22 July 2026</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span><i class="fas fa-code-branch" style="color: var(--hero-yellow); margin-right: 5px;"></i> <span data-key="stats_ver">Current version:</span></span>
-                            <strong style="color: white;">1.0</strong>
-                        </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
+                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Zenith%20Pro" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
+                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT4</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOPAMIN HEDGE EA CARD -->
+            <div class="cluster-card">
+                <div class="badge" style="background-color: #10b981; color: white;" data-key="badge_new">NEW RELEASE</div>
+                <div class="card-img" style="background-image: url('images/dopamin.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Dopamin Hedge</h3>
+                    <span class="card-price" style="color: var(--hero-yellow);" data-key="dopamin_price">Lifetime Access $499</span>
+                    
+                    <div class="ea-desc">
+                        <p style="margin-bottom: 15px;" data-key="dopamin_desc">
+                            EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus, memastikan recovery posisi yang cepat.
+                        </p>
+                        
+                        <h4 style="color: white; margin-bottom: 10px; font-size: 0.95rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);" data-key="dopamin_feat_title">🌟 Fitur Unggulan Sistem:</h4>
+                        
+                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
+                                <span style="color: var(--hero-yellow);">✔</span>
+                                <div data-key="dopamin_feat_1"><strong>Daily Lock Profit :</strong> Mengamankan target profit harian otomatis.</div>
+                            </li>
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
+                                <span style="color: var(--hero-yellow);">✔</span>
+                                <div data-key="dopamin_feat_2"><strong>Daily Lock Max Loss :</strong> Membatasi maksimal floating loss harian untuk keamanan.</div>
+                            </li>
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
+                                <span style="color: var(--hero-yellow);">✔</span>
+                                <div data-key="dopamin_feat_3"><strong>Smart Trailing :</strong> Memaksimalkan profit mengikuti pergerakan harga.</div>
+                            </li>
+                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
+                                <span style="color: var(--hero-yellow);">✔</span>
+                                <div data-key="dopamin_feat_4"><strong>Smart Lock Profit :</strong> Mengunci porsi profit secara presisi.</div>
+                            </li>
+                        </ul>
                     </div>
 
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Zenith%20Pro" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
-                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 35px; background-color: var(--primary-blue); color: white; border-radius: 50px; font-weight: bold; transition: 0.3s; text-align: center; border: none; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); text-decoration: none;" data-key="btn_free_demo">📥 Free Demo MT4</a>
+                    <div class="specs">
+                        <span>📈 MT4/MT5</span>
+                        <span data-key="spec_hedge">🔄 24/7 Grid Hedge</span>
+                        <span data-key="spec_straddle">⚔️ Straddle Strategy</span>
+                        <span>⚡ Full Auto</span>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
+                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Dopamin%20Hedge" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
+                        <a href="Dopamin_Hedge_EA_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT4</a>
                     </div>
                 </div>
             </div>
             
-            <div class="cluster-card">
+            <!-- PREMIUM COPYTRADE (FULL WIDTH) -->
+            <div class="cluster-card full-width">
                 <div class="badge" data-key="badge_prem">PREMIUM</div>
                 <div class="card-img" style="background-image: url('images/copytrade.jpg');"></div>
                 <div class="card-content">
@@ -698,27 +718,37 @@
                 nav_products: "Produk",
                 nav_result: "Result",
                 nav_contact: "Kontak",
-                hero_title: "Kamu merasa banyak sekali masalah ketika <br><span class=\"text-highlight\">menghadapi market?</span>",
+                hero_title: "Kamu merasa banyak sekali masalah ketika <br><span class='text-highlight'>menghadapi market?</span>",
                 pain_1: "Masih Sering Loss",
                 pain_2: "Belum Konsisten",
                 pain_3: "Harus Mantengin Chart Terus",
                 pain_4: "Ragu untuk open posisi",
                 pain_5: "Sifat Serakah",
-                hero_desc: "Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA \"Your Partner Trading System\"",
+                hero_desc: "Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA 'Your Partner Trading System'",
                 btn_join_now: "💬 Join Now",
                 sec_title: "Produk & Layanan Unggulan",
                 sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
                 badge_best: "BEST SELLER",
+                badge_new: "NEW RELEASE",
                 btn_see_result: "Lihat Result", 
-                zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di Market. Menggunakan algoritma scalping presisi tinggi, lengkap dengan dashboard on-chart.",
+                zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine agar pembukaan layer Grid tetap optimal dan presisi.",
                 feat_title: "🌟 Fitur Unggulan Sistem:",
-                feat_1: "<strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %) untuk ketahanan dana.",
-                feat_2: "<strong>Dynamic Trailing Stop :</strong> Sistem Profit Lock yang mengunci keuntungan saat harga melesat.",
-                feat_3: "<strong>Proteksi Ekuitas :</strong> Target TakeProfit & Cutloss otomatis berbasis persentase batas kerugian.",
-                feat_4: "<strong>Smart Add-Order :</strong> Buka posisi tambahan cerdas saat tren berlanjut sesuai batasan akun.",
+                feat_1: "<strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %).",
+                feat_2: "<strong>Dynamic Trailing Stop :</strong> Mengunci keuntungan saat harga melesat.",
+                feat_3: "<strong>Proteksi Ekuitas :</strong> TakeProfit & Cutloss berbasis batas kerugian.",
+                feat_4: "<strong>Smart Add-Order :</strong> Buka posisi cerdas saat tren berlanjut.",
                 feat_5: "<strong>Trading Time Filter :</strong> Atur jam aktif EA untuk menghindari likuiditas buruk & spread melar.",
                 spec_prot: "🛡️ Protection with trailing",
                 spec_scalp: "⚡ Adaptive Grid Scalper",
+                dopamin_price: "Lifetime Access $499",
+                dopamin_desc: "EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus, memastikan recovery posisi yang cepat.",
+                dopamin_feat_title: "🌟 Fitur Unggulan Sistem:",
+                dopamin_feat_1: "<strong>Daily Lock Profit :</strong> Mengamankan target profit harian otomatis.",
+                dopamin_feat_2: "<strong>Daily Lock Max Loss :</strong> Membatasi maksimal floating loss harian untuk keamanan.",
+                dopamin_feat_3: "<strong>Smart Trailing :</strong> Memaksimalkan profit mengikuti pergerakan harga.",
+                dopamin_feat_4: "<strong>Smart Lock Profit :</strong> Mengunci porsi profit secara presisi.",
+                spec_hedge: "🔄 24/7 Grid Hedge",
+                spec_straddle: "⚔️ Straddle Strategy",
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
@@ -742,27 +772,37 @@
                 nav_products: "Products",
                 nav_result: "Result",
                 nav_contact: "Contact",
-                hero_title: "Do you face many problems when <br><span class=\"text-highlight\">dealing with the market?</span>",
+                hero_title: "Do you face many problems when <br><span class='text-highlight'>dealing with the market?</span>",
                 pain_1: "Still Frequently Losing",
                 pain_2: "Not Consistent Yet",
                 pain_3: "Stuck Watching Charts All Day",
                 pain_4: "Hesitant to Open Positions",
                 pain_5: "Greedy Behavior",
-                hero_desc: "If you have problems like that, the solution is to join us at BOOM TRADE INDONESIA \"Your Partner Trading System\"",
+                hero_desc: "If you have problems like that, the solution is to join us at BOOM TRADE INDONESIA 'Your Partner Trading System'",
                 btn_join_now: "💬 Join Now",
                 sec_title: "Featured Products & Services",
                 sec_subtitle: "Choose the best trading weapon for your investment style",
                 badge_best: "BEST SELLER",
+                badge_new: "NEW RELEASE",
                 btn_see_result: "See Result", 
-                zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard.",
+                zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard, powered by a Smart Recovery Engine ensuring Grid layer openings remain optimal and precise.",
                 feat_title: "🌟 System Highlight Features:",
-                feat_1: "<strong>Smart Money Management :</strong> Auto Lot based on risk percentage (Risk %) for account endurance.",
-                feat_2: "<strong>Dynamic Trailing Stop :</strong> Profit Lock system that secures gains when prices surge.",
-                feat_3: "<strong>Equity Protection :</strong> Automatic TakeProfit & Cutloss targets based on loss percentage limits.",
-                feat_4: "<strong>Smart Add-Order :</strong> Intelligent extra position opening when trends continue within limits.",
-                feat_5: "<strong>Trading Time Filter :</strong> Configure active EA hours to avoid poor liquidity & widening spreads.",
+                feat_1: "<strong>Smart Money Management :</strong> Auto Lot based on risk percentage (Risk %).",
+                feat_2: "<strong>Dynamic Trailing Stop :</strong> Profit Lock system that secures gains.",
+                feat_3: "<strong>Equity Protection :</strong> TakeProfit & Cutloss based on loss percentage.",
+                feat_4: "<strong>Smart Add-Order :</strong> Intelligent extra position opening.",
+                feat_5: "<strong>Trading Time Filter :</strong> Configure active EA hours.",
                 spec_prot: "🛡️ Protection with trailing",
                 spec_scalp: "⚡ Adaptive Grid Scalper",
+                dopamin_price: "Lifetime Access $499",
+                dopamin_desc: "A robust Straddle Grid Hedge EA designed to operate <strong>24 hours nonstop</strong>. Opens dual-directional orders simultaneously with a precise martingale layer mechanism focusing only on floating minus areas, ensuring rapid position recovery.",
+                dopamin_feat_title: "🌟 System Highlight Features:",
+                dopamin_feat_1: "<strong>Daily Lock Profit :</strong> Automatically secures daily profit targets.",
+                dopamin_feat_2: "<strong>Daily Lock Max Loss :</strong> Limits maximum daily floating loss for safety.",
+                dopamin_feat_3: "<strong>Smart Trailing :</strong> Maximizes profit by following price movements.",
+                dopamin_feat_4: "<strong>Smart Lock Profit :</strong> Locks in profit precisely.",
+                spec_hedge: "🔄 24/7 Grid Hedge",
+                spec_straddle: "⚔️ Straddle Strategy",
                 stats_download: "Demo downloaded:",
                 stats_pub: "Published:",
                 stats_ver: "Current version:",
@@ -887,7 +927,9 @@
             countRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 let currentTotal = data !== null ? data : 0;
-                countDisplay.innerText = formatNumber(currentTotal);
+                if(countDisplay) {
+                    countDisplay.innerText = formatNumber(currentTotal);
+                }
             });
 
             if(downloadBtn) {
