@@ -8,16 +8,15 @@
     <title>BOOM TRADE INDONESIA</title>
     <link rel="icon" type="image/png" href="images/boomtrade2.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Library Chart.js untuk menggambar Grafik Growth -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         /* --- 1. PENGATURAN GLOBAL --- */
         :root {
             --bg-body: #020617; 
-            --card-dark: rgba(30, 41, 59, 0.6); 
+            --card-dark: rgba(30, 41, 59, 0.7); 
             --primary-blue: #3b82f6;  
             --text-light: #f8fafc;
             --text-gray: #94a3b8;
@@ -42,477 +41,264 @@
             position: relative;
         }
 
-        /* --- BACKGROUND ELEGAN PROFESIONAL --- */
+        /* --- BACKGROUND ELEGAN --- */
         .bg-elegant {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
             background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
         }
         
-        .bg-elegant::before {
-            content: "";
-            position: absolute;
-            top: -20%;
-            left: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
-            border-radius: 50%;
+        .bg-elegant::before, .bg-elegant::after {
+            content: ""; position: absolute; width: 60vw; height: 60vw; border-radius: 50%;
         }
-
-        .bg-elegant::after {
-            content: "";
-            position: absolute;
-            bottom: -20%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(255, 193, 7, 0.03) 0%, transparent 60%);
-            border-radius: 50%;
-        }
+        .bg-elegant::before { top: -20%; left: -10%; background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 60%); }
+        .bg-elegant::after { bottom: -20%; right: -10%; background: radial-gradient(circle, rgba(255, 193, 7, 0.03) 0%, transparent 60%); }
 
         a { text-decoration: none; }
         ul { list-style: none; }
 
         /* --- 2. HEADER & NAVIGASI --- */
         header {
-            background-color: rgba(2, 6, 23, 0.85);
-            padding: 1rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background-color: rgba(2, 6, 23, 0.85); padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(15px);
         }
-
-        .logo-img {
-            height: 50px;
-            width: auto;  
-            mix-blend-mode: screen; 
-            display: block;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
+        .logo-img { height: 40px; width: auto; mix-blend-mode: screen; }
+        .header-right { display: flex; align-items: center; gap: 20px; }
         .lang-switch {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            color: var(--text-light);
-            padding: 5px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: 0.3s;
+            background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.5);
+            color: var(--text-light); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.3s;
         }
-        .lang-switch:hover {
-            background: var(--primary-blue);
-            border-color: var(--primary-blue);
-        }
-
+        .lang-switch:hover { background: var(--primary-blue); border-color: var(--primary-blue); }
         nav ul { display: flex; gap: 20px; }
-        nav ul li a {
-            color: var(--text-light);
-            font-weight: 500;
-            transition: 0.3s;
-            font-size: 0.95rem;
-        }
+        nav ul li a { color: var(--text-light); font-weight: 500; transition: 0.3s; font-size: 0.9rem; }
         nav ul li a:hover { color: var(--hero-yellow); text-shadow: 0 0 10px rgba(255, 193, 7, 0.5); }
-
         .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
         /* --- 3. HERO SECTION --- */
         .hero-metacorp {
-            min-height: 100vh;
-            padding: 120px 5% 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
+            min-height: 100vh; padding: 120px 5% 50px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
         }
-
         .hero-container {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            max-width: 1200px;
-            width: 100%;
+            display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; max-width: 1200px; width: 100%;
         }
-
-        .hero-text h1 {
-            font-size: 2.8rem;
-            line-height: 1.3;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        
+        .hero-text h1 { font-size: 2.5rem; line-height: 1.3; margin-bottom: 1.2rem; font-weight: 700; color: white; }
         .text-highlight { color: var(--hero-yellow); text-shadow: 0 0 15px rgba(255, 193, 7, 0.2); }
-
-        .pain-points li {
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: #e2e8f0;
-        }
-        .pain-points li::before {
-            content: '✔';
-            color: var(--hero-yellow);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-right: 15px;
-        }
-
-        .hero-desc {
-            margin-top: 1.5rem;
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
-
+        .pain-points li { display: flex; align-items: center; font-size: 1rem; margin-bottom: 10px; color: #e2e8f0; }
+        .pain-points li::before { content: '✔'; color: var(--hero-yellow); font-weight: bold; font-size: 1.1rem; margin-right: 12px; }
+        .hero-desc { margin-top: 1.5rem; color: var(--text-gray); margin-bottom: 2rem; font-size: 0.95rem; }
         .btn-yellow {
-            background-color: var(--hero-yellow);
-            color: #000;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            border: none;
-            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.2);
+            background-color: var(--hero-yellow); color: #000; padding: 10px 30px; border-radius: 50px;
+            font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; border: none;
         }
-        .btn-yellow:hover {
-            transform: scale(1.05) translateY(-3px);
-            background-color: #ffca2c;
-            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.4);
-        }
-
+        .btn-yellow:hover { transform: scale(1.05) translateY(-3px); background-color: #ffca2c; box-shadow: 0 10px 25px rgba(255, 193, 7, 0.4); }
         .hero-img-wrapper img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: perspective(1000px) rotateY(-15deg);
-            transition: 0.5s;
+            width: 100%; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1); transform: perspective(1000px) rotateY(-10deg); transition: 0.5s;
         }
-        .hero-img-wrapper img:hover {
-            transform: perspective(1000px) rotateY(0deg) scale(1.02);
-        }
+        .hero-img-wrapper img:hover { transform: perspective(1000px) rotateY(0deg) scale(1.02); }
 
-        /* --- 4. PRODUK SECTION --- */
-        .section-title {
-            text-align: center;
-            margin: 4rem 0 1rem;
-            color: var(--text-light);
-            font-size: 2.2rem;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            position: relative;
-            z-index: 1;
-        }
+        /* --- 4. PRODUK & COPYTRADE SECTION --- */
+        .section-title { text-align: center; margin: 4rem 0 1rem; color: var(--text-light); font-size: 2rem; position: relative; z-index: 1; }
         .section-title span { border-bottom: 3px solid var(--primary-blue); padding-bottom: 5px; }
-        
-        .section-subtitle {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--text-gray);
-            position: relative;
-            z-index: 1;
-        }
+        .section-subtitle { text-align: center; margin-bottom: 3rem; color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 1; }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            padding-bottom: 4rem;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .container { width: 95%; max-width: 1000px; margin: auto; padding-bottom: 2rem; position: relative; z-index: 1; }
+        .container-single { max-width: 450px; padding-bottom: 4rem; } 
 
-        /* --- PERUBAHAN GRID UNTUK BERSEBELAHAN --- */
-        .cluster-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            width: 100%;
-            max-width: 1100px;
-            align-items: stretch;
+        .cluster-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            width: 100%; 
         }
 
         .cluster-card {
-            display: flex;
+            background: var(--card-dark); 
+            backdrop-filter: blur(12px); 
+            border-radius: 16px; 
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            transition: all 0.3s ease; 
+            display: flex; 
             flex-direction: column;
-            background: var(--card-dark);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
-            position: relative;
-            width: 100%;
-            transform-style: preserve-3d;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        
-        .cluster-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            border-color: rgba(59, 130, 246, 0.3);
+        .cluster-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+            border-color: rgba(59, 130, 246, 0.4); 
         }
 
-        /* KHUSUS CARD FULL WIDTH (PREMIUM COPYTRADE) */
-        .cluster-card.full-width {
-            grid-column: span 2;
-            flex-direction: row;
-        }
-
-        .badge {
-            position: absolute;
-            top: 20px;
-            left: -10px;
-            background: var(--hero-yellow);
-            color: black;
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2);
-            z-index: 10;
-        }
-
-        .result-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--primary-blue);
-            border: 1px solid var(--primary-blue);
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1);
-            z-index: 10;
-            transition: 0.3s;
+        /* Bagian Header Kartu (Logo + Judul) */
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
-        .result-badge:hover {
-            background: var(--primary-blue);
-            color: white;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .card-img {
-            width: 100%;
-            height: 250px;
-            min-height: 250px;
+        .card-logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
             background-color: #111;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .card-img::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background: linear-gradient(to bottom, transparent, var(--card-dark));
-        }
-
-        .cluster-card.full-width .card-img {
-            flex: 0 0 40%;
-            height: auto;
-            min-height: 350px;
-        }
-        .cluster-card.full-width .card-img::after {
-            background: linear-gradient(to right, transparent, var(--card-dark));
-        }
-        
-        .card-content { 
-            flex: 1; 
-            padding: 2rem; 
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            text-align: left;
-        }
-        
-        .card-title { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1.6rem; }
-        .card-price { color: var(--profit-green); font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; display: block; }
-        
-        .ea-desc {
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1; /* AGAR KOTAK DESKRIPSI SEJAJAR SEMPURNA */
-        }
-
-        .specs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--text-gray);
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.05);
         }
+        .card-title-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+        .card-title { 
+            font-size: 1.15rem; 
+            color: var(--text-light); 
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .card-badge {
+            background: rgba(255, 193, 7, 0.15);
+            color: var(--hero-yellow);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .card-badge.green {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--profit-green);
+        }
+        .card-badge.blue {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+        .card-badge.pink {
+            background: rgba(236, 72, 153, 0.15);
+            color: #f472b6;
+        }
 
-        .btn-detail {
-            display: inline-block;
-            width: fit-content;
-            padding: 10px 25px;
-            background-color: transparent;
-            border: 2px solid var(--primary-blue);
-            color: var(--text-light);
-            border-radius: 50px;
-            font-weight: bold;
+        /* Bagian Deskripsi Singkat */
+        .card-body {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* Garis Pemisah (Divider) */
+        .card-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 20px 0 15px;
+            width: 100%;
+        }
+
+        /* Bagian Footer (Specs & Tombol View) */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-specs {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .btn-view-text {
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
             transition: 0.3s;
-            text-align: center;
-            font-size: 0.9rem;
         }
-        .btn-detail:hover { 
-            background-color: var(--primary-blue); 
-            color: white; 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        .btn-view-text:hover { color: #60a5fa; }
+
+        /* --- 5. MODAL (POPUP) SETTINGS --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 6, 23, 0.85); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;
+            padding: 20px;
         }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        
+        .modal-content {
+            background: #0f172a; border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem;
+            position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: translateY(-20px); transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+
+        .close-btn {
+            position: absolute; top: 15px; right: 20px; color: var(--text-gray);
+            font-size: 1.8rem; cursor: pointer; transition: 0.3s; line-height: 1;
+        }
+        .close-btn:hover { color: var(--hero-yellow); }
+
+        .modal-header-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .modal-title { font-size: 1.3rem; color: var(--text-light); }
+        .modal-price { color: var(--hero-yellow); font-weight: bold; font-size: 1rem; }
+
+        .modal-desc {
+            color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px;
+        }
+
+        .modal-specs {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.5rem;
+            font-size: 0.8rem; color: var(--text-gray); background: rgba(0,0,0,0.4);
+            padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .action-buttons { display: flex; gap: 10px; flex-wrap: wrap;}
+        
+        .btn-detail {
+            flex: 1; padding: 10px 15px; background-color: transparent; border: 1.5px solid var(--primary-blue);
+            color: var(--text-light); border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center;
+            font-size: 0.9rem; min-width: 120px; cursor: pointer;
+        }
+        .btn-detail:hover { background-color: var(--primary-blue); color: white; box-shadow: 0 5px 15px rgba(59,130,246,0.3);}
 
         .btn-demo {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 25px;
-            background-color: var(--primary-blue);
-            color: white;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: 0.3s;
-            text-align: center;
-            border: none;
-            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
-            text-decoration: none;
-            font-size: 0.9rem;
+            flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px;
+            background-color: var(--primary-blue); color: white; border-radius: 6px; font-weight: 600;
+            transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px;
         }
-        .btn-demo:hover {
-            transform: scale(1.05) translateY(-3px);
-            background-color: #0ea5e9;
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
-        }
+        .btn-demo:hover { background-color: #0ea5e9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(14,165,233,0.3);}
 
         /* --- 6. FOOTER & FLOAT --- */
         footer {
-            background-color: rgba(2, 6, 23, 0.95);
-            color: var(--text-gray);
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(10px);
+            background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center;
+            padding: 2.5rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1;
         }
-
+        footer h3 { font-size: 1.2rem; color: var(--text-light); }
         .wa-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--hero-yellow);
-            color: black;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
-            font-weight: bold;
-            font-size: 1rem;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
+            position: fixed; bottom: 20px; right: 20px; background-color: var(--hero-yellow); color: black;
+            padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            font-weight: bold; font-size: 0.9rem; z-index: 1001; display: flex; align-items: center; gap: 8px; transition: 0.3s;
         }
-        .wa-float:hover { transform: translateY(-5px) scale(1.05); }
+        .wa-float:hover { transform: translateY(-3px) scale(1.05); }
 
-        @media (max-width: 968px) {
+        @media (max-width: 768px) {
             .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-            .hero-text h1 { font-size: 2.2rem; }
+            .hero-text h1 { font-size: 2rem; }
             .pain-points li { justify-content: center; }
-            .hero-img-wrapper img { transform: none; }
-            .hero-img-wrapper img:hover { transform: none; }
-            
             .menu-toggle { display: block; }
             nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background-color: rgba(2, 6, 23, 0.95);
-                padding: 20px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%;
+                background-color: rgba(2, 6, 23, 0.95); padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             }
             nav ul.active { display: flex; }
-
-            .cluster-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cluster-card.full-width {
-                grid-column: span 1;
-                flex-direction: column;
-            }
-            .cluster-card.full-width .card-img {
-                flex: none;
-                width: 100%;
-                height: 250px;
-                min-height: 250px;
-            }
-            .cluster-card.full-width .card-img::after {
-                background: linear-gradient(to bottom, transparent, var(--card-dark));
-            }
-
-            .card-content {
-                padding: 1.5rem;
-                text-align: center;
-                align-items: center;
-            }
-            .badge {
-                top: 15px; left: 15px; border-radius: 4px;
-            }
-            .result-badge {
-                top: 15px; right: 15px; padding: 6px 12px; font-size: 0.75rem;
-            }
-            .specs {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-            }
+            .cluster-grid { grid-template-columns: 1fr; }
+            .modal-header-info { flex-direction: column; align-items: flex-start; gap: 5px; }
         }
     </style>
 </head>
@@ -561,6 +347,7 @@
         </div>
     </section>
 
+    <!-- === BAGIAN PRODUK (EXPERT ADVISOR) === -->
     <h2 id="products" class="section-title"><span data-key="sec_title">Produk & Layanan Unggulan</span></h2>
     <p class="section-subtitle" data-key="sec_subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
 
@@ -569,129 +356,202 @@
             
             <!-- ZENITH CARD -->
             <div class="cluster-card">
-                <div class="badge" data-key="badge_best">BEST SELLER</div>
-                
-                <a href="signal.html" class="result-badge">
-                    <i class="fas fa-chart-line"></i> <span data-key="btn_see_result">Live Result</span>
-                </a>
-
-                <div class="card-img" style="background-image: url('images/zenith poster new.jpg');"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Zenith Pro Scalper</h3>
-                    <span class="card-price" style="color: var(--hero-yellow);">Lifetime Access $499</span>
-                    
-                    <div class="ea-desc">
-                        <p style="margin-bottom: 15px;" data-key="zenith_desc">
-                            EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine agar pembukaan layer Grid tetap optimal dan presisi.
-                        </p>
-
-                        <h4 style="color: white; margin-bottom: 10px; font-size: 0.95rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);" data-key="feat_title">🌟 Fitur Unggulan Sistem:</h4>
-                        
-                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_1"><strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %).</div>
-                            </li>
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_2"><strong>Dynamic Trailing Stop :</strong> Mengunci keuntungan saat harga melesat.</div>
-                            </li>
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_3"><strong>Proteksi Ekuitas :</strong> TakeProfit & Cutloss berbasis batas kerugian.</div>
-                            </li>
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="feat_4"><strong>Smart Add-Order :</strong> Buka posisi cerdas saat tren berlanjut.</div>
-                            </li>
-                        </ul>
+                <div class="card-header">
+                    <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
+                    <div class="card-title-group">
+                        <h3 class="card-title">Zenith Pro Scalper</h3>
+                        <span class="card-badge">SCALPER</span>
                     </div>
-
-                    <div class="specs">
-                        <span>📈 MT4/MT5</span>
-                        <span>🥇 XAUUSD</span>
-                        <span data-key="spec_prot">🛡️ Protection with trailing</span>
-                        <span data-key="spec_scalp">⚡ Adaptive Grid Scalper</span>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
-                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Zenith%20Pro" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
-                        <a href="Zenith_Pro_Scalper_Demo.ex4" download id="btn-download-demo" class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT4</a>
-                    </div>
+                </div>
+                <div class="card-body" data-key="zenith_short">
+                    Scalping Gold presisi tinggi dengan sistem auto-adaptive risk manajemen otomatis.
+                </div>
+                <div class="card-divider"></div>
+                <div class="card-footer">
+                    <span class="card-specs">MT4/MT5 &nbsp;·&nbsp; XAUUSD</span>
+                    <button class="btn-view-text" onclick="openModal('modal-zenith')">VIEW <i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
 
             <!-- DOPAMIN HEDGE EA CARD -->
             <div class="cluster-card">
-                <div class="badge" style="background-color: #10b981; color: white;" data-key="badge_new">NEW RELEASE</div>
-                <div class="card-img" style="background-image: url('images/dopamin.jpg');"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Dopamin Hedge</h3>
-                    <span class="card-price" style="color: var(--hero-yellow);" data-key="dopamin_price">Lifetime Access $499</span>
-                    
-                    <div class="ea-desc">
-                        <p style="margin-bottom: 15px;" data-key="dopamin_desc">
-                            EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus, memastikan recovery posisi yang cepat.
-                        </p>
-                        
-                        <h4 style="color: white; margin-bottom: 10px; font-size: 0.95rem; text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);" data-key="dopamin_feat_title">🌟 Fitur Unggulan Sistem:</h4>
-                        
-                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="dopamin_feat_1"><strong>Daily Lock Profit :</strong> Mengamankan target profit harian otomatis.</div>
-                            </li>
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="dopamin_feat_2"><strong>Daily Lock Max Loss :</strong> Membatasi maksimal floating loss harian untuk keamanan.</div>
-                            </li>
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="dopamin_feat_3"><strong>Smart Trailing :</strong> Memaksimalkan profit mengikuti pergerakan harga.</div>
-                            </li>
-                            <li style="font-size: 0.8rem; color: #cbd5e1; display: flex; gap: 8px;">
-                                <span style="color: var(--hero-yellow);">✔</span>
-                                <div data-key="dopamin_feat_4"><strong>Smart Lock Profit :</strong> Mengunci porsi profit secara presisi.</div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="specs">
-                        <span>📈 MT4/MT5</span>
-                        <span data-key="spec_hedge">🔄 24/7 Grid Hedge</span>
-                        <span data-key="spec_straddle">⚔️ Straddle Strategy</span>
-                        <span>⚡ Full Auto</span>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
-                        <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20tertarik%20dengan%20EA%20Dopamin%20Hedge" class="btn-detail" target="_blank" data-key="btn_order">Order Now</a>
-                        <a href="Dopamin_Hedge_EA_Demo.ex5" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
+                <div class="card-header">
+                    <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
+                    <div class="card-title-group">
+                        <h3 class="card-title">Dopamin Hedge</h3>
+                        <span class="card-badge green">HEDGE</span>
                     </div>
                 </div>
+                <div class="card-body" data-key="dopamin_short">
+                    Strategi Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.
+                </div>
+                <div class="card-divider"></div>
+                <div class="card-footer">
+                    <span class="card-specs">MT4/MT5 &nbsp;·&nbsp; ALL PAIRS</span>
+                    <button class="btn-view-text" onclick="openModal('modal-dopamin')">VIEW <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- GOLDEN PHANTOM CARD -->
+            <div class="cluster-card">
+                <div class="card-header">
+                    <img src="images/goldenphantom.jpg" alt="Golden Phantom Logo" class="card-logo">
+                    <div class="card-title-group">
+                        <h3 class="card-title">Golden Phantom</h3>
+                        <span class="card-badge pink">MULTI-STRATEGY</span>
+                    </div>
+                </div>
+                <div class="card-body" data-key="phantom_short">
+                    8 strategi independen di berbagai timeframe dengan adaptasi pergerakan gold otomatis.
+                </div>
+                <div class="card-divider"></div>
+                <div class="card-footer">
+                    <span class="card-specs">H1/H4/D1 &nbsp;·&nbsp; XAUUSD</span>
+                    <button class="btn-view-text" onclick="openModal('modal-phantom')">VIEW <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- === BAGIAN COPYTRADE (DIPISAHKAN) === -->
+    <h2 id="copytrade" class="section-title"><span data-key="copy_sec_title">Layanan Copytrade</span></h2>
+    <p class="section-subtitle" data-key="copy_sec_subtitle">Solusi pasif income tanpa harus analisa market 24/7</p>
+
+    <div class="container container-single">
+        <div class="cluster-grid" style="grid-template-columns: 1fr;">
+            
+            <!-- PREMIUM COPYTRADE CARD -->
+            <div class="cluster-card">
+                <div class="card-header">
+                    <img src="images/copytrade.jpg" alt="Copytrade Logo" class="card-logo">
+                    <div class="card-title-group">
+                        <h3 class="card-title">Premium Copytrade</h3>
+                        <span class="card-badge blue">AUTO-PILOT</span>
+                    </div>
+                </div>
+                <div class="card-body" data-key="copy_short">
+                    Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.
+                </div>
+                <div class="card-divider"></div>
+                <div class="card-footer">
+                    <span class="card-specs">MT4/MT5 &nbsp;·&nbsp; MULTI</span>
+                    <button class="btn-view-text" onclick="openModal('modal-copytrade')">VIEW <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- === KUMPULAN MODAL POPUP (MUNCUL KETIKA KLIK VIEW) === -->
+    
+    <!-- Modal Zenith -->
+    <div id="modal-zenith" class="modal-overlay" onclick="closeOnOutside(event, 'modal-zenith')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-zenith')">&times;</span>
+            <div class="modal-header-info">
+                <h3 class="modal-title">Zenith Pro Scalper</h3>
+                <span class="modal-price">Lifetime Access $499</span>
             </div>
             
-            <!-- PREMIUM COPYTRADE (FULL WIDTH) -->
-            <div class="cluster-card full-width">
-                <div class="badge" data-key="badge_prem">PREMIUM</div>
-                <div class="card-img" style="background-image: url('images/copytrade.jpg');"></div>
-                <div class="card-content">
-                    <h3 class="card-title">PREMIUM COPYTRADE</h3>
-                    <span class="card-price" data-key="copy_price">Profit Sharing 80 : 20</span>
-                    
-                    <p class="ea-desc" data-key="copy_desc">
-                        Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten tanpa harus memantau market setiap saat.
-                    </p>
-
-                    <div class="specs">
-                        <span data-key="spec_cp1">💰 Avg 10-20%/Month</span>
-                        <span data-key="spec_cp2">🛡️ Full Auto Pilot</span>
-                        <span data-key="spec_cp3">📱 Fast Acces</span>
-                        <span data-key="spec_cp4">🔄 VPS $15 3 Month</span>
-                    </div>
-                    <a href="index2.html" class="btn-detail" data-key="btn_join_copy">Join Copytrade</a>
-                </div>
+            <div class="modal-desc" data-key="zenith_desc">
+                EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine.
             </div>
 
+            <div class="modal-specs">
+                <span>📈 Platform: MT4/MT5</span>
+                <span>🥇 Pair: XAUUSD</span>
+                <span data-key="spec_prot">🛡️ Protection with trailing</span>
+                <span data-key="spec_scalp">⚡ Adaptive Grid Scalper</span>
+            </div>
+
+            <div class="action-buttons">
+                <!-- Tambahkan data-product="Zenith Pro Scalper" -->
+                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Zenith Pro Scalper">Order Now</a>
+                <a href="Zenith_Pro_Scalper_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT4</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dopamin -->
+    <div id="modal-dopamin" class="modal-overlay" onclick="closeOnOutside(event, 'modal-dopamin')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-dopamin')">&times;</span>
+            <div class="modal-header-info">
+                <h3 class="modal-title">Dopamin Hedge</h3>
+                <span class="modal-price" data-key="dopamin_price">Lifetime Access $499</span>
+            </div>
+            
+            <div class="modal-desc" data-key="dopamin_desc">
+                EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus.
+            </div>
+
+            <div class="modal-specs">
+                <span>📈 Platform: MT4/MT5</span>
+                <span data-key="spec_hedge">🔄 24/7 Grid Hedge</span>
+                <span data-key="spec_straddle">⚔️ Straddle Strategy</span>
+                <span>⚡ Full Auto</span>
+            </div>
+
+            <div class="action-buttons">
+                <!-- Tambahkan data-product="Dopamin Hedge" -->
+                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Dopamin Hedge">Order Now</a>
+                <a href="Dopamin_Hedge_EA_Demo.ex5" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Golden Phantom -->
+    <div id="modal-phantom" class="modal-overlay" onclick="closeOnOutside(event, 'modal-phantom')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-phantom')">&times;</span>
+            <div class="modal-header-info">
+                <h3 class="modal-title">Golden Phantom</h3>
+                <span class="modal-price" data-key="phantom_price">Lifetime Access $499</span>
+            </div>
+            
+            <div class="modal-desc" data-key="phantom_desc">
+                EA Multi-Strategy canggih yang menggunakan 8 strategi independen yang berjalan di berbagai timeframe secara bersamaan. Dilengkapi dengan auto-adaptive risk untuk memaksimalkan profit pada pergerakan XAUUSD.
+            </div>
+
+            <div class="modal-specs">
+                <span>📈 Platform: MT4/MT5</span>
+                <span>🥇 Pair: XAUUSD</span>
+                <span data-key="spec_tf">⏳ Multi-Timeframe (H1/H4/D1)</span>
+                <span data-key="spec_8strat">⚡ 8 Independent Strategies</span>
+            </div>
+
+            <div class="action-buttons">
+                <!-- Tambahkan data-product="Golden Phantom" -->
+                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Golden Phantom">Order Now</a>
+                <a href="Golden_Phantom_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT4</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Copytrade -->
+    <div id="modal-copytrade" class="modal-overlay" onclick="closeOnOutside(event, 'modal-copytrade')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-copytrade')">&times;</span>
+            <div class="modal-header-info">
+                <h3 class="modal-title">PREMIUM COPYTRADE</h3>
+                <span class="modal-price" data-key="copy_price">Profit Sharing 80 : 20</span>
+            </div>
+            
+            <div class="modal-desc" data-key="copy_desc">
+                Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten.
+            </div>
+
+            <div class="modal-specs">
+                <span data-key="spec_cp1">💰 Avg 10-20%/Month</span>
+                <span data-key="spec_cp2">🛡️ Full Auto Pilot</span>
+                <span data-key="spec_cp3">📱 Fast Acces</span>
+                <span data-key="spec_cp4">🔄 VPS $15 3 Month</span>
+            </div>
+
+            <div class="action-buttons">
+                <a href="index2.html" class="btn-demo wa-link-copy" style="flex: auto;" data-key="btn_join_copy">Join Copytrade</a>
+            </div>
         </div>
     </div>
 
@@ -703,7 +563,7 @@
         <small>&copy; 2026 Boom Trade Indonesia. All rights reserved.</small>
     </footer>
 
-    <a href="https://t.me/bangrioboomtrade?text=Halo%20Boom%20Trade,%20saya%20mau%20bergabung" class="wa-float" target="_blank">
+    <a href="#" class="wa-float wa-link-join" target="_blank">
         💬 <span data-key="wa_btn">Join Now</span>
     </a>
 
@@ -712,6 +572,21 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        // Modal Control Functions
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function closeOnOutside(event, id) {
+            if (event.target.id === id) {
+                closeModal(id);
+            }
+        }
+
         const translations = {
             id: {
                 nav_home: "Beranda",
@@ -728,36 +603,31 @@
                 btn_join_now: "💬 Join Now",
                 sec_title: "Produk & Layanan Unggulan",
                 sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
-                badge_best: "BEST SELLER",
-                badge_new: "NEW RELEASE",
-                btn_see_result: "Lihat Result", 
-                zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine agar pembukaan layer Grid tetap optimal dan presisi.",
-                feat_title: "🌟 Fitur Unggulan Sistem:",
-                feat_1: "<strong>Smart Money Management :</strong> Auto Lot berbasis persentase risiko (Risk %).",
-                feat_2: "<strong>Dynamic Trailing Stop :</strong> Mengunci keuntungan saat harga melesat.",
-                feat_3: "<strong>Proteksi Ekuitas :</strong> TakeProfit & Cutloss berbasis batas kerugian.",
-                feat_4: "<strong>Smart Add-Order :</strong> Buka posisi cerdas saat tren berlanjut.",
-                feat_5: "<strong>Trading Time Filter :</strong> Atur jam aktif EA untuk menghindari likuiditas buruk & spread melar.",
+                
+                copy_sec_title: "Layanan Copytrade",
+                copy_sec_subtitle: "Solusi pasif income tanpa harus analisa market 24/7",
+
+                zenith_short: "Scalping Gold presisi tinggi dengan sistem auto-adaptive risk manajemen otomatis.",
+                dopamin_short: "Strategi Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.",
+                phantom_short: "8 strategi independen di berbagai timeframe dengan adaptasi pergerakan gold otomatis.",
+                copy_short: "Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.",
+                
                 spec_prot: "🛡️ Protection with trailing",
                 spec_scalp: "⚡ Adaptive Grid Scalper",
                 dopamin_price: "Lifetime Access $499",
-                dopamin_desc: "EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus, memastikan recovery posisi yang cepat.",
-                dopamin_feat_title: "🌟 Fitur Unggulan Sistem:",
-                dopamin_feat_1: "<strong>Daily Lock Profit :</strong> Mengamankan target profit harian otomatis.",
-                dopamin_feat_2: "<strong>Daily Lock Max Loss :</strong> Membatasi maksimal floating loss harian untuk keamanan.",
-                dopamin_feat_3: "<strong>Smart Trailing :</strong> Memaksimalkan profit mengikuti pergerakan harga.",
-                dopamin_feat_4: "<strong>Smart Lock Profit :</strong> Mengunci porsi profit secara presisi.",
                 spec_hedge: "🔄 24/7 Grid Hedge",
                 spec_straddle: "⚔️ Straddle Strategy",
-                stats_download: "Demo downloaded:",
-                stats_pub: "Published:",
-                stats_ver: "Current version:",
-                stats_live: "ZenithPro Scalper Performance",
+                phantom_price: "Lifetime Access $499",
+                spec_tf: "⏳ Multi-Timeframe (H1/H4/D1)",
+                spec_8strat: "⚡ 8 Independent Strategies",
+                
+                zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine.",
+                dopamin_desc: "EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus.",
+                phantom_desc: "EA Multi-Strategy canggih yang menggunakan 8 strategi independen yang berjalan di berbagai timeframe secara bersamaan. Dilengkapi dengan auto-adaptive risk untuk memaksimalkan profit pada pergerakan XAUUSD.",
                 btn_order: "Order Now",
-                btn_free_demo: "📥 Free Demo MT5",
-                badge_prem: "PREMIUM",
+                btn_free_demo: "📥 Free Demo",
                 copy_price: "Profit Sharing 80 : 20",
-                copy_desc: "Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten tanpa harus memantau market setiap saat.",
+                copy_desc: "Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten.",
                 spec_cp1: "💰 Avg 10-20%/Month",
                 spec_cp2: "🛡️ Full Auto Pilot",
                 spec_cp3: "📱 Fast Acces",
@@ -782,36 +652,31 @@
                 btn_join_now: "💬 Join Now",
                 sec_title: "Featured Products & Services",
                 sec_subtitle: "Choose the best trading weapon for your investment style",
-                badge_best: "BEST SELLER",
-                badge_new: "NEW RELEASE",
-                btn_see_result: "See Result", 
-                zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard, powered by a Smart Recovery Engine ensuring Grid layer openings remain optimal and precise.",
-                feat_title: "🌟 System Highlight Features:",
-                feat_1: "<strong>Smart Money Management :</strong> Auto Lot based on risk percentage (Risk %).",
-                feat_2: "<strong>Dynamic Trailing Stop :</strong> Profit Lock system that secures gains.",
-                feat_3: "<strong>Equity Protection :</strong> TakeProfit & Cutloss based on loss percentage.",
-                feat_4: "<strong>Smart Add-Order :</strong> Intelligent extra position opening.",
-                feat_5: "<strong>Trading Time Filter :</strong> Configure active EA hours.",
+
+                copy_sec_title: "Copytrade Service",
+                copy_sec_subtitle: "Passive income solution without analyzing the market 24/7",
+                
+                zenith_short: "High-precision Gold scalping with automatic auto-adaptive risk management system.",
+                dopamin_short: "24/7 Grid Hedge strategy with smart and automatic floating recovery features.",
+                phantom_short: "8 independent strategies across multiple timeframes with auto gold price adaptation.",
+                copy_short: "100% Auto-Pilot copytrade service without monitoring charts, auto-copying to your account.",
+                
                 spec_prot: "🛡️ Protection with trailing",
                 spec_scalp: "⚡ Adaptive Grid Scalper",
                 dopamin_price: "Lifetime Access $499",
-                dopamin_desc: "A robust Straddle Grid Hedge EA designed to operate <strong>24 hours nonstop</strong>. Opens dual-directional orders simultaneously with a precise martingale layer mechanism focusing only on floating minus areas, ensuring rapid position recovery.",
-                dopamin_feat_title: "🌟 System Highlight Features:",
-                dopamin_feat_1: "<strong>Daily Lock Profit :</strong> Automatically secures daily profit targets.",
-                dopamin_feat_2: "<strong>Daily Lock Max Loss :</strong> Limits maximum daily floating loss for safety.",
-                dopamin_feat_3: "<strong>Smart Trailing :</strong> Maximizes profit by following price movements.",
-                dopamin_feat_4: "<strong>Smart Lock Profit :</strong> Locks in profit precisely.",
                 spec_hedge: "🔄 24/7 Grid Hedge",
                 spec_straddle: "⚔️ Straddle Strategy",
-                stats_download: "Demo downloaded:",
-                stats_pub: "Published:",
-                stats_ver: "Current version:",
-                stats_live: "ZenithPro Scalper Performance",
+                phantom_price: "Lifetime Access $499",
+                spec_tf: "⏳ Multi-Timeframe (H1/H4/D1)",
+                spec_8strat: "⚡ 8 Independent Strategies",
+                
+                zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard, powered by a Smart Recovery Engine.",
+                dopamin_desc: "A robust Straddle Grid Hedge EA designed to operate <strong>24 hours nonstop</strong>. Opens dual-directional orders simultaneously with a precise martingale layer mechanism focusing only on floating minus areas.",
+                phantom_desc: "An advanced Multi-Strategy EA utilizing 8 independent strategies running across multiple timeframes simultaneously. Equipped with auto-adaptive risk to maximize profit on XAUUSD movements.",
                 btn_order: "Order Now",
-                btn_free_demo: "📥 Free Demo MT5",
-                badge_prem: "PREMIUM",
+                btn_free_demo: "📥 Free Demo",
                 copy_price: "Profit Sharing 80 : 20",
-                copy_desc: "Our 100% Expert Advisor Auto-Pilot Copytrade service executes trades while your account copies positions instantly. Sit back and enjoy consistent profits without monitoring the market 24/7.",
+                copy_desc: "Our 100% Expert Advisor Auto-Pilot Copytrade service executes trades while your account copies positions instantly. Sit back and enjoy consistent profits.",
                 spec_cp1: "💰 Avg 10-20%/Month",
                 spec_cp2: "🛡️ Full Auto Pilot",
                 spec_cp3: "📱 Fast Acces",
@@ -824,6 +689,69 @@
         };
 
         let currentLang = 'id'; 
+        let activeTelegram = "bangrioboomtrade";
+        let agentName = "Boom Trade";
+
+        // Logic Setup untuk Variabel Agen 
+        function initializeAgent() {
+            const teamDirectory = {
+                "rayung": "gdrayy",
+                "rendra": "RendraBagus12",
+                "lose": "flp_lose",
+                "yoga": "Ky_boomtrade",
+                "baskara": "baskara_bt",
+                "budi": "kalycafx"
+            };
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const tradeParam = urlParams.get('trade');
+            const agentKey = tradeParam ? tradeParam.toLowerCase() : "";
+            
+            activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
+            agentName = tradeParam ? tradeParam.toUpperCase() : "Boom Trade";
+        }
+
+        // Logic untuk memperbarui isi pesan Telegram ke bahasa yang sesuai
+        function updateTelegramLinks(lang) {
+            // Template kalimat Bahasa Indonesia dan Inggris
+            const waTemplates = {
+                id: {
+                    order: "Halo, saya tertarik dengan EA {product} melalui Anda " + agentName,
+                    join: "Halo, saya mau bertanya mengenai informasi lebih lanjut mengenai website ini dari Anda " + agentName,
+                    copy: "Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + agentName
+                },
+                en: {
+                    order: "Hello, I am interested in the {product} EA through you " + agentName,
+                    join: "Hello, I would like to ask for more information about this website from you " + agentName,
+                    copy: "Hello, I am interested in joining the Premium Copytrade service through you " + agentName
+                }
+            };
+
+            const t = waTemplates[lang] || waTemplates['id'];
+
+            // 1. Update pesan Order Now (Sesuai nama produk masing-masing)
+            const orderBtns = document.querySelectorAll('.wa-link-order');
+            orderBtns.forEach(btn => {
+                const productName = btn.getAttribute('data-product') || 'Produk EA';
+                const msgOrder = encodeURIComponent(t.order.replace('{product}', productName));
+                btn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
+            });
+
+            // 2. Update pesan Join Now (Float Chat Kanan Bawah)
+            const msgJoin = encodeURIComponent(t.join);
+            const joinBtns = document.querySelectorAll('.wa-link-join');
+            joinBtns.forEach(btn => {
+                btn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
+            });
+
+            // 3. Update pesan Join Copytrade
+            const msgCopy = encodeURIComponent(t.copy);
+            const copyBtns = document.querySelectorAll('.wa-link-copy');
+            copyBtns.forEach(btn => {
+                btn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
+                btn.target = "_blank";
+            });
+        }
 
         function detectUserLanguage() {
             const browserLang = navigator.language || navigator.userLanguage || 'id';
@@ -849,6 +777,9 @@
                     el.innerHTML = translations[lang][key];
                 }
             });
+
+            // Update isi pesan dinamis WA/Telegram setelah translate jalan
+            updateTelegramLinks(lang);
         }
 
         function toggleLanguage() {
@@ -862,84 +793,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
+            initializeAgent();
             detectUserLanguage();
-
-            const teamDirectory = {
-                "rayung": "gdrayy",
-                "rendra": "RendraBagus12",
-                "lose": "flp_lose",
-                "yoga": "Ky_boomtrade",
-                "baskara": "baskara_bt",
-                "budi": "kalycafx"
-            };
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const tradeParam = urlParams.get('trade');
-            
-            const agentKey = tradeParam ? tradeParam.toLowerCase() : "";
-            const activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
-
-            const msgOrder = encodeURIComponent("Halo, saya tertarik dengan EA Zenith Pro melalui Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
-            const msgJoin = encodeURIComponent("Halo, saya mau bertanya mengenai informasi lebih lanjut mengenaui website ini dari Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
-            const msgCopy = encodeURIComponent("Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + (tradeParam ? tradeParam.toUpperCase() : "Boom Trade"));
-
-            const orderBtn = document.querySelector('a.btn-detail[data-key="btn_order"]');
-            if (orderBtn) {
-                orderBtn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
-            }
-
-            const floatBtn = document.querySelector('.wa-float');
-            if (floatBtn) {
-                floatBtn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
-            }
-
-            const copyBtn = document.querySelector('a.btn-detail[href="index2.html"]');
-            if (copyBtn) {
-                copyBtn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
-                copyBtn.target = "_blank";
-            }
-
-            const countDisplay = document.getElementById('demo-count');
-            const downloadBtn = document.getElementById('btn-download-demo');
-            
-            const firebaseConfig = {
-                apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
-                authDomain: "zenith-demo-download.firebaseapp.com",
-                databaseURL: "https://zenith-demo-download-default-rtdb.asia-southeast1.firebasedatabase.app",
-                projectId: "zenith-demo-download",
-                storageBucket: "zenith-demo-download.firebasestorage.app",
-                messagingSenderId: "173090395889",
-                appId: "1:173090395889:web:e8ae52feac5591c8bc3b50",
-                measurementId: "G-NTT9L32RTD"
-            };
-
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-            var database = firebase.database();
-            
-            var countRef = database.ref('downloads/zenith');
-
-            function formatNumber(num) {
-                return Number(num).toLocaleString('fr-FR').replace(/,/g, ' ');
-            }
-
-            countRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                let currentTotal = data !== null ? data : 0;
-                if(countDisplay) {
-                    countDisplay.innerText = formatNumber(currentTotal);
-                }
-            });
-
-            if(downloadBtn) {
-                downloadBtn.addEventListener('click', function() {
-                    countRef.transaction(function(currentCount) {
-                        if (currentCount === null) { return 1; }
-                        return currentCount + 1;
-                    });
-                });
-            }
         });
     </script>
 </body>
