@@ -396,14 +396,14 @@
                 phantom: initChart('growthChart_phantom')
             };
 
-            // Fungsi Update UI per Akun
+// Fungsi Update UI per Akun
             function updateTrackerData(data, prefix, chartObj) {
-                if(!data) return; // Lewati jika data tidak ada di node tsb
+                if(!data) return; 
 
                 const curr = data.currency ? " " + data.currency : " USD";
 
-                document.getElementById(`track-broker_${prefix}`).innerText = data.broker || "Unknown Broker";
-                document.getElementById(`track-leverage_${prefix}`).innerText = data.leverage || "0";
+                if(data.broker !== undefined) document.getElementById(`track-broker_${prefix}`).innerText = data.broker;
+                if(data.leverage !== undefined) document.getElementById(`track-leverage_${prefix}`).innerText = data.leverage;
                 
                 if(data.equity !== undefined) document.getElementById(`track-equity_${prefix}`).innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
                 if(data.profit !== undefined) document.getElementById(`track-profit_${prefix}`).innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
@@ -412,8 +412,7 @@
                 
                 if(data.drawdown !== undefined) {
                     document.getElementById(`track-drawdown_${prefix}`).innerText = data.drawdown.toFixed(2) + '%';
-                    let ddRatio = data.drawdown;
-                    if(ddRatio > 100) ddRatio = 100;
+                    let ddRatio = data.drawdown > 100 ? 100 : data.drawdown;
                     document.getElementById(`bar-drawdown_${prefix}`).style.width = ddRatio + '%';
                 }
 
@@ -421,18 +420,39 @@
                     document.getElementById(`track-days_${prefix}`).innerText = data.days + ' Hari';
                 }
 
+                // ==========================================
+                // SISTEM GRAFIK YANG DIGANTI (DI SINI LETAKNYA)
+                // ==========================================
                 if(data.growth !== undefined && chartObj) {
                     const growthEl = document.getElementById(`track-growth_${prefix}`);
                     growthEl.innerText = data.growth.toFixed(2) + '%';
                     growthEl.style.color = data.growth >= 0 ? '#4CAF50' : '#ef4444';
                     
-                    chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
+                    let chartArray = data.chart;
+                    
+                    if(typeof chartArray === 'string') {
+                        try { chartArray = JSON.parse(chartArray); } catch(e) {}
+                    }
+
+                    if(Array.isArray(chartArray) && chartArray.length > 1) {
+                        chartObj.data.labels = chartArray.map((_, i) => i + 1);
+                        chartObj.data.datasets[0].data = chartArray;
+                    } else {
+                        chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
+                    }
                     chartObj.update();
                 }
 
-                // Kalkulasi Bar Profit
-                if(data.equity !== undefined && data.profit !== undefined) {
-                    let profitRatio = data.equity > 0 ? (data.profit / data.equity) * 100 : 0;
+                // ==========================================
+                // KODE KALKULASI BAR PROFIT (TETAP ADA DI BAWAH)
+                // ==========================================
+                if(data.deposit !== undefined && data.profit !== undefined && data.deposit > 0) {
+                    let profitRatio = (data.profit / data.deposit) * 100;
+                    if(profitRatio > 100) profitRatio = 100;
+                    if(profitRatio < 0) profitRatio = 0;
+                    document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
+                } else if(data.equity !== undefined && data.profit !== undefined) {
+                    let profitRatio = (data.profit / data.equity) * 100;
                     if(profitRatio > 100) profitRatio = 100;
                     if(profitRatio < 0) profitRatio = 0;
                     document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
