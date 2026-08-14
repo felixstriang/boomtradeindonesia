@@ -420,9 +420,6 @@
                     document.getElementById(`track-days_${prefix}`).innerText = data.days + ' Hari';
                 }
 
-                // ==========================================
-                // SISTEM GRAFIK YANG DIGANTI (DI SINI LETAKNYA)
-                // ==========================================
                 if(data.growth !== undefined && chartObj) {
                     const growthEl = document.getElementById(`track-growth_${prefix}`);
                     growthEl.innerText = data.growth.toFixed(2) + '%';
@@ -434,18 +431,22 @@
                         try { chartArray = JSON.parse(chartArray); } catch(e) {}
                     }
 
-                    if(Array.isArray(chartArray) && chartArray.length > 1) {
-                        chartObj.data.labels = chartArray.map((_, i) => i + 1);
-                        chartObj.data.datasets[0].data = chartArray;
+                    if(Array.isArray(chartArray) && chartArray.length > 0) {
+                        // KUNCI PERBAIKAN:
+                        // Kita gandakan array riwayatnya, lalu paksa titik terakhir grafik 
+                        // agar terhubung dengan angka pertumbuhan Equity saat ini.
+                        let finalChart = [...chartArray];
+                        finalChart.push(data.growth);
+
+                        chartObj.data.labels = finalChart.map((_, i) => i + 1);
+                        chartObj.data.datasets[0].data = finalChart;
                     } else {
+                        // Fallback jika array kosong
                         chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
                     }
                     chartObj.update();
                 }
 
-                // ==========================================
-                // KODE KALKULASI BAR PROFIT (TETAP ADA DI BAWAH)
-                // ==========================================
                 if(data.deposit !== undefined && data.profit !== undefined && data.deposit > 0) {
                     let profitRatio = (data.profit / data.deposit) * 100;
                     if(profitRatio > 100) profitRatio = 100;
@@ -458,7 +459,7 @@
                     document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
                 }
             }
-
+            
             // LISTENER DATABASE (SATU PINTU)
             var trackerRef = database.ref('tracker');
             trackerRef.on('value', (snapshot) => {
