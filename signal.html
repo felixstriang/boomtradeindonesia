@@ -26,9 +26,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Diubah agar bisa di-scroll */
             min-height: 100vh;
-            padding: 20px;
+            padding: 80px 20px 40px; /* Padding disesuaikan */
+            gap: 40px; /* Jarak antar tracker */
         }
 
         .signal-wrapper {
@@ -44,12 +45,12 @@
             position: relative;
         }
 
-        /* --- TOMBOL KEMBALI KE HOME --- */
+        /* --- TOMBOL KEMBALI KE HOME (Dibuat Fixed agar tidak hilang saat scroll) --- */
         .btn-home {
-            position: absolute;
+            position: fixed;
             top: 25px;
             left: 25px;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(30, 41, 59, 0.9);
             color: var(--primary-blue);
             border: 1px solid var(--primary-blue);
             padding: 8px 18px;
@@ -61,6 +62,7 @@
             gap: 8px;
             text-decoration: none;
             transition: 0.3s;
+            z-index: 999;
         }
         .btn-home:hover {
             background: var(--primary-blue);
@@ -124,61 +126,61 @@
 </head>
 <body>
 
-    <div class="signal-wrapper">
-        <!-- Tombol Kembali ke Beranda Utama -->
-        <a href="index.html" class="btn-home">
-            <i class="fas fa-arrow-left"></i> Home
-        </a>
+    <!-- Tombol Home Global -->
+    <a href="index.html" class="btn-home">
+        <i class="fas fa-arrow-left"></i> Home
+    </a>
 
+    <!-- ============================================== -->
+    <!-- TRACKER 1: ZENITHPRO SCALPER -->
+    <!-- ============================================== -->
+    <div class="signal-wrapper">
         <h3>ZenithPro Scalper Live</h3>
-        
         <div class="mql5-tracker-ui">
-            <!-- Kolom 1: Line Chart -->
             <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
                 <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
                     <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
                         growth since 2026 
-                        <span id="track-days" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                        <span id="track-days_zenith" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
                     </div>
-                    <div id="track-growth" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                    <div id="track-growth_zenith" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
                 </div>
                 
                 <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
-                    <canvas id="growthChart"></canvas>
+                    <canvas id="growthChart_zenith"></canvas>
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
-                    <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker">Connecting...</span></div>
-                    <div>1:<span id="track-leverage">0</span></div>
+                    <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker_zenith">Connecting...</span></div>
+                    <div>1:<span id="track-leverage_zenith">0</span></div>
                 </div>
             </div>
 
-            <!-- Kolom 2: Stats -->
             <div class="tracker-col tracker-stats-right">
                 <div class="stat-item">
                     <span class="stat-label">Equity</span>
-                    <span class="stat-val" id="track-equity">0.00</span>
+                    <span class="stat-val" id="track-equity_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Profit</span>
-                    <span class="stat-val" id="track-profit">0.00</span>
-                    <div class="stat-bar"><div class="fill" id="bar-profit" style="width: 80%; background: #29b6f6;"></div></div>
+                    <span class="stat-val" id="track-profit_zenith">0.00</span>
+                    <div class="stat-bar"><div class="fill" id="bar-profit_zenith" style="width: 80%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Total Deposit</span>
-                    <span class="stat-val" id="track-deposit">0.00</span>
+                    <span class="stat-val" id="track-deposit_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Withdrawals</span>
-                    <span class="stat-val" id="track-withdrawal">0.00</span>
+                    <span class="stat-val" id="track-withdrawal_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 1%; background: #b3e5fc;"></div></div>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Max Drawdown</span>
-                    <span class="stat-val" id="track-drawdown">0.00%</span>
-                    <div class="stat-bar"><div class="fill" id="bar-drawdown" style="width: 0%; background: #ef4444;"></div></div>
+                    <span class="stat-val" id="track-drawdown_zenith">0.00%</span>
+                    <div class="stat-bar"><div class="fill" id="bar-drawdown_zenith" style="width: 0%; background: #ef4444;"></div></div>
                 </div>
             </div>
 
@@ -188,58 +190,143 @@
                 </a>
             </div>
         </div>
+    </div>
 
-        <div class="branding-footer">
-            Powered by <a href="index.html">Boom Trade Indonesia</a> — Your Partner Trading System
+    <!-- ============================================== -->
+    <!-- TRACKER 2: DOPAMIN -->
+    <!-- ============================================== -->
+    <div class="signal-wrapper">
+        <h3>Dopamin Hedge Live</h3>
+        <div class="mql5-tracker-ui">
+            <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
+                    <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
+                        growth since 2026 
+                        <span id="track-days_dopamin" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                    </div>
+                    <div id="track-growth_dopamin" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                </div>
+                
+                <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
+                    <canvas id="growthChart_dopamin"></canvas>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
+                    <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker_dopamin">Connecting...</span></div>
+                    <div>1:<span id="track-leverage_dopamin">0</span></div>
+                </div>
+            </div>
+
+            <div class="tracker-col tracker-stats-right">
+                <div class="stat-item">
+                    <span class="stat-label">Equity</span>
+                    <span class="stat-val" id="track-equity_dopamin">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Profit</span>
+                    <span class="stat-val" id="track-profit_dopamin">0.00</span>
+                    <div class="stat-bar"><div class="fill" id="bar-profit_dopamin" style="width: 80%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Deposit</span>
+                    <span class="stat-val" id="track-deposit_dopamin">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-val" id="track-withdrawal_dopamin">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 1%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Max Drawdown</span>
+                    <span class="stat-val" id="track-drawdown_dopamin">0.00%</span>
+                    <div class="stat-bar"><div class="fill" id="bar-drawdown_dopamin" style="width: 0%; background: #ef4444;"></div></div>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0; text-align: center;">
+                <a href="#" target="_blank" style="color: var(--primary-blue); font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <i class="https://www.myfxbook.com/portfolio/dopamin/12150340"></i> View on MyFxBook
+                </a>
+            </div>
         </div>
     </div>
 
+    <!-- ============================================== -->
+    <!-- TRACKER 3: GOLDEN PHANTOM -->
+    <!-- ============================================== -->
+    <div class="signal-wrapper">
+        <h3>Golden Phantom Live</h3>
+        <div class="mql5-tracker-ui">
+            <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
+                    <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
+                        growth since 2026 
+                        <span id="track-days_phantom" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                    </div>
+                    <div id="track-growth_phantom" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                </div>
+                
+                <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
+                    <canvas id="growthChart_phantom"></canvas>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
+                    <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker_phantom">Connecting...</span></div>
+                    <div>1:<span id="track-leverage_phantom">0</span></div>
+                </div>
+            </div>
+
+            <div class="tracker-col tracker-stats-right">
+                <div class="stat-item">
+                    <span class="stat-label">Equity</span>
+                    <span class="stat-val" id="track-equity_phantom">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Profit</span>
+                    <span class="stat-val" id="track-profit_phantom">0.00</span>
+                    <div class="stat-bar"><div class="fill" id="bar-profit_phantom" style="width: 80%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Deposit</span>
+                    <span class="stat-val" id="track-deposit_phantom">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-val" id="track-withdrawal_phantom">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 1%; background: #b3e5fc;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Max Drawdown</span>
+                    <span class="stat-val" id="track-drawdown_phantom">0.00%</span>
+                    <div class="stat-bar"><div class="fill" id="bar-drawdown_phantom" style="width: 0%; background: #ef4444;"></div></div>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0; text-align: center;">
+                <a href="#" target="_blank" style="color: var(--primary-blue); font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <i class="https://www.myfxbook.com/portfolio/golden-phantom/12150334"></i> View on MyFxBook
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER GLOBAL -->
+    <div class="branding-footer" style="padding-bottom: 20px;">
+        Powered by <a href="index.html">Boom Trade Indonesia</a> — Your Partner Trading System
+    </div>
+
+    <!-- SCRIPT FIREBASE & CHART.JS -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
-            let gradientFill = ctxGrowth.createLinearGradient(0, 0, 0, 140);
-            gradientFill.addColorStop(0, 'rgba(41, 182, 246, 0.4)'); 
-            gradientFill.addColorStop(1, 'rgba(41, 182, 246, 0.0)'); 
-
-            const curveShape = [0, 0.1, 0.3, 0.45, 0.6, 0.75, 0.85, 1.0];
-            const historyLabels = ['1','2','3','4','5','6','7','Current'];
-
-            const growthChart = new Chart(ctxGrowth, {
-                type: 'line',
-                data: {
-                    labels: historyLabels,
-                    datasets: [{
-                        data: curveShape.map(val => val * 0),
-                        borderColor: '#29b6f6', 
-                        backgroundColor: gradientFill,
-                        borderWidth: 2, fill: true, tension: 0.4, 
-                        pointRadius: 0, pointHoverRadius: 5,
-                        pointHoverBackgroundColor: '#ef4444', pointHoverBorderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#ffffff', titleColor: '#555', bodyColor: '#000',
-                            bodyFont: { weight: 'bold' }, borderColor: 'rgba(0,0,0,0.1)',
-                            borderWidth: 1, displayColors: false, padding: 10,
-                            callbacks: {
-                                title: function() { return ''; }, 
-                                label: function(context) { return context.parsed.y.toFixed(2) + '%'; }
-                            }
-                        }
-                    },
-                    scales: { x: { display: false }, y: { display: false } },
-                    layout: { padding: { top: 10, bottom: 0, left: 0, right: 0 } }
-                }
-            });
-
+            
+            // Konfigurasi Firebase
             const firebaseConfig = {
                 apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
                 authDomain: "zenith-demo-download.firebaseapp.com",
@@ -253,46 +340,117 @@
 
             if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
             var database = firebase.database();
-            var trackerRef = database.ref('tracker');
 
-            trackerRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if(data !== null) {
-                    const curr = data.currency ? " " + data.currency : " USD";
+            // Array Curve untuk Simulasi Tampilan Grafik
+            const curveShape = [0, 0.1, 0.3, 0.45, 0.6, 0.75, 0.85, 1.0];
+            const historyLabels = ['1','2','3','4','5','6','7','Current'];
 
-                    document.getElementById('track-broker').innerText = data.broker || "Unknown Broker";
-                    document.getElementById('track-leverage').innerText = data.leverage || "0";
-                    document.getElementById('track-equity').innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
-                    document.getElementById('track-profit').innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
-                    document.getElementById('track-deposit').innerText = data.deposit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
-                    document.getElementById('track-withdrawal').innerText = data.withdrawal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+            // Fungsi Setup Chart (Digunakan untuk ketiganya)
+            function initChart(canvasId) {
+                const canvas = document.getElementById(canvasId);
+                if(!canvas) return null;
+                const ctx = canvas.getContext('2d');
+                
+                let gradientFill = ctx.createLinearGradient(0, 0, 0, 140);
+                gradientFill.addColorStop(0, 'rgba(41, 182, 246, 0.4)'); 
+                gradientFill.addColorStop(1, 'rgba(41, 182, 246, 0.0)'); 
+
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: historyLabels,
+                        datasets: [{
+                            data: curveShape.map(val => val * 0),
+                            borderColor: '#29b6f6', 
+                            backgroundColor: gradientFill,
+                            borderWidth: 2, fill: true, tension: 0.4, 
+                            pointRadius: 0, pointHoverRadius: 5,
+                            pointHoverBackgroundColor: '#ef4444', pointHoverBorderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        interaction: { mode: 'index', intersect: false },
+                        plugins: { 
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#ffffff', titleColor: '#555', bodyColor: '#000',
+                                bodyFont: { weight: 'bold' }, borderColor: 'rgba(0,0,0,0.1)',
+                                borderWidth: 1, displayColors: false, padding: 10,
+                                callbacks: {
+                                    title: function() { return ''; }, 
+                                    label: function(context) { return context.parsed.y.toFixed(2) + '%'; }
+                                }
+                            }
+                        },
+                        scales: { x: { display: false }, y: { display: false } },
+                        layout: { padding: { top: 10, bottom: 0, left: 0, right: 0 } }
+                    }
+                });
+            }
+
+            // Buat objek chart
+            const charts = {
+                zenith: initChart('growthChart_zenith'),
+                dopamin: initChart('growthChart_dopamin'),
+                phantom: initChart('growthChart_phantom')
+            };
+
+            // Fungsi Update UI per Akun
+            function updateTrackerData(data, prefix, chartObj) {
+                if(!data) return; // Lewati jika data tidak ada di node tsb
+
+                const curr = data.currency ? " " + data.currency : " USD";
+
+                document.getElementById(`track-broker_${prefix}`).innerText = data.broker || "Unknown Broker";
+                document.getElementById(`track-leverage_${prefix}`).innerText = data.leverage || "0";
+                
+                if(data.equity !== undefined) document.getElementById(`track-equity_${prefix}`).innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                if(data.profit !== undefined) document.getElementById(`track-profit_${prefix}`).innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                if(data.deposit !== undefined) document.getElementById(`track-deposit_${prefix}`).innerText = data.deposit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                if(data.withdrawal !== undefined) document.getElementById(`track-withdrawal_${prefix}`).innerText = data.withdrawal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                
+                if(data.drawdown !== undefined) {
+                    document.getElementById(`track-drawdown_${prefix}`).innerText = data.drawdown.toFixed(2) + '%';
+                    let ddRatio = data.drawdown;
+                    if(ddRatio > 100) ddRatio = 100;
+                    document.getElementById(`bar-drawdown_${prefix}`).style.width = ddRatio + '%';
+                }
+
+                if(data.days !== undefined) {
+                    document.getElementById(`track-days_${prefix}`).innerText = data.days + ' Hari';
+                }
+
+                if(data.growth !== undefined && chartObj) {
+                    const growthEl = document.getElementById(`track-growth_${prefix}`);
+                    growthEl.innerText = data.growth.toFixed(2) + '%';
+                    growthEl.style.color = data.growth >= 0 ? '#4CAF50' : '#ef4444';
                     
-                    if(data.drawdown !== undefined) {
-                        document.getElementById('track-drawdown').innerText = data.drawdown.toFixed(2) + '%';
-                        let ddRatio = data.drawdown;
-                        if(ddRatio > 100) ddRatio = 100;
-                        document.getElementById('bar-drawdown').style.width = ddRatio + '%';
-                    }
+                    chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
+                    chartObj.update();
+                }
 
-                    if(data.days !== undefined) {
-                        document.getElementById('track-days').innerText = data.days + ' Hari';
-                    }
-
-                    if(data.growth !== undefined) {
-                        const growthEl = document.getElementById('track-growth');
-                        growthEl.innerText = data.growth.toFixed(2) + '%';
-                        growthEl.style.color = data.growth >= 0 ? '#4CAF50' : '#ef4444';
-                        
-                        growthChart.data.datasets[0].data = curveShape.map(val => val * data.growth);
-                        growthChart.update();
-                    }
-
+                // Kalkulasi Bar Profit
+                if(data.equity !== undefined && data.profit !== undefined) {
                     let profitRatio = data.equity > 0 ? (data.profit / data.equity) * 100 : 0;
                     if(profitRatio > 100) profitRatio = 100;
                     if(profitRatio < 0) profitRatio = 0;
-                    document.getElementById('bar-profit').style.width = profitRatio + '%';
+                    document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
+                }
+            }
+
+            // LISTENER DATABASE (SATU PINTU)
+            var trackerRef = database.ref('tracker');
+            trackerRef.on('value', (snapshot) => {
+                const allData = snapshot.val();
+                if(allData !== null) {
+                    // Update masing-masing kartu jika datanya tersedia
+                    updateTrackerData(allData.zenith, 'zenith', charts.zenith);
+                    updateTrackerData(allData.dopamin, 'dopamin', charts.dopamin);
+                    updateTrackerData(allData.phantom, 'phantom', charts.phantom);
                 }
             });
+
         });
     </script>
 </body>
