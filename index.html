@@ -265,9 +265,20 @@
         .btn-demo { flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; background-color: var(--primary-blue); color: white; border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px; }
         .btn-demo:hover { background-color: #0ea5e9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(14,165,233,0.3);}
 
-        /* --- 6. FOOTER & FLOAT --- */
-        footer { background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center; padding: 2.5rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1; }
+        /* --- 6. FOOTER, DISCLAIMER & FLOAT --- */
+        footer { background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center; padding: 3rem 2rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1; }
         footer h3 { font-size: 1.2rem; color: var(--text-light); }
+        
+        .disclaimer-box {
+            max-width: 900px;
+            margin: 2rem auto 1.5rem;
+            font-size: 0.75rem;
+            color: #64748b;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .disclaimer-box strong { color: #94a3b8; }
+
         .wa-float { position: fixed; bottom: 20px; right: 20px; background-color: var(--hero-yellow); color: black; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3); font-weight: bold; font-size: 0.9rem; z-index: 1001; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .wa-float:hover { transform: translateY(-3px) scale(1.05); }
 
@@ -309,7 +320,6 @@
                     <!-- Kotak Dropdown -->
                     <div class="mega-menu">
                         <div class="mega-menu-grid">
-                            <!-- Item 1 -->
                             <div class="mega-item" onclick="openModal('modal-zenith')">
                                 <img src="images/zenith poster new.jpg" alt="Zenith" class="mega-icon">
                                 <div class="mega-text">
@@ -317,7 +327,6 @@
                                     <span class="mega-subtitle">SCALPER · XAUUSD</span>
                                 </div>
                             </div>
-                            <!-- Item 2 -->
                             <div class="mega-item" onclick="openModal('modal-dopamin')">
                                 <img src="images/dopamin.jpg" alt="Dopamin" class="mega-icon">
                                 <div class="mega-text">
@@ -325,7 +334,6 @@
                                     <span class="mega-subtitle">HEDGE · ALL PAIRS</span>
                                 </div>
                             </div>
-                            <!-- Item 3 -->
                             <div class="mega-item" onclick="openModal('modal-phantom')">
                                 <img src="images/goldenphantom.jpg" alt="Phantom" class="mega-icon">
                                 <div class="mega-text">
@@ -337,7 +345,6 @@
                         <!-- Footer Dropdown -->
                         <div class="mega-menu-footer">
                             <a href="#products" class="mega-view-all">VIEW ALL <i class="fas fa-arrow-right"></i></a>
-                            <!-- Tombol GET EA dengan class wa-link-bundle -->
                             <a href="#" target="_blank" class="mega-bundle-btn wa-link-bundle"><i class="fas fa-star"></i> GET EA</a>
                         </div>
                     </div>
@@ -373,14 +380,13 @@
     </section>
 
     <!-- === BAGIAN EXPERT ADVISOR CAROUSEL (MARQUEE) === -->
-    <h2 id="products" class="section-title"><span data-key="sec_title">Expert Advisor Unggulan</span></h2>
+    <h2 id="products" class="section-title"><span data-key="sec_title">Expert Advisor & Layanan Unggulan</span></h2>
     <p class="section-subtitle" data-key="sec_subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
 
     <div class="container">
         <div class="carousel-wrapper">
             <div class="carousel-track" id="product-carousel">
                 
-                <!-- SLIDE GRUP 1 (EA Asli) -->
                 <div class="carousel-slide">
                     <div class="cluster-card" onclick="openModal('modal-zenith')">
                         <div class="card-header">
@@ -437,7 +443,6 @@
                     </div>
                 </div>
 
-                <!-- SLIDE GRUP 2 (Duplikasi untuk efek Loop) -->
                 <div class="carousel-slide">
                     <div class="cluster-card" onclick="openModal('modal-zenith')">
                         <div class="card-header">
@@ -631,11 +636,19 @@
         </div>
     </div>
 
+    <!-- === FOOTER & DISCLAIMER === -->
     <footer id="contact">
         <h3>BOOM TRADE INDONESIA</h3>
         <p data-key="footer_tag">Your Partner Trading System</p>
         <p data-key="footer_loc">Jawa Timur - Indonesia</p>
-        <br>
+        
+        <!-- Peringatan Risiko (High-Risk Disclaimer) -->
+        <div class="disclaimer-box">
+            <p data-key="disclaimer">
+                <strong>Peringatan Risiko :</strong> Perdagangan Forex, komoditas (Gold), dan aset finansial lainnya memiliki tingkat risiko yang tinggi dan mungkin tidak cocok untuk semua investor. Kinerja masa lalu dari Expert Advisor (EA) atau layanan Copytrade kami tidak menjamin hasil di masa depan. Anda bisa kehilangan sebagian atau seluruh dana deposit Anda. Pastikan Anda memahami sepenuhnya risiko yang terlibat sebelum memutuskan untuk menggunakan layanan kami.
+            </p>
+        </div>
+
         <small>&copy; 2026 Boom Trade Indonesia. All rights reserved.</small>
     </footer>
 
@@ -686,7 +699,7 @@
                 pain_5: "Sifat Serakah",
                 hero_desc: "Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA 'Your Partner Trading System'",
                 btn_join_now: "💬 Join Now",
-                sec_title: "Expert Advisor Unggulan",
+                sec_title: "Expert Advisor & Layanan Unggulan",
                 sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
                 
                 copy_sec_title: "Layanan Copytrade",
@@ -720,7 +733,8 @@
                 btn_join_copy: "Join Copytrade",
                 footer_tag: "Your Partner Trading System",
                 footer_loc: "Jawa Timur - Indonesia",
-                wa_btn: "Join Now"
+                wa_btn: "Join Now",
+                Disclaimer : "<strong>Peringatan Risiko:</strong> Perdagangan Forex, komoditas (Gold), dan aset finansial lainnya memiliki tingkat risiko yang tinggi dan mungkin tidak cocok untuk semua investor. Kinerja masa lalu dari Expert Advisor (EA) atau layanan Copytrade kami tidak menjamin hasil di masa depan. Anda bisa kehilangan sebagian atau seluruh dana deposit Anda. Pastikan Anda memahami sepenuhnya risiko yang terlibat sebelum memutuskan untuk menggunakan layanan kami."
             },
             en: {
                 nav_home: "Home",
@@ -735,7 +749,7 @@
                 pain_5: "Greedy Behavior",
                 hero_desc: "If you have problems like that, the solution is to join us at BOOM TRADE INDONESIA 'Your Partner Trading System'",
                 btn_join_now: "💬 Join Now",
-                sec_title: "Featured Expert Advisors",
+                sec_title: "Featured Expert Advisors & Services",
                 sec_subtitle: "Choose the best trading weapon for your investment style",
 
                 copy_sec_title: "Copytrade Service",
@@ -769,7 +783,8 @@
                 btn_join_copy: "Join Copytrade",
                 footer_tag: "Your Partner Trading System",
                 footer_loc: "East Java - Indonesia",
-                wa_btn: "Join Now"
+                wa_btn: "Join Now",
+                Disclaimer : "<strong>Risk Warning:</strong> Trading Forex, commodities (Gold), and other financial assets carries a high level of risk and may not be suitable for all investors. Past performance of our Expert Advisors (EAs) or Copytrade services does not guarantee future results. You could lose some or all of your initial deposit. Please ensure you fully understand the risks involved before deciding to use our services."
             }
         };
 
@@ -813,7 +828,6 @@
 
             const t = waTemplates[lang] || waTemplates['id'];
 
-            // Link untuk tombol order masing-masing EA
             const orderBtns = document.querySelectorAll('.wa-link-order');
             orderBtns.forEach(btn => {
                 const productName = btn.getAttribute('data-product') || 'Expert Advisor';
@@ -821,14 +835,12 @@
                 btn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
             });
 
-            // Link untuk tombol Join Now (kiri bawah)
             const msgJoin = encodeURIComponent(t.join);
             const joinBtns = document.querySelectorAll('.wa-link-join');
             joinBtns.forEach(btn => {
                 btn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
             });
 
-            // Link untuk copytrade
             const msgCopy = encodeURIComponent(t.copy);
             const copyBtns = document.querySelectorAll('.wa-link-copy');
             copyBtns.forEach(btn => {
@@ -836,7 +848,6 @@
                 btn.target = "_blank";
             });
 
-            // Link khusus untuk tombol GET EA (Bundle)
             const msgBundle = encodeURIComponent(t.bundle);
             const bundleBtns = document.querySelectorAll('.wa-link-bundle');
             bundleBtns.forEach(btn => {
