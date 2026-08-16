@@ -69,10 +69,91 @@
             color: var(--text-light); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.3s;
         }
         .lang-switch:hover { background: var(--primary-blue); border-color: var(--primary-blue); }
-        nav ul { display: flex; gap: 20px; }
-        nav ul li a { color: var(--text-light); font-weight: 500; transition: 0.3s; font-size: 0.9rem; }
+        
+        nav ul { display: flex; gap: 25px; align-items: center; }
+        nav ul li a { color: var(--text-light); font-weight: 500; transition: 0.3s; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;}
         nav ul li a:hover { color: var(--hero-yellow); text-shadow: 0 0 10px rgba(255, 193, 7, 0.5); }
         .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- MEGA MENU (DROPDOWN) MENURUN --- */
+        .has-dropdown {
+            position: relative;
+        }
+        /* Jembatan transparan agar dropdown tidak hilang saat mouse menyeberang */
+        .has-dropdown::after {
+            content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 25px;
+        }
+        .mega-menu {
+            position: absolute;
+            top: 150%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background: #0f172a;
+            width: 350px;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            pointer-events: none;
+        }
+        .has-dropdown:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+            top: 100%; 
+            margin-top: 20px;
+        }
+        
+        .mega-menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 15px;
+        }
+        .mega-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .mega-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        .mega-icon {
+            width: 45px; height: 45px; border-radius: 8px; object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .mega-text { display: flex; flex-direction: column; }
+        .mega-title {
+            font-size: 0.85rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .mega-subtitle {
+            font-size: 0.65rem; color: var(--text-gray); font-weight: 600; letter-spacing: 0.5px; margin-top: 2px;
+        }
+        
+        /* Footer Dropdown (Tombol View All & GET EA) */
+        .mega-menu-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05);
+            border-radius: 0 0 12px 12px;
+        }
+        .mega-view-all { font-size: 0.8rem; font-weight: 700; color: var(--text-gray); transition: 0.3s; }
+        .mega-view-all:hover { color: var(--text-light); }
+        .mega-bundle-btn {
+            background: var(--hero-yellow); color: black; padding: 6px 12px; border-radius: 6px;
+            font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .mega-bundle-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,193,7,0.3); }
 
         /* --- 3. HERO SECTION --- */
         .hero-metacorp {
@@ -97,128 +178,54 @@
         }
         .hero-img-wrapper img:hover { transform: perspective(1000px) rotateY(0deg) scale(1.02); }
 
-        /* --- 4. PRODUK & COPYTRADE SECTION --- */
+        /* --- 4. EXPERT ADVISOR & MARQUEE SECTION --- */
         .section-title { text-align: center; margin: 4rem 0 1rem; color: var(--text-light); font-size: 2rem; position: relative; z-index: 1; }
         .section-title span { border-bottom: 3px solid var(--primary-blue); padding-bottom: 5px; }
         .section-subtitle { text-align: center; margin-bottom: 3rem; color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 1; }
 
-        .container { width: 95%; max-width: 1000px; margin: auto; padding-bottom: 2rem; position: relative; z-index: 1; }
-        .container-single { max-width: 450px; padding-bottom: 4rem; } 
+        .container { width: 95%; max-width: 1400px; margin: auto; padding-bottom: 2rem; position: relative; z-index: 1; }
 
-        .cluster-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px; 
-            width: 100%; 
+        .carousel-wrapper {
+            position: relative; width: 100%; overflow: hidden; padding: 30px 0; 
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
         }
+
+        .carousel-track { display: flex; width: max-content; animation: scrollMarquee 35s linear infinite; }
+        .carousel-wrapper:hover .carousel-track { animation-play-state: paused; }
+        .carousel-slide { display: flex; gap: 25px; padding-right: 25px; }
+
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         .cluster-card {
-            background: var(--card-dark); 
-            backdrop-filter: blur(12px); 
-            border-radius: 16px; 
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            transition: all 0.3s ease; 
-            display: flex; 
-            flex-direction: column;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: var(--card-dark); backdrop-filter: blur(12px); border-radius: 16px; padding: 25px; 
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s ease; display: flex; flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 380px; flex: 0 0 auto; white-space: normal; 
         }
-        .cluster-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
-            border-color: rgba(59, 130, 246, 0.4); 
-        }
+        .cluster-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.5); border-color: rgba(59, 130, 246, 0.4); cursor: pointer; }
 
-        /* Bagian Header Kartu (Logo + Judul) */
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .card-logo {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            object-fit: cover;
-            background-color: #111;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .card-title-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
-        }
-        .card-title { 
-            font-size: 1.15rem; 
-            color: var(--text-light); 
-            font-weight: 700;
-            line-height: 1.2;
-        }
+        .card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .card-logo { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; background-color: #111; border: 1px solid rgba(255,255,255,0.05); }
+        .card-title-group { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+        .card-title { font-size: 1.25rem; color: var(--text-light); font-weight: 700; line-height: 1.2; }
+        
         .card-badge {
-            background: rgba(255, 193, 7, 0.15);
-            color: var(--hero-yellow);
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 6px;
-            letter-spacing: 0.5px;
+            background: rgba(255, 193, 7, 0.15); color: var(--hero-yellow); font-size: 0.65rem; font-weight: 700;
+            padding: 5px 10px; border-radius: 6px; letter-spacing: 0.5px;
         }
-        .card-badge.green {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--profit-green);
-        }
-        .card-badge.blue {
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-        }
-        .card-badge.pink {
-            background: rgba(236, 72, 153, 0.15);
-            color: #f472b6;
-        }
+        .card-badge.green { background: rgba(16, 185, 129, 0.15); color: var(--profit-green); }
+        .card-badge.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .card-badge.pink { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
 
-        /* Bagian Deskripsi Singkat */
-        .card-body {
-            font-size: 0.85rem;
-            color: var(--text-gray);
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        /* Garis Pemisah (Divider) */
-        .card-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            margin: 20px 0 15px;
-            width: 100%;
-        }
-
-        /* Bagian Footer (Specs & Tombol View) */
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .card-specs {
-            font-size: 0.75rem;
-            color: #64748b;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        .btn-view-text {
-            background: none;
-            border: none;
-            color: var(--primary-blue);
-            font-weight: 700;
-            font-size: 0.8rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: 0.3s;
-        }
+        .card-body { font-size: 0.85rem; color: var(--text-gray); line-height: 1.7; flex-grow: 1; }
+        .card-divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 25px 0 15px; width: 100%; }
+        
+        .card-footer { display: flex; justify-content: space-between; align-items: center; }
+        .card-specs { font-size: 0.8rem; color: #64748b; font-weight: 700; letter-spacing: 1px; }
+        .btn-view-text { background: none; border: none; color: var(--primary-blue); font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
         .btn-view-text:hover { color: #60a5fa; }
+
+        .container-single { max-width: 500px; }
 
         /* --- 5. MODAL (POPUP) SETTINGS --- */
         .modal-overlay {
@@ -238,19 +245,13 @@
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
 
-        .close-btn {
-            position: absolute; top: 15px; right: 20px; color: var(--text-gray);
-            font-size: 1.8rem; cursor: pointer; transition: 0.3s; line-height: 1;
-        }
+        .close-btn { position: absolute; top: 15px; right: 20px; color: var(--text-gray); font-size: 1.8rem; cursor: pointer; transition: 0.3s; line-height: 1; }
         .close-btn:hover { color: var(--hero-yellow); }
 
         .modal-header-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .modal-title { font-size: 1.3rem; color: var(--text-light); }
         .modal-price { color: var(--hero-yellow); font-weight: bold; font-size: 1rem; }
-
-        .modal-desc {
-            color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px;
-        }
+        .modal-desc { color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
 
         .modal-specs {
             display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.5rem;
@@ -259,32 +260,15 @@
         }
 
         .action-buttons { display: flex; gap: 10px; flex-wrap: wrap;}
-        
-        .btn-detail {
-            flex: 1; padding: 10px 15px; background-color: transparent; border: 1.5px solid var(--primary-blue);
-            color: var(--text-light); border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center;
-            font-size: 0.9rem; min-width: 120px; cursor: pointer;
-        }
+        .btn-detail { flex: 1; padding: 10px 15px; background-color: transparent; border: 1.5px solid var(--primary-blue); color: var(--text-light); border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; font-size: 0.9rem; min-width: 120px; cursor: pointer; }
         .btn-detail:hover { background-color: var(--primary-blue); color: white; box-shadow: 0 5px 15px rgba(59,130,246,0.3);}
-
-        .btn-demo {
-            flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px;
-            background-color: var(--primary-blue); color: white; border-radius: 6px; font-weight: 600;
-            transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px;
-        }
+        .btn-demo { flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; background-color: var(--primary-blue); color: white; border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px; }
         .btn-demo:hover { background-color: #0ea5e9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(14,165,233,0.3);}
 
         /* --- 6. FOOTER & FLOAT --- */
-        footer {
-            background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center;
-            padding: 2.5rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1;
-        }
+        footer { background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center; padding: 2.5rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1; }
         footer h3 { font-size: 1.2rem; color: var(--text-light); }
-        .wa-float {
-            position: fixed; bottom: 20px; right: 20px; background-color: var(--hero-yellow); color: black;
-            padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
-            font-weight: bold; font-size: 0.9rem; z-index: 1001; display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
+        .wa-float { position: fixed; bottom: 20px; right: 20px; background-color: var(--hero-yellow); color: black; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3); font-weight: bold; font-size: 0.9rem; z-index: 1001; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .wa-float:hover { transform: translateY(-3px) scale(1.05); }
 
         @media (max-width: 768px) {
@@ -292,13 +276,13 @@
             .hero-text h1 { font-size: 2rem; }
             .pain-points li { justify-content: center; }
             .menu-toggle { display: block; }
-            nav ul {
-                display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%;
-                background-color: rgba(2, 6, 23, 0.95); padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background-color: rgba(2, 6, 23, 0.95); padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
             nav ul.active { display: flex; }
-            .cluster-grid { grid-template-columns: 1fr; }
             .modal-header-info { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .cluster-card { width: 300px; padding: 20px; }
+            .carousel-slide { gap: 15px; padding-right: 15px; }
+            
+            .mega-menu { display: none !important; }
         }
     </style>
 </head>
@@ -317,7 +301,48 @@
         <nav>
             <ul id="nav-list">
                 <li><a href="#home" data-key="nav_home">Beranda</a></li>
-                <li><a href="#products" data-key="nav_products">Produk</a></li>
+                
+                <!-- MENU DENGAN DROPDOWN MEGA MENU (MENURUN) -->
+                <li class="has-dropdown">
+                    <a href="#products"><span data-key="nav_products">Expert Advisor</span> <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-top: 2px;"></i></a>
+                    
+                    <!-- Kotak Dropdown -->
+                    <div class="mega-menu">
+                        <div class="mega-menu-grid">
+                            <!-- Item 1 -->
+                            <div class="mega-item" onclick="openModal('modal-zenith')">
+                                <img src="images/zenith poster new.jpg" alt="Zenith" class="mega-icon">
+                                <div class="mega-text">
+                                    <span class="mega-title">Zenith Pro Scalper</span>
+                                    <span class="mega-subtitle">SCALPER · XAUUSD</span>
+                                </div>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="mega-item" onclick="openModal('modal-dopamin')">
+                                <img src="images/dopamin.jpg" alt="Dopamin" class="mega-icon">
+                                <div class="mega-text">
+                                    <span class="mega-title">Dopamin Hedge</span>
+                                    <span class="mega-subtitle">HEDGE · ALL PAIRS</span>
+                                </div>
+                            </div>
+                            <!-- Item 3 -->
+                            <div class="mega-item" onclick="openModal('modal-phantom')">
+                                <img src="images/goldenphantom.jpg" alt="Phantom" class="mega-icon">
+                                <div class="mega-text">
+                                    <span class="mega-title">Golden Phantom</span>
+                                    <span class="mega-subtitle">BREAKOUT · XAUUSD</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Footer Dropdown -->
+                        <div class="mega-menu-footer">
+                            <a href="#products" class="mega-view-all">VIEW ALL <i class="fas fa-arrow-right"></i></a>
+                            <!-- Tombol GET EA dengan class wa-link-bundle -->
+                            <a href="#" target="_blank" class="mega-bundle-btn wa-link-bundle"><i class="fas fa-star"></i> GET EA</a>
+                        </div>
+                    </div>
+                </li>
+
                 <li><a href="signal.html" data-key="nav_result">Result</a></li>
                 <li><a href="#contact" data-key="nav_contact">Kontak</a></li>
             </ul>
@@ -347,103 +372,157 @@
         </div>
     </section>
 
-    <!-- === BAGIAN PRODUK (EXPERT ADVISOR) === -->
-    <h2 id="products" class="section-title"><span data-key="sec_title">Produk & Layanan Unggulan</span></h2>
+    <!-- === BAGIAN EXPERT ADVISOR CAROUSEL (MARQUEE) === -->
+    <h2 id="products" class="section-title"><span data-key="sec_title">Expert Advisor Unggulan</span></h2>
     <p class="section-subtitle" data-key="sec_subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
 
     <div class="container">
-        <div class="cluster-grid">
-            
-            <!-- ZENITH CARD -->
-            <div class="cluster-card">
-                <div class="card-header">
-                    <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
-                    <div class="card-title-group">
-                        <h3 class="card-title">Zenith Pro Scalper</h3>
-                        <span class="card-badge">SCALPER</span>
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="product-carousel">
+                
+                <!-- SLIDE GRUP 1 (EA Asli) -->
+                <div class="carousel-slide">
+                    <div class="cluster-card" onclick="openModal('modal-zenith')">
+                        <div class="card-header">
+                            <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Zenith Pro Scalper</h3>
+                                <span class="card-badge">SCALPER</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="zenith_short">
+                            Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cluster-card" onclick="openModal('modal-dopamin')">
+                        <div class="card-header">
+                            <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Dopamin Hedge</h3>
+                                <span class="card-badge green">HEDGE</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="dopamin_short">
+                            Straddle Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; ALL PAIRS</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cluster-card" onclick="openModal('modal-phantom')">
+                        <div class="card-header">
+                            <img src="images/goldenphantom.jpg" alt="Golden Phantom Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Golden Phantom</h3>
+                                <span class="card-badge pink">BREAKOUT</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="phantom_short">
+                            Breakout strategy dengan adaptasi pergerakan Gold otomatis.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body" data-key="zenith_short">
-                    Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.
-                </div>
-                <div class="card-divider"></div>
-                <div class="card-footer">
-                    <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                    <button class="btn-view-text" onclick="openModal('modal-zenith')">VIEW <i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
 
-            <!-- DOPAMIN HEDGE EA CARD -->
-            <div class="cluster-card">
-                <div class="card-header">
-                    <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
-                    <div class="card-title-group">
-                        <h3 class="card-title">Dopamin Hedge</h3>
-                        <span class="card-badge green">HEDGE</span>
+                <!-- SLIDE GRUP 2 (Duplikasi untuk efek Loop) -->
+                <div class="carousel-slide">
+                    <div class="cluster-card" onclick="openModal('modal-zenith')">
+                        <div class="card-header">
+                            <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Zenith Pro Scalper</h3>
+                                <span class="card-badge">SCALPER</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="zenith_short">
+                            Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cluster-card" onclick="openModal('modal-dopamin')">
+                        <div class="card-header">
+                            <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Dopamin Hedge</h3>
+                                <span class="card-badge green">HEDGE</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="dopamin_short">
+                            Straddle Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; ALL PAIRS</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cluster-card" onclick="openModal('modal-phantom')">
+                        <div class="card-header">
+                            <img src="images/goldenphantom.jpg" alt="Golden Phantom Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Golden Phantom</h3>
+                                <span class="card-badge pink">BREAKOUT</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="phantom_short">
+                            Breakout strategy dengan adaptasi pergerakan Gold otomatis.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body" data-key="dopamin_short">
-                    Straddle Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.
-                </div>
-                <div class="card-divider"></div>
-                <div class="card-footer">
-                    <span class="card-specs">MT5 &nbsp;·&nbsp; ALL PAIRS</span>
-                    <button class="btn-view-text" onclick="openModal('modal-dopamin')">VIEW <i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
 
-            <!-- GOLDEN PHANTOM CARD -->
-            <div class="cluster-card">
-                <div class="card-header">
-                    <img src="images/goldenphantom.jpg" alt="Golden Phantom Logo" class="card-logo">
-                    <div class="card-title-group">
-                        <h3 class="card-title">Golden Phantom</h3>
-                        <span class="card-badge pink">BREAKOUT</span>
-                    </div>
-                </div>
-                <div class="card-body" data-key="phantom_short">
-                    Breakout strategy dengan adaptasi pergerakan Gold otomatis.
-                </div>
-                <div class="card-divider"></div>
-                <div class="card-footer">
-                    <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                    <button class="btn-view-text" onclick="openModal('modal-phantom')">VIEW <i class="fas fa-chevron-right"></i></button>
-                </div>
             </div>
-
         </div>
     </div>
 
-    <!-- === BAGIAN COPYTRADE (DIPISAHKAN) === -->
+    <!-- === BAGIAN COPYTRADE (STATIS DI TENGAH) === -->
     <h2 id="copytrade" class="section-title"><span data-key="copy_sec_title">Layanan Copytrade</span></h2>
     <p class="section-subtitle" data-key="copy_sec_subtitle">Solusi pasif income tanpa harus analisa market 24/7</p>
 
     <div class="container container-single">
-        <div class="cluster-grid" style="grid-template-columns: 1fr;">
-            
-            <!-- PREMIUM COPYTRADE CARD -->
-            <div class="cluster-card">
-                <div class="card-header">
-                    <img src="images/copytrade.jpg" alt="Copytrade Logo" class="card-logo">
-                    <div class="card-title-group">
-                        <h3 class="card-title">Premium Copytrade</h3>
-                        <span class="card-badge blue">AUTO-PILOT</span>
-                    </div>
-                </div>
-                <div class="card-body" data-key="copy_short">
-                    Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.
-                </div>
-                <div class="card-divider"></div>
-                <div class="card-footer">
-                    <span class="card-specs">MT4/MT5 &nbsp;·&nbsp; MULTI</span>
-                    <button class="btn-view-text" onclick="openModal('modal-copytrade')">VIEW <i class="fas fa-chevron-right"></i></button>
+        <div class="cluster-card" style="margin: auto;" onclick="openModal('modal-copytrade')">
+            <div class="card-header">
+                <img src="images/copytrade.jpg" alt="Copytrade Logo" class="card-logo">
+                <div class="card-title-group">
+                    <h3 class="card-title">Premium Copytrade</h3>
+                    <span class="card-badge blue">AUTO-PILOT</span>
                 </div>
             </div>
-
+            <div class="card-body" data-key="copy_short">
+                Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-footer">
+                <span class="card-specs">MT4/MT5 &nbsp;·&nbsp; MULTI</span>
+                <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
     </div>
 
-    <!-- === KUMPULAN MODAL POPUP (MUNCUL KETIKA KLIK VIEW) === -->
+    <!-- === KUMPULAN MODAL POPUP === -->
     
     <!-- Modal Zenith -->
     <div id="modal-zenith" class="modal-overlay" onclick="closeOnOutside(event, 'modal-zenith')">
@@ -466,7 +545,6 @@
             </div>
 
             <div class="action-buttons">
-                <!-- Tambahkan data-product="Zenith Pro Scalper" -->
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Zenith Pro Scalper">Order Now</a>
                 <a href="Zenith_Pro_Scalper_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
             </div>
@@ -494,7 +572,6 @@
             </div>
 
             <div class="action-buttons">
-                <!-- Tambahkan data-product="Dopamin Hedge" -->
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Dopamin Hedge">Order Now</a>
                 <a href="Dopamin_Hedge_EA_Demo.ex5" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
             </div>
@@ -522,7 +599,6 @@
             </div>
 
             <div class="action-buttons">
-                <!-- Tambahkan data-product="Golden Phantom" -->
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Golden Phantom">Order Now</a>
                 <a href="Golden_Phantom_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
             </div>
@@ -567,30 +643,39 @@
         💬 <span data-key="wa_btn">Join Now</span>
     </a>
 
-    <!-- SCRIPT FIREBASE -->
+    <!-- SCRIPT FIREBASE & PENGATURAN -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // Modal Control Functions
+        // --- MODAL & CAROUSEL PAUSE CONTROL ---
+        const carouselTrack = document.getElementById('product-carousel');
+
         function openModal(id) {
             document.getElementById(id).classList.add('active');
             document.body.style.overflow = 'hidden'; 
+            // Hentikan background slider saat popup terbuka
+            carouselTrack.style.animationPlayState = 'paused';
         }
+        
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
             document.body.style.overflow = 'auto';
+            // Lanjutkan slider setelah ditutup
+            carouselTrack.style.animationPlayState = 'running';
         }
+        
         function closeOnOutside(event, id) {
             if (event.target.id === id) {
                 closeModal(id);
             }
         }
 
+        // --- TERJEMAHAN & LOGIKA LAINNYA ---
         const translations = {
             id: {
                 nav_home: "Beranda",
-                nav_products: "Produk",
+                nav_products: "Expert Advisor",
                 nav_result: "Result",
                 nav_contact: "Kontak",
                 hero_title: "Kamu merasa banyak sekali masalah ketika <br><span class='text-highlight'>menghadapi market?</span>",
@@ -601,7 +686,7 @@
                 pain_5: "Sifat Serakah",
                 hero_desc: "Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA 'Your Partner Trading System'",
                 btn_join_now: "💬 Join Now",
-                sec_title: "Produk & Layanan Unggulan",
+                sec_title: "Expert Advisor Unggulan",
                 sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
                 
                 copy_sec_title: "Layanan Copytrade",
@@ -639,7 +724,7 @@
             },
             en: {
                 nav_home: "Home",
-                nav_products: "Products",
+                nav_products: "Expert Advisors",
                 nav_result: "Result",
                 nav_contact: "Contact",
                 hero_title: "Do you face many problems when <br><span class='text-highlight'>dealing with the market?</span>",
@@ -650,7 +735,7 @@
                 pain_5: "Greedy Behavior",
                 hero_desc: "If you have problems like that, the solution is to join us at BOOM TRADE INDONESIA 'Your Partner Trading System'",
                 btn_join_now: "💬 Join Now",
-                sec_title: "Featured Products & Services",
+                sec_title: "Featured Expert Advisors",
                 sec_subtitle: "Choose the best trading weapon for your investment style",
 
                 copy_sec_title: "Copytrade Service",
@@ -692,7 +777,6 @@
         let activeTelegram = "bangrioboomtrade";
         let agentName = "Boom Trade";
 
-        // Logic Setup untuk Variabel Agen 
         function initializeAgent() {
             const teamDirectory = {
                 "rayung": "gdrayy",
@@ -711,45 +795,52 @@
             agentName = tradeParam ? tradeParam.toUpperCase() : "Boom Trade";
         }
 
-        // Logic untuk memperbarui isi pesan Telegram ke bahasa yang sesuai
         function updateTelegramLinks(lang) {
-            // Template kalimat Bahasa Indonesia dan Inggris
             const waTemplates = {
                 id: {
                     order: "Halo, saya tertarik dengan EA {product} melalui Anda " + agentName,
                     join: "Halo, saya mau bertanya mengenai informasi lebih lanjut mengenai website ini dari Anda " + agentName,
-                    copy: "Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + agentName
+                    copy: "Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + agentName,
+                    bundle: "Halo, saya tertarik untuk mendapatkan semua Expert Advisor (Bundle) melalui Anda " + agentName
                 },
                 en: {
                     order: "Hello, I am interested in the {product} EA through you " + agentName,
                     join: "Hello, I would like to ask for more information about this website from you " + agentName,
-                    copy: "Hello, I am interested in joining the Premium Copytrade service through you " + agentName
+                    copy: "Hello, I am interested in joining the Premium Copytrade service through you " + agentName,
+                    bundle: "Hello, I am interested in getting all Expert Advisors (Bundle) through you " + agentName
                 }
             };
 
             const t = waTemplates[lang] || waTemplates['id'];
 
-            // 1. Update pesan Order Now (Sesuai nama produk masing-masing)
+            // Link untuk tombol order masing-masing EA
             const orderBtns = document.querySelectorAll('.wa-link-order');
             orderBtns.forEach(btn => {
-                const productName = btn.getAttribute('data-product') || 'Produk EA';
+                const productName = btn.getAttribute('data-product') || 'Expert Advisor';
                 const msgOrder = encodeURIComponent(t.order.replace('{product}', productName));
                 btn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
             });
 
-            // 2. Update pesan Join Now (Float Chat Kanan Bawah)
+            // Link untuk tombol Join Now (kiri bawah)
             const msgJoin = encodeURIComponent(t.join);
             const joinBtns = document.querySelectorAll('.wa-link-join');
             joinBtns.forEach(btn => {
                 btn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
             });
 
-            // 3. Update pesan Join Copytrade
+            // Link untuk copytrade
             const msgCopy = encodeURIComponent(t.copy);
             const copyBtns = document.querySelectorAll('.wa-link-copy');
             copyBtns.forEach(btn => {
                 btn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
                 btn.target = "_blank";
+            });
+
+            // Link khusus untuk tombol GET EA (Bundle)
+            const msgBundle = encodeURIComponent(t.bundle);
+            const bundleBtns = document.querySelectorAll('.wa-link-bundle');
+            bundleBtns.forEach(btn => {
+                btn.href = `https://t.me/${activeTelegram}?text=${msgBundle}`;
             });
         }
 
@@ -778,7 +869,6 @@
                 }
             });
 
-            // Update isi pesan dinamis WA/Telegram setelah translate jalan
             updateTelegramLinks(lang);
         }
 
