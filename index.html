@@ -79,7 +79,6 @@
         .has-dropdown {
             position: relative;
         }
-        /* Jembatan transparan agar dropdown tidak hilang saat mouse menyeberang */
         .has-dropdown::after {
             content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 25px;
         }
@@ -141,7 +140,6 @@
             font-size: 0.65rem; color: var(--text-gray); font-weight: 600; letter-spacing: 0.5px; margin-top: 2px;
         }
         
-        /* Footer Dropdown (Tombol View All & GET EA) */
         .mega-menu-footer {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05);
@@ -262,8 +260,9 @@
         .action-buttons { display: flex; gap: 10px; flex-wrap: wrap;}
         .btn-detail { flex: 1; padding: 10px 15px; background-color: transparent; border: 1.5px solid var(--primary-blue); color: var(--text-light); border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; font-size: 0.9rem; min-width: 120px; cursor: pointer; }
         .btn-detail:hover { background-color: var(--primary-blue); color: white; box-shadow: 0 5px 15px rgba(59,130,246,0.3);}
-        .btn-demo { flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; background-color: var(--primary-blue); color: white; border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px; }
-        .btn-demo:hover { background-color: #0ea5e9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(14,165,233,0.3);}
+        
+        .btn-demo { flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; background-color: var(--profit-green); color: white; border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px; }
+        .btn-demo:hover { background-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);}
 
         /* --- 6. FOOTER, DISCLAIMER & FLOAT --- */
         footer { background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center; padding: 3rem 2rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1; }
@@ -313,11 +312,8 @@
             <ul id="nav-list">
                 <li><a href="#home" data-key="nav_home">Beranda</a></li>
                 
-                <!-- MENU DENGAN DROPDOWN MEGA MENU (MENURUN) -->
                 <li class="has-dropdown">
                     <a href="#products"><span data-key="nav_products">Expert Advisor</span> <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-top: 2px;"></i></a>
-                    
-                    <!-- Kotak Dropdown -->
                     <div class="mega-menu">
                         <div class="mega-menu-grid">
                             <div class="mega-item" onclick="openModal('modal-zenith')">
@@ -342,7 +338,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Footer Dropdown -->
                         <div class="mega-menu-footer">
                             <a href="#products" class="mega-view-all">VIEW ALL <i class="fas fa-arrow-right"></i></a>
                             <a href="#" target="_blank" class="mega-bundle-btn wa-link-bundle"><i class="fas fa-star"></i> GET EA</a>
@@ -387,6 +382,7 @@
         <div class="carousel-wrapper">
             <div class="carousel-track" id="product-carousel">
                 
+                <!-- SLIDE GRUP 1 -->
                 <div class="carousel-slide">
                     <div class="cluster-card" onclick="openModal('modal-zenith')">
                         <div class="card-header">
@@ -443,6 +439,7 @@
                     </div>
                 </div>
 
+                <!-- SLIDE GRUP 2 -->
                 <div class="carousel-slide">
                     <div class="cluster-card" onclick="openModal('modal-zenith')">
                         <div class="card-header">
@@ -551,7 +548,8 @@
 
             <div class="action-buttons">
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Zenith Pro Scalper">Order Now</a>
-                <a href="Zenith_Pro_Scalper_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
+                <!-- Link diubah ke signal.html#result-zenith -->
+                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-zenith'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
             </div>
         </div>
     </div>
@@ -578,7 +576,8 @@
 
             <div class="action-buttons">
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Dopamin Hedge">Order Now</a>
-                <a href="Dopamin_Hedge_EA_Demo.ex5" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
+                <!-- Link diubah ke signal.html#result-dopamin -->
+                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-dopamin'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
             </div>
         </div>
     </div>
@@ -605,7 +604,8 @@
 
             <div class="action-buttons">
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Golden Phantom">Order Now</a>
-                <a href="Golden_Phantom_Demo.ex4" download class="btn-demo" data-key="btn_free_demo">📥 Free Demo MT5</a>
+                <!-- Link diubah ke signal.html#result-phantom -->
+                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-phantom'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
             </div>
         </div>
     </div>
@@ -642,7 +642,6 @@
         <p data-key="footer_tag">Your Partner Trading System</p>
         <p data-key="footer_loc">Jawa Timur - Indonesia</p>
         
-        <!-- Peringatan Risiko (High-Risk Disclaimer) -->
         <div class="disclaimer-box">
             <p data-key="disclaimer">
                 <strong>Peringatan Risiko:</strong> Perdagangan Forex, komoditas (Gold), dan aset finansial lainnya memiliki tingkat risiko yang tinggi dan mungkin tidak cocok untuk semua investor. Kinerja masa lalu dari Expert Advisor (EA) atau layanan Copytrade kami tidak menjamin hasil di masa depan. Anda bisa kehilangan sebagian atau seluruh dana deposit Anda. Pastikan Anda memahami sepenuhnya risiko yang terlibat sebelum memutuskan untuk menggunakan layanan kami.
@@ -661,20 +660,17 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // --- MODAL & CAROUSEL PAUSE CONTROL ---
         const carouselTrack = document.getElementById('product-carousel');
 
         function openModal(id) {
             document.getElementById(id).classList.add('active');
             document.body.style.overflow = 'hidden'; 
-            // Hentikan background slider saat popup terbuka
             carouselTrack.style.animationPlayState = 'paused';
         }
         
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
             document.body.style.overflow = 'auto';
-            // Lanjutkan slider setelah ditutup
             carouselTrack.style.animationPlayState = 'running';
         }
         
@@ -684,7 +680,6 @@
             }
         }
 
-        // --- TERJEMAHAN & LOGIKA LAINNYA ---
         const translations = {
             id: {
                 nav_home: "Beranda",
@@ -723,7 +718,7 @@
                 dopamin_desc: "EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus.",
                 phantom_desc: "EA canggih yang menggunakan breakout strategi independen yang berjalan di berbagai timeframe secara bersamaan. Dilengkapi dengan auto-adaptive risk untuk memaksimalkan profit pada pergerakan XAUUSD.",
                 btn_order: "Order Now",
-                btn_free_demo: "📥 Free Demo",
+                btn_live_signal: "📊 Live Signal",
                 copy_price: "Profit Sharing 80 : 20",
                 copy_desc: "Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten.",
                 spec_cp1: "💰 Avg 10-20%/Month",
@@ -773,7 +768,7 @@
                 dopamin_desc: "A robust Straddle Grid Hedge EA designed to operate <strong>24 hours nonstop</strong>. Opens dual-directional orders simultaneously with a precise martingale layer mechanism focusing only on floating minus areas.",
                 phantom_desc: "An advanced EA utilizing breakout strategies running across multiple timeframes simultaneously. Equipped with auto-adaptive risk to maximize profit on XAUUSD movements.",
                 btn_order: "Order Now",
-                btn_free_demo: "📥 Free Demo",
+                btn_live_signal: "📊 Live Signal",
                 copy_price: "Profit Sharing 80 : 20",
                 copy_desc: "Our 100% Expert Advisor Auto-Pilot Copytrade service executes trades while your account copies positions instantly. Sit back and enjoy consistent profits.",
                 spec_cp1: "💰 Avg 10-20%/Month",
