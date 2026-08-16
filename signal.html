@@ -26,10 +26,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Diubah agar bisa di-scroll */
+            justify-content: flex-start;
             min-height: 100vh;
-            padding: 80px 20px 40px; /* Padding disesuaikan */
-            gap: 40px; /* Jarak antar tracker */
+            padding: 80px 20px 40px; 
+            gap: 40px; 
+            scroll-behavior: smooth; /* Tambahan agar scroll-nya halus */
         }
 
         .signal-wrapper {
@@ -43,9 +44,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             position: relative;
+            /* Tambahan scroll-margin agar tidak tertutup tombol back */
+            scroll-margin-top: 80px; 
         }
 
-        /* --- TOMBOL KEMBALI KE HOME (Dibuat Fixed agar tidak hilang saat scroll) --- */
+        /* --- TOMBOL KEMBALI KE HOME --- */
         .btn-home {
             position: fixed;
             top: 25px;
@@ -126,15 +129,16 @@
 </head>
 <body>
 
-    <!-- Tombol Home Global -->
-    <a href="index.html" class="btn-home">
+    <!-- Tombol Home Global (Link ke Index dengan ID Agen) -->
+    <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;" class="btn-home">
         <i class="fas fa-arrow-left"></i> Home
     </a>
 
     <!-- ============================================== -->
     <!-- TRACKER 1: ZENITHPRO SCALPER -->
     <!-- ============================================== -->
-    <div class="signal-wrapper">
+    <!-- Tambahkan ID: result-zenith -->
+    <div id="result-zenith" class="signal-wrapper">
         <h3>ZenithPro Scalper Live</h3>
         <div class="mql5-tracker-ui">
             <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
@@ -195,7 +199,8 @@
     <!-- ============================================== -->
     <!-- TRACKER 2: DOPAMIN -->
     <!-- ============================================== -->
-    <div class="signal-wrapper">
+    <!-- Tambahkan ID: result-dopamin -->
+    <div id="result-dopamin" class="signal-wrapper">
         <h3>Dopamin Hedge Live</h3>
         <div class="mql5-tracker-ui">
             <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
@@ -256,7 +261,8 @@
     <!-- ============================================== -->
     <!-- TRACKER 3: GOLDEN PHANTOM -->
     <!-- ============================================== -->
-    <div class="signal-wrapper">
+    <!-- Tambahkan ID: result-phantom -->
+    <div id="result-phantom" class="signal-wrapper">
         <h3>Golden Phantom Live</h3>
         <div class="mql5-tracker-ui">
             <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
@@ -316,7 +322,7 @@
 
     <!-- FOOTER GLOBAL -->
     <div class="branding-footer" style="padding-bottom: 20px;">
-        Powered by <a href="index.html">Boom Trade Indonesia</a> — Your Partner Trading System
+        Powered by <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;">Boom Trade Indonesia</a> — Your Partner Trading System
     </div>
 
     <!-- SCRIPT FIREBASE & CHART.JS -->
@@ -396,7 +402,7 @@
                 phantom: initChart('growthChart_phantom')
             };
 
-// Fungsi Update UI per Akun
+            // Fungsi Update UI per Akun
             function updateTrackerData(data, prefix, chartObj) {
                 if(!data) return; 
 
@@ -432,9 +438,6 @@
                     }
 
                     if(Array.isArray(chartArray) && chartArray.length > 0) {
-                        // KUNCI PERBAIKAN:
-                        // Kita gandakan array riwayatnya, lalu paksa titik terakhir grafik 
-                        // agar terhubung dengan angka pertumbuhan Equity saat ini.
                         let finalChart = [...chartArray];
                         finalChart.push(data.growth);
 
@@ -465,7 +468,6 @@
             trackerRef.on('value', (snapshot) => {
                 const allData = snapshot.val();
                 if(allData !== null) {
-                    // Update masing-masing kartu jika datanya tersedia
                     updateTrackerData(allData.zenith, 'zenith', charts.zenith);
                     updateTrackerData(allData.dopamin, 'dopamin', charts.dopamin);
                     updateTrackerData(allData.phantom, 'phantom', charts.phantom);
