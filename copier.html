@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boom Trade Indonesia - Professional Trade Copier Portal</title> 
+    <link rel="icon" type="image/png" href="images/boomtrade2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style> 
+        :root {
+            --bg-body: #020617; 
+            --card-dark: rgba(30, 41, 59, 0.8); 
+            --primary-blue: #3b82f6;  
+            --text-light: #f8fafc;
+            --hero-yellow: #ffc107;    
+            --btn-success: #10b981;
+            --bg-modal: rgba(2, 6, 23, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 80px 20px 40px; 
+            gap: 40px; 
+            scroll-behavior: smooth;
+        }
+
+        /* --- TOMBOL KEMBALI KE DASHBOARD --- */
+        .btn-home {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+            z-index: 999;
+        }
+        .btn-home:hover {
+            background: var(--primary-blue);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: -10px;
+        }
+        .hero-section h1 {
+            color: var(--hero-yellow);
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+        }
+        .hero-section p {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- GERBANG IB GATEWAY (LANGKAH 1) --- */
+        .ib-gateway-card {
+            width: 100%; max-width: 950px;
+            background: var(--card-dark);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            border-radius: 16px; padding: 3rem 2rem;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .ib-gateway-card h2 { color: var(--hero-yellow); margin-bottom: 15px; font-size: 1.8rem; }
+        .ib-gateway-card p { color: #cbd5e1; margin-bottom: 25px; font-size: 0.95rem; }
+        
+        .ib-steps {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-bottom: 30px; text-align: left;
+        }
+        .ib-step-box {
+            background: #0f172a; padding: 20px; border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .ib-step-box h4 { color: #fff; margin-bottom: 8px; font-size: 1rem; }
+        .ib-step-box p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+
+        .btn-ib-register {
+            background: var(--hero-yellow); color: #000; padding: 12px 25px;
+            border-radius: 50px; font-weight: 700; font-size: 0.95rem; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3); margin-right: 10px; margin-bottom: 10px;
+        }
+        .btn-ib-register:hover { background: #ffca2c; transform: translateY(-2px); }
+
+        .btn-verify-unlock {
+            background: transparent; color: var(--text-light); padding: 12px 25px;
+            border-radius: 50px; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--primary-blue);
+            cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px;
+        }
+        .btn-verify-unlock:hover { background: rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
+
+        /* --- DASHBOARD UTAMA (TERKUNCI SEBELUM VERIFIKASI) --- */
+        #copierMainContent {
+            width: 100%; max-width: 950px; display: none; flex-direction: column; gap: 40px;
+        }
+
+        .signal-wrapper {
+            width: 100%;
+            max-width: 950px;
+            background: var(--card-dark);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+            scroll-margin-top: 80px; 
+        }
+
+        .signal-wrapper h3 {
+            color: var(--hero-yellow);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .mql5-tracker-ui {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            color: #333;
+            text-align: left;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            align-items: center;
+        }
+
+        .tracker-col { position: relative; }
+        .tracker-stats-right { display: flex; flex-direction: column; gap: 20px; }
+        .stat-item {
+            display: grid;
+            grid-template-columns: 110px 100px 1fr;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+        .stat-label { color: #000; text-align: right; }
+        .stat-val { font-weight: 600; color: #000; text-align: right; }
+        .stat-bar { height: 20px; background: transparent; }
+        .stat-bar .fill { height: 100%; transition: width 1s ease-in-out; }
+
+        /* --- ACTION BUTTONS (CONNECT COPIER) --- */
+        .action-buttons {
+            grid-column: 1 / -1; 
+            margin-top: 15px; 
+            padding-top: 20px; 
+            border-top: 1px solid #e2e8f0; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status-badge {
+            font-size: 0.85rem; font-weight: bold; padding: 6px 14px; 
+            border-radius: 50px; background: #f1f5f9; color: #64748b;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+
+        .btn-connect {
+            background: var(--primary-blue);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .btn-connect:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .link-myfxbook {
+            color: var(--primary-blue); 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            text-decoration: none;
+        }
+
+        /* --- MODAL / POPUP WEB TERMINAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-modal); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+        .modal-content {
+            background: #1e293b; width: 100%; max-width: 450px;
+            padding: 30px; border-radius: 12px; border: 1px solid var(--primary-blue);
+            color: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative;
+        }
+        .modal-content h3 { color: var(--hero-yellow); margin-bottom: 20px; text-align: center; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #cbd5e1; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334155;
+            background: #0f172a; color: #fff; font-size: 0.95rem; outline: none;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary-blue); }
+        
+        .btn-submit {
+            width: 100%; background: var(--btn-success); color: #fff; border: none;
+            padding: 12px; border-radius: 6px; font-size: 1rem; font-weight: bold;
+            cursor: pointer; margin-top: 10px; transition: 0.3s;
+        }
+        .btn-submit:hover { background: #059669; }
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
+            color: #94a3b8; cursor: pointer;
+        }
+        .close-modal:hover { color: #fff; }
+
+        .branding-footer { margin-top: 25px; font-size: 0.9rem; color: #94a3b8; text-align: center; }
+        .branding-footer a { color: var(--hero-yellow); font-weight: bold; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .hero-section h1 { font-size: 1.8rem; }
+            .signal-wrapper { padding: 4rem 1.5rem 2rem; }
+            .btn-home { top: 15px; left: 15px; padding: 6px 12px; font-size: 0.75rem; }
+            .signal-wrapper h3 { font-size: 1.4rem; margin-top: 10px; }
+            .mql5-tracker-ui { grid-template-columns: 1fr; gap: 30px; }
+            .stat-item { grid-template-columns: 90px 90px 1fr; }
+            .action-buttons { flex-direction: column; gap: 15px; align-items: stretch; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Kembali ke Dashboard -->
+    <a href="dashboard.html" class="btn-home" id="backToDashboardBtn">
+        <i class="fas fa-arrow-left"></i> Dashboard
+    </a>
+
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <h1>Web Trade Copier Portal</h1>
+        <p>Gandakan profit Anda secara otomatis dengan menyalin transaksi dari Master EA kami secara real-time 24/7.</p>
+    </div>
+
+    <!-- --- LANGKAH 1: GERBANG IB GATEWAY (WAJIB UNDER IB) --- -->
+    <div class="ib-gateway-container" id="ibGatewayCard">
+        <h2><i class="fas fa-lock"></i> Verifikasi Jaringan Partner IB</h2>
+        <p>Layanan Copytrade ini diberikan secara eksklusif dan gratis bagi klien yang terdaftar di bawah jaringan Introducing Broker (IB) Boom Trade Indonesia.</p>
+        
+        <div class="ib-steps">
+            <div class="ib-step-box">
+                <h4>1. Buka Akun Trading</h4>
+                <p>Klik tombol di bawah untuk mendaftarkan akun baru melalui link referral resmi partner IB kami.</p>
+            </div>
+            <div class="ib-step-box">
+                <h4>2. Validasi Nomor Akun</h4>
+                <p>Setelah akun Anda aktif di broker, masukkan nomor login akun Anda untuk membuka akses panel copier.</p>
+            </div>
+        </div>
+
+        <div>
+            <!-- Ganti LINK_IB_REFERRAL_ANDA_DISINI dengan link referral IB asli Anda -->
+            <a href="LINK_IB_REFERRAL_ANDA_DISINI" target="_blank" class="btn-ib-register">
+                <i class="fas fa-user-plus"></i> Daftar Akun Under IB
+            </a>
+            <button class="btn-verify-unlock" onclick="openUnlockModal()">
+                <i class="fas fa-check-circle"></i> Sudah Punya Akun Under IB?
+            </button>
+        </div>
+    </div>
+
+    <!-- --- LANGKAH 2: DASHBOARD UTAMA (TERBUKA SETELAH VERIFIKASI) --- -->
+    <div id="copierMainContent">
+
+        <!-- TRACKER 1: ZENITHPRO SCALPER -->
+        <div id="result-zenith" class="signal-wrapper">
+            <h3><i class="fas fa-robot"></i> ZenithPro Scalper</h3>
+            <div class="mql5-tracker-ui">
+                <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
+                        <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
+                            growth since 2026 
+                            <span id="track-days_zenith" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                        </div>
+                        <div id="track-growth_zenith" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                    </div>
+                    
+                    <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
+                        <canvas id="growthChart_zenith"></canvas>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
+                        <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker_zenith">Connecting...</span></div>
+                        <div>1:<span id="track-leverage_zenith">0</span></div>
+                    </div>
+                </div>
+
+                <div class="tracker-col tracker-stats-right">
+                    <div class="stat-item">
+                        <span class="stat-label">Equity</span>
+                        <span class="stat-val" id="track-equity_zenith">0.00</span>
+                        <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Profit</span>
+                        <span class="stat-val" id="track-profit_zenith">0.00</span>
+                        <div class="stat-bar"><div class="fill" id="bar-profit_zenith" style="width: 80%; background: #29b6f6;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Deposit</span>
+                        <span class="stat-val" id="track-deposit_zenith">0.00</span>
+                        <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Max Drawdown</span>
+                        <span class="stat-val" id="track-drawdown_zenith">0.00%</span>
+                        <div class="stat-bar"><div class="fill" id="bar-drawdown_zenith" style="width: 0%; background: #ef4444;"></div></div>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons">
+                    <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper-v40/12147272" target="_blank" class="link-myfxbook">
+                        <i class="fas fa-external-link-alt"></i> View History
+                    </a>
+                    <div class="status-badge" id="status-zenith"><i class="fas fa-circle" style="color: #cbd5e1; font-size: 0.5rem;"></i> Disconnected</div>
+                    <button class="btn-connect" onclick="openCopierModal('ZenithPro Scalper', 'zenith')">
+                        <i class="fas fa-plug"></i> Connect to Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRACKER 2: DOPAMIN HEDGE -->
+        <div id="result-dopamin" class="signal-wrapper">
+            <h3><i class="fas fa-robot"></i> Dopamin Hedge</h3>
+            <div class="mql5-tracker-ui">
+                <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
+                        <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
+                            growth since 2026 
+                            <span id="track-days_dopamin" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                        </div>
+                        <div id="track-growth_dopamin" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                    </div>
+                    
+                    <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
+                        <canvas id="growthChart_dopamin"></canvas>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
+                        <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker_dopamin">Connecting...</span></div>
+                        <div>1:<span id="track-leverage_dopamin">0</span></div>
+                    </div>
+                </div>
+
+                <div class="tracker-col tracker-stats-right">
+                    <div class="stat-item">
+                        <span class="stat-label">Equity</span>
+                        <span class="stat-val" id="track-equity_dopamin">0.00</span>
+                        <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Profit</span>
+                        <span class="stat-val" id="track-profit_dopamin">0.00</span>
+                        <div class="stat-bar"><div class="fill" id="bar-profit_dopamin" style="width: 80%; background: #29b6f6;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Deposit</span>
+                        <span class="stat-val" id="track-deposit_dopamin">0.00</span>
+                        <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Max Drawdown</span>
+                        <span class="stat-val" id="track-drawdown_dopamin">0.00%</span>
+                        <div class="stat-bar"><div class="fill" id="bar-drawdown_dopamin" style="width: 0%; background: #ef4444;"></div></div>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons">
+                    <a href="https://www.myfxbook.com/members/Alves99/dopamin/12150340" target="_blank" class="link-myfxbook">
+                        <i class="fas fa-external-link-alt"></i> View History
+                    </a>
+                    <div class="status-badge" id="status-dopamin"><i class="fas fa-circle" style="color: #cbd5e1; font-size: 0.5rem;"></i> Disconnected</div>
+                    <button class="btn-connect" onclick="openCopierModal('Dopamin Hedge', 'dopamin')">
+                        <i class="fas fa-plug"></i> Connect to Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRACKER 3: GOLDEN PHANTOM -->
+        <div id="result-phantom" class="signal-wrapper">
+            <h3><i class="fas fa-robot"></i> Golden Phantom</h3>
+            <div class="mql5-tracker-ui">
+                <div class="tracker-col" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; z-index: 20; pointer-events: none; text-align: left;">
+                        <div style="font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 8px;">
+                            growth since 2026 
+                            <span id="track-days_phantom" style="background: rgba(41, 182, 246, 0.15); color: #0284c7; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; border: 1px solid rgba(41, 182, 246, 0.3);">0 Hari</span>
+                        </div>
+                        <div id="track-growth_phantom" style="font-size: 2.3rem; color: #4CAF50; font-weight: 600; line-height: 1.1; text-align: left;">0.00%</div>
+                    </div>
+                    
+                    <div style="height: 170px; width: 100%; position: relative; padding-top: 55px;">
+                        <canvas id="growthChart_phantom"></canvas>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #333; font-weight: 500; margin-top: 5px;">
+                        <div><i class="fas fa-check-circle" style="color: #4CAF50;"></i> <span id="track-broker_phantom">Connecting...</span></div>
+                        <div>1:<span id="track-leverage_phantom">0</span></div>
+                    </div>
+                </div>
+
+                <div class="tracker-col tracker-stats-right">
+                    <div class="stat-item">
+                        <span class="stat-label">Equity</span>
+                        <span class="stat-val" id="track-equity_phantom">0.00</span>
+                        <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Profit</span>
+                        <span class="stat-val" id="track-profit_phantom">0.00</span>
+                        <div class="stat-bar"><div class="fill" id="bar-profit_phantom" style="width: 80%; background: #29b6f6;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Deposit</span>
+                        <span class="stat-val" id="track-deposit_phantom">0.00</span>
+                        <div class="stat-bar"><div class="fill" style="width: 20%; background: #b3e5fc;"></div></div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Max Drawdown</span>
+                        <span class="stat-val" id="track-drawdown_phantom">0.00%</span>
+                        <div class="stat-bar"><div class="fill" id="bar-drawdown_phantom" style="width: 0%; background: #ef4444;"></div></div>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons">
+                    <a href="https://www.myfxbook.com/members/Alves99/golden-phantom/12150334" target="_blank" class="link-myfxbook">
+                        <i class="fas fa-external-link-alt"></i> View History
+                    </a>
+                    <div class="status-badge" id="status-phantom"><i class="fas fa-circle" style="color: #cbd5e1; font-size: 0.5rem;"></i> Disconnected</div>
+                    <button class="btn-connect" onclick="openCopierModal('Golden Phantom', 'phantom')">
+                        <i class="fas fa-plug"></i> Connect to Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- --- MODAL VALIDASI AKUN IB --- -->
+    <div class="modal-overlay" id="unlockModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeUnlockModal()">&times;</span>
+            <h3 style="color: var(--hero-yellow); margin-bottom: 15px; text-align: center;">Validasi Akun Under IB</h3>
+            <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px; text-align: center;">Masukkan nomor akun trading MetaTrader Anda untuk divalidasi ke dalam jaringan IB.</p>
+            
+            <form onsubmit="verifyIbAccount(event)">
+                <div class="form-group">
+                    <label>Nomor Akun Trading (MT4 / MT5)</label>
+                    <input type="number" id="ibAccVerify" placeholder="Contoh: 8823412" required>
+                </div>
+                <button type="submit" class="btn-submit" id="btnVerifySubmit">Verifikasi & Buka Akses</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- --- MODAL KONEKSI TERMINAL COPIER --- -->
+    <div class="modal-overlay" id="copierModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCopierModal()">&times;</span>
+            <h3 id="modalTitle">Connect Account</h3>
+            <form id="copierForm" onsubmit="processConnection(event)">
+                <input type="hidden" id="selectedEA" value="">
+                
+                <div class="form-group">
+                    <label>Platform Platform</label>
+                    <select id="platform" required>
+                        <option value="MT4">MetaTrader 4</option>
+                        <option value="MT5">MetaTrader 5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Broker Server</label>
+                    <input type="text" id="brokerServer" placeholder="Masukkan nama server broker" required>
+                </div>
+                <div class="form-group">
+                    <label>Account Number (Login)</label>
+                    <input type="number" id="accNumber" placeholder="Contoh: 1234567" required>
+                </div>
+                <div class="form-group">
+                    <label>Master Password</label>
+                    <input type="password" id="accPassword" placeholder="Password MT4/MT5 Anda" required>
+                </div>
+                <div class="form-group">
+                    <label>Copy Risk Management</label>
+                    <select id="riskMode" required>
+                        <option value="auto">Auto Lot (Proportional Balance)</option>
+                        <option value="fixed_0.01">Fixed Lot 0.01</option>
+                        <option value="multiplier_2">Multiplier x2 dari Master</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit" id="btnSubmitForm">Mulai Sinkronisasi Trade</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER GLOBAL -->
+    <div class="branding-footer" style="padding-bottom: 20px;">
+        Powered by <a href="dashboard.html" id="footerHomeLink">Boom Trade Indonesia</a> — Your Partner Trading System
+    </div>
+
+    <!-- SCRIPT FIREBASE & CHART.JS -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cek status verifikasi local storage
+            const isVerified = localStorage.getItem("boomtrade_ib_verified");
+            if (isVerified === "true") {
+                unlockCopierDashboard();
+            }
+
+            // Tangkap parameter agen dari URL agar navigasi kembali membawa ID agen
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.toString()) {
+                document.getElementById('backToDashboardBtn').href = "dashboard.html" + window.location.search;
+                document.getElementById('footerHomeLink').href = "dashboard.html" + window.location.search;
+            }
+        });
+
+        function openUnlockModal() { document.getElementById('unlockModal').style.display = 'flex'; }
+        function closeUnlockModal() { document.getElementById('unlockModal').style.display = 'none'; }
+
+        function verifyIbAccount(e) {
+            e.preventDefault();
+            const accNum = document.getElementById('ibAccVerify').value;
+            const btn = document.getElementById('btnVerifySubmit');
+            
+            btn.innerText = "Memeriksa Jaringan IB...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                localStorage.setItem("boomtrade_ib_verified", "true");
+                localStorage.setItem("boomtrade_verified_account", accNum);
+                
+                closeUnlockModal();
+                unlockCopierDashboard();
+                alert("Validasi Berhasil! Akun " + accNum + " terdaftar under jaringan IB.");
+                
+                btn.innerText = "Verifikasi & Buka Akses";
+                btn.disabled = false;
+            }, 1200);
+        }
+
+        function unlockCopierDashboard() {
+            document.getElementById('ibGatewayCard').style.display = 'none';
+            document.getElementById('copierMainContent').style.display = 'flex';
+        }
+
+        // Konfigurasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
+            authDomain: "zenith-demo-download.firebaseapp.com",
+            databaseURL: "https://zenith-demo-download-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "zenith-demo-download",
+            storageBucket: "zenith-demo-download.firebasestorage.app",
+            messagingSenderId: "173090395889",
+            appId: "1:173090395889:web:e8ae52feac5591c8bc3b50",
+            measurementId: "G-NTT9L32RTD"
+        };
+
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        var database = firebase.database();
+
+        // Modal Copier Terminal
+        const copierModal = document.getElementById('copierModal');
+        function openCopierModal(eaName, eaCode) {
+            document.getElementById('modalTitle').innerText = "Connect to " + eaName;
+            document.getElementById('selectedEA').value = eaCode;
+            
+            const savedAcc = localStorage.getItem("boomtrade_verified_account");
+            if(savedAcc) {
+                document.getElementById('accNumber').value = savedAcc;
+            }
+
+            copierModal.style.display = 'flex';
+        }
+        function closeCopierModal() {
+            copierModal.style.display = 'none';
+            document.getElementById('copierForm').reset();
+        }
+
+        function processConnection(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSubmitForm');
+            btn.innerText = "Connecting to Server...";
+            btn.disabled = true;
+
+            const eaTarget = document.getElementById('selectedEA').value;
+            const clientData = {
+                platform: document.getElementById('platform').value,
+                server: document.getElementById('brokerServer').value,
+                account: document.getElementById('accNumber').value,
+                password: document.getElementById('accPassword').value,
+                risk: document.getElementById('riskMode').value,
+                status: "pending", 
+                timestamp: Date.now()
+            };
+
+            database.ref('copier_clients/' + eaTarget + '/' + clientData.account).set(clientData)
+            .then(() => {
+                alert("Akun berhasil terdaftar! Sistem VPS sedang melakukan sinkronisasi dengan akun Master.");
+                
+                const statusBadge = document.getElementById('status-' + eaTarget);
+                statusBadge.innerHTML = '<i class="fas fa-circle" style="color: #10b981; font-size: 0.5rem;"></i> Connected & Synchronizing';
+                statusBadge.style.background = '#d1fae5';
+                statusBadge.style.color = '#065f46';
+                
+                closeCopierModal();
+                btn.innerText = "Mulai Sinkronisasi Trade";
+                btn.disabled = false;
+            })
+            .catch((error) => {
+                alert("Terjadi kesalahan: " + error.message);
+                btn.innerText = "Mulai Sinkronisasi Trade";
+                btn.disabled = false;
+            });
+        }
+
+        const curveShape = [0, 0.1, 0.3, 0.45, 0.6, 0.75, 0.85, 1.0];
+        const historyLabels = ['1','2','3','4','5','6','7','Current'];
+
+        function initChart(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if(!canvas) return null;
+            const ctx = canvas.getContext('2d');
+            
+            let gradientFill = ctx.createLinearGradient(0, 0, 0, 140);
+            gradientFill.addColorStop(0, 'rgba(41, 182, 246, 0.4)'); 
+            gradientFill.addColorStop(1, 'rgba(41, 182, 246, 0.0)'); 
+
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: historyLabels,
+                    datasets: [{
+                        data: curveShape.map(val => val * 0),
+                        borderColor: '#29b6f6', 
+                        backgroundColor: gradientFill,
+                        borderWidth: 2, fill: true, tension: 0.4, 
+                        pointRadius: 0, pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '#ef4444', pointHoverBorderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#ffffff', titleColor: '#555', bodyColor: '#000',
+                            bodyFont: { weight: 'bold' }, borderColor: 'rgba(0,0,0,0.1)',
+                            borderWidth: 1, displayColors: false, padding: 10,
+                            callbacks: {
+                                title: function() { return ''; }, 
+                                label: function(context) { return context.parsed.y.toFixed(2) + '%'; }
+                            }
+                        }
+                    },
+                    scales: { x: { display: false }, y: { display: false } },
+                    layout: { padding: { top: 10, bottom: 0, left: 0, right: 0 } }
+                }
+            });
+        }
+
+        const charts = {
+            zenith: initChart('growthChart_zenith'),
+            dopamin: initChart('growthChart_dopamin'),
+            phantom: initChart('growthChart_phantom')
+        };
+
+        function updateTrackerData(data, prefix, chartObj) {
+            if(!data) return; 
+            const curr = data.currency ? " " + data.currency : " USD";
+
+            if(data.broker !== undefined) document.getElementById(`track-broker_${prefix}`).innerText = data.broker;
+            if(data.leverage !== undefined) document.getElementById(`track-leverage_${prefix}`).innerText = data.leverage;
+            
+            if(data.equity !== undefined) document.getElementById(`track-equity_${prefix}`).innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+            if(data.profit !== undefined) document.getElementById(`track-profit_${prefix}`).innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+            if(data.deposit !== undefined) document.getElementById(`track-deposit_${prefix}`).innerText = data.deposit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+            if(data.withdrawal !== undefined) document.getElementById(`track-withdrawal_${prefix}`) && (document.getElementById(`track-withdrawal_${prefix}`).innerText = data.withdrawal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr);
+            
+            if(data.drawdown !== undefined) {
+                document.getElementById(`track-drawdown_${prefix}`).innerText = data.drawdown.toFixed(2) + '%';
+                let ddRatio = data.drawdown > 100 ? 100 : data.drawdown;
+                document.getElementById(`bar-drawdown_${prefix}`).style.width = ddRatio + '%';
+            }
+
+            if(data.days !== undefined) {
+                document.getElementById(`track-days_${prefix}`).innerText = data.days + ' Hari';
+            }
+
+            if(data.growth !== undefined && chartObj) {
+                const growthEl = document.getElementById(`track-growth_${prefix}`);
+                growthEl.innerText = data.growth.toFixed(2) + '%';
+                growthEl.style.color = data.growth >= 0 ? '#4CAF50' : '#ef4444';
+                
+                let chartArray = data.chart;
+                if(typeof chartArray === 'string') {
+                    try { chartArray = JSON.parse(chartArray); } catch(e) {}
+                }
+
+                if(Array.isArray(chartArray) && chartArray.length > 0) {
+                    let finalChart = [...chartArray];
+                    finalChart.push(data.growth);
+                    chartObj.data.labels = finalChart.map((_, i) => i + 1);
+                    chartObj.data.datasets[0].data = finalChart;
+                } else {
+                    chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
+                }
+                chartObj.update();
+            }
+
+            if(data.deposit !== undefined && data.profit !== undefined && data.deposit > 0) {
+                let profitRatio = (data.profit / data.deposit) * 100;
+                if(profitRatio > 100) profitRatio = 100;
+                if(profitRatio < 0) profitRatio = 0;
+                document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
+            } else if(data.equity !== undefined && data.profit !== undefined) {
+                let profitRatio = (data.profit / data.equity) * 100;
+                if(profitRatio > 100) profitRatio = 100;
+                if(profitRatio < 0) profitRatio = 0;
+                document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
+            }
+        }
+        
+        var trackerRef = database.ref('tracker');
+        trackerRef.on('value', (snapshot) => {
+            const allData = snapshot.val();
+            if(allData !== null) {
+                updateTrackerData(allData.zenith, 'zenith', charts.zenith);
+                updateTrackerData(allData.dopamin, 'dopamin', charts.dopamin);
+                updateTrackerData(allData.phantom, 'phantom', charts.phantom);
+            }
+        });
+    </script>
+</body>
+</html>
