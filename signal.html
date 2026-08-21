@@ -33,7 +33,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- TOMBOL KEMBALI KE HOME --- */
+        /* --- TOMBOL KEMBALI KE HOME & BAHASA --- */
         .btn-home {
             position: fixed; top: 25px; left: 25px;
             background: rgba(30, 41, 59, 0.9); color: var(--primary-blue);
@@ -47,18 +47,29 @@
             box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); transform: translateY(-2px);
         }
 
+        .btn-lang {
+            position: fixed; top: 25px; right: 25px;
+            background: rgba(30, 41, 59, 0.9); color: #fff;
+            border: 1px solid var(--primary-blue); padding: 8px 15px;
+            border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: 0.3s; z-index: 999;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-lang:hover { background: var(--primary-blue); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); transform: translateY(-2px); }
+
         /* --- CONTAINER KARTU SIGNAL --- */
         .cards-container {
             display: flex; flex-wrap: wrap; gap: 20px;
-            justify-content: center; width: 100%; max-width: 950px; 
-            margin-bottom: 40px;
+            justify-content: center; width: 100%; 
+            max-width: 895px; 
+            margin-bottom: 25px;
         }
 
-        /* --- STYLE KARTU MQL5 --- */
+        /* --- STYLE KARTU MQL5 (Tanpa Logo) --- */
         .mql-card {
             background: #ffffff; 
             width: 285px; 
-            height: 185px; /* Disesuaikan sedikit karena rating hilang */
+            height: 175px; 
             border: 1px solid #e2e8f0; 
             border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -70,18 +81,13 @@
         }
         
         .mql-header {
-            padding: 15px 15px 10px 15px; 
-            display: flex; gap: 10px; align-items: center;
+            padding: 15px 15px 5px 15px; 
+            display: flex; align-items: center;
         }
-        .mql-avatar {
-            width: 40px; height: 40px; background: #e2e8f0;
-            border-radius: 4px; display: flex; align-items: center; justify-content: center;
-            font-size: 20px; color: #94a3b8;
-        }
-        .mql-author { flex: 1; display: flex; align-items: center; }
+        .mql-author { flex: 1; }
         .mql-author-row {
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.95rem; font-weight: 700; color: var(--mql-blue); width: 100%;
+            font-size: 1.05rem; font-weight: 700; color: var(--mql-blue); width: 100%;
         }
         .mql-author-row .fa-check-circle { color: var(--mql-green); font-size: 0.9rem; margin-left: 5px; }
 
@@ -106,11 +112,42 @@
             font-size: 0.7rem; color: var(--mql-gray); margin-top: 3px;
         }
 
-        /* Chart nempel pas di bawah dengan tinggi proporsional */
         .mql-chart-container {
             position: absolute; bottom: 0; left: 0;
             width: 100%; height: 75px; z-index: 1; pointer-events: none;
         }
+
+        /* --- STYLE TABEL RINGKASAN PERFORMA --- */
+        .table-container {
+            width: 100%; 
+            max-width: 895px; 
+            background: #ffffff; border-radius: 8px;
+            padding: 25px; margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            color: #333; overflow-x: auto; border: 1px solid #e2e8f0;
+        }
+        .table-container h3 {
+            color: var(--mql-blue); margin-bottom: 15px; font-size: 1.2rem;
+            border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; display: flex; align-items: center; gap: 10px;
+        }
+        .performance-table {
+            width: 100%; border-collapse: collapse; text-align: left;
+        }
+        .performance-table th {
+            background: #f8fafc; color: #64748b; font-weight: 600;
+            padding: 12px 15px; font-size: 0.85rem; border-bottom: 1px solid #e2e8f0; white-space: nowrap;
+        }
+        .performance-table td {
+            padding: 15px; font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #1e293b;
+        }
+        .performance-table tr:last-child td { border-bottom: none; }
+        .performance-table tr:hover { background: #f8fafc; }
+        
+        .table-ea-name { display: flex; align-items: center; color: var(--mql-blue); font-weight: 700; }
+        
+        .val-green { color: var(--mql-green) !important; }
+        .val-red { color: #ef4444 !important; }
+        .val-neutral { color: #94a3b8 !important; font-weight: normal !important; }
 
         /* --- STYLE MODAL (POPUP) --- */
         .modal {
@@ -159,45 +196,44 @@
             text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
         }
 
-        .branding-footer { font-size: 0.9rem; color: #94a3b8; margin-top: auto; }
+        .branding-footer { font-size: 0.9rem; color: #94a3b8; margin-top: auto; text-align: center; }
         .branding-footer a { color: var(--hero-yellow); font-weight: bold; text-decoration: none; }
 
         @media (max-width: 768px) {
             .cards-container { gap: 15px; }
             .mql-card { width: 100%; max-width: 320px; }
             .stat-item { grid-template-columns: 90px 80px 1fr; gap: 10px; }
+            .table-container { padding: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Tombol Home -->
+    <!-- Tombol Home & Language -->
     <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;" class="btn-home">
-        <i class="fas fa-arrow-left"></i> Home
+        <i class="fas fa-arrow-left"></i> <span data-lang="home">Home</span>
     </a>
+    
+    <button class="btn-lang" onclick="toggleLanguage()">
+        <i class="fas fa-globe"></i> <span id="lang-text">EN</span>
+    </button>
 
     <div class="cards-container">
         
-       <!-- ============================================== -->
         <!-- CARD 1: ZENITHPRO SCALPER -->
-        <!-- ============================================== -->
         <div class="mql-card">
             <div class="mql-header">
-                <!-- Ubah src="images/logo-zenith.png" sesuai lokasi gambarmu -->
-                <div class="mql-avatar">
-                    <img src="images/logo-zenith.png" alt="Zenith" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
-                </div>
                 <div class="mql-author">
                     <div class="mql-author-row">ZenithPro Scalper <i class="fas fa-check-circle"></i></div>
                 </div>
             </div>
             <div class="mql-body">
                 <div class="mql-title-area">
-                    <button class="btn-view" onclick="openModal('modal-zenith')">View Details</button>
+                    <button class="btn-view" onclick="openModal('modal-zenith')" data-lang="view_details">View Details</button>
                 </div>
                 <div class="mql-growth-area">
                     <div class="mql-growth-val" id="track-growth_zenith">0.00%</div>
-                    <div class="mql-growth-since">growth since 2026</div>
+                    <div class="mql-growth-since" data-lang="growth_since">growth since 2026</div>
                 </div>
             </div>
             <div class="mql-chart-container">
@@ -205,26 +241,20 @@
             </div>
         </div>
 
-        <!-- ============================================== -->
         <!-- CARD 2: DOPAMIN -->
-        <!-- ============================================== -->
         <div class="mql-card">
             <div class="mql-header">
-                <!-- Ubah src="images/logo-dopamin.png" sesuai lokasi gambarmu -->
-                <div class="mql-avatar">
-                    <img src="images/logo-dopamin.png" alt="Dopamin" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
-                </div>
                 <div class="mql-author">
                     <div class="mql-author-row">Dopamin Hedge <i class="fas fa-check-circle"></i></div>
                 </div>
             </div>
             <div class="mql-body">
                 <div class="mql-title-area">
-                    <button class="btn-view" onclick="openModal('modal-dopamin')">View Details</button>
+                    <button class="btn-view" onclick="openModal('modal-dopamin')" data-lang="view_details">View Details</button>
                 </div>
                 <div class="mql-growth-area">
                     <div class="mql-growth-val" id="track-growth_dopamin">0.00%</div>
-                    <div class="mql-growth-since">growth since 2026</div>
+                    <div class="mql-growth-since" data-lang="growth_since">growth since 2026</div>
                 </div>
             </div>
             <div class="mql-chart-container">
@@ -232,26 +262,20 @@
             </div>
         </div>
 
-        <!-- ============================================== -->
         <!-- CARD 3: GOLDEN PHANTOM -->
-        <!-- ============================================== -->
         <div class="mql-card">
             <div class="mql-header">
-                <!-- Ubah src="images/logo-phantom.png" sesuai lokasi gambarmu -->
-                <div class="mql-avatar">
-                    <img src="images/logo-phantom.png" alt="Phantom" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
-                </div>
                 <div class="mql-author">
                     <div class="mql-author-row">Golden Phantom <i class="fas fa-check-circle"></i></div>
                 </div>
             </div>
             <div class="mql-body">
                 <div class="mql-title-area">
-                    <button class="btn-view" onclick="openModal('modal-phantom')">View Details</button>
+                    <button class="btn-view" onclick="openModal('modal-phantom')" data-lang="view_details">View Details</button>
                 </div>
                 <div class="mql-growth-area">
                     <div class="mql-growth-val" id="track-growth_phantom">0.00%</div>
-                    <div class="mql-growth-since">growth since 2026</div>
+                    <div class="mql-growth-since" data-lang="growth_since">growth since 2026</div>
                 </div>
             </div>
             <div class="mql-chart-container">
@@ -259,6 +283,55 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TABEL RINGKASAN PERFORMA -->
+    <!-- ============================================== -->
+    <div class="table-container">
+        <h3><i class="fas fa-history"></i> <span data-lang="table_title">History Pencapaian Bulanan (2026)</span></h3>
+        <table class="performance-table">
+            <thead>
+                <tr>
+                    <th data-lang="trading_system">Expert Advisor</th>
+                    <th data-lang="avg_daily">AVG Harian</th>
+                    <th data-lang="aug">Agustus</th>
+                    <th data-lang="sep">September</th>
+                    <th data-lang="oct">Oktober</th>
+                    <th data-lang="nov">November</th>
+                    <th data-lang="dec">Desember</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="table-ea-name">ZenithPro Scalper</div></td>
+                    <td id="table-daily_zenith">0.00%</td>
+                    <td id="table-aug_zenith" class="val-neutral">-</td>
+                    <td id="table-sep_zenith" class="val-neutral">-</td>
+                    <td id="table-oct_zenith" class="val-neutral">-</td>
+                    <td id="table-nov_zenith" class="val-neutral">-</td>
+                    <td id="table-dec_zenith" class="val-neutral">-</td>
+                </tr>
+                <tr>
+                    <td><div class="table-ea-name">Dopamin Hedge</div></td>
+                    <td id="table-daily_dopamin">0.00%</td>
+                    <td id="table-aug_dopamin" class="val-neutral">-</td>
+                    <td id="table-sep_dopamin" class="val-neutral">-</td>
+                    <td id="table-oct_dopamin" class="val-neutral">-</td>
+                    <td id="table-nov_dopamin" class="val-neutral">-</td>
+                    <td id="table-dec_dopamin" class="val-neutral">-</td>
+                </tr>
+                <tr>
+                    <td><div class="table-ea-name">Golden Phantom</div></td>
+                    <td id="table-daily_phantom">0.00%</td>
+                    <td id="table-aug_phantom" class="val-neutral">-</td>
+                    <td id="table-sep_phantom" class="val-neutral">-</td>
+                    <td id="table-oct_phantom" class="val-neutral">-</td>
+                    <td id="table-nov_phantom" class="val-neutral">-</td>
+                    <td id="table-dec_phantom" class="val-neutral">-</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- ============================================== -->
@@ -279,27 +352,27 @@
 
             <div class="tracker-stats-right">
                 <div class="stat-item">
-                    <span class="stat-label">Equity</span>
+                    <span class="stat-label" data-lang="equity">Equity</span>
                     <span class="stat-val" id="track-equity_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Profit</span>
+                    <span class="stat-label" data-lang="profit">Profit</span>
                     <span class="stat-val" id="track-profit_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" id="bar-profit_zenith" style="width: 80%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Total Deposit</span>
+                    <span class="stat-label" data-lang="deposit">Total Deposit</span>
                     <span class="stat-val" id="track-deposit_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 20%; background: #94a3b8;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-label" data-lang="withdrawal">Withdrawals</span>
                     <span class="stat-val" id="track-withdrawal_zenith">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 1%; background: #94a3b8;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Max Drawdown</span>
+                    <span class="stat-label" data-lang="drawdown">Max Drawdown</span>
                     <span class="stat-val" id="track-drawdown_zenith">0.00%</span>
                     <div class="stat-bar"><div class="fill" id="bar-drawdown_zenith" style="width: 0%; background: #ef4444;"></div></div>
                 </div>
@@ -307,7 +380,7 @@
             
             <div class="myfxbook-link">
                 <a href="https://www.myfxbook.com/members/Alves99/zenithpro-scalper-v40/12147272" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> View on MyFxBook
+                    <i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span>
                 </a>
             </div>
         </div>
@@ -327,27 +400,27 @@
 
             <div class="tracker-stats-right">
                 <div class="stat-item">
-                    <span class="stat-label">Equity</span>
+                    <span class="stat-label" data-lang="equity">Equity</span>
                     <span class="stat-val" id="track-equity_dopamin">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Profit</span>
+                    <span class="stat-label" data-lang="profit">Profit</span>
                     <span class="stat-val" id="track-profit_dopamin">0.00</span>
                     <div class="stat-bar"><div class="fill" id="bar-profit_dopamin" style="width: 80%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Total Deposit</span>
+                    <span class="stat-label" data-lang="deposit">Total Deposit</span>
                     <span class="stat-val" id="track-deposit_dopamin">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 20%; background: #94a3b8;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-label" data-lang="withdrawal">Withdrawals</span>
                     <span class="stat-val" id="track-withdrawal_dopamin">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 1%; background: #94a3b8;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Max Drawdown</span>
+                    <span class="stat-label" data-lang="drawdown">Max Drawdown</span>
                     <span class="stat-val" id="track-drawdown_dopamin">0.00%</span>
                     <div class="stat-bar"><div class="fill" id="bar-drawdown_dopamin" style="width: 0%; background: #ef4444;"></div></div>
                 </div>
@@ -355,7 +428,7 @@
             
             <div class="myfxbook-link">
                 <a href="https://www.myfxbook.com/members/Alves99/dopamin/12150340" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> View on MyFxBook
+                    <i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span>
                 </a>
             </div>
         </div>
@@ -375,27 +448,27 @@
 
             <div class="tracker-stats-right">
                 <div class="stat-item">
-                    <span class="stat-label">Equity</span>
+                    <span class="stat-label" data-lang="equity">Equity</span>
                     <span class="stat-val" id="track-equity_phantom">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Profit</span>
+                    <span class="stat-label" data-lang="profit">Profit</span>
                     <span class="stat-val" id="track-profit_phantom">0.00</span>
                     <div class="stat-bar"><div class="fill" id="bar-profit_phantom" style="width: 80%; background: #29b6f6;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Total Deposit</span>
+                    <span class="stat-label" data-lang="deposit">Total Deposit</span>
                     <span class="stat-val" id="track-deposit_phantom">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 20%; background: #94a3b8;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Withdrawals</span>
+                    <span class="stat-label" data-lang="withdrawal">Withdrawals</span>
                     <span class="stat-val" id="track-withdrawal_phantom">0.00</span>
                     <div class="stat-bar"><div class="fill" style="width: 1%; background: #94a3b8;"></div></div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Max Drawdown</span>
+                    <span class="stat-label" data-lang="drawdown">Max Drawdown</span>
                     <span class="stat-val" id="track-drawdown_phantom">0.00%</span>
                     <div class="stat-bar"><div class="fill" id="bar-drawdown_phantom" style="width: 0%; background: #ef4444;"></div></div>
                 </div>
@@ -403,7 +476,7 @@
             
             <div class="myfxbook-link">
                 <a href="https://www.myfxbook.com/members/Alves99/golden-phantom/12150334" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> View on MyFxBook
+                    <i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span>
                 </a>
             </div>
         </div>
@@ -419,6 +492,61 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        // --- SCRIPT TRANSLASI BAHASA ---
+        let currentLang = 'id';
+        let globalDaysData = { zenith: 0, dopamin: 0, phantom: 0 };
+
+        const translations = {
+            id: {
+                home: "Home",
+                view_details: "View Details",
+                growth_since: "growth since 2026",
+                table_title: "History Pencapaian Bulanan (2026)",
+                trading_system: "Expert Advisor",
+                avg_daily: "AVG Harian",
+                aug: "Agustus", sep: "September", oct: "Oktober", nov: "November", dec: "Desember",
+                equity: "Equity", profit: "Profit", deposit: "Total Deposit",
+                withdrawal: "Penarikan", drawdown: "Max Drawdown", view_myfx: "Lihat di MyFxBook",
+                days: "Hari"
+            },
+            en: {
+                home: "Home",
+                view_details: "View Details",
+                growth_since: "growth since 2026",
+                table_title: "Monthly Achievement History (2026)",
+                trading_system: "Expert Advisor",
+                avg_daily: "Daily AVG",
+                aug: "August", sep: "September", oct: "October", nov: "November", dec: "December",
+                equity: "Equity", profit: "Profit", deposit: "Total Deposit",
+                withdrawal: "Withdrawals", drawdown: "Max Drawdown", view_myfx: "View on MyFxBook",
+                days: "Days"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            document.getElementById('lang-text').innerText = currentLang === 'id' ? 'EN' : 'ID';
+            
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            // Update text hari (days) untuk semua modal
+            ['zenith', 'dopamin', 'phantom'].forEach(prefix => {
+                document.getElementById(`track-days_${prefix}`).innerText = globalDaysData[prefix] + " " + translations[currentLang].days;
+            });
+        }
+
+        // --- SISTEM BULAN DINAMIS ---
+        const d = new Date();
+        const currentMonthIndex = d.getMonth();
+        const monthKeys = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        const activeMonthKey = monthKeys[currentMonthIndex]; 
+
         // --- SCRIPT UNTUK MODAL (POP-UP) ---
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('show');
@@ -502,8 +630,12 @@
                 if(data.broker !== undefined) document.getElementById(`track-broker_${prefix}`).innerText = data.broker;
                 if(data.leverage !== undefined) document.getElementById(`track-leverage_${prefix}`).innerText = data.leverage;
                 
+                if(data.days !== undefined) {
+                    globalDaysData[prefix] = data.days;
+                    document.getElementById(`track-days_${prefix}`).innerText = data.days + " " + translations[currentLang].days;
+                }
+                
                 if(data.equity !== undefined) document.getElementById(`track-equity_${prefix}`).innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
-                if(data.profit !== undefined) document.getElementById(`track-profit_${prefix}`).innerText = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
                 if(data.deposit !== undefined) document.getElementById(`track-deposit_${prefix}`).innerText = data.deposit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
                 if(data.withdrawal !== undefined) document.getElementById(`track-withdrawal_${prefix}`).innerText = data.withdrawal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
                 
@@ -513,43 +645,61 @@
                     document.getElementById(`bar-drawdown_${prefix}`).style.width = ddRatio + '%';
                 }
 
-                if(data.days !== undefined) {
-                    document.getElementById(`track-days_${prefix}`).innerText = data.days + ' Hari';
+                // Kalkulasi Profit dalam Mata Uang & AVG dalam Persentase (%)
+                if(data.profit !== undefined) {
+                    // Update Modal Profit text dengan mata uang (USD)
+                    let formattedProfitUSD = data.profit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
+                    document.getElementById(`track-profit_${prefix}`).innerText = formattedProfitUSD;
+                    
+                    let profitPercent = 0;
+                    if(data.deposit && data.deposit > 0) {
+                        profitPercent = (data.profit / data.deposit) * 100;
+                    } else if(data.equity && data.equity > 0) {
+                        profitPercent = (data.profit / data.equity) * 100;
+                    }
+                    
+                    // Update AVG Harian % di tabel
+                    let activeDays = (data.days !== undefined && data.days > 0) ? data.days : 1;
+                    let avgDaily = profitPercent / activeDays;
+                    document.getElementById(`table-daily_${prefix}`).innerText = avgDaily.toFixed(2) + '%';
+                    
+                    // Update Grafik Bar (Animasi Fill)
+                    let profitRatio = profitPercent;
+                    if(profitRatio > 100) profitRatio = 100;
+                    if(profitRatio < 0) profitRatio = 0;
+                    document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
                 }
 
-                if(data.growth !== undefined && chartObj) {
+                // Update Growth (%)
+                if(data.growth !== undefined) {
+                    let growthFormatted = data.growth.toFixed(2) + '%';
+                    
                     const growthEl = document.getElementById(`track-growth_${prefix}`);
-                    growthEl.innerText = data.growth.toFixed(2) + '%';
+                    growthEl.innerText = growthFormatted;
                     growthEl.style.color = data.growth >= 0 ? 'var(--mql-green)' : '#ef4444';
                     
-                    let chartArray = data.chart;
+                    // Update Tabel Bulan Dinamis
+                    const tableMonthEl = document.getElementById(`table-${activeMonthKey}_${prefix}`);
+                    if(tableMonthEl) {
+                        tableMonthEl.innerText = growthFormatted;
+                        tableMonthEl.className = data.growth >= 0 ? 'val-green' : 'val-red';
+                    }
                     
-                    if(typeof chartArray === 'string') {
-                        try { chartArray = JSON.parse(chartArray); } catch(e) {}
+                    if(chartObj) {
+                        let chartArray = data.chart;
+                        if(typeof chartArray === 'string') {
+                            try { chartArray = JSON.parse(chartArray); } catch(e) {}
+                        }
+                        if(Array.isArray(chartArray) && chartArray.length > 0) {
+                            let finalChart = [...chartArray];
+                            finalChart.push(data.growth);
+                            chartObj.data.labels = finalChart.map((_, i) => i + 1);
+                            chartObj.data.datasets[0].data = finalChart;
+                        } else {
+                            chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
+                        }
+                        chartObj.update();
                     }
-
-                    if(Array.isArray(chartArray) && chartArray.length > 0) {
-                        let finalChart = [...chartArray];
-                        finalChart.push(data.growth);
-
-                        chartObj.data.labels = finalChart.map((_, i) => i + 1);
-                        chartObj.data.datasets[0].data = finalChart;
-                    } else {
-                        chartObj.data.datasets[0].data = curveShape.map(val => val * data.growth);
-                    }
-                    chartObj.update();
-                }
-
-                if(data.deposit !== undefined && data.profit !== undefined && data.deposit > 0) {
-                    let profitRatio = (data.profit / data.deposit) * 100;
-                    if(profitRatio > 100) profitRatio = 100;
-                    if(profitRatio < 0) profitRatio = 0;
-                    document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
-                } else if(data.equity !== undefined && data.profit !== undefined) {
-                    let profitRatio = (data.profit / data.equity) * 100;
-                    if(profitRatio > 100) profitRatio = 100;
-                    if(profitRatio < 0) profitRatio = 0;
-                    document.getElementById(`bar-profit_${prefix}`).style.width = profitRatio + '%';
                 }
             }
             
