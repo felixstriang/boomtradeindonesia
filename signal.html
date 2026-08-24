@@ -60,12 +60,13 @@
         /* --- CONTAINER KARTU SIGNAL --- */
         .cards-container {
             display: flex; flex-wrap: wrap; gap: 20px;
-            justify-content: center; width: 100%; 
+            justify-content: flex-start; /* Presisi rata kiri */
+            width: 100%; 
             max-width: 895px; 
             margin-bottom: 25px;
         }
 
-        /* --- STYLE KARTU MQL5 (Tanpa Logo) --- */
+        /* --- STYLE KARTU MQL5 --- */
         .mql-card {
             background: #ffffff; 
             width: 285px; 
@@ -199,8 +200,33 @@
         .branding-footer { font-size: 0.9rem; color: #94a3b8; margin-top: auto; text-align: center; }
         .branding-footer a { color: var(--hero-yellow); font-weight: bold; text-decoration: none; }
 
+        /* --- STYLE WARNING RISK --- */
+        .badge-risk {
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .alert-risk {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            color: #ef4444;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+            line-height: 1.4;
+        }
+
         @media (max-width: 768px) {
-            .cards-container { gap: 15px; }
+            .cards-container { gap: 15px; justify-content: center; /* Di HP tetap rata tengah agar rapi */ }
             .mql-card { width: 100%; max-width: 320px; }
             .stat-item { grid-template-columns: 90px 80px 1fr; gap: 10px; }
             .table-container { padding: 15px; }
@@ -245,7 +271,12 @@
         <div class="mql-card">
             <div class="mql-header">
                 <div class="mql-author">
-                    <div class="mql-author-row">Dopamin Hedge <i class="fas fa-check-circle"></i></div>
+                    <div class="mql-author-row">
+                        <div style="display:flex; align-items:center;">
+                            Dopamin Hedge <span class="badge-risk" data-lang="high_risk">High Risk</span>
+                        </div>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
                 </div>
             </div>
             <div class="mql-body">
@@ -280,6 +311,27 @@
             </div>
             <div class="mql-chart-container">
                 <canvas id="growthChart_phantom"></canvas>
+            </div>
+        </div>
+
+        <!-- CARD 4: SPARTAN KILLER -->
+        <div class="mql-card">
+            <div class="mql-header">
+                <div class="mql-author">
+                    <div class="mql-author-row">Spartan Killer <i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
+            <div class="mql-body">
+                <div class="mql-title-area">
+                    <button class="btn-view" onclick="openModal('modal-spartan')" data-lang="view_details">View Details</button>
+                </div>
+                <div class="mql-growth-area">
+                    <div class="mql-growth-val" id="track-growth_spartan">0.00%</div>
+                    <div class="mql-growth-since" data-lang="growth_since">growth since 2026</div>
+                </div>
+            </div>
+            <div class="mql-chart-container">
+                <canvas id="growthChart_spartan"></canvas>
             </div>
         </div>
 
@@ -329,6 +381,15 @@
                     <td id="table-oct_phantom" class="val-neutral">-</td>
                     <td id="table-nov_phantom" class="val-neutral">-</td>
                     <td id="table-dec_phantom" class="val-neutral">-</td>
+                </tr>
+                <tr>
+                    <td><div class="table-ea-name">Spartan Killer</div></td>
+                    <td id="table-daily_spartan">0.00%</td>
+                    <td id="table-aug_spartan" class="val-neutral">-</td>
+                    <td id="table-sep_spartan" class="val-neutral">-</td>
+                    <td id="table-oct_spartan" class="val-neutral">-</td>
+                    <td id="table-nov_spartan" class="val-neutral">-</td>
+                    <td id="table-dec_spartan" class="val-neutral">-</td>
                 </tr>
             </tbody>
         </table>
@@ -396,6 +457,11 @@
                 <div><i class="fas fa-server" style="color: #4CAF50;"></i> <span id="track-broker_dopamin">Connecting...</span></div>
                 <div>Leverage 1:<span id="track-leverage_dopamin">0</span></div>
                 <div><span id="track-days_dopamin">0 Hari</span></div>
+            </div>
+
+            <!-- KOTAK PERINGATAN RISIKO -->
+            <div class="alert-risk">
+                <i class="fas fa-exclamation-triangle"></i> <span data-lang="risk_warning_dopamin">Perhatian : EA ini memiliki risiko paling tinggi. Disarankan modal 10.000 cent, batas maksimal resiko 30%, sistem EA ini menggunakan Straddle Infinite Grid.</span>
             </div>
 
             <div class="tracker-stats-right">
@@ -482,6 +548,55 @@
         </div>
     </div>
 
+    <!-- Modal Spartan -->
+    <div id="modal-spartan" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-spartan')">&times;</span>
+            <div class="modal-header">Spartan Killer</div>
+            
+            <div class="broker-info">
+                <div><i class="fas fa-server" style="color: #4CAF50;"></i> <span id="track-broker_spartan">Connecting...</span></div>
+                <div>Leverage 1:<span id="track-leverage_spartan">0</span></div>
+                <div><span id="track-days_spartan">0 Hari</span></div>
+            </div>
+
+            <div class="tracker-stats-right">
+                <div class="stat-item">
+                    <span class="stat-label" data-lang="equity">Equity</span>
+                    <span class="stat-val" id="track-equity_spartan">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label" data-lang="profit">Profit</span>
+                    <span class="stat-val" id="track-profit_spartan">0.00</span>
+                    <div class="stat-bar"><div class="fill" id="bar-profit_spartan" style="width: 80%; background: #29b6f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label" data-lang="deposit">Total Deposit</span>
+                    <span class="stat-val" id="track-deposit_spartan">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 20%; background: #94a3b8;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label" data-lang="withdrawal">Withdrawals</span>
+                    <span class="stat-val" id="track-withdrawal_spartan">0.00</span>
+                    <div class="stat-bar"><div class="fill" style="width: 1%; background: #94a3b8;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label" data-lang="drawdown">Max Drawdown</span>
+                    <span class="stat-val" id="track-drawdown_spartan">0.00%</span>
+                    <div class="stat-bar"><div class="fill" id="bar-drawdown_spartan" style="width: 0%; background: #ef4444;"></div></div>
+                </div>
+            </div>
+            
+            <div class="myfxbook-link">
+                <!-- Ganti '#' dengan link MyFxBook Spartan Killer milikmu nanti -->
+                <a href="#" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER GLOBAL -->
     <div class="branding-footer">
         Powered by <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;">Boom Trade Indonesia</a> — Your Partner Trading System
@@ -494,7 +609,7 @@
     <script>
         // --- SCRIPT TRANSLASI BAHASA ---
         let currentLang = 'id';
-        let globalDaysData = { zenith: 0, dopamin: 0, phantom: 0 };
+        let globalDaysData = { zenith: 0, dopamin: 0, phantom: 0, spartan: 0 };
 
         const translations = {
             id: {
@@ -507,7 +622,9 @@
                 aug: "Agustus", sep: "September", oct: "Oktober", nov: "November", dec: "Desember",
                 equity: "Equity", profit: "Profit", deposit: "Total Deposit",
                 withdrawal: "Penarikan", drawdown: "Max Drawdown", view_myfx: "Lihat di MyFxBook",
-                days: "Hari"
+                days: "Hari",
+                high_risk: "Risiko Tinggi",
+                risk_warning_dopamin: "Perhatian : EA ini memiliki risiko paling tinggi. Disarankan modal 10.000 cent, batas maksimal resiko 30%, sistem EA ini menggunakan Straddle Infinite Grid."
             },
             en: {
                 home: "Home",
@@ -519,7 +636,9 @@
                 aug: "August", sep: "September", oct: "October", nov: "November", dec: "December",
                 equity: "Equity", profit: "Profit", deposit: "Total Deposit",
                 withdrawal: "Withdrawals", drawdown: "Max Drawdown", view_myfx: "View on MyFxBook",
-                days: "Days"
+                days: "Days",
+                high_risk: "High Risk",
+                risk_warning_dopamin: "Warning: This EA carries the highest risk. Recommended capital is 10,000 cents, with a maximum risk limit of 30%. This EA system uses a Straddle Infinite Grid."
             }
         };
 
@@ -536,7 +655,7 @@
             });
 
             // Update text hari (days) untuk semua modal
-            ['zenith', 'dopamin', 'phantom'].forEach(prefix => {
+            ['zenith', 'dopamin', 'phantom', 'spartan'].forEach(prefix => {
                 document.getElementById(`track-days_${prefix}`).innerText = globalDaysData[prefix] + " " + translations[currentLang].days;
             });
         }
@@ -619,7 +738,8 @@
             const charts = {
                 zenith: initChart('growthChart_zenith'),
                 dopamin: initChart('growthChart_dopamin'),
-                phantom: initChart('growthChart_phantom')
+                phantom: initChart('growthChart_phantom'),
+                spartan: initChart('growthChart_spartan')
             };
 
             function updateTrackerData(data, prefix, chartObj) {
@@ -710,6 +830,7 @@
                     updateTrackerData(allData.zenith, 'zenith', charts.zenith);
                     updateTrackerData(allData.dopamin, 'dopamin', charts.dopamin);
                     updateTrackerData(allData.phantom, 'phantom', charts.phantom);
+                    updateTrackerData(allData.spartan, 'spartan', charts.spartan); 
                 }
             });
 
