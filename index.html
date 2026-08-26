@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jual Expert Advisor Terbaik, dan Copytrade. Boom Trade Indonesia solusi trading terbaik.">
+    <meta name="description" content="Expert Advisor Terbaik, dan Copytrade. Boom Trade Indonesia solusi trading terbaik.">
     <meta name="keywords" content="Jual EA Forex, Robot Trading, Copytrade Indonesia, Boom Trade Indonesia, Zenith Pro Scalper.">
     <title>BOOM TRADE INDONESIA</title> 
     <link rel="icon" type="image/png" href="images/boomtrade2.png">
@@ -214,6 +214,7 @@
         .card-badge.green { background: rgba(16, 185, 129, 0.15); color: var(--profit-green); }
         .card-badge.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
         .card-badge.pink { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+        .card-badge.orange { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
 
         .card-body { font-size: 0.85rem; color: var(--text-gray); line-height: 1.7; flex-grow: 1; }
         .card-divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 25px 0 15px; width: 100%; }
@@ -337,6 +338,13 @@
                                     <span class="mega-subtitle">BREAKOUT · XAUUSD</span>
                                 </div>
                             </div>
+                            <div class="mega-item" onclick="openModal('modal-spartan')">
+                                <img src="images/spartankiller.jpg" alt="Spartan Killer" class="mega-icon">
+                                <div class="mega-text">
+                                    <span class="mega-title">Spartan Killer</span>
+                                    <span class="mega-subtitle">BREAKOUT · XAUUSD</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="mega-menu-footer">
                             <a href="#products" class="mega-view-all">VIEW ALL <i class="fas fa-arrow-right"></i></a>
@@ -437,6 +445,24 @@
                             <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
+
+                    <div class="cluster-card" onclick="openModal('modal-spartan')">
+                        <div class="card-header">
+                            <img src="images/spartankiller.jpg" alt="Spartan Killer Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Spartan Killer</h3>
+                                <span class="card-badge orange">BREAKOUT</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="spartan_short">
+                            Strategi breakout agresif untuk menangkap momentum pergerakan harga secara presisi.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- SLIDE GRUP 2 -->
@@ -487,6 +513,24 @@
                         </div>
                         <div class="card-body" data-key="phantom_short">
                             Breakout strategy dengan adaptasi pergerakan Gold otomatis.
+                        </div>
+                        <div class="card-divider"></div>
+                        <div class="card-footer">
+                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
+                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cluster-card" onclick="openModal('modal-spartan')">
+                        <div class="card-header">
+                            <img src="images/spartankiller.jpg" alt="Spartan Killer Logo" class="card-logo">
+                            <div class="card-title-group">
+                                <h3 class="card-title">Spartan Killer</h3>
+                                <span class="card-badge orange">BREAKOUT</span>
+                            </div>
+                        </div>
+                        <div class="card-body" data-key="spartan_short">
+                            Strategi breakout agresif untuk menangkap momentum pergerakan harga secara presisi.
                         </div>
                         <div class="card-divider"></div>
                         <div class="card-footer">
@@ -548,7 +592,6 @@
 
             <div class="action-buttons">
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Zenith Pro Scalper">Order Now</a>
-                <!-- Link diubah ke signal.html#result-zenith -->
                 <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-zenith'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
             </div>
         </div>
@@ -576,7 +619,6 @@
 
             <div class="action-buttons">
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Dopamin Hedge">Order Now</a>
-                <!-- Link diubah ke signal.html#result-dopamin -->
                 <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-dopamin'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
             </div>
         </div>
@@ -604,8 +646,34 @@
 
             <div class="action-buttons">
                 <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Golden Phantom">Order Now</a>
-                <!-- Link diubah ke signal.html#result-phantom -->
                 <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-phantom'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Spartan Killer -->
+    <div id="modal-spartan" class="modal-overlay" onclick="closeOnOutside(event, 'modal-spartan')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-spartan')">&times;</span>
+            <div class="modal-header-info">
+                <h3 class="modal-title">Spartan Killer</h3>
+                <span class="modal-price" data-key="spartan_price">Lifetime Access $499</span>
+            </div>
+            
+            <div class="modal-desc" data-key="spartan_desc">
+                EA Spartan Killer berfokus pada <strong>Breakout Strategy</strong> dengan agresivitas terukur, mengincar pergerakan harga signifikan saat level support dan resistance tertembus di market.
+            </div>
+
+            <div class="modal-specs">
+                <span>📈 MT5</span>
+                <span>🥇 XAUUSD</span>
+                <span data-key="spec_spartan1">⚔️ Spartan Breakout</span>
+                <span data-key="spec_spartan2">⚡ High Volatility</span>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Spartan Killer">Order Now</a>
+                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-spartan'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
             </div>
         </div>
     </div>
@@ -703,6 +771,7 @@
                 zenith_short: "Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.",
                 dopamin_short: "Strategi Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.",
                 phantom_short: "Breakout strategy dengan adaptasi pergerakan Gold otomatis.",
+                spartan_short: "Strategi breakout agresif untuk menangkap momentum pergerakan harga secara presisi.",
                 copy_short: "Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.",
                 
                 spec_prot: "🛡️ Protection with trailing",
@@ -714,9 +783,14 @@
                 spec_tf: "⏳ Multi-Timeframe (H1/H4/D1)",
                 spec_8strat: "⚡ Breakout Strategy",
                 
+                spartan_price: "Lifetime Access $499",
+                spec_spartan1: "⚔️ Spartan Breakout",
+                spec_spartan2: "⚡ High Volatility",
+                
                 zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine.",
                 dopamin_desc: "EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus.",
                 phantom_desc: "EA canggih yang menggunakan breakout strategi independen yang berjalan di berbagai timeframe secara bersamaan. Dilengkapi dengan auto-adaptive risk untuk memaksimalkan profit pada pergerakan XAUUSD.",
+                spartan_desc: "EA Spartan Killer berfokus pada <strong>Breakout Strategy</strong> dengan agresivitas terukur, mengincar pergerakan harga signifikan saat level support dan resistance tertembus di market.",
                 btn_order: "Order Now",
                 btn_live_signal: "📊 Live Signal",
                 copy_price: "Profit Sharing 80 : 20",
@@ -753,6 +827,7 @@
                 zenith_short: "High precision Gold Technical with auto-adaptive grid risk management system.",
                 dopamin_short: "24/7 Grid Hedge strategy with smart and automatic floating recovery features.",
                 phantom_short: "Breakout strategy with automatic Gold movement adaptation.",
+                spartan_short: "Aggressive breakout strategy to capture price movement momentum with precision.",
                 copy_short: "100% Auto-Pilot copytrade service without monitoring charts, auto-copying to your account.",
                 
                 spec_prot: "🛡️ Protection with trailing",
@@ -764,9 +839,14 @@
                 spec_tf: "⏳ Multi-Timeframe (H1/H4/D1)",
                 spec_8strat: "⚡ Breakout Strategy",
                 
+                spartan_price: "Lifetime Access $499",
+                spec_spartan1: "⚔️ Spartan Breakout",
+                spec_spartan2: "⚡ High Volatility",
+                
                 zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard, powered by a Smart Recovery Engine.",
                 dopamin_desc: "A robust Straddle Grid Hedge EA designed to operate <strong>24 hours nonstop</strong>. Opens dual-directional orders simultaneously with a precise martingale layer mechanism focusing only on floating minus areas.",
                 phantom_desc: "An advanced EA utilizing breakout strategies running across multiple timeframes simultaneously. Equipped with auto-adaptive risk to maximize profit on XAUUSD movements.",
+                spartan_desc: "The Spartan Killer EA focuses on a <strong>Breakout Strategy</strong> with measured aggressiveness, targeting significant price movements when support and resistance levels are breached in the market.",
                 btn_order: "Order Now",
                 btn_live_signal: "📊 Live Signal",
                 copy_price: "Profit Sharing 80 : 20",
@@ -895,3 +975,8 @@
     </script>
 </body>
 </html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+print("File successfully updated!")
