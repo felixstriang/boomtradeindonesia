@@ -184,6 +184,7 @@
 
     <div class="cards-container">
         
+        <!-- ZENITH -->
         <div class="mql-card">
             <div class="mql-header"><div class="mql-author"><div class="mql-author-row">ZenithPro Scalper <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
@@ -196,6 +197,7 @@
             <div class="mql-chart-container"><canvas id="growthChart_zenith"></canvas></div>
         </div>
 
+        <!-- PHANTOM -->
         <div class="mql-card">
             <div class="mql-header"><div class="mql-author"><div class="mql-author-row">Golden Phantom <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
@@ -208,6 +210,7 @@
             <div class="mql-chart-container"><canvas id="growthChart_phantom"></canvas></div>
         </div>
 
+        <!-- SPARTAN -->
         <div class="mql-card">
             <div class="mql-header"><div class="mql-author"><div class="mql-author-row">Spartan Killer <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
@@ -222,6 +225,7 @@
 
     </div>
 
+    <!-- TABEL MQL5 GRID -->
     <div class="mql-table-container">
         <h3><i class="fas fa-chart-bar"></i> <span data-lang="table_title">Trading History (2026)</span></h3>
         <div class="mql-grid-wrapper">
@@ -270,6 +274,7 @@
         </div>
     </div>
 
+    <!-- MODAL ZENITH -->
     <div id="modal-zenith" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal-zenith')">&times;</span>
@@ -291,6 +296,7 @@
         </div>
     </div>
 
+    <!-- MODAL PHANTOM -->
     <div id="modal-phantom" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal-phantom')">&times;</span>
@@ -312,6 +318,7 @@
         </div>
     </div>
 
+    <!-- MODAL SPARTAN -->
     <div id="modal-spartan" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal-spartan')">&times;</span>
@@ -337,6 +344,7 @@
         Powered by <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;">Boom Trade Indonesia</a> — Your Partner Trading System
     </div>
 
+    <!-- SCRIPT FIREBASE & CHART.JS -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -386,14 +394,14 @@
             }
         }
 
-        // ====================================================================
-        // SISTEM AUTO-DETECT BULAN SEKARANG
-        // ====================================================================
-        const d = new Date();
-        const currentYearStr = d.getFullYear().toString();
-        const currentMonthIndex = d.getMonth(); 
-        const monthKeys = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-        const activeMonthKey = monthKeys[currentMonthIndex]; // Contoh: sekarang jadi "sep"
+        // ==============================================================
+        // BASELINE AGUSTUS
+        // ==============================================================
+        const baselineAgustus = {
+            zenith: 7.58,  
+            phantom: 21.62, 
+            spartan: 5.92   
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
             
@@ -406,45 +414,6 @@
 
             if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
             var database = firebase.database();
-
-            // Variabel untuk menampung data History yang ditarik dari Firebase
-            let historyAkumulasi = {};
-            window.latestTrackerData = null;
-
-            // ====================================================================
-            // 1. MENDENGARKAN DATA HISTORY DARI FIREBASE (Database akan auto-save kesini)
-            // ====================================================================
-            database.ref('history_akumulasi').on('value', (snap) => {
-                historyAkumulasi = snap.val() || {};
-                
-                // --- INJEKSI FONDASI AWAL (Data Agustus) ---
-                // Hanya berjalan kalau database sejarah belum punya data 2026/Agustus.
-                if (!historyAkumulasi[currentYearStr]) historyAkumulasi[currentYearStr] = {};
-                if (!historyAkumulasi[currentYearStr]['aug']) {
-                    historyAkumulasi[currentYearStr]['aug'] = {
-                        zenith: 7.58,  
-                        phantom: 21.62, 
-                        spartan: 5.92
-                    };
-                }
-
-                // Render ulang tabel kalau data tracker (live) sudah ada
-                if (window.latestTrackerData) updateAll(window.latestTrackerData);
-            });
-
-            // ====================================================================
-            // 2. MENDENGARKAN DATA LIVE (Dari EA)
-            // ====================================================================
-            database.ref('tracker').on('value', (snapshot) => {
-                window.latestTrackerData = snapshot.val();
-                if(window.latestTrackerData !== null) updateAll(window.latestTrackerData);
-            });
-
-            function updateAll(allData) {
-                if(allData.zenith) updateTrackerData(allData.zenith, 'zenith', charts.zenith);
-                if(allData.phantom) updateTrackerData(allData.phantom, 'phantom', charts.phantom);
-                if(allData.spartan) updateTrackerData(allData.spartan, 'spartan', charts.spartan); 
-            }
 
             const curveShape = [0, 0.1, 0.3, 0.45, 0.6, 0.75, 0.85, 1.0];
             const historyLabels = ['1','2','3','4','5','6','7','Current'];
@@ -468,7 +437,6 @@
             function styleMqlCell(id, value, isYTD = false) {
                 const el = document.getElementById(id);
                 if(!el) return;
-                // Jika data tidak ada (kosong/null), tabel juga kosong bersih
                 if(value === null || value === undefined || value === "") {
                     el.innerHTML = "";
                     el.className = "mql-cell";
@@ -505,88 +473,96 @@
 
                 if(data.growth !== undefined) {
                     
-                    // =======================================================================
-                    // SISTEM AUTO-SAVE HISTORY BULANAN KE FIREBASE
-                    // Menyimpan nilai akumulasi (YTD) paling terakhir ke bulan yang sedang berjalan.
-                    // Saat bulan berganti, data bulan lalu akan "terkunci" secara otomatis!
-                    // =======================================================================
-                    database.ref(`history_akumulasi/${currentYearStr}/${activeMonthKey}/${prefix}`).set(data.growth);
+                    let profitAgustus = baselineAgustus[prefix] || 0;
+                    let factorAug = 1 + (profitAgustus / 100);
 
-                    // =======================================================================
-                    // SISTEM HITUNGAN OTOMATIS BULANAN
-                    // =======================================================================
-                    let totalYTD = data.growth; // Total murni dari EA
-                    let previousCumulative = 0;
+                    let profitSeptember = 0;
+                    let profitYTD = 0;
+                    let chartData = [];
+
+                    // ==============================================================
+                    // PEMISAHAN LOGIKA BERDASARKAN FORMAT DATA EA MASING-MASING
+                    // ==============================================================
                     
-                    // Lakukan perulangan untuk setiap bulan (januari s/d desember)
-                    monthKeys.forEach(m => {
-                        let cumulAtEndOfMonth = null;
-
-                        // 1. Ambil nilai akumulasi di akhir bulan tersebut
-                        if (m === activeMonthKey) {
-                            // Jika bulan berjalan, nilainya selalu yang paling Live dari EA
-                            cumulAtEndOfMonth = data.growth;
-                        } else if (historyAkumulasi[currentYearStr] && historyAkumulasi[currentYearStr][m] && historyAkumulasi[currentYearStr][m][prefix] !== undefined) {
-                            // Jika bulan masa lalu, ambil data yang sudah terkunci dari Firebase History
-                            cumulAtEndOfMonth = historyAkumulasi[currentYearStr][m][prefix];
-                        }
-
-                        // 2. Hitung performa MURNI bulan tersebut dan Render
-                        if (cumulAtEndOfMonth !== null) {
-                            
-                            // Rumus profit bersih bulanan: Akumulasi Akhir Bulan Ini - Akumulasi Akhir Bulan Lalu
-                            let pureMonthlyProfit = cumulAtEndOfMonth - previousCumulative;
-
-                            // Fitur safety kalau tiba-tiba data EA direset jadi 0 di server
-                            if (cumulAtEndOfMonth < previousCumulative) {
-                                pureMonthlyProfit = cumulAtEndOfMonth;
-                            }
-
-                            // A. Tampilkan ke Tabel MQL5
-                            styleMqlCell(`tb-${m}_${prefix}`, pureMonthlyProfit);
-                            
-                            // B. Jika ini bulan aktif, update juga angka besar di Kartu Dashboard
-                            if (m === activeMonthKey) {
-                                const growthEl = document.getElementById(`track-growth_${prefix}`);
-                                growthEl.innerText = pureMonthlyProfit.toFixed(2) + '%';
-                                growthEl.style.color = pureMonthlyProfit >= 0 ? 'var(--mql-green)' : 'var(--mql-red)';
-                            }
-
-                            // Update penanda akumulasi sebelumnya untuk hitungan bulan depannya
-                            previousCumulative = cumulAtEndOfMonth;
-                        } else {
-                            // Jika belum terjadi bulannya (contoh: Oktober saat ini), kosongin kolomnya!
-                            styleMqlCell(`tb-${m}_${prefix}`, null);
-                        }
-                    });
-
-                    // =======================================================================
-                    // RENDER YTD & GRAFIK (MURNI DATA TOTAL DARI EA)
-                    // =======================================================================
-                    
-                    // Render cell paling kanan (YTD Total)
-                    styleMqlCell(`tb-ytd_${prefix}`, totalYTD, true);
-
-                    // Render Grafik Murni All-Time YTD tanpa potongan / tanpa rumus apapun
-                    if(chartObj) {
-                        let chartArray = data.chart;
-                        if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
+                    if (prefix === 'spartan') {
+                        // SPARTAN: EA mengirim data murni BULAN SEPTEMBER (contoh: -11%)
+                        profitSeptember = data.growth;
+                        let factorSep = 1 + (profitSeptember / 100);
                         
-                        if(Array.isArray(chartArray) && chartArray.length > 0) {
-                            let finalChart = [...chartArray];
-                            
-                            // Masukkan titik terakhir ke grafik berupa Total Akumulasi (YTD) 
-                            finalChart.push(totalYTD);
-                            
-                            chartObj.data.labels = finalChart.map((_, i) => i + 1);
-                            chartObj.data.datasets[0].data = finalChart;
-                        } else {
-                            chartObj.data.datasets[0].data = curveShape.map(val => val * totalYTD);
+                        // YTD didapat dari Compounding Agustus & September
+                        profitYTD = ((factorAug * factorSep) - 1) * 100;
+
+                        // Grafik Spartan
+                        if (chartObj) {
+                            let chartArray = data.chart;
+                            if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
+                            if(Array.isArray(chartArray) && chartArray.length > 0) {
+                                // Titik grafik September digabung dengan Agustus biar nyambung
+                                chartData = chartArray.map(val => {
+                                    let fVal = 1 + (val / 100);
+                                    return ((factorAug * fVal) - 1) * 100;
+                                });
+                                chartData.push(profitYTD);
+                                chartObj.data.labels = chartData.map((_, i) => i + 1);
+                                chartObj.data.datasets[0].data = chartData;
+                            } else {
+                                chartObj.data.datasets[0].data = curveShape.map(val => {
+                                    let fVal = 1 + ((val * profitSeptember) / 100);
+                                    return ((factorAug * fVal) - 1) * 100;
+                                });
+                            }
+                            chartObj.update();
                         }
-                        chartObj.update();
+                        
+                    } else {
+                        // ZENITH & PHANTOM: EA mengirim data murni YTD (contoh Zenith: ~9.73%)
+                        profitYTD = data.growth;
+                        let factorYTD = 1 + (profitYTD / 100);
+                        
+                        // September diekstrak pakai Reverse Compounding
+                        profitSeptember = ((factorYTD / factorAug) - 1) * 100;
+
+                        // Grafik Zenith & Phantom
+                        if (chartObj) {
+                            let chartArray = data.chart;
+                            if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
+                            if(Array.isArray(chartArray) && chartArray.length > 0) {
+                                // Langsung pakai array YTD bawaan EA tanpa diubah
+                                chartData = [...chartArray];
+                                chartData.push(profitYTD);
+                                chartObj.data.labels = chartData.map((_, i) => i + 1);
+                                chartObj.data.datasets[0].data = chartData;
+                            } else {
+                                chartObj.data.datasets[0].data = curveShape.map(val => val * profitYTD);
+                            }
+                            chartObj.update();
+                        }
                     }
+
+                    // --- RENDER KE HTML ---
+                    
+                    // 1. KARTU DASHBOARD = Menampilkan YTD
+                    const growthEl = document.getElementById(`track-growth_${prefix}`);
+                    growthEl.innerText = profitYTD.toFixed(2) + '%';
+                    growthEl.style.color = profitYTD >= 0 ? 'var(--mql-green)' : 'var(--mql-red)';
+
+                    // 2. TABEL BAWAH
+                    styleMqlCell(`tb-aug_${prefix}`, profitAgustus);
+                    styleMqlCell(`tb-sep_${prefix}`, profitSeptember); // Bakal presisi Zenith 2%, Spartan -11%
+                    styleMqlCell(`tb-ytd_${prefix}`, profitYTD, true);
                 }
             }
+            
+            var trackerRef = database.ref('tracker');
+            trackerRef.on('value', (snapshot) => {
+                const allData = snapshot.val();
+                if(allData !== null) {
+                    updateTrackerData(allData.zenith, 'zenith', charts.zenith);
+                    updateTrackerData(allData.phantom, 'phantom', charts.phantom);
+                    updateTrackerData(allData.spartan, 'spartan', charts.spartan); 
+                }
+            });
+
         });
     </script>
 </body>
