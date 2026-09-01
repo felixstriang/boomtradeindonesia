@@ -184,6 +184,7 @@
 
     <div class="cards-container">
         
+        <!-- ZENITH -->
         <div class="mql-card">
             <div class="mql-header"><div class="mql-author"><div class="mql-author-row">ZenithPro Scalper <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
@@ -196,6 +197,7 @@
             <div class="mql-chart-container"><canvas id="growthChart_zenith"></canvas></div>
         </div>
 
+        <!-- PHANTOM -->
         <div class="mql-card">
             <div class="mql-header"><div class="mql-author"><div class="mql-author-row">Golden Phantom <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
@@ -208,6 +210,7 @@
             <div class="mql-chart-container"><canvas id="growthChart_phantom"></canvas></div>
         </div>
 
+        <!-- SPARTAN -->
         <div class="mql-card">
             <div class="mql-header"><div class="mql-author"><div class="mql-author-row">Spartan Killer <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
@@ -222,6 +225,7 @@
 
     </div>
 
+    <!-- TABEL MQL5 GRID -->
     <div class="mql-table-container">
         <h3><i class="fas fa-chart-bar"></i> <span data-lang="table_title">Trading History (2026)</span></h3>
         <div class="mql-grid-wrapper">
@@ -270,6 +274,7 @@
         </div>
     </div>
 
+    <!-- MODAL ZENITH -->
     <div id="modal-zenith" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal-zenith')">&times;</span>
@@ -291,6 +296,7 @@
         </div>
     </div>
 
+    <!-- MODAL PHANTOM -->
     <div id="modal-phantom" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal-phantom')">&times;</span>
@@ -312,6 +318,7 @@
         </div>
     </div>
 
+    <!-- MODAL SPARTAN -->
     <div id="modal-spartan" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal-spartan')">&times;</span>
@@ -337,6 +344,7 @@
         Powered by <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;">Boom Trade Indonesia</a> — Your Partner Trading System
     </div>
 
+    <!-- SCRIPT FIREBASE & CHART.JS -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -386,14 +394,23 @@
             }
         }
 
-        // ==============================================================
-        // BASELINE AGUSTUS
-        // ==============================================================
-        const baselineAgustus = {
-            zenith: 7.58,  
-            phantom: 21.62, 
-            spartan: 5.92   
+        // ====================================================================
+        // DATA HISTORY MASA LALU (SIAP UNTUK BULAN OKTOBER, NOVEMBER, DST)
+        // ====================================================================
+        // Nanti saat pindah bulan (contoh: mau hitung bulan Oktober), 
+        // kamu tinggal tambahkan hasil September di sini.
+        // Contoh penambahan di bulan depan: { aug: 7.58, sep: 2.15 }
+        
+        const riwayatBulanLalu = {
+            zenith:  { aug: 7.58 },  
+            phantom: { aug: 21.62 }, 
+            spartan: { aug: 5.92 }   
         };
+
+        const d = new Date();
+        const currentMonthIndex = d.getMonth(); 
+        const monthKeys = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        const activeMonthKey = monthKeys[currentMonthIndex]; // Mendeteksi otomatis bulan apa sekarang
 
         document.addEventListener("DOMContentLoaded", function() {
             
@@ -429,13 +446,14 @@
             function styleMqlCell(id, value, isYTD = false) {
                 const el = document.getElementById(id);
                 if(!el) return;
-                if(value === 0 || value === null || value === undefined) {
+                // Jika nilai tidak ada (kosong/null), bersihkan sel tabel
+                if(value === null || value === undefined || value === "") {
                     el.innerHTML = "";
                     el.className = "mql-cell";
                 } else {
                     el.innerHTML = value.toFixed(2) + "%";
                     if(isYTD && value > 0) el.className = "mql-cell ytd-profit";
-                    else el.className = value > 0 ? "mql-cell profit" : "mql-cell loss";
+                    else el.className = value >= 0 ? "mql-cell profit" : "mql-cell loss";
                 }
             }
 
@@ -465,30 +483,28 @@
 
                 if(data.growth !== undefined) {
                     
-                    let rawGrowth = data.growth;
-                    let potonganBulanLalu = baselineAgustus[prefix] || 0;
+                    // =======================================================================
+                    // LOGIKA UTAMA (ANTI NYUNGSEP & SIAP SAMPAI DESEMBER)
+                    // =======================================================================
                     
-                    // =======================================================================
-                    // LOGIKA YANG BENAR-BENAR DIPISAH ANTARA TABEL (BULANAN) DAN KARTU/GRAFIK (YTD)
-                    // =======================================================================
+                    let totalYTD = data.growth; // MURNI DARI EA (YTD Total)
+                    let history = riwayatBulanLalu[prefix] || {};
+                    let totalPastGrowth = 0;
 
-                    let totalYTD = rawGrowth;
-                    let growthSeptember = rawGrowth - potonganBulanLalu;
-
-                    // Fitur keamanan kalau EA dari MT4 keriset paksa ke angka 0 di awal bulan
-                    if (rawGrowth < potonganBulanLalu) {
-                        growthSeptember = rawGrowth; 
-                        totalYTD = potonganBulanLalu + rawGrowth;
+                    // Jumlahkan otomatis semua bulan lalu (contoh: Agustus + September kalau udah di Oktober)
+                    for (let month in history) {
+                        totalPastGrowth += history[month];
                     }
 
-                    // --- 1. RENDER KARTU UTAMA & GRAFIK (MURNI YTD TOTAL) ---
-                    
-                    // Teks Persentase Besar di atas
+                    // Rumus Bulan Berjalan: Total EA sekarang dikurangi total semua bulan yang udah lewat
+                    let currentMonthGrowth = totalYTD - totalPastGrowth;
+
+                    // --- 1. RENDER KARTU DASHBOARD (MURNI YTD TOTAL) ---
                     const growthEl = document.getElementById(`track-growth_${prefix}`);
                     growthEl.innerText = totalYTD.toFixed(2) + '%';
                     growthEl.style.color = totalYTD >= 0 ? 'var(--mql-green)' : 'var(--mql-red)';
 
-                    // Grafik visual
+                    // --- 2. RENDER GRAFIK (MURNI DATA TOTAL DARI EA, TANPA RUMUS) ---
                     if(chartObj) {
                         let chartArray = data.chart;
                         if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
@@ -496,13 +512,7 @@
                         if(Array.isArray(chartArray) && chartArray.length > 0) {
                             let finalChart = [...chartArray];
                             
-                            // Jika ternyata array EA mereset jadi 0 lagi, kita angkat/shift arraynya
-                            // naik setinggi pencapaian Agustus biar grafiknya nyambung dan gak nyungsep
-                            if (rawGrowth < potonganBulanLalu) {
-                                finalChart = finalChart.map(v => v + potonganBulanLalu);
-                            }
-                            
-                            // Ujung terakhir grafik murni nampilin akumulasi YTD
+                            // Langsung masukin total YTD, biar ngunci di atas
                             finalChart.push(totalYTD);
                             
                             chartObj.data.labels = finalChart.map((_, i) => i + 1);
@@ -513,9 +523,21 @@
                         chartObj.update();
                     }
 
-                    // --- 2. RENDER TABEL (MURNI BULANAN & POTONGAN) ---
-                    styleMqlCell(`tb-aug_${prefix}`, potonganBulanLalu);
-                    styleMqlCell(`tb-sep_${prefix}`, growthSeptember);
+                    // --- 3. RENDER TABEL SEMUA BULAN (Otomatis deteksi Sept, Okt, Nov, dst) ---
+                    monthKeys.forEach(m => {
+                        if (history[m] !== undefined) {
+                            // Render bulan yang udah kelar (Agustus)
+                            styleMqlCell(`tb-${m}_${prefix}`, history[m]);
+                        } else if (m === activeMonthKey) {
+                            // Render bulan yang lagi jalan (Sekarang September = Rumus Potongan)
+                            styleMqlCell(`tb-${m}_${prefix}`, currentMonthGrowth);
+                        } else {
+                            // Bulan depan yang belum kejadian (dibersihin jadi kosong)
+                            styleMqlCell(`tb-${m}_${prefix}`, null);
+                        }
+                    });
+
+                    // Render Total Setahun (YTD)
                     styleMqlCell(`tb-ytd_${prefix}`, totalYTD, true);
                 }
             }
