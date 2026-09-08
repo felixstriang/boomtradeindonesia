@@ -80,6 +80,20 @@
         }
         .mql-author-row .fa-check-circle { color: var(--mql-green); font-size: 0.9rem; margin-left: 5px; }
 
+        /* Label High Risk */
+        .badge-highrisk {
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+        }
+
         .mql-body {
             padding: 10px 15px 0 15px; display: flex; justify-content: space-between; align-items: flex-end;
             position: relative; z-index: 2;
@@ -186,7 +200,7 @@
         
         <!-- ZENITH -->
         <div class="mql-card">
-            <div class="mql-header"><div class="mql-author"><div class="mql-author-row">ZenithPro Scalper <i class="fas fa-check-circle"></i></div></div></div>
+            <div class="mql-header"><div class="mql-author"><div class="mql-author-row"><span>ZenithPro Scalper</span> <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
                 <div class="mql-title-area"><button class="btn-view" onclick="openModal('modal-zenith')" data-lang="view_details">View Details</button></div>
                 <div class="mql-growth-area">
@@ -199,7 +213,7 @@
 
         <!-- PHANTOM -->
         <div class="mql-card">
-            <div class="mql-header"><div class="mql-author"><div class="mql-author-row">Golden Phantom <i class="fas fa-check-circle"></i></div></div></div>
+            <div class="mql-header"><div class="mql-author"><div class="mql-author-row"><span>Golden Phantom</span> <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
                 <div class="mql-title-area"><button class="btn-view" onclick="openModal('modal-phantom')" data-lang="view_details">View Details</button></div>
                 <div class="mql-growth-area">
@@ -212,7 +226,7 @@
 
         <!-- SPARTAN -->
         <div class="mql-card">
-            <div class="mql-header"><div class="mql-author"><div class="mql-author-row">Spartan Killer <i class="fas fa-check-circle"></i></div></div></div>
+            <div class="mql-header"><div class="mql-author"><div class="mql-author-row"><span>Spartan Killer</span> <i class="fas fa-check-circle"></i></div></div></div>
             <div class="mql-body">
                 <div class="mql-title-area"><button class="btn-view" onclick="openModal('modal-spartan')" data-lang="view_details">View Details</button></div>
                 <div class="mql-growth-area">
@@ -221,6 +235,19 @@
                 </div>
             </div>
             <div class="mql-chart-container"><canvas id="growthChart_spartan"></canvas></div>
+        </div>
+
+        <!-- DOPAMIN HEDGE -->
+        <div class="mql-card">
+            <div class="mql-header"><div class="mql-author"><div class="mql-author-row"><span>Dopamin Hedge <span class="badge-highrisk">High Risk</span></span> <i class="fas fa-check-circle"></i></div></div></div>
+            <div class="mql-body">
+                <div class="mql-title-area"><button class="btn-view" onclick="openModal('modal-dopamin')" data-lang="view_details">View Details</button></div>
+                <div class="mql-growth-area">
+                    <div class="mql-growth-val" id="track-growth_dopamin">0.00%</div>
+                    <div class="mql-growth-since" data-lang="growth_since">growth since 2026</div>
+                </div>
+            </div>
+            <div class="mql-chart-container"><canvas id="growthChart_dopamin"></canvas></div>
         </div>
 
     </div>
@@ -268,6 +295,17 @@
                         <td><div class="mql-cell" id="tb-sep_spartan"></div></td><td><div class="mql-cell" id="tb-oct_spartan"></div></td>
                         <td><div class="mql-cell" id="tb-nov_spartan"></div></td><td><div class="mql-cell" id="tb-dec_spartan"></div></td>
                         <td><div class="mql-cell" id="tb-ytd_spartan">0.00%</div></td>
+                    </tr>
+                    <!-- BARIS DOPAMIN HEDGE -->
+                    <tr>
+                        <td class="ea-col">Dopamin Hedge</td>
+                        <td><div class="mql-cell" id="tb-jan_dopamin"></div></td><td><div class="mql-cell" id="tb-feb_dopamin"></div></td>
+                        <td><div class="mql-cell" id="tb-mar_dopamin"></div></td><td><div class="mql-cell" id="tb-apr_dopamin"></div></td>
+                        <td><div class="mql-cell" id="tb-may_dopamin"></div></td><td><div class="mql-cell" id="tb-jun_dopamin"></div></td>
+                        <td><div class="mql-cell" id="tb-jul_dopamin"></div></td><td><div class="mql-cell" id="tb-aug_dopamin"></div></td>
+                        <td><div class="mql-cell" id="tb-sep_dopamin"></div></td><td><div class="mql-cell" id="tb-oct_dopamin"></div></td>
+                        <td><div class="mql-cell" id="tb-nov_dopamin"></div></td><td><div class="mql-cell" id="tb-dec_dopamin"></div></td>
+                        <td><div class="mql-cell" id="tb-ytd_dopamin">0.00%</div></td>
                     </tr>
                 </tbody>
             </table>
@@ -339,6 +377,28 @@
             </div>
         </div>
     </div>
+    
+    <!-- MODAL DOPAMIN HEDGE -->
+    <div id="modal-dopamin" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-dopamin')">&times;</span>
+            <div class="modal-header">Dopamin Hedge</div>
+            <div class="broker-info">
+                <div><i class="fas fa-server" style="color: #4CAF50;"></i> <span id="track-broker_dopamin">Connecting...</span></div>
+                <div>Leverage 1:<span id="track-leverage_dopamin">0</span></div><div><span id="track-days_dopamin">0 Hari</span></div>
+            </div>
+            <div class="tracker-stats-right">
+                <div class="stat-item"><span class="stat-label" data-lang="equity">Equity</span><span class="stat-val" id="track-equity_dopamin">0.00</span><div class="stat-bar"><div class="fill" style="width: 100%; background: #29b6f6;"></div></div></div>
+                <div class="stat-item"><span class="stat-label" data-lang="profit">Profit</span><span class="stat-val" id="track-profit_dopamin">0.00</span><div class="stat-bar"><div class="fill" id="bar-profit_dopamin" style="width: 80%; background: #29b6f6;"></div></div></div>
+                <div class="stat-item"><span class="stat-label" data-lang="deposit">Total Deposit</span><span class="stat-val" id="track-deposit_dopamin">0.00</span><div class="stat-bar"><div class="fill" style="width: 20%; background: #94a3b8;"></div></div></div>
+                <div class="stat-item"><span class="stat-label" data-lang="withdrawal">Withdrawals</span><span class="stat-val" id="track-withdrawal_dopamin">0.00</span><div class="stat-bar"><div class="fill" style="width: 1%; background: #94a3b8;"></div></div></div>
+                <div class="stat-item"><span class="stat-label" data-lang="drawdown">Max Drawdown</span><span class="stat-val" id="track-drawdown_dopamin">0.00%</span><div class="stat-bar"><div class="fill" id="bar-drawdown_dopamin" style="width: 0%; background: #ef4444;"></div></div></div>
+            </div>
+            <div class="myfxbook-link">
+                <a href="https://www.myfxbook.com/portfolio/dopamin-v20-high-risk/12192115" target="_blank"><i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span></a>
+            </div>
+        </div>
+    </div>
 
     <div class="branding-footer">
         Powered by <a href="#" onclick="window.location.href='index.html' + window.location.search; return false;">Boom Trade Indonesia</a> — Your Partner Trading System
@@ -350,7 +410,7 @@
 
     <script>
         let currentLang = 'id';
-        let globalDaysData = { zenith: 0, phantom: 0, spartan: 0 };
+        let globalDaysData = { zenith: 0, phantom: 0, spartan: 0, dopamin: 0 }; 
 
         const translations = {
             id: {
@@ -374,7 +434,7 @@
                 const key = el.getAttribute('data-lang');
                 if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
             });
-            ['zenith', 'phantom', 'spartan'].forEach(prefix => {
+            ['zenith', 'phantom', 'spartan', 'dopamin'].forEach(prefix => {
                 document.getElementById(`track-days_${prefix}`).innerText = globalDaysData[prefix] + " " + translations[currentLang].days;
             });
         }
@@ -400,7 +460,10 @@
         const baselineAgustus = {
             zenith: 7.58,  
             phantom: 21.62, 
-            spartan: 5.92   
+            spartan: 5.92
+            // Catatan: Dopamin tidak dimasukkan ke sini karena akun baru (mulai September).
+            // Dengan tidak adanya baseline, kotak Agustus akan otomatis dibiarkan kosong,
+            // dan profit yang dikirim otomatis menjadi profit September murni.
         };
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -432,14 +495,19 @@
                 });
             }
 
-            const charts = { zenith: initChart('growthChart_zenith'), phantom: initChart('growthChart_phantom'), spartan: initChart('growthChart_spartan') };
+            const charts = { 
+                zenith: initChart('growthChart_zenith'), 
+                phantom: initChart('growthChart_phantom'), 
+                spartan: initChart('growthChart_spartan'),
+                dopamin: initChart('growthChart_dopamin') 
+            };
 
             function styleMqlCell(id, value, isYTD = false) {
                 const el = document.getElementById(id);
                 if(!el) return;
                 if(value === null || value === undefined || value === "") {
                     el.innerHTML = "";
-                    el.className = "mql-cell";
+                    el.className = "mql-cell"; // Biarkan style default tanpa warna jika data kosong
                 } else {
                     el.innerHTML = value.toFixed(2) + "%";
                     if(isYTD && value > 0) el.className = "mql-cell ytd-profit";
@@ -473,8 +541,10 @@
 
                 if(data.growth !== undefined) {
                     
-                    let profitAgustus = baselineAgustus[prefix] || 0;
-                    let factorAug = 1 + (profitAgustus / 100);
+                    // Ambil baseline (jika akun baru, nilainya undefined, kalkulasi tetap jalan)
+                    let profitAgustus = baselineAgustus[prefix]; 
+                    let profitAgustusCalc = profitAgustus || 0; 
+                    let factorAug = 1 + (profitAgustusCalc / 100);
 
                     let profitSeptember = 0;
                     let profitYTD = 0;
@@ -485,19 +555,15 @@
                     // ==============================================================
                     
                     if (prefix === 'spartan') {
-                        // SPARTAN: EA mengirim data murni BULAN SEPTEMBER (contoh: -11%)
                         profitSeptember = data.growth;
                         let factorSep = 1 + (profitSeptember / 100);
                         
-                        // YTD didapat dari Compounding Agustus & September
                         profitYTD = ((factorAug * factorSep) - 1) * 100;
 
-                        // Grafik Spartan
                         if (chartObj) {
                             let chartArray = data.chart;
                             if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
                             if(Array.isArray(chartArray) && chartArray.length > 0) {
-                                // Titik grafik September digabung dengan Agustus biar nyambung
                                 chartData = chartArray.map(val => {
                                     let fVal = 1 + (val / 100);
                                     return ((factorAug * fVal) - 1) * 100;
@@ -515,19 +581,15 @@
                         }
                         
                     } else {
-                        // ZENITH & PHANTOM: EA mengirim data murni YTD (contoh Zenith: ~9.73%)
                         profitYTD = data.growth;
                         let factorYTD = 1 + (profitYTD / 100);
                         
-                        // September diekstrak pakai Reverse Compounding
                         profitSeptember = ((factorYTD / factorAug) - 1) * 100;
 
-                        // Grafik Zenith & Phantom
                         if (chartObj) {
                             let chartArray = data.chart;
                             if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
                             if(Array.isArray(chartArray) && chartArray.length > 0) {
-                                // Langsung pakai array YTD bawaan EA tanpa diubah
                                 chartData = [...chartArray];
                                 chartData.push(profitYTD);
                                 chartObj.data.labels = chartData.map((_, i) => i + 1);
@@ -541,14 +603,12 @@
 
                     // --- RENDER KE HTML ---
                     
-                    // 1. KARTU DASHBOARD = Menampilkan YTD
                     const growthEl = document.getElementById(`track-growth_${prefix}`);
                     growthEl.innerText = profitYTD.toFixed(2) + '%';
                     growthEl.style.color = profitYTD >= 0 ? 'var(--mql-green)' : 'var(--mql-red)';
 
-                    // 2. TABEL BAWAH
-                    styleMqlCell(`tb-aug_${prefix}`, profitAgustus);
-                    styleMqlCell(`tb-sep_${prefix}`, profitSeptember); // Bakal presisi Zenith 2%, Spartan -11%
+                    styleMqlCell(`tb-aug_${prefix}`, profitAgustus); // Akan otomatis kosong jika undefined (seperti Dopamin)
+                    styleMqlCell(`tb-sep_${prefix}`, profitSeptember); 
                     styleMqlCell(`tb-ytd_${prefix}`, profitYTD, true);
                 }
             }
@@ -559,7 +619,10 @@
                 if(allData !== null) {
                     updateTrackerData(allData.zenith, 'zenith', charts.zenith);
                     updateTrackerData(allData.phantom, 'phantom', charts.phantom);
-                    updateTrackerData(allData.spartan, 'spartan', charts.spartan); 
+                    updateTrackerData(allData.spartan, 'spartan', charts.spartan);
+                    if (allData.dopamin) {
+                        updateTrackerData(allData.dopamin, 'dopamin', charts.dopamin);
+                    } 
                 }
             });
 
