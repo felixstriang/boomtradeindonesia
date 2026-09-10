@@ -1,598 +1,524 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Expert Advisor Terbaik, dan Copytrade. Boom Trade Indonesia solusi trading terbaik.">
-    <meta name="keywords" content="Jual EA Forex, Robot Trading, Copytrade Indonesia, Boom Trade Indonesia, Zenith Pro Scalper.">
+    <meta name="description" content="Professional Expert Advisors and Algorithmic Trading Systems by Boom Trade Indonesia.">
     <title>BOOM TRADE INDONESIA</title> 
     <link rel="icon" type="image/png" href="images/boomtrade2.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. PENGATURAN GLOBAL --- */ 
+        /* --- 1. GLOBAL SETTINGS: LIGHT BONE WHITE THEME --- */ 
         :root {
-            --bg-body: #020617; 
-            --card-dark: rgba(30, 41, 59, 0.7); 
-            --primary-blue: #3b82f6;  
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
-            --profit-green: #10b981;
-            --hero-yellow: #ffc107;    
+            /* Tema Putih Tulang (Seluruh Main Content & Body) */
+            --bg-main: #FAF9F6;        /* Putih Tulang */
+            --bg-card: #FFFFFF;        /* Putih bersih untuk Card */
+            --bg-section: #F1F5F9;     /* Abu-abu sangat muda untuk variasi section */
+            
+            --primary: #2563EB;        /* Royal Blue */
+            --primary-hover: #1D4ED8;
+            --accent: #0284C7;         /* Biru cerah */
+            
+            --text-dark: #0F172A;      /* Hitam kebiruan pekat untuk judul */
+            --text-muted: #475569;     /* Abu-abu gelap untuk paragraf */
+            
+            --success: #059669;
+            --danger: #DC2626;   
+            --border: #E2E8F0;         /* Border abu-abu halus */
+
+            /* Tema Biru Navy (KHUSUS HEADER / NAVIGASI PALING ATAS SAJA) */
+            --bg-nav: #0A192F;
+            --text-nav: #F8FAFC;
+            --text-nav-muted: #94A3B8;
+            --accent-nav: #38BDF8;
         }
 
         html { scroll-behavior: smooth; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             line-height: 1.6;
-            color: var(--text-light);
-            background-color: var(--bg-body);
             overflow-x: hidden;
-            position: relative;
+            /* Pola titik halus abu-abu untuk kesan rapi */
+            background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* --- BACKGROUND ELEGAN --- */
-        .bg-elegant {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-        }
-        
-        .bg-elegant::before, .bg-elegant::after {
-            content: ""; position: absolute; width: 60vw; height: 60vw; border-radius: 50%;
-        }
-        .bg-elegant::before { top: -20%; left: -10%; background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 60%); }
-        .bg-elegant::after { bottom: -20%; right: -10%; background: radial-gradient(circle, rgba(255, 193, 7, 0.03) 0%, transparent 60%); }
-
-        a { text-decoration: none; }
+        a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* --- 2. HEADER & NAVIGASI --- */
+        /* --- 2. HEADER & NAVIGATION (KHUSUS INI YANG BIRU NAVY) --- */
         header {
-            background-color: rgba(2, 6, 23, 0.85); padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(15px);
+            background-color: rgba(10, 25, 47, 0.98); /* Biru Navy */
+            padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        .logo-img { height: 40px; width: auto; mix-blend-mode: screen; }
+        .logo-img { height: 38px; width: auto; } 
+        
         .header-right { display: flex; align-items: center; gap: 20px; }
         .lang-switch {
-            background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.5);
-            color: var(--text-light); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.3s;
+            background: transparent; border: 1px solid var(--accent-nav);
+            color: var(--accent-nav); padding: 6px 14px; border-radius: 4px; 
+            cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.3s;
         }
-        .lang-switch:hover { background: var(--primary-blue); border-color: var(--primary-blue); }
+        .lang-switch:hover { background: rgba(56, 189, 248, 0.1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); color: #FFF;}
         
-        nav ul { display: flex; gap: 25px; align-items: center; }
-        nav ul li a { color: var(--text-light); font-weight: 500; transition: 0.3s; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;}
-        nav ul li a:hover { color: var(--hero-yellow); text-shadow: 0 0 10px rgba(255, 193, 7, 0.5); }
-        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        nav ul { display: flex; gap: 35px; align-items: center; }
+        nav ul li a { color: var(--text-nav-muted); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+        nav ul li a:hover { color: var(--accent-nav); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent-nav); }
 
-        /* --- MEGA MENU (DROPDOWN) MENURUN --- */
-        .has-dropdown {
+        /* --- 3. PROFESSIONAL STOREFRONT HERO (PUTIH TULANG TERANG) --- */
+        .hero {
+            padding: 180px 5% 100px; text-align: center;
+            background-color: var(--bg-main); /* Menggunakan Putih Tulang */
+            background-image: radial-gradient(circle at 50% -20%, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
+            border-bottom: 1px solid var(--border);
             position: relative;
         }
-        .has-dropdown::after {
-            content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 25px;
+        .hero h1 {
+            font-size: 3.5rem; font-weight: 800; color: var(--text-dark); /* Teks Hitam Gelap */
+            letter-spacing: -1px; margin-bottom: 20px; line-height: 1.2;
         }
-        .mega-menu {
-            position: absolute;
-            top: 150%;
-            left: 50%;
-            transform: translateX(-50%) translateY(15px);
-            background: #0f172a;
-            width: 350px;
-            border-radius: 12px;
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 2000;
-            pointer-events: none;
-        }
-        .has-dropdown:hover .mega-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-            pointer-events: auto;
-            top: 100%; 
-            margin-top: 20px;
+        .hero h1 span { color: var(--primary); } /* Teks Trading Systems warna Biru */
+        .hero p {
+            font-size: 1.15rem; color: var(--text-muted); max-width: 800px;
+            margin: 0 auto 40px; line-height: 1.8;
         }
         
-        .mega-menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 15px;
+        .hero-stats {
+            display: flex; justify-content: center; gap: 60px; margin-top: 50px;
+            padding-top: 40px; border-top: 1px solid var(--border); max-width: 800px; margin-inline: auto;
         }
-        .mega-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            transition: 0.3s;
-            cursor: pointer;
-            border: 1px solid transparent;
+        .stat-box h4 { font-size: 2rem; color: var(--primary); font-weight: 800; }
+        .stat-box span { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: block; margin-top: 5px;}
+
+        /* --- 4. ABOUT US SECTION --- */
+        .about-section {
+            padding: 100px 5%; background: var(--bg-card); border-bottom: 1px solid var(--border);
         }
-        .mega-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
+        .about-container { 
+            max-width: 1200px; margin: 0 auto; 
+            display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; 
         }
-        .mega-icon {
-            width: 45px; height: 45px; border-radius: 8px; object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.1);
+        .about-text { text-align: left; }
+        .about-text h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px; letter-spacing: -0.5px;}
+        .about-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+        .about-img-wrapper img { 
+            width: 100%; border-radius: 12px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
+            border: 1px solid var(--border);
+            object-fit: cover;
         }
-        .mega-text { display: flex; flex-direction: column; }
-        .mega-title {
-            font-size: 0.85rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .mega-subtitle {
-            font-size: 0.65rem; color: var(--text-gray); font-weight: 600; letter-spacing: 0.5px; margin-top: 2px;
-        }
+
+        /* --- 5. PROMO SECTION --- */
+        .promo-section { padding: 100px 5%; background: var(--bg-main); border-bottom: 1px solid var(--border); margin-bottom: 40px;}
+        .promo-container { max-width: 1200px; margin: 0 auto; text-align: center; }
+        .promo-header h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 15px; letter-spacing: -0.5px;}
+        .promo-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 60px; line-height: 1.8; }
         
-        .mega-menu-footer {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05);
-            border-radius: 0 0 12px 12px;
-        }
-        .mega-view-all { font-size: 0.8rem; font-weight: 700; color: var(--text-gray); transition: 0.3s; }
-        .mega-view-all:hover { color: var(--text-light); }
-        .mega-bundle-btn {
-            background: var(--hero-yellow); color: black; padding: 6px 12px; border-radius: 6px;
-            font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
-        .mega-bundle-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,193,7,0.3); }
+        .promo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .promo-card { background: var(--bg-card); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: left; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+        .promo-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: var(--primary); }
+        .promo-icon { width: 60px; height: 60px; background: rgba(37, 99, 235, 0.1); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 25px; border: 1px solid rgba(37, 99, 235, 0.2); }
+        .promo-card h3 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 700; }
+        .promo-card p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
 
-        /* --- 3. HERO SECTION --- */
-        .hero-metacorp {
-            min-height: 100vh; padding: 120px 5% 50px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
-        }
-        .hero-container {
-            display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; max-width: 1200px; width: 100%;
-        }
-        .hero-text h1 { font-size: 2.5rem; line-height: 1.3; margin-bottom: 1.2rem; font-weight: 700; color: white; }
-        .text-highlight { color: var(--hero-yellow); text-shadow: 0 0 15px rgba(255, 193, 7, 0.2); }
-        .pain-points li { display: flex; align-items: center; font-size: 1rem; margin-bottom: 10px; color: #e2e8f0; }
-        .pain-points li::before { content: '✔'; color: var(--hero-yellow); font-weight: bold; font-size: 1.1rem; margin-right: 12px; }
-        .hero-desc { margin-top: 1.5rem; color: var(--text-gray); margin-bottom: 2rem; font-size: 0.95rem; }
-        .btn-yellow {
-            background-color: var(--hero-yellow); color: #000; padding: 10px 30px; border-radius: 50px;
-            font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; border: none;
-        }
-        .btn-yellow:hover { transform: scale(1.05) translateY(-3px); background-color: #ffca2c; box-shadow: 0 10px 25px rgba(255, 193, 7, 0.4); }
-        .hero-img-wrapper img {
-            width: 100%; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1); transform: perspective(1000px) rotateY(-10deg); transition: 0.5s;
-        }
-        .hero-img-wrapper img:hover { transform: perspective(1000px) rotateY(0deg) scale(1.02); }
-
-        /* --- 4. EXPERT ADVISOR & MARQUEE SECTION --- */
-        .section-title { text-align: center; margin: 4rem 0 1rem; color: var(--text-light); font-size: 2rem; position: relative; z-index: 1; }
-        .section-title span { border-bottom: 3px solid var(--primary-blue); padding-bottom: 5px; }
-        .section-subtitle { text-align: center; margin-bottom: 3rem; color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 1; }
-
-        .container { width: 95%; max-width: 1400px; margin: auto; padding-bottom: 2rem; position: relative; z-index: 1; }
+        /* --- 6. CATALOG CARDS --- */
+        .catalog-section { padding: 80px 0 100px; background: var(--bg-section); }
+        .catalog-title { text-align: center; margin-bottom: 4rem; font-size: 2.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px;}
+        .container { width: 95%; max-width: 1400px; margin: auto; padding-bottom: 2rem; }
 
         .carousel-wrapper {
-            position: relative; width: 100%; overflow: hidden; padding: 30px 0; 
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
+            position: relative; width: 100%; overflow: hidden; padding: 20px 0; 
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
         }
-
-        .carousel-track { display: flex; width: max-content; animation: scrollMarquee 35s linear infinite; }
+        .carousel-track { display: flex; width: max-content; animation: scrollMarquee 40s linear infinite; }
         .carousel-wrapper:hover .carousel-track { animation-play-state: paused; }
-        .carousel-slide { display: flex; gap: 25px; padding-right: 25px; }
-
+        .carousel-slide { display: flex; gap: 30px; padding-right: 30px; }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         .cluster-card {
-            background: var(--card-dark); backdrop-filter: blur(12px); border-radius: 16px; padding: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s ease; display: flex; flex-direction: column;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 380px; flex: 0 0 auto; white-space: normal; 
+            background: var(--bg-card); border-radius: 12px; padding: 35px; 
+            border: 1px solid var(--border); transition: all 0.3s ease; display: flex; flex-direction: column;
+            width: 400px; flex: 0 0 auto; cursor: pointer; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.03);
         }
-        .cluster-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.5); border-color: rgba(59, 130, 246, 0.4); cursor: pointer; }
+        .cluster-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
 
-        .card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .card-logo { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; background-color: #111; border: 1px solid rgba(255,255,255,0.05); }
-        .card-title-group { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
-        .card-title { font-size: 1.25rem; color: var(--text-light); font-weight: 700; line-height: 1.2; }
+        .card-header { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; }
+        .card-logo { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border); background: var(--bg-main); padding: 2px;}
+        .card-title-group { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+        .card-title { font-size: 1.3rem; font-weight: 700; color: var(--text-dark); letter-spacing: -0.5px;}
         
-        .card-badge {
-            background: rgba(255, 193, 7, 0.15); color: var(--hero-yellow); font-size: 0.65rem; font-weight: 700;
-            padding: 5px 10px; border-radius: 6px; letter-spacing: 0.5px;
-        }
-        .card-badge.green { background: rgba(16, 185, 129, 0.15); color: var(--profit-green); }
-        .card-badge.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-        .card-badge.pink { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
-        .card-badge.orange { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+        .card-badge { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; border: 1px solid; }
+        .badge-standard { color: var(--primary); border-color: rgba(37, 99, 235, 0.3); background: rgba(37, 99, 235, 0.1); }
+        .badge-high { color: var(--danger); border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1); }
 
-        .card-body { font-size: 0.85rem; color: var(--text-gray); line-height: 1.7; flex-grow: 1; }
-        .card-divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 25px 0 15px; width: 100%; }
-        
-        .card-footer { display: flex; justify-content: space-between; align-items: center; }
-        .card-specs { font-size: 0.8rem; color: #64748b; font-weight: 700; letter-spacing: 1px; }
-        .btn-view-text { background: none; border: none; color: var(--primary-blue); font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
-        .btn-view-text:hover { color: #60a5fa; }
+        .card-body { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; flex-grow: 1; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 20px; }
+        .card-specs { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .btn-view-text { background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 5px;}
+        .btn-view-text:hover { color: var(--primary-hover); transform: translateX(3px); }
 
-        .container-single { max-width: 500px; }
+        /* --- COPYTRADE SECTION --- */
+        .copytrade-wrapper { display: flex; justify-content: center; margin-top: 30px; padding-bottom: 80px;}
 
-        /* --- 5. MODAL (POPUP) SETTINGS --- */
+        /* --- 7. MODAL (DETAILED PRODUCT PAGE STYLE) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(2, 6, 23, 0.85); z-index: 2000;
+            background: rgba(15, 23, 42, 0.6); z-index: 2000;
             display: none; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;
-            padding: 20px;
+            backdrop-filter: blur(5px); opacity: 0; transition: 0.3s ease; padding: 20px;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
         
         .modal-content {
-            background: #0f172a; border: 1px solid rgba(59, 130, 246, 0.4);
-            border-radius: 12px; width: 100%; max-width: 500px; padding: 2rem;
-            position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            transform: translateY(-20px); transition: transform 0.3s ease;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto;
+            position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transform: translateY(20px); transition: 0.3s ease;
+            display: grid; grid-template-columns: 1.4fr 1fr; gap: 0; overflow: hidden;
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-btn { position: absolute; top: 20px; right: 25px; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; transition: 0.3s; z-index: 10;}
+        .close-btn:hover { color: var(--danger); }
 
-        .close-btn { position: absolute; top: 15px; right: 20px; color: var(--text-gray); font-size: 1.8rem; cursor: pointer; transition: 0.3s; line-height: 1; }
-        .close-btn:hover { color: var(--hero-yellow); }
-
-        .modal-header-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .modal-title { font-size: 1.3rem; color: var(--text-light); }
-        .modal-price { color: var(--hero-yellow); font-weight: bold; font-size: 1rem; }
-        .modal-desc { color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
-
-        .modal-specs {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.5rem;
-            font-size: 0.8rem; color: var(--text-gray); background: rgba(0,0,0,0.4);
-            padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .action-buttons { display: flex; gap: 10px; flex-wrap: wrap;}
-        .btn-detail { flex: 1; padding: 10px 15px; background-color: transparent; border: 1.5px solid var(--primary-blue); color: var(--text-light); border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; font-size: 0.9rem; min-width: 120px; cursor: pointer; }
-        .btn-detail:hover { background-color: var(--primary-blue); color: white; box-shadow: 0 5px 15px rgba(59,130,246,0.3);}
+        /* Bagian Kiri Modal */
+        .modal-left { padding: 50px; background: var(--bg-card); }
+        .modal-left h2 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; line-height: 1.2; letter-spacing: -0.5px;}
+        .modal-subtitle { font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px;}
+        .modal-desc-full { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 30px; }
         
-        .btn-demo { flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; background-color: var(--profit-green); color: white; border-radius: 6px; font-weight: 600; transition: 0.3s; text-align: center; border: none; text-decoration: none; font-size: 0.9rem; min-width: 120px; }
-        .btn-demo:hover { background-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);}
+        .feature-list { margin-bottom: 25px; }
+        .feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 500;}
+        .feature-list li i { color: var(--success); margin-top: 4px; font-size: 1.1rem;}
 
-        /* --- 6. FOOTER, DISCLAIMER & FLOAT --- */
-        footer { background-color: rgba(2, 6, 23, 0.95); color: var(--text-gray); text-align: center; padding: 3rem 2rem 2rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 1; }
-        footer h3 { font-size: 1.2rem; color: var(--text-light); }
+        /* Bagian Kanan Modal */
+        .modal-right { background: var(--bg-section); border-left: 1px solid var(--border); padding: 50px 40px; display: flex; flex-direction: column; }
+        .price-tag { font-size: 3rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; letter-spacing: -1px;}
+        .price-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid var(--border); }
         
-        .disclaimer-box {
-            max-width: 900px;
-            margin: 2rem auto 1.5rem;
-            font-size: 0.75rem;
-            color: #64748b;
-            line-height: 1.7;
-            text-align: center;
-        }
-        .disclaimer-box strong { color: #94a3b8; }
+        .technical-specs { margin-bottom: 30px; }
+        .spec-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-muted); border-bottom: 1px dashed var(--border); padding-bottom: 8px;}
+        .spec-row strong { color: var(--text-dark); font-weight: 600;}
 
-        .wa-float { position: fixed; bottom: 20px; right: 20px; background-color: var(--hero-yellow); color: black; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3); font-weight: bold; font-size: 0.9rem; z-index: 1001; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .wa-float:hover { transform: translateY(-3px) scale(1.05); }
+        .btn-order { background: var(--primary); color: #FFF; padding: 16px; text-align: center; border-radius: 8px; font-weight: 600; font-size: 1.05rem; transition: 0.3s; border: none; width: 100%; display: block; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);}
+        .btn-order:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3); }
+        
+        .btn-signal-live { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dark); padding: 15px; text-align: center; border-radius: 8px; font-weight: 600; font-size: 1rem; transition: 0.3s; width: 100%; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+        .btn-signal-live:hover { border-color: var(--primary); color: var(--primary); }
 
-        @media (max-width: 768px) {
-            .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-            .hero-text h1 { font-size: 2rem; }
-            .pain-points li { justify-content: center; }
-            .menu-toggle { display: block; }
-            nav ul { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background-color: rgba(2, 6, 23, 0.95); padding: 15px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .risk-alert { background: #FEF2F2; border: 1px solid #FECACA; border-left: 4px solid var(--danger); padding: 15px; font-size: 0.85rem; color: #991B1B; margin-top: auto; line-height: 1.6; border-radius: 6px;}
+
+        /* --- 8. FOOTER --- */
+        footer { background-color: var(--bg-card); border-top: 1px solid var(--border); padding: 5rem 5% 3rem; text-align: center; }
+        footer h3 { font-size: 1.5rem; color: var(--text-dark); font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;}
+        .disclaimer-box { max-width: 900px; margin: 2rem auto 2rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; padding: 25px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main);}
+        .copyright { font-size: 0.9rem; color: var(--text-muted); font-weight: 500;}
+
+        @media (max-width: 900px) {
+            .about-container { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+            .about-text { text-align: center; }
+            .modal-content { grid-template-columns: 1fr; padding: 0; }
+            .modal-left { padding: 30px; }
+            .modal-right { padding: 30px; border-left: none; border-top: 1px solid var(--border); }
+            .hero { padding-top: 140px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-stats { flex-direction: column; gap: 30px; }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: var(--bg-nav); padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
             nav ul.active { display: flex; }
-            .modal-header-info { flex-direction: column; align-items: flex-start; gap: 5px; }
-            .cluster-card { width: 300px; padding: 20px; }
-            .carousel-slide { gap: 15px; padding-right: 15px; }
-            
-            .mega-menu { display: none !important; }
+            .menu-toggle { display: block; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-elegant"></div>
-
+    <!-- NAVIGASI (BIRU NAVY) -->
     <header>
-        <div class="logo">
-            <img src="images/boomtrade2.png" alt="Boom Trade Logo" class="logo-img">
-        </div>
+        <div class="logo"><img src="images/boomtrade2.png" alt="Boom Trade Logo" class="logo-img"></div>
         <div class="header-right">
-            <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()">🌐 ID</button>
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()">EN / ID</button>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         </div>
         <nav>
             <ul id="nav-list">
-                <li><a href="#home" data-key="nav_home">Beranda</a></li>
-                
-                <li class="has-dropdown">
-                    <a href="#products"><span data-key="nav_products">Expert Advisor</span> <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-top: 2px;"></i></a>
-                    <div class="mega-menu">
-                        <div class="mega-menu-grid">
-                            <div class="mega-item" onclick="openModal('modal-zenith')">
-                                <img src="images/zenith poster new.jpg" alt="Zenith" class="mega-icon">
-                                <div class="mega-text">
-                                    <span class="mega-title">Zenith Pro Scalper</span>
-                                    <span class="mega-subtitle">SCALPER · XAUUSD</span>
-                                </div>
-                            </div>
-                            <div class="mega-item" onclick="openModal('modal-dopamin')">
-                                <img src="images/dopamin.jpg" alt="Dopamin" class="mega-icon">
-                                <div class="mega-text">
-                                    <span class="mega-title">Dopamin Hedge</span>
-                                    <span class="mega-subtitle">HEDGE · ALL PAIRS</span>
-                                </div>
-                            </div>
-                            <div class="mega-item" onclick="openModal('modal-phantom')">
-                                <img src="images/goldenphantom.jpg" alt="Phantom" class="mega-icon">
-                                <div class="mega-text">
-                                    <span class="mega-title">Golden Phantom</span>
-                                    <span class="mega-subtitle">BREAKOUT · XAUUSD</span>
-                                </div>
-                            </div>
-                            <div class="mega-item" onclick="openModal('modal-spartan')">
-                                <img src="images/spartankiller.jpg" alt="Spartan Killer" class="mega-icon">
-                                <div class="mega-text">
-                                    <span class="mega-title">Spartan Killer</span>
-                                    <span class="mega-subtitle">BREAKOUT · XAUUSD</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mega-menu-footer">
-                            <a href="#products" class="mega-view-all">VIEW ALL <i class="fas fa-arrow-right"></i></a>
-                            <a href="#" target="_blank" class="mega-bundle-btn wa-link-bundle"><i class="fas fa-star"></i> GET EA</a>
-                        </div>
-                    </div>
-                </li>
-
-                <li><a href="signal.html" data-key="nav_result">Result</a></li>
-                <li><a href="#contact" data-key="nav_contact">Kontak</a></li>
+                <li><a href="#home" data-key="nav_home">Home</a></li>
+                <li><a href="#products" data-key="nav_products">Algorithms</a></li>
+                <li><a href="signal.html" data-key="nav_result">Performance</a></li>
+                <li><a href="#contact" data-key="nav_contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="home" class="hero-metacorp">
-        <div class="hero-container">
-            <div class="hero-text">
-                <h1 data-key="hero_title">Kamu merasa banyak sekali masalah ketika <br>
-                <span class="text-highlight">menghadapi market?</span></h1>
-                <ul class="pain-points">
-                    <li data-key="pain_1">Masih Sering Loss</li>
-                    <li data-key="pain_2">Belum Konsisten</li>
-                    <li data-key="pain_3">Harus Mantengin Chart Terus</li>
-                    <li data-key="pain_4">Ragu untuk open posisi</li>
-                    <li data-key="pain_5">Sifat Serakah</li>
-                </ul>
-                <p class="hero-desc" data-key="hero_desc">
-                    Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA "Your Partner Trading System"
-                </p>
-                <a href="#products" class="btn-yellow" data-key="btn_join_now">💬 Join Now</a>
+    <!-- PROFESSIONAL HERO (PUTIH TULANG - TEKS HITAM) -->
+    <section id="home" class="hero">
+        <h1 data-key="hero_title">Automated Algorithmic <span>Trading Systems</span></h1>
+        <p data-key="hero_desc">Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.</p>
+        
+        <div class="hero-stats">
+            <div class="stat-box"><h4>4+</h4><span data-key="stat_1">Premium Algorithms</span></div>
+            <div class="stat-box"><h4>24/7</h4><span data-key="stat_2">Automated Execution</span></div>
+            <div class="stat-box"><h4>MT5</h4><span data-key="stat_3">Platform Supported</span></div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION (PUTIH BERSIH) -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-text">
+                <h2 data-key="bg_title">Why Was Boom Trade Indonesia Created?</h2>
+                <p data-key="bg_desc">As fellow traders, we fully understand how physically and mentally draining manual trading can be. Boom Trade Indonesia was built with a clear vision: to provide an automated trading architecture (Expert Advisors) that is truly reliable.</p>
+                <p data-key="bg_desc2">We are committed to helping you invest in the global financial markets rationally, measurably, and consistently without sacrificing your daily productivity. Let our software analyze and work, while you enjoy the results.</p>
             </div>
-            <div class="hero-img-wrapper">
-                <img src="images/trader2.jpg" alt="Trader Stres">
+            <div class="about-img-wrapper">
+                <img src="images/trader2.jpg" alt="About Boom Trade">
             </div>
         </div>
     </section>
 
-    <!-- === BAGIAN EXPERT ADVISOR CAROUSEL (MARQUEE) === -->
-    <h2 id="products" class="section-title"><span data-key="sec_title">Expert Advisor & Layanan Unggulan</span></h2>
-    <p class="section-subtitle" data-key="sec_subtitle">Pilih senjata trading terbaik sesuai gaya investasi Anda</p>
-
-    <div class="container">
-        <div class="carousel-wrapper">
-            <div class="carousel-track" id="product-carousel">
-                
-                <!-- SLIDE GRUP 1 -->
-                <div class="carousel-slide">
-                    <div class="cluster-card" onclick="openModal('modal-zenith')">
-                        <div class="card-header">
-                            <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Zenith Pro Scalper</h3>
-                                <span class="card-badge">SCALPER</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="zenith_short">
-                            Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="cluster-card" onclick="openModal('modal-dopamin')">
-                        <div class="card-header">
-                            <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Dopamin Hedge</h3>
-                                <span class="card-badge green">HEDGE</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="dopamin_short">
-                            Straddle Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; ALL PAIRS</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="cluster-card" onclick="openModal('modal-phantom')">
-                        <div class="card-header">
-                            <img src="images/goldenphantom.jpg" alt="Golden Phantom Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Golden Phantom</h3>
-                                <span class="card-badge pink">BREAKOUT</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="phantom_short">
-                            Breakout strategy dengan adaptasi pergerakan Gold otomatis.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="cluster-card" onclick="openModal('modal-spartan')">
-                        <div class="card-header">
-                            <img src="images/spartankiller.jpg" alt="Spartan Killer Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Spartan Killer</h3>
-                                <span class="card-badge orange">BREAKOUT</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="spartan_short">
-                            Strategi breakout agresif untuk menangkap momentum pergerakan harga secara presisi.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
+    <!-- PROMO SECTION (PUTIH TULANG) -->
+    <section class="promo-section">
+        <div class="container promo-container">
+            <div class="promo-header">
+                <h2 data-key="promo_title">Why Choose a Trading Robot (EA)?</h2>
+                <p data-key="promo_subtitle">Manual trading often leads to stress, fatigue, and being easily carried away by sudden emotions. Trading robots (EAs) were created to solve these problems so your trading experience becomes much more relaxed and precise.</p>
+            </div>
+            <div class="promo-grid">
+                <div class="promo-card">
+                    <div class="promo-icon"><i class="fas fa-brain"></i></div>
+                    <h3 data-key="promo_card1_title">Free from Emotions</h3>
+                    <p data-key="promo_card1_desc">Robots execute every position purely based on predefined mathematical logic rules. Say goodbye to hesitation, fear, or greed when facing market movements.</p>
                 </div>
-
-                <!-- SLIDE GRUP 2 -->
-                <div class="carousel-slide">
-                    <div class="cluster-card" onclick="openModal('modal-zenith')">
-                        <div class="card-header">
-                            <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Zenith Pro Scalper</h3>
-                                <span class="card-badge">SCALPER</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="zenith_short">
-                            Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="cluster-card" onclick="openModal('modal-dopamin')">
-                        <div class="card-header">
-                            <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Dopamin Hedge</h3>
-                                <span class="card-badge green">HEDGE</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="dopamin_short">
-                            Straddle Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; ALL PAIRS</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="cluster-card" onclick="openModal('modal-phantom')">
-                        <div class="card-header">
-                            <img src="images/goldenphantom.jpg" alt="Golden Phantom Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Golden Phantom</h3>
-                                <span class="card-badge pink">BREAKOUT</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="phantom_short">
-                            Breakout strategy dengan adaptasi pergerakan Gold otomatis.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="cluster-card" onclick="openModal('modal-spartan')">
-                        <div class="card-header">
-                            <img src="images/spartankiller.jpg" alt="Spartan Killer Logo" class="card-logo">
-                            <div class="card-title-group">
-                                <h3 class="card-title">Spartan Killer</h3>
-                                <span class="card-badge orange">BREAKOUT</span>
-                            </div>
-                        </div>
-                        <div class="card-body" data-key="spartan_short">
-                            Strategi breakout agresif untuk menangkap momentum pergerakan harga secara presisi.
-                        </div>
-                        <div class="card-divider"></div>
-                        <div class="card-footer">
-                            <span class="card-specs">MT5 &nbsp;·&nbsp; XAUUSD</span>
-                            <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
+                <div class="promo-card">
+                    <div class="promo-icon"><i class="fas fa-microchip"></i></div>
+                    <h3 data-key="promo_card2_title">Fast and Accurate</h3>
+                    <p data-key="promo_card2_desc">Human focus has its limits. Our robots are designed to monitor price movements relentlessly across multiple timeframes, seizing profitable opportunities in a fraction of a second accurately.</p>
                 </div>
-
+                <div class="promo-card">
+                    <div class="promo-icon"><i class="fas fa-clock"></i></div>
+                    <h3 data-key="promo_card3_title">24/7 Nonstop Trading</h3>
+                    <p data-key="promo_card3_desc">Let the system operate day and night. You can return to focusing on your main job, family, or relaxing without worrying about missing precious moments in the market.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- === BAGIAN COPYTRADE (STATIS DI TENGAH) === -->
-    <h2 id="copytrade" class="section-title"><span data-key="copy_sec_title">Layanan Copytrade</span></h2>
-    <p class="section-subtitle" data-key="copy_sec_subtitle">Solusi pasif income tanpa harus analisa market 24/7</p>
+    <!-- CATALOG CARDS (ABU-ABU MUDA) -->
+    <section id="products" class="catalog-section">
+        <div class="container">
+            <h2 class="catalog-title" data-key="sec_title">Explore Our Technologies</h2>
+            
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="product-carousel">
+                    
+                    <!-- SLIDE GRUP 1 -->
+                    <div class="carousel-slide">
+                        <div class="cluster-card" onclick="openModal('modal-zenith')">
+                            <div class="card-header">
+                                <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Zenith Pro Scalper</h3>
+                                    <span class="card-badge badge-standard" data-key="badge_scalp">SCALPING ENGINE</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="zenith_short">
+                                High-precision Gold technicals with an auto-adaptive grid and multi-layered risk management for long-term stability.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · XAUUSD</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
 
-    <div class="container container-single">
-        <div class="cluster-card" style="margin: auto;" onclick="openModal('modal-copytrade')">
-            <div class="card-header">
-                <img src="images/copytrade.jpg" alt="Copytrade Logo" class="card-logo">
-                <div class="card-title-group">
-                    <h3 class="card-title">Premium Copytrade</h3>
-                    <span class="card-badge blue">AUTO-PILOT</span>
+                        <div class="cluster-card" onclick="openModal('modal-dopamin')">
+                            <div class="card-header">
+                                <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Dopamin Hedge</h3>
+                                    <span class="card-badge badge-high" data-key="badge_hedge">HIGH RISK STRATEGY</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="dopamin_short">
+                                24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · ALL PAIRS</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="cluster-card" onclick="openModal('modal-phantom')">
+                            <div class="card-header">
+                                <img src="images/goldenphantom.jpg" alt="Phantom Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Golden Phantom</h3>
+                                    <span class="card-badge badge-standard" data-key="badge_break">MULTI-TF BREAKOUT</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="phantom_short">
+                                Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · XAUUSD</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="cluster-card" onclick="openModal('modal-spartan')">
+                            <div class="card-header">
+                                <img src="images/spartankiller.jpg" alt="Spartan Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Spartan Killer</h3>
+                                    <span class="card-badge badge-standard" data-key="badge_vol">VOLATILITY TRADER</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="spartan_short">
+                                Aggressively captures Support & Resistance penetration momentum with high execution speed.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · XAUUSD</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE GRUP 2 (DUPLIKAT UNTUK LOOP ANIMASI) -->
+                    <div class="carousel-slide">
+                        <div class="cluster-card" onclick="openModal('modal-zenith')">
+                            <div class="card-header">
+                                <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Zenith Pro Scalper</h3>
+                                    <span class="card-badge badge-standard" data-key="badge_scalp">SCALPING ENGINE</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="zenith_short">
+                                High-precision Gold technicals with an auto-adaptive grid and multi-layered risk management for long-term stability.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · XAUUSD</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="cluster-card" onclick="openModal('modal-dopamin')">
+                            <div class="card-header">
+                                <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Dopamin Hedge</h3>
+                                    <span class="card-badge badge-high" data-key="badge_hedge">HIGH RISK STRATEGY</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="dopamin_short">
+                                24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · ALL PAIRS</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="cluster-card" onclick="openModal('modal-phantom')">
+                            <div class="card-header">
+                                <img src="images/goldenphantom.jpg" alt="Phantom Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Golden Phantom</h3>
+                                    <span class="card-badge badge-standard" data-key="badge_break">MULTI-TF BREAKOUT</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="phantom_short">
+                                Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · XAUUSD</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="cluster-card" onclick="openModal('modal-spartan')">
+                            <div class="card-header">
+                                <img src="images/spartankiller.jpg" alt="Spartan Logo" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3 class="card-title">Spartan Killer</h3>
+                                    <span class="card-badge badge-standard" data-key="badge_vol">VOLATILITY TRADER</span>
+                                </div>
+                            </div>
+                            <div class="card-body" data-key="spartan_short">
+                                Aggressively captures Support & Resistance penetration momentum with high execution speed.
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-specs">MT5 · XAUUSD</span>
+                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="card-body" data-key="copy_short">
-                Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.
-            </div>
-            <div class="card-divider"></div>
-            <div class="card-footer">
-                <span class="card-specs">MT4/MT5 &nbsp;·&nbsp; MULTI</span>
-                <button class="btn-view-text">VIEW <i class="fas fa-chevron-right"></i></button>
+            
+            <!-- COPYTRADE -->
+            <div class="copytrade-wrapper">
+                <div class="cluster-card" style="width: 100%; max-width: 750px; flex-direction: row; align-items: center; gap: 30px;" onclick="openModal('modal-copytrade')">
+                    <img src="images/copytrade.jpg" alt="Copytrade Logo" class="card-logo" style="width: 80px; height: 80px; margin: 0;">
+                    <div style="flex-grow: 1;">
+                        <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 8px;">
+                            <h3 class="card-title" style="margin: 0;">Premium Copytrade</h3>
+                            <span class="card-badge badge-standard" data-key="badge_auto">100% AUTO-PILOT</span>
+                        </div>
+                        <p class="card-body" data-key="copy_short" style="margin: 0; font-size: 0.95rem;">
+                            Exclusive wealth management service. Your trading account will copy all our algorithmic executions instantly without any software setup required.
+                        </p>
+                    </div>
+                    <button class="btn-view-text" style="white-space: nowrap;" data-key="btn_view_details">View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- === KUMPULAN MODAL POPUP === -->
+    <!-- ========================================== -->
+    <!-- MODAL POPUPS (DETAILED PROMO STYLE)        -->
+    <!-- ========================================== -->
     
     <!-- Modal Zenith -->
     <div id="modal-zenith" class="modal-overlay" onclick="closeOnOutside(event, 'modal-zenith')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-zenith')">&times;</span>
-            <div class="modal-header-info">
-                <h3 class="modal-title">Zenith Pro Scalper</h3>
-                <span class="modal-price">Lifetime Access $499</span>
-            </div>
             
-            <div class="modal-desc" data-key="zenith_desc">
-                EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine.
+            <div class="modal-left">
+                <h2>Zenith Pro Scalper</h2>
+                <div class="modal-subtitle" data-key="zenith_sub">Advanced XAUUSD Scalping Engine</div>
+                <p class="modal-desc-full" data-key="zenith_desc">
+                    Zenith Pro Scalper is exclusively designed to dominate XAUUSD (Gold). Utilizing an <strong>Adaptive Grid</strong> algorithm, the EA dynamically adjusts order spacing based on real-time market volatility. Equipped with auto-spread filters and advanced equity protection, Zenith turns minor price movements into consistent gains.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Auto Spread & Slippage Filter</li>
+                    <li><i class="fas fa-check-circle"></i> Multi-Layer Risk Management</li>
+                    <li><i class="fas fa-check-circle"></i> Built-in On Chart Dashboard</li>
+                    <li><i class="fas fa-check-circle"></i> Smart Recovery Mechanism</li>
+                </ul>
             </div>
 
-            <div class="modal-specs">
-                <span>📈 MT5</span>
-                <span>🥇 XAUUSD</span>
-                <span data-key="spec_prot">🛡️ Protection with trailing</span>
-                <span data-key="spec_scalp">⚡ Adaptive Grid Scalper</span>
-            </div>
+            <div class="modal-right">
+                <div class="price-tag">$499</div>
+                <div class="price-sub">Lifetime License. One-time payment.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
+                    <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Grid Scalping</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>500 USD/USC</strong></div>
+                </div>
 
-            <div class="action-buttons">
-                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Zenith Pro Scalper">Order Now</a>
-                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-zenith'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
+                <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Zenith Pro Scalper" data-key="btn_purchase">Purchase License</a>
+                <a href="signal.html#result-zenith" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
         </div>
     </div>
@@ -601,79 +527,110 @@
     <div id="modal-dopamin" class="modal-overlay" onclick="closeOnOutside(event, 'modal-dopamin')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-dopamin')">&times;</span>
-            <div class="modal-header-info">
-                <h3 class="modal-title">Dopamin Hedge</h3>
-                <span class="modal-price" data-key="dopamin_price">Lifetime Access $499</span>
-            </div>
             
-            <div class="modal-desc" data-key="dopamin_desc">
-                EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer presisi yang hanya berfokus pada area floating minus.
+            <div class="modal-left">
+                <h2>Dopamin Hedge</h2>
+                <div class="modal-subtitle" data-key="dopamin_sub">24/7 Straddle & Recovery System</div>
+                <p class="modal-desc-full" data-key="dopamin_desc">
+                    A breakthrough in continuous trading methodology. Dopamin Hedge employs a <strong>Straddle Grid</strong> strategy to open Buy and Sell positions simultaneously. Its advanced algorithm doesn't care which way the trend moves. When the market reverses extremely, the <em>Smart Recovery Engine</em> takes over instantly to mitigate drawdown and close the entire basket in a clean profit.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Bi-directional Market Entry (Auto-Hedge)</li>
+                    <li><i class="fas fa-check-circle"></i> Full Auto 24/5 Operation</li>
+                    <li><i class="fas fa-check-circle"></i> Precise Mathematical Lot Calculation</li>
+                    <li><i class="fas fa-check-circle"></i> Supports All Currency Pairs</li>
+                </ul>
             </div>
 
-            <div class="modal-specs">
-                <span>📈 MT5</span>
-                <span data-key="spec_hedge">🔄 24/7 Grid Hedge</span>
-                <span data-key="spec_straddle">⚔️ Straddle Strategy</span>
-                <span>⚡ Full Auto</span>
-            </div>
+            <div class="modal-right">
+                <div class="price-tag">$499</div>
+                <div class="price-sub">Lifetime License. One-time payment.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>All Pairs</strong></div>
+                    <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Hedge & Grid Recovery</strong></div>
+                </div>
 
-            <div class="action-buttons">
-                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Dopamin Hedge">Order Now</a>
-                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-dopamin'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
+                <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Dopamin Hedge" data-key="btn_purchase">Purchase License</a>
+                <a href="signal.html#result-dopamin" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
+                
+                <div class="risk-alert" data-key="high_risk_warn">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>HIGH RISK WARNING:</strong><br>
+                    This strategy requires a large margin capacity to perform recovery maneuvers. <br>Min. Required Balance: <strong>2000 USC/USD</strong>.
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Golden Phantom -->
+    <!-- Modal Phantom -->
     <div id="modal-phantom" class="modal-overlay" onclick="closeOnOutside(event, 'modal-phantom')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-phantom')">&times;</span>
-            <div class="modal-header-info">
-                <h3 class="modal-title">Golden Phantom</h3>
-                <span class="modal-price" data-key="phantom_price">Lifetime Access $499</span>
-            </div>
             
-            <div class="modal-desc" data-key="phantom_desc">
-                EA canggih yang menggunakan breakout strategi independen yang berjalan di berbagai timeframe secara bersamaan. Dilengkapi dengan auto-adaptive risk untuk memaksimalkan profit pada pergerakan XAUUSD.
+            <div class="modal-left">
+                <h2>Golden Phantom</h2>
+                <div class="modal-subtitle" data-key="phantom_sub">Multi-Timeframe Breakout Specialist</div>
+                <p class="modal-desc-full" data-key="phantom_desc">
+                    An EA specifically engineered to catch massive momentum waves. Golden Phantom monitors H1, H4, and D1 timeframes simultaneously. Its algorithm only executes orders when it finds validated breakout probabilities (avoiding false breakouts), and features <em>Auto-Adaptive Risk</em> to secure maximum profit without using martingale.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Multi-Timeframe Confluence Filter</li>
+                    <li><i class="fas fa-check-circle"></i> Automatic Daily Volatility Adaptation</li>
+                    <li><i class="fas fa-check-circle"></i> Smart Trailing Stop & Break-even Logic</li>
+                    <li><i class="fas fa-check-circle"></i> Strict Risk Management (Single Entry)</li>
+                </ul>
             </div>
 
-            <div class="modal-specs">
-                <span>📈 MT5</span>
-                <span>🥇 XAUUSD</span>
-                <span data-key="spec_tf">⏳ Multi-Timeframe (H1/H4/D1)</span>
-                <span data-key="spec_8strat">⚡ Breakout Strategi</span>
-            </div>
+            <div class="modal-right">
+                <div class="price-tag">$499</div>
+                <div class="price-sub">Lifetime License. One-time payment.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
+                    <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Trend Breakout</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>300 USD</strong></div>
+                </div>
 
-            <div class="action-buttons">
-                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Golden Phantom">Order Now</a>
-                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-phantom'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
+                <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Golden Phantom" data-key="btn_purchase">Purchase License</a>
+                <a href="signal.html#result-phantom" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
         </div>
     </div>
     
-    <!-- Modal Spartan Killer -->
+    <!-- Modal Spartan -->
     <div id="modal-spartan" class="modal-overlay" onclick="closeOnOutside(event, 'modal-spartan')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-spartan')">&times;</span>
-            <div class="modal-header-info">
-                <h3 class="modal-title">Spartan Killer</h3>
-                <span class="modal-price" data-key="spartan_price">Lifetime Access $499</span>
-            </div>
             
-            <div class="modal-desc" data-key="spartan_desc">
-                EA Spartan Killer berfokus pada <strong>Breakout Strategy</strong> dengan agresivitas terukur, mengincar pergerakan harga signifikan saat level support dan resistance tertembus di market.
+            <div class="modal-left">
+                <h2>Spartan Killer</h2>
+                <div class="modal-subtitle" data-key="spartan_sub">Aggressive Volatility Trader</div>
+                <p class="modal-desc-full" data-key="spartan_desc">
+                    Created exclusively to handle the wildest market sessions (London & New York). Spartan Killer targets crucial Support & Resistance areas and aggressively executes orders milliseconds after those levels are breached. It relies purely on momentum spikes and execution speed to turn high volatility into take profit.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Support & Resistance Penetration Logic</li>
+                    <li><i class="fas fa-check-circle"></i> High-Speed Order Execution</li>
+                    <li><i class="fas fa-check-circle"></i> Momentum Gap Tracking</li>
+                    <li><i class="fas fa-check-circle"></i> Optimal for Global Session Volatility</li>
+                </ul>
             </div>
 
-            <div class="modal-specs">
-                <span>📈 MT5</span>
-                <span>🥇 XAUUSD</span>
-                <span data-key="spec_spartan1">⚔️ Spartan Breakout</span>
-                <span data-key="spec_spartan2">⚡ High Volatility</span>
-            </div>
+            <div class="modal-right">
+                <div class="price-tag">$499</div>
+                <div class="price-sub">Lifetime License. One-time payment.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
+                    <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Aggressive Breakout</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>500 USD</strong></div>
+                </div>
 
-            <div class="action-buttons">
-                <a href="#" class="btn-detail wa-link-order" target="_blank" data-key="btn_order" data-product="Spartan Killer">Order Now</a>
-                <a href="#" onclick="window.location.href='signal.html' + window.location.search + '#result-spartan'; return false;" class="btn-demo" data-key="btn_live_signal">📊 Live Signal</a>
+                <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Spartan Killer" data-key="btn_purchase">Purchase License</a>
+                <a href="signal.html#result-spartan" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
         </div>
     </div>
@@ -682,295 +639,226 @@
     <div id="modal-copytrade" class="modal-overlay" onclick="closeOnOutside(event, 'modal-copytrade')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-copytrade')">&times;</span>
-            <div class="modal-header-info">
-                <h3 class="modal-title">PREMIUM COPYTRADE</h3>
-                <span class="modal-price" data-key="copy_price">Profit Sharing 80 : 20</span>
-            </div>
             
-            <div class="modal-desc" data-key="copy_desc">
-                Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten.
+            <div class="modal-left">
+                <h2>Premium Copytrade</h2>
+                <div class="modal-subtitle" data-key="copy_sub">100% Hands-Free Wealth Management</div>
+                <p class="modal-desc-full" data-key="copy_desc">
+                    This is the most efficient solution if you have a busy profession, lack the time for independent trading, or are unfamiliar with VPS and EA installations. Our Premium Copytrade service connects your account directly to the Boom Trade Master Server. Every transaction activity from our top algorithms will be copied automatically to your account, that very second.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> 100% Automated (No chart monitoring needed)</li>
+                    <li><i class="fas fa-check-circle"></i> Balance and Fund Control Remain Yours</li>
+                    <li><i class="fas fa-check-circle"></i> Ultra-Fast Execution / Low Latency</li>
+                    <li><i class="fas fa-check-circle"></i> No VPS Rental & No Software Setup Required</li>
+                </ul>
             </div>
 
-            <div class="modal-specs">
-                <span data-key="spec_cp1">💰 Avg 10-20%/Month</span>
-                <span data-key="spec_cp2">🛡️ Full Auto Pilot</span>
-                <span data-key="spec_cp3">📱 Fast Acces</span>
-                <span data-key="spec_cp4">🔄 VPS $15 3 Month</span>
-            </div>
+            <div class="modal-right">
+                <div class="price-tag">80 / 20</div>
+                <div class="price-sub">Profit Sharing. Fair & Transparent.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_est_return">Est. Return:</span> <strong>10% - 20% / Month</strong></div>
+                    <div class="spec-row"><span data-key="lbl_control">Control:</span> <strong>100% Client Rights</strong></div>
+                </div>
 
-            <div class="action-buttons">
-                <a href="index2.html" class="btn-demo wa-link-copy" style="flex: auto;" data-key="btn_join_copy">Join Copytrade</a>
+                <a href="index2.html" class="btn-order wa-link-copy" target="_blank" style="margin-top: 10px;" data-key="btn_register_copy">Register Copytrade Now</a>
             </div>
         </div>
     </div>
 
-    <!-- === FOOTER & DISCLAIMER === -->
+    <!-- === FOOTER === -->
     <footer id="contact">
         <h3>BOOM TRADE INDONESIA</h3>
-        <p data-key="footer_tag">Your Partner Trading System</p>
-        <p data-key="footer_loc">Jawa Timur - Indonesia</p>
-        
         <div class="disclaimer-box">
             <p data-key="disclaimer">
-                <strong>Peringatan Risiko:</strong> Perdagangan Forex, komoditas (Gold), dan aset finansial lainnya memiliki tingkat risiko yang tinggi dan mungkin tidak cocok untuk semua investor. Kinerja masa lalu dari Expert Advisor (EA) atau layanan Copytrade kami tidak menjamin hasil di masa depan. Anda bisa kehilangan sebagian atau seluruh dana deposit Anda. Pastikan Anda memahami sepenuhnya risiko yang terlibat sebelum memutuskan untuk menggunakan layanan kami.
+                <strong>Risk Warning:</strong> Trading futures, forex, and other derivative instruments involves a significant level of risk and may result in the loss of your entire investment. Algorithms and Expert Advisors operate based on mathematical probabilities of historical data and do not guarantee future positive results. Please read the entire risk disclosure document before using these software systems. This policy affirms that the use of the software is at your own risk.
             </p>
         </div>
-
-        <small>&copy; 2026 Boom Trade Indonesia. All rights reserved.</small>
+        <div class="copyright">&copy; 2026 Boom Trade Indonesia. Algorithmic Trading Solutions. All rights reserved.</div>
     </footer>
 
-    <a href="#" class="wa-float wa-link-join" target="_blank">
-        💬 <span data-key="wa_btn">Join Now</span>
-    </a>
-
-    <!-- SCRIPT FIREBASE & PENGATURAN -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
+    <!-- JS FUNCTIONALITY -->
     <script>
-        const carouselTrack = document.getElementById('product-carousel');
-
         function openModal(id) {
             document.getElementById(id).classList.add('active');
             document.body.style.overflow = 'hidden'; 
-            carouselTrack.style.animationPlayState = 'paused';
         }
-        
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
             document.body.style.overflow = 'auto';
-            carouselTrack.style.animationPlayState = 'running';
         }
-        
         function closeOnOutside(event, id) {
-            if (event.target.id === id) {
-                closeModal(id);
-            }
+            if (event.target.id === id) { closeModal(id); }
+        }
+        function toggleMenu() {
+            document.getElementById('nav-list').classList.toggle('active');
         }
 
+        // Teks Bilingual Lengkap (Default English)
         const translations = {
-            id: {
-                nav_home: "Beranda",
-                nav_products: "Expert Advisor",
-                nav_result: "Result",
-                nav_contact: "Kontak",
-                hero_title: "Kamu merasa banyak sekali masalah ketika <br><span class='text-highlight'>menghadapi market?</span>",
-                pain_1: "Masih Sering Loss",
-                pain_2: "Belum Konsisten",
-                pain_3: "Harus Mantengin Chart Terus",
-                pain_4: "Ragu untuk open posisi",
-                pain_5: "Sifat Serakah",
-                hero_desc: "Jika Anda memiliki masalah seperti itu, maka solusinya bergabung bersama kami BOOM TRADE INDONESIA 'Your Partner Trading System'",
-                btn_join_now: "💬 Join Now",
-                sec_title: "Expert Advisor & Layanan Unggulan",
-                sec_subtitle: "Pilih senjata trading terbaik sesuai gaya investasi Anda",
-                
-                copy_sec_title: "Layanan Copytrade",
-                copy_sec_subtitle: "Solusi pasif income tanpa harus analisa market 24/7",
-
-                zenith_short: "Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid risk manajemen otomatis.",
-                dopamin_short: "Strategi Grid Hedge 24/7 dengan fitur recovery floating otomatis dan cerdas.",
-                phantom_short: "Breakout strategy dengan adaptasi pergerakan Gold otomatis.",
-                spartan_short: "Strategi breakout agresif untuk menangkap momentum pergerakan harga secara presisi.",
-                copy_short: "Layanan copytrade Auto-Pilot 100% tanpa pantau chart, menyalin otomatis di akun Anda.",
-                
-                spec_prot: "🛡️ Protection with trailing",
-                spec_scalp: "⚡ Adaptive Grid Scalper",
-                dopamin_price: "Lifetime Access $499",
-                spec_hedge: "🔄 24/7 Grid Hedge",
-                spec_straddle: "⚔️ Straddle Strategy",
-                phantom_price: "Lifetime Access $499",
-                spec_tf: "⏳ Multi-Timeframe (H1/H4/D1)",
-                spec_8strat: "⚡ Breakout Strategy",
-                
-                spartan_price: "Lifetime Access $499",
-                spec_spartan1: "⚔️ Spartan Breakout",
-                spec_spartan2: "⚡ High Volatility",
-                
-                zenith_desc: "EA canggih yang dirancang khusus untuk mendominasi volatilitas <strong>XAUUSD (Gold)</strong> di market. Menggunakan algoritma scalping presisi tinggi lengkap dengan dashboard on-chart, serta didukung Smart Recovery Engine.",
-                dopamin_desc: "EA Straddle Grid Hedge tangguh yang dirancang beroperasi <strong>24 jam nonstop</strong>. Membuka order dua arah secara bersamaan dengan mekanisme penambahan layer martingale presisi yang hanya berfokus pada area floating minus.",
-                phantom_desc: "EA canggih yang menggunakan breakout strategi independen yang berjalan di berbagai timeframe secara bersamaan. Dilengkapi dengan auto-adaptive risk untuk memaksimalkan profit pada pergerakan XAUUSD.",
-                spartan_desc: "EA Spartan Killer berfokus pada <strong>Breakout Strategy</strong> dengan agresivitas terukur, mengincar pergerakan harga signifikan saat level support dan resistance tertembus di market.",
-                btn_order: "Order Now",
-                btn_live_signal: "📊 Live Signal",
-                copy_price: "Profit Sharing 80 : 20",
-                copy_desc: "Layanan Copytrade Auto-Pilot 100% Expert Advisor kami yang akan melakukan eksekusi, dan akun Anda akan menyalin posisi secara instan. Duduk manis dan nikmati profit konsisten.",
-                spec_cp1: "💰 Avg 10-20%/Month",
-                spec_cp2: "🛡️ Full Auto Pilot",
-                spec_cp3: "📱 Fast Acces",
-                spec_cp4: "🔄 VPS $15 3 Month",
-                btn_join_copy: "Join Copytrade",
-                footer_tag: "Your Partner Trading System",
-                footer_loc: "Jawa Timur - Indonesia",
-                wa_btn: "Join Now",
-                disclaimer: "<strong>Peringatan Risiko:</strong> Perdagangan Forex, komoditas (Gold), dan aset finansial lainnya memiliki tingkat risiko yang tinggi dan mungkin tidak cocok untuk semua investor. Kinerja masa lalu dari Expert Advisor (EA) atau layanan Copytrade kami tidak menjamin hasil di masa depan. Anda bisa kehilangan sebagian atau seluruh dana deposit Anda. Pastikan Anda memahami sepenuhnya risiko yang terlibat sebelum memutuskan untuk menggunakan layanan kami."
-            },
             en: {
-                nav_home: "Home",
-                nav_products: "Expert Advisors",
-                nav_result: "Result",
-                nav_contact: "Contact",
-                hero_title: "Do you face many problems when <br><span class='text-highlight'>dealing with the market?</span>",
-                pain_1: "Still Frequently Losing",
-                pain_2: "Not Consistent Yet",
-                pain_3: "Stuck Watching Charts All Day",
-                pain_4: "Hesitant to Open Positions",
-                pain_5: "Greedy Behavior",
-                hero_desc: "If you have problems like that, the solution is to join us at BOOM TRADE INDONESIA 'Your Partner Trading System'",
-                btn_join_now: "💬 Join Now",
-                sec_title: "Featured Expert Advisors & Services",
-                sec_subtitle: "Choose the best trading weapon for your investment style",
+                nav_home: "Home", nav_products: "Software", nav_result: "Performance", nav_contact: "Contact",
+                hero_title: "Automated Algorithmic <span>Trading Systems</span>",
+                hero_desc: "Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.",
+                stat_1: "Premium Algorithms", stat_2: "Automated Execution", stat_3: "MT5 Platform Supported",
+                
+                bg_title: "About Us",
+                bg_desc: "As fellow traders, we fully understand how physically and mentally draining manual trading can be. Boom Trade Indonesia was built with a clear vision: to provide an automated trading architecture (Expert Advisors) that is truly reliable.",
+                bg_desc2: "We are committed to helping you invest in the global financial markets rationally, measurably, and consistently without sacrificing your daily productivity. Let our software analyze and work, while you enjoy the results.",
 
-                copy_sec_title: "Copytrade Service",
-                copy_sec_subtitle: "Passive income solution without analyzing the market 24/7",
+                promo_title: "Why Choose a Trading Robot (EA)?",
+                promo_subtitle: "Manual trading often leads to stress, fatigue, and being easily carried away by sudden emotions. Trading robots (EAs) were created to solve these problems so your trading experience becomes much more relaxed and precise.",
+                promo_card1_title: "Free from Emotions",
+                promo_card1_desc: "Robots execute every position purely based on predefined mathematical logic rules. Say goodbye to hesitation, fear, or greed when facing market movements.",
+                promo_card2_title: "Fast and Accurate",
+                promo_card2_desc: "Human focus has its limits. Our robots are designed to monitor price movements relentlessly across multiple timeframes, seizing profitable opportunities in a fraction of a second accurately.",
+                promo_card3_title: "24/7 Nonstop Trading",
+                promo_card3_desc: "Let the system operate day and night. You can return to focusing on your main job, family, or relaxing without worrying about missing precious moments in the market.",
+
+                sec_title: "Explore Our Technologies",
+                zenith_short: "High-precision Gold technicals with an auto-adaptive grid and multi-layered risk management for long-term stability.",
+                dopamin_short: "24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.",
+                phantom_short: "Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.",
+                spartan_short: "Aggressively captures Support & Resistance penetration momentum with high execution speed.",
+                copy_short: "Exclusive wealth management service. Your trading account will copy all our algorithmic executions instantly without any software setup required.",
+
+                zenith_desc: "Zenith Pro Scalper is exclusively designed to dominate XAUUSD (Gold). Utilizing an <strong>Adaptive Grid</strong> algorithm, the EA dynamically adjusts order spacing based on real-time market volatility. Equipped with auto-spread filters and advanced equity protection, Zenith turns minor price movements into consistent gains.",
+                dopamin_desc: "A breakthrough in continuous trading methodology. Dopamin Hedge employs a <strong>Straddle Grid</strong> strategy to open Buy and Sell positions simultaneously. Its advanced algorithm doesn't care which way the trend moves. When the market reverses extremely, the <em>Smart Recovery Engine</em> takes over instantly to mitigate drawdown and close the entire basket in a clean profit.",
+                phantom_desc: "An EA specifically engineered to catch massive momentum waves. Golden Phantom monitors H1, H4, and D1 timeframes simultaneously. Its algorithm only executes orders when it finds validated breakout probabilities (avoiding false breakouts), and features <em>Auto-Adaptive Risk</em> to secure maximum profit without using martingale.",
+                spartan_desc: "Created exclusively to handle the wildest market sessions (London & New York). Spartan Killer targets crucial Support & Resistance areas and aggressively executes orders milliseconds after those levels are breached. It relies purely on momentum spikes and execution speed to turn high volatility into take profit.",
+                copy_desc: "This is the most efficient solution if you have a busy profession, lack the time for independent trading, or are unfamiliar with VPS and EA installations. Our Premium Copytrade service connects your account directly to the Boom Trade Master Server. Every transaction activity from our top algorithms will be copied automatically to your account, that very second.",
+                disclaimer: "<strong>Risk Warning:</strong> Trading futures, forex, and other derivative instruments involves a significant level of risk and may result in the loss of your entire investment. Algorithms and Expert Advisors operate based on mathematical probabilities of historical data and do not guarantee future positive results. Please read the entire risk disclosure document before using these software systems. This policy affirms that the use of the software is at your own risk.",
                 
-                zenith_short: "High precision Gold Technical with auto-adaptive grid risk management system.",
-                dopamin_short: "24/7 Grid Hedge strategy with smart and automatic floating recovery features.",
-                phantom_short: "Breakout strategy with automatic Gold movement adaptation.",
-                spartan_short: "Aggressive breakout strategy to capture price movement momentum with precision.",
-                copy_short: "100% Auto-Pilot copytrade service without monitoring charts, auto-copying to your account.",
+                btn_view_specs: "View Specs <i class='fas fa-arrow-right'></i>",
+                btn_view_details: "View Details <i class='fas fa-arrow-right'></i>",
+                btn_purchase: "Purchase License",
+                btn_live_perf: "<i class='fas fa-chart-line'></i> View Live Performance",
+                btn_register_copy: "Register Copytrade Now",
+                lbl_platform: "Platform:",
+                lbl_pairs: "Pairs:",
+                lbl_strategy: "Strategy:",
+                lbl_min_depo: "Min. Deposit:",
+                lbl_est_return: "Est. Return:",
+                lbl_control: "Control:",
+                badge_scalp: "SCALPING ENGINE",
+                badge_hedge: "HIGH RISK STRATEGY",
+                badge_break: "MULTI-TF BREAKOUT",
+                badge_vol: "VOLATILITY TRADER",
+                badge_auto: "100% AUTO-PILOT",
+                high_risk_warn: "<i class='fas fa-exclamation-triangle'></i> <strong>HIGH RISK WARNING:</strong><br>This strategy requires a large margin capacity to perform recovery maneuvers. <br>Min. Required Balance: <strong>2000 USC/USD</strong>.",
+                zenith_sub: "Advanced XAUUSD Scalping Engine",
+                dopamin_sub: "24/7 Straddle & Recovery System",
+                phantom_sub: "Multi-Timeframe Breakout Specialist",
+                spartan_sub: "Aggressive Volatility Trader",
+                copy_sub: "100% Hands-Free Wealth Management"
+            },
+            id: {
+                nav_home: "Beranda", nav_products: "Software", nav_result: "Kinerja", nav_contact: "Kontak",
+                hero_title: "Sistem Trading <span>Algoritmik Otomatis</span>",
+                hero_desc: "Expert Advisor tingkat institusional yang dirancang untuk platform MetaTrader 5. Dibangun dengan manajemen risiko presisi tinggi untuk menavigasi volatilitas pasar secara otomatis dan konsisten.",
+                stat_1: "Algoritma Premium", stat_2: "Eksekusi Otomatis", stat_3: "Support Platform MT5",
                 
-                spec_prot: "🛡️ Protection with trailing",
-                spec_scalp: "⚡ Adaptive Grid Scalper",
-                dopamin_price: "Lifetime Access $499",
-                spec_hedge: "🔄 24/7 Grid Hedge",
-                spec_straddle: "⚔️ Straddle Strategy",
-                phantom_price: "Lifetime Access $499",
-                spec_tf: "⏳ Multi-Timeframe (H1/H4/D1)",
-                spec_8strat: "⚡ Breakout Strategy",
+                bg_title: "Tentang Kami",
+                bg_desc: "Sebagai sesama trader, kami sangat memahami betapa menguras energi, waktu, dan mental ketika harus melakukan trading secara manual. Boom Trade Indonesia dibangun dengan satu visi yang jelas: menyediakan arsitektur sistem trading otomatis (Expert Advisor) yang benar-benar bisa diandalkan.",
+                bg_desc2: "Kami berkomitmen membantu Anda berinvestasi di pasar finansial global secara rasional, terukur, dan konsisten tanpa harus mengorbankan produktivitas harian Anda. Biarkan perangkat lunak kami yang menganalisa dan bekerja, Anda yang menikmati hasilnya.",
+
+                promo_title: "Mengapa Memilih Robot Trading (EA)?",
+                promo_subtitle: "Trading manual seringkali menimbulkan stres, kelelahan fisik, dan mudah terbawa emosi sesaat. Robot trading (EA) diciptakan untuk menyelesaikan masalah tersebut agar pengalaman trading Anda menjadi jauh lebih santai dan presisi.",
+                promo_card1_title: "Bebas dari Emosi",
+                promo_card1_desc: "Robot mengeksekusi setiap posisi murni berdasarkan aturan logika matematis yang sudah ditetapkan. Tidak ada lagi rasa ragu, ketakutan, atau keserakahan saat berhadapan dengan pergerakan pasar.",
+                promo_card2_title: "Cepat dan Akurat",
+                promo_card2_desc: "Fokus manusia memiliki batasan. Robot kami dirancang untuk memantau pergerakan harga tanpa henti di berbagai timeframe, mengambil peluang profit dalam hitungan sepersekian detik secara akurat.",
+                promo_card3_title: "Trading 24 Jam Nonstop",
+                promo_card3_desc: "Biarkan sistem yang beroperasi siang dan malam. Anda dapat kembali fokus pada pekerjaan utama, keluarga, atau bersantai tanpa perlu khawatir kehilangan momen berharga di market.",
+
+                sec_title: "Eksplorasi Teknologi Kami",
+                zenith_short: "Teknikal Gold presisi tinggi dengan sistem auto-adaptive grid dan manajemen risiko berlapis untuk stabilitas jangka panjang.",
+                dopamin_short: "Sistem Straddle Grid Hedge 24/7 yang dilengkapi Smart Recovery Engine otomatis untuk menetralisir floating minus dengan cepat.",
+                phantom_short: "Menganalisa pergerakan breakout instrumen Gold di berbagai timeframe secara independen dan bersamaan untuk akurasi maksimal.",
+                spartan_short: "Menangkap secara agresif momentum penembusan level Support & Resistance dengan kecepatan eksekusi tinggi.",
+                copy_short: "Layanan wealth management eksklusif. Akun trading Anda akan menyalin seluruh eksekusi algoritma kami secara instan tanpa perlu pengaturan perangkat lunak (VPS/EA) apa pun.",
+
+                zenith_desc: "Zenith Pro Scalper dirancang secara eksklusif untuk mendominasi instrumen XAUUSD (Gold). Menggunakan algoritma <strong>Adaptive Grid</strong>, EA ini secara dinamis menyesuaikan jarak order berdasarkan tingkat volatilitas pasar secara *real-time*. Dilengkapi dengan auto-spread filter dan fitur proteksi ekuitas tingkat lanjut, Zenith mampu mengubah pergerakan harga kecil menjadi keuntungan yang konsisten.",
+                dopamin_desc: "Terobosan dalam metodologi trading berkelanjutan. Dopamin Hedge menggunakan strategi <strong>Straddle Grid</strong> untuk membuka posisi Buy dan Sell secara bersamaan. Algoritma canggihnya tidak peduli ke mana arah tren bergerak. Saat pasar berbalik arah secara ekstrem, <em>Smart Recovery Engine</em> mengambil alih secara instan untuk memitigasi drawdown dan menutup seluruh siklus transaksi (*basket*) dalam keadaan profit bersih.",
+                phantom_desc: "EA yang direkayasa khusus untuk menangkap gelombang momentum besar. Golden Phantom memonitor timeframe H1, H4, dan D1 secara simultan. Algoritmanya hanya akan mengeksekusi order ketika menemukan probabilitas breakout yang tervalidasi (menghindari <em>false breakout</em>), dan dilengkapi dengan <em>Auto-Adaptive Risk</em> untuk mengamankan profit semaksimal mungkin tanpa menggunakan martingale.",
+                spartan_desc: "Diciptakan secara eksklusif untuk menangani sesi market yang paling liar (London & New York). Spartan Killer menargetkan area Support & Resistance yang krusial, lalu mengeksekusi order dengan sangat agresif dalam hitungan milidetik setelah level tersebut tertembus. Murni mengandalkan lonjakan momentum dan kecepatan eksekusi untuk mengubah volatilitas tinggi menjadi *take profit*.",
+                copy_desc: "Inilah solusi paling efisien bagi Anda yang berprofesi sibuk, tidak memiliki waktu untuk trading mandiri, atau belum familiar dengan instalasi VPS dan EA. Layanan Premium Copytrade kami menghubungkan akun Anda langsung ke Master Server Boom Trade. Setiap aktivitas transaksi dari algoritma terbaik kami akan disalin secara otomatis ke akun Anda, detik itu juga.",
+                disclaimer: "<strong>Peringatan Risiko:</strong> Perdagangan berjangka, valuta asing, dan instrumen derivatif lainnya melibatkan tingkat risiko yang signifikan dan dapat mengakibatkan hilangnya seluruh investasi Anda. Algoritma dan Expert Advisor beroperasi berdasarkan probabilitas matematis dari data historis dan tidak menjamin hasil positif di masa depan. Harap baca seluruh dokumen pengungkapan risiko sebelum menggunakan sistem perangkat lunak ini. Kebijakan ini menegaskan bahwa penggunaan perangkat lunak adalah risiko Anda sendiri.",
                 
-                spartan_price: "Lifetime Access $499",
-                spec_spartan1: "⚔️ Spartan Breakout",
-                spec_spartan2: "⚡ High Volatility",
-                
-                zenith_desc: "An advanced EA specifically designed to dominate <strong>XAUUSD (Gold)</strong> volatility in the market. Built with high-precision scalping algorithms and an on-chart dashboard, powered by a Smart Recovery Engine.",
-                dopamin_desc: "A robust Straddle Grid Hedge EA designed to operate <strong>24 hours nonstop</strong>. Opens dual-directional orders simultaneously with a precise martingale layer mechanism focusing only on floating minus areas.",
-                phantom_desc: "An advanced EA utilizing breakout strategies running across multiple timeframes simultaneously. Equipped with auto-adaptive risk to maximize profit on XAUUSD movements.",
-                spartan_desc: "The Spartan Killer EA focuses on a <strong>Breakout Strategy</strong> with measured aggressiveness, targeting significant price movements when support and resistance levels are breached in the market.",
-                btn_order: "Order Now",
-                btn_live_signal: "📊 Live Signal",
-                copy_price: "Profit Sharing 80 : 20",
-                copy_desc: "Our 100% Expert Advisor Auto-Pilot Copytrade service executes trades while your account copies positions instantly. Sit back and enjoy consistent profits.",
-                spec_cp1: "💰 Avg 10-20%/Month",
-                spec_cp2: "🛡️ Full Auto Pilot",
-                spec_cp3: "📱 Fast Acces",
-                spec_cp4: "🔄 VPS $15 3 Month",
-                btn_join_copy: "Join Copytrade",
-                footer_tag: "Your Partner Trading System",
-                footer_loc: "East Java - Indonesia",
-                wa_btn: "Join Now",
-                disclaimer: "<strong>Risk Warning:</strong> Trading Forex, commodities (Gold), and other financial assets carries a high level of risk and may not be suitable for all investors. Past performance of our Expert Advisors (EAs) or Copytrade services does not guarantee future results. You could lose some or all of your initial deposit. Please ensure you fully understand the risks involved before deciding to use our services."
+                // New UI Elements translation
+                btn_view_specs: "Lihat Spesifikasi <i class='fas fa-arrow-right'></i>",
+                btn_view_details: "Lihat Detail <i class='fas fa-arrow-right'></i>",
+                btn_purchase: "Beli Lisensi",
+                btn_live_perf: "<i class='fas fa-chart-line'></i> Lihat Kinerja Live",
+                btn_register_copy: "Daftar Copytrade Sekarang",
+                lbl_platform: "Platform:",
+                lbl_pairs: "Pair:",
+                lbl_strategy: "Strategi:",
+                lbl_min_depo: "Min. Deposit:",
+                lbl_est_return: "Est. Profit:",
+                lbl_control: "Kendali:",
+                badge_scalp: "MESIN SCALPING",
+                badge_hedge: "STRATEGI HIGH RISK",
+                badge_break: "MULTI-TF BREAKOUT",
+                badge_vol: "TRADER VOLATILITAS",
+                badge_auto: "100% AUTO-PILOT",
+                high_risk_warn: "<i class='fas fa-exclamation-triangle'></i> <strong>PERINGATAN HIGH RISK:</strong><br>Strategi ini membutuhkan ketahanan margin yang sangat memadai untuk melakukan manuver recovery. <br>Min. Saldo Wajib: <strong>2000 USC/USD</strong>.",
+                zenith_sub: "Mesin Scalping XAUUSD Canggih",
+                dopamin_sub: "Sistem Straddle & Recovery 24/7",
+                phantom_sub: "Spesialis Breakout Multi-Timeframe",
+                spartan_sub: "Trader Volatilitas Agresif",
+                copy_sub: "100% Manajemen Aset Otomatis"
             }
         };
 
-        let currentLang = 'id'; 
+        let currentLang = 'en'; 
         let activeTelegram = "bangrioboomtrade";
         let agentName = "Boom Trade";
 
         function initializeAgent() {
-            const teamDirectory = {
-                "rayung": "gdrayy",
-                "rendra": "RendraBagus12",
-                "lose": "flp_lose",
-                "yoga": "Ky_boomtrade",
-                "baskara": "baskara_bt",
-                "budi": "kalycafx"
-            };
-
+            const teamDirectory = { "rayung": "gdrayy", "rendra": "RendraBagus12", "lose": "flp_lose", "yoga": "Ky_boomtrade", "baskara": "baskara_bt", "budi": "kalycafx" };
             const urlParams = new URLSearchParams(window.location.search);
             const tradeParam = urlParams.get('trade');
             const agentKey = tradeParam ? tradeParam.toLowerCase() : "";
-            
             activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
             agentName = tradeParam ? tradeParam.toUpperCase() : "Boom Trade";
         }
 
         function updateTelegramLinks(lang) {
-            const waTemplates = {
-                id: {
-                    order: "Halo, saya tertarik dengan EA {product} melalui Anda " + agentName,
-                    join: "Halo, saya mau bertanya mengenai informasi lebih lanjut mengenai website ini dari Anda " + agentName,
-                    copy: "Halo, saya tertarik untuk bergabung dengan layanan Premium Copytrade melalui Anda " + agentName,
-                    bundle: "Halo, saya tertarik untuk mendapatkan semua Expert Advisor (Bundle) melalui Anda " + agentName
-                },
-                en: {
-                    order: "Hello, I am interested in the {product} EA through you " + agentName,
-                    join: "Hello, I would like to ask for more information about this website from you " + agentName,
-                    copy: "Hello, I am interested in joining the Premium Copytrade service through you " + agentName,
-                    bundle: "Hello, I am interested in getting all Expert Advisors (Bundle) through you " + agentName
-                }
-            };
+            const t = lang === 'id' ? 
+                { order: "Halo, saya tertarik order lisensi EA {product} melalui Anda " + agentName, copy: "Halo, saya tertarik join Premium Copytrade melalui Anda " + agentName } : 
+                { order: "Hello, I am interested in purchasing the {product} EA license via " + agentName, copy: "Hello, I am interested in joining Premium Copytrade via " + agentName };
 
-            const t = waTemplates[lang] || waTemplates['id'];
-
-            const orderBtns = document.querySelectorAll('.wa-link-order');
-            orderBtns.forEach(btn => {
+            document.querySelectorAll('.wa-link-order').forEach(btn => {
                 const productName = btn.getAttribute('data-product') || 'Expert Advisor';
-                const msgOrder = encodeURIComponent(t.order.replace('{product}', productName));
-                btn.href = `https://t.me/${activeTelegram}?text=${msgOrder}`;
+                btn.href = `https://t.me/${activeTelegram}?text=${encodeURIComponent(t.order.replace('{product}', productName))}`;
             });
-
-            const msgJoin = encodeURIComponent(t.join);
-            const joinBtns = document.querySelectorAll('.wa-link-join');
-            joinBtns.forEach(btn => {
-                btn.href = `https://t.me/${activeTelegram}?text=${msgJoin}`;
+            document.querySelectorAll('.wa-link-copy').forEach(btn => {
+                btn.href = `https://t.me/${activeTelegram}?text=${encodeURIComponent(t.copy)}`;
             });
-
-            const msgCopy = encodeURIComponent(t.copy);
-            const copyBtns = document.querySelectorAll('.wa-link-copy');
-            copyBtns.forEach(btn => {
-                btn.href = `https://t.me/${activeTelegram}?text=${msgCopy}`;
-                btn.target = "_blank";
-            });
-
-            const msgBundle = encodeURIComponent(t.bundle);
-            const bundleBtns = document.querySelectorAll('.wa-link-bundle');
-            bundleBtns.forEach(btn => {
-                btn.href = `https://t.me/${activeTelegram}?text=${msgBundle}`;
-            });
-        }
-
-        function detectUserLanguage() {
-            const browserLang = navigator.language || navigator.userLanguage || 'id';
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-
-            if (!browserLang.toLowerCase().includes('id') && !timezone.includes('Asia/Jakarta') && !timezone.includes('Asia/Surabaya')) {
-                currentLang = 'en';
-            } else {
-                currentLang = 'id';
-            }
-            applyLanguage(currentLang);
         }
 
         function applyLanguage(lang) {
             currentLang = lang;
             document.documentElement.lang = lang;
-            document.getElementById('lang-btn').innerText = lang === 'id' ? '🌐 ID' : '🌐 EN';
-
-            const elements = document.querySelectorAll('[data-key]');
-            elements.forEach(el => {
+            document.getElementById('lang-btn').innerText = lang === 'en' ? 'EN / ID' : 'ID / EN';
+            
+            document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
+                if (translations[lang] && translations[lang][key]) { el.innerHTML = translations[lang][key]; }
             });
-
             updateTelegramLinks(lang);
         }
 
-        function toggleLanguage() {
-            const newLang = currentLang === 'id' ? 'en' : 'id';
-            applyLanguage(newLang);
-        }
-
-        function toggleMenu() {
-            const nav = document.getElementById('nav-list');
-            nav.classList.toggle('active');
-        }
+        function toggleLanguage() { applyLanguage(currentLang === 'id' ? 'en' : 'id'); }
 
         document.addEventListener("DOMContentLoaded", function() {
             initializeAgent();
-            detectUserLanguage();
+            // Force Default Language to English First
+            applyLanguage('en');
         });
     </script>
 </body>
