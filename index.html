@@ -31,7 +31,6 @@
     <style>
         /* --- 1. GLOBAL SETTINGS: LIGHT BONE WHITE THEME --- */ 
         :root {
-            /* Tema Putih Tulang (Seluruh Main Content & Body) */
             --bg-main: #FAF9F6;        
             --bg-card: #FFFFFF;        
             --bg-section: #F1F5F9;     
@@ -70,7 +69,7 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* --- 2. HEADER & NAVIGATION (NAVY BLUE) --- */
+        /* --- 2. HEADER & NAVIGATION --- */
         header {
             background-color: rgba(10, 25, 47, 0.98); 
             padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
@@ -191,6 +190,7 @@
         .card-badge { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; border: 1px solid; }
         .badge-standard { color: var(--primary); border-color: rgba(37, 99, 235, 0.3); background: rgba(37, 99, 235, 0.1); }
         .badge-high { color: var(--danger); border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1); }
+        .badge-utility { color: #D97706; border-color: rgba(217, 119, 6, 0.3); background: rgba(217, 119, 6, 0.1); }
 
         .card-body { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; flex-grow: 1; }
         .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 20px; }
@@ -354,7 +354,6 @@
                 <li><a href="#home" data-key="nav_home">Home</a></li>
                 <li><a href="#products" data-key="nav_products">Algorithms</a></li>
                 <li><a href="signal.html" data-key="nav_result">Performance</a></li>
-                <!-- Tombol Contact otomatis arahkan ke Telegram via class wa-link-contact -->
                 <li><a href="#" class="wa-link-contact" target="_blank" data-key="nav_contact">Contact</a></li>
             </ul>
         </nav>
@@ -366,7 +365,7 @@
         <p data-key="hero_desc">Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.</p>
         
         <div class="hero-stats">
-            <div class="stat-box"><h4>4+</h4><span data-key="stat_1">Premium Algorithms</span></div>
+            <div class="stat-box"><h4>5+</h4><span data-key="stat_1">Premium Algorithms</span></div>
             <div class="stat-box"><h4>24/7</h4><span data-key="stat_2">Automated Execution</span></div>
             <div class="stat-box"><h4>MT5</h4><span data-key="stat_3">Platform Supported</span></div>
         </div>
@@ -393,7 +392,6 @@
                 <h2 data-key="promo_title">Why Choose a Trading Robot?</h2>
                 <p data-key="promo_subtitle">Manual trading often leads to stress, fatigue, and being easily carried away by sudden emotions. Trading robots (EAs) were created to solve these problems so your trading experience becomes much more relaxed and precise.</p>
                 
-                <!-- NEW DISCLAIMER ALERT -->
                 <div class="promo-disclaimer-box" data-key="promo_disclaimer">
                     <i class="fas fa-info-circle"></i> <strong>Important Note:</strong> Past backtest results and historical performance do not guarantee future profits. An Expert Advisor (EA) is strictly a trading tool—please use it wisely and responsibly.
                 </div>
@@ -489,6 +487,24 @@
                     </div>
                     <div class="card-footer">
                         <span class="card-specs">MT5 · XAUUSD</span>
+                        <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- NEW FAST COPIER CARD -->
+                <div class="cluster-card" onclick="openModal('modal-fastcopier')">
+                    <div class="card-header">
+                        <img src="images/fastcopier.jpg" alt="Fast Copier Logo" class="card-logo">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Fast Copier Pro</h3>
+                            <span class="card-badge badge-utility" data-key="badge_utility">TRADE COPIER</span>
+                        </div>
+                    </div>
+                    <div class="card-body" data-key="fastcopier_short">
+                        Ultra-fast local trade copier for MetaTrader 5. Duplicate trades between accounts with zero latency and advanced lot sizing.
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-specs">MT5 · ALL PAIRS</span>
                         <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
@@ -662,6 +678,41 @@
         </div>
     </div>
 
+    <!-- Modal Fast Copier (MT5 Only) -->
+    <div id="modal-fastcopier" class="modal-overlay" onclick="closeOnOutside(event, 'modal-fastcopier')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-fastcopier')">&times;</span>
+            
+            <div class="modal-left">
+                <h2>Fast Copier Pro</h2>
+                <div class="modal-subtitle" data-key="fastcopier_sub">Professional Local Trade Copier</div>
+                <p class="modal-desc-full" data-key="fastcopier_desc">
+                    Fast Copier Pro is a high-speed utility designed to copy trades between multiple MetaTrader 5 accounts on the same VPS/PC. It supports advanced risk multipliers, symbol mapping, and filtering options to suit any portfolio management need.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li1">Zero-latency local copying</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li2">Multiple MT5 Accounts Support</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li3">Custom lot multiplier & risk scaling</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li4">Auto symbol mapping and suffix support</span></li>
+                </ul>
+            </div>
+
+            <div class="modal-right">
+                <div class="price-tag">$55</div>
+                <div class="price-sub">Lifetime License. One-time payment.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>All Pairs</strong></div>
+                    <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Utility Copier</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>Any</strong></div>
+                </div>
+
+                <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Fast Copier Pro" data-key="btn_purchase">Purchase License</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Copytrade -->
     <div id="modal-copytrade" class="modal-overlay" onclick="closeOnOutside(event, 'modal-copytrade')">
         <div class="modal-content">
@@ -696,7 +747,7 @@
         </div>
     </div>
 
-    <!-- === NEW PROFESSIONAL FOOTER === -->
+    <!-- === PROFESSIONAL FOOTER === -->
     <footer id="contact" class="footer-professional">
         <div class="footer-container">
             <div class="footer-grid">
@@ -719,6 +770,7 @@
                         <li><a href="#" onclick="openModal('modal-dopamin'); return false;">Dopamin Hedge</a></li>
                         <li><a href="#" onclick="openModal('modal-phantom'); return false;">Golden Phantom</a></li>
                         <li><a href="#" onclick="openModal('modal-spartan'); return false;">Spartan Killer</a></li>
+                        <li><a href="#" onclick="openModal('modal-fastcopier'); return false;">Fast Copier Pro</a></li>
                     </ul>
                 </div>
 
@@ -794,12 +846,14 @@
                 dopamin_short: "24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.",
                 phantom_short: "Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.",
                 spartan_short: "Aggressively captures Support & Resistance penetration momentum with high execution speed.",
+                fastcopier_short: "Ultra-fast local trade copier for MetaTrader 5. Duplicate trades between accounts with zero latency and advanced lot sizing.",
                 copy_short: "Exclusive wealth management service. Your trading account will copy all our algorithmic executions instantly. You rent the VPS, and our team handles the technical setup.",
 
                 zenith_desc: "Zenith Pro Scalper is exclusively designed to dominate XAUUSD (Gold). Utilizing an <strong>Adaptive Grid</strong> algorithm, the EA dynamically adjusts order spacing based on real-time market volatility. Equipped with auto-spread filters and advanced equity protection, Zenith turns minor price movements into consistent gains.",
                 dopamin_desc: "A breakthrough in continuous trading methodology. Dopamin Hedge employs a <strong>Straddle Grid</strong> strategy to open Buy and Sell positions simultaneously. Its advanced algorithm doesn't care which way the trend moves. When the market reverses extremely, the <em>Smart Recovery Engine</em> takes over instantly to mitigate drawdown and close the entire basket in a clean profit.",
                 phantom_desc: "An EA specifically engineered to catch massive momentum waves. Golden Phantom monitors H1, H4, and D1 timeframes simultaneously. Its algorithm only executes orders when it finds validated breakout probabilities (avoiding false breakouts), and features <em>Auto-Adaptive Risk</em> to secure maximum profit without using martingale.",
                 spartan_desc: "Created exclusively to handle the wildest market sessions (London & New York). Spartan Killer targets crucial Support & Resistance areas and aggressively executes orders milliseconds after those levels are breached. It relies purely on momentum spikes and execution speed to turn high volatility into take profit.",
+                fastcopier_desc: "Fast Copier Pro is a high-speed utility designed to copy trades between multiple MetaTrader 5 accounts on the same VPS/PC. It supports advanced risk multipliers, symbol mapping, and filtering options to suit any portfolio management need.",
                 copy_desc: "This is the most efficient solution for busy professionals. You simply rent a VPS, and we will handle the full technical setup to connect your account to the Boom Trade Master Server. Every transaction from our top algorithms will be copied automatically to your account.",
                 
                 zenith_li1: "Auto Spread & Slippage Filter",
@@ -821,6 +875,11 @@
                 spartan_li2: "High-Speed Order Execution",
                 spartan_li3: "Momentum Gap Tracking",
                 spartan_li4: "Optimal for Global Session Volatility",
+
+                fastcopier_li1: "Zero-latency local copying",
+                fastcopier_li2: "Multiple MT5 Accounts Support",
+                fastcopier_li3: "Custom lot multiplier & risk scaling",
+                fastcopier_li4: "Auto symbol mapping and suffix support",
                 
                 copy_li1: "100% Automated (No chart monitoring needed)",
                 copy_li2: "Balance and Fund Control Remain Yours",
@@ -842,11 +901,13 @@
                 badge_hedge: "HIGH RISK STRATEGY",
                 badge_break: "MULTI-TF BREAKOUT",
                 badge_vol: "VOLATILITY TRADER",
+                badge_utility: "TRADE COPIER",
                 badge_auto: "100% AUTO-PILOT",
                 zenith_sub: "Advanced XAUUSD Scalping Engine",
                 dopamin_sub: "24/7 Straddle & Recovery System",
                 phantom_sub: "Multi-Timeframe Breakout Specialist",
                 spartan_sub: "Aggressive Volatility Trader",
+                fastcopier_sub: "Professional Local Trade Copier",
                 copy_sub: "100% Hands-Free Wealth Management",
                 
                 footer_about: "Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.",
@@ -879,12 +940,14 @@
                 dopamin_short: "Sistem Straddle Grid Hedge 24/7 yang dilengkapi Smart Recovery Engine otomatis untuk menetralisir floating minus dengan cepat.",
                 phantom_short: "Menganalisa pergerakan breakout instrumen Gold di berbagai timeframe secara independen dan bersamaan untuk akurasi maksimal.",
                 spartan_short: "Menangkap secara agresif momentum penembusan level Support & Resistance dengan kecepatan eksekusi tinggi.",
+                fastcopier_short: "Trade copier lokal super cepat khusus MetaTrader 5. Salin transaksi antar akun tanpa latensi dengan pengaturan lot yang canggih.",
                 copy_short: "Layanan wealth management eksklusif. Akun trading Anda akan menyalin seluruh eksekusi algoritma kami secara instan. Klien menyewa VPS, dan tim kami yang mengurus instalasinya.",
 
                 zenith_desc: "Zenith Pro Scalper dirancang secara eksklusif untuk mendominasi instrumen XAUUSD (Gold). Menggunakan algoritma <strong>Adaptive Grid</strong>, EA ini secara dinamis menyesuaikan jarak order berdasarkan tingkat volatilitas pasar secara *real-time*. Dilengkapi dengan auto-spread filter dan fitur proteksi ekuitas tingkat lanjut, Zenith mampu mengubah pergerakan harga kecil menjadi keuntungan yang konsisten.",
                 dopamin_desc: "Terobosan dalam metodologi trading berkelanjutan. Dopamin Hedge menggunakan strategi <strong>Straddle Grid</strong> untuk membuka posisi Buy dan Sell secara bersamaan. Algoritma canggihnya tidak peduli ke mana arah tren bergerak. Saat pasar berbalik arah secara ekstrem, <em>Smart Recovery Engine</em> mengambil alih secara instan untuk memitigasi drawdown dan menutup seluruh siklus transaksi (*basket*) dalam keadaan profit bersih.",
                 phantom_desc: "EA yang direkayasa khusus untuk menangkap gelombang momentum besar. Golden Phantom memonitor timeframe H1, H4, and D1 secara simultan. Algoritmanya hanya akan mengeksekusi order ketika menemukan probabilitas breakout yang tervalidasi (menghindari <em>false breakout</em>), dan dilengkapi dengan <em>Auto-Adaptive Risk</em> untuk mengamankan profit semaksimal mungkin tanpa menggunakan martingale.",
                 spartan_desc: "Diciptakan secara eksklusif untuk menangani sesi market yang paling liar (London & New York). Spartan Killer menargetkan area Support & Resistance yang krusial, lalu mengeksekusi order dengan sangat agresif dalam hitungan milidetik setelah level tersebut tertembus. Murni mengandalkan lonjakan momentum dan kecepatan eksekusi untuk mengubah volatilitas tinggi menjadi *take profit*.",
+                fastcopier_desc: "Fast Copier Pro adalah utilitas berkecepatan tinggi yang dirancang untuk menyalin transaksi antar beberapa akun MetaTrader 5 di VPS/PC yang sama. Dilengkapi dengan pengali risiko canggih, pemetaan simbol otomatis, dan opsi filter untuk menyesuaikan kebutuhan manajemen portofolio Anda.",
                 copy_desc: "Solusi paling efisien bagi Anda yang sibuk. Klien cukup menyewa VPS, dan tim kami yang akan melakukan instalasi serta menghubungkannya langsung ke Master Server Boom Trade. Setiap aktivitas transaksi dari algoritma kami akan disalin secara otomatis ke akun Anda.",
                 
                 zenith_li1: "Filter Spread & Slippage Otomatis",
@@ -906,13 +969,17 @@
                 spartan_li2: "High-Speed Order Execution",
                 spartan_li3: "Momentum Gap Tracking",
                 spartan_li4: "Optimal untuk Volatilitas Sesi Global",
+
+                fastcopier_li1: "Penyalinan lokal tanpa latensi (Zero-latency)",
+                fastcopier_li2: "Mendukung Banyak Akun MT5 Sekaligus",
+                fastcopier_li3: "Pengali lot kustom & skala risiko",
+                fastcopier_li4: "Pemetaan simbol otomatis dan dukungan akhiran (suffix)",
                 
                 copy_li1: "100% Berjalan Otomatis (Tanpa perlu memantau chart)",
                 copy_li2: "Saldo dan Kendali Dana Tetap Sepenuhnya Milik Anda",
                 copy_li3: "Penyalinan Transaksi Ultra-Fast / Latensi Rendah",
                 copy_li4: "Klien menyewa VPS, kami yang mengurus seluruh instalasi",
                 
-                // New UI Elements translation
                 btn_view_specs: "Lihat Spesifikasi <i class='fas fa-arrow-right'></i>",
                 btn_view_details: "Lihat Detail <i class='fas fa-arrow-right'></i>",
                 btn_purchase: "Beli Lisensi",
@@ -928,11 +995,13 @@
                 badge_hedge: "STRATEGI HIGH RISK",
                 badge_break: "MULTI-TF BREAKOUT",
                 badge_vol: "TRADER VOLATILITAS",
+                badge_utility: "TRADE COPIER",
                 badge_auto: "100% AUTO-PILOT",
                 zenith_sub: "Mesin Scalping XAUUSD Canggih",
                 dopamin_sub: "Sistem Straddle & Recovery 24/7",
                 phantom_sub: "Spesialis Breakout Multi-Timeframe",
                 spartan_sub: "Trader Volatilitas Agresif",
+                fastcopier_sub: "Professional Local Trade Copier",
                 copy_sub: "100% Manajemen Aset Otomatis",
                 
                 footer_about: "Expert Advisor tingkat institusional yang dirancang untuk platform MetaTrader 5. Dibangun dengan manajemen risiko presisi tinggi untuk menavigasi volatilitas pasar secara otomatis dan konsisten.",
@@ -968,7 +1037,6 @@
                 btn.href = `https://t.me/${activeTelegram}?text=${encodeURIComponent(t.copy)}`;
             });
             
-            // Tautan Tele Contact diperbarui untuk navigasi dan footer icon
             document.querySelectorAll('.wa-link-contact').forEach(btn => {
                 btn.href = `https://t.me/${activeTelegram}`;
             });
