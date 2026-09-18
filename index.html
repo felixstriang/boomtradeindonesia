@@ -163,24 +163,23 @@
         .promo-card h3 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 700; }
         .promo-card p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
 
-        /* --- 6. CATALOG CARDS --- */
+        /* --- 6. CATALOG CARDS (STATIC GRID) --- */
         .catalog-section { padding: 80px 0 40px; background: var(--bg-section); }
         .catalog-title { text-align: center; margin-bottom: 4rem; font-size: 2.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px;}
         .container { width: 95%; max-width: 1400px; margin: auto; padding-bottom: 0; }
 
-        .carousel-wrapper {
-            position: relative; width: 100%; overflow: hidden; padding: 20px 0; 
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
+        .catalog-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            padding: 20px 0; 
+            width: 100%; 
         }
-        .carousel-track { display: flex; width: max-content; animation: scrollMarquee 40s linear infinite; }
-        .carousel-wrapper:hover .carousel-track { animation-play-state: paused; }
-        .carousel-slide { display: flex; gap: 30px; padding-right: 30px; }
-        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         .cluster-card {
             background: var(--bg-card); border-radius: 12px; padding: 35px; 
             border: 1px solid var(--border); transition: all 0.3s ease; display: flex; flex-direction: column;
-            width: 400px; flex: 0 0 auto; cursor: pointer; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            width: 100%; cursor: pointer; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.03);
         }
         .cluster-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
 
@@ -315,8 +314,6 @@
             
             .promo-header h2 { font-size: 1.8rem; }
             .promo-disclaimer-box { font-size: 0.85rem; text-align: left; padding: 15px; box-sizing: border-box; width: 100%;}
-
-            .cluster-card { width: 85vw; max-width: 350px; padding: 25px; }
             
             /* Copytrade Card Mobile Fix */
             .copytrade-card { flex-direction: column; text-align: center; padding: 30px 20px; gap: 15px; width: 100%; box-sizing: border-box;}
@@ -340,7 +337,6 @@
 
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.8rem; }
-            .cluster-card { width: 90vw; }
         }
     </style>
 </head>
@@ -427,152 +423,76 @@
         <div class="container">
             <h2 class="catalog-title" data-key="sec_title">Explore Our Technologies</h2>
             
-            <div class="carousel-wrapper">
-                <div class="carousel-track" id="product-carousel">
-                    
-                    <!-- SLIDE GRUP 1 -->
-                    <div class="carousel-slide">
-                        <div class="cluster-card" onclick="openModal('modal-zenith')">
-                            <div class="card-header">
-                                <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Zenith Pro Scalper</h3>
-                                    <span class="card-badge badge-standard" data-key="badge_scalp">SCALPING ENGINE</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="zenith_short">
-                                High-precision Gold technicals with an auto-adaptive grid and multi-layered risk management for long-term stability.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · XAUUSD</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="cluster-card" onclick="openModal('modal-dopamin')">
-                            <div class="card-header">
-                                <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Dopamin Hedge</h3>
-                                    <span class="card-badge badge-high" data-key="badge_hedge">HIGH RISK STRATEGY</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="dopamin_short">
-                                24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · ALL PAIRS</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="cluster-card" onclick="openModal('modal-phantom')">
-                            <div class="card-header">
-                                <img src="images/goldenphantom.jpg" alt="Phantom Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Golden Phantom</h3>
-                                    <span class="card-badge badge-standard" data-key="badge_break">MULTI-TF BREAKOUT</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="phantom_short">
-                                Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · XAUUSD</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="cluster-card" onclick="openModal('modal-spartan')">
-                            <div class="card-header">
-                                <img src="images/spartankiller.jpg" alt="Spartan Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Spartan Killer</h3>
-                                    <span class="card-badge badge-standard" data-key="badge_vol">VOLATILITY TRADER</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="spartan_short">
-                                Aggressively captures Support & Resistance penetration momentum with high execution speed.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · XAUUSD</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
+            <div class="catalog-grid">
+                
+                <div class="cluster-card" onclick="openModal('modal-zenith')">
+                    <div class="card-header">
+                        <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Zenith Pro Scalper</h3>
+                            <span class="card-badge badge-standard" data-key="badge_scalp">SCALPING ENGINE</span>
                         </div>
                     </div>
-
-                    <!-- SLIDE GRUP 2 (DUPLIKAT UNTUK LOOP ANIMASI) -->
-                    <div class="carousel-slide">
-                        <div class="cluster-card" onclick="openModal('modal-zenith')">
-                            <div class="card-header">
-                                <img src="images/zenith poster new.jpg" alt="Zenith Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Zenith Pro Scalper</h3>
-                                    <span class="card-badge badge-standard" data-key="badge_scalp">SCALPING ENGINE</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="zenith_short">
-                                High-precision Gold technicals with an auto-adaptive grid and multi-layered risk management for long-term stability.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · XAUUSD</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="cluster-card" onclick="openModal('modal-dopamin')">
-                            <div class="card-header">
-                                <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Dopamin Hedge</h3>
-                                    <span class="card-badge badge-high" data-key="badge_hedge">HIGH RISK STRATEGY</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="dopamin_short">
-                                24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · ALL PAIRS</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="cluster-card" onclick="openModal('modal-phantom')">
-                            <div class="card-header">
-                                <img src="images/goldenphantom.jpg" alt="Phantom Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Golden Phantom</h3>
-                                    <span class="card-badge badge-standard" data-key="badge_break">MULTI-TF BREAKOUT</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="phantom_short">
-                                Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · XAUUSD</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="cluster-card" onclick="openModal('modal-spartan')">
-                            <div class="card-header">
-                                <img src="images/spartankiller.jpg" alt="Spartan Logo" class="card-logo">
-                                <div class="card-title-group">
-                                    <h3 class="card-title">Spartan Killer</h3>
-                                    <span class="card-badge badge-standard" data-key="badge_vol">VOLATILITY TRADER</span>
-                                </div>
-                            </div>
-                            <div class="card-body" data-key="spartan_short">
-                                Aggressively captures Support & Resistance penetration momentum with high execution speed.
-                            </div>
-                            <div class="card-footer">
-                                <span class="card-specs">MT5 · XAUUSD</span>
-                                <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
-                            </div>
-                        </div>
+                    <div class="card-body" data-key="zenith_short">
+                        High-precision Gold technicals with an auto-adaptive grid and multi-layered risk management for long-term stability.
                     </div>
-
+                    <div class="card-footer">
+                        <span class="card-specs">MT5 · XAUUSD</span>
+                        <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                    </div>
                 </div>
+
+                <div class="cluster-card" onclick="openModal('modal-dopamin')">
+                    <div class="card-header">
+                        <img src="images/dopamin.jpg" alt="Dopamin Logo" class="card-logo">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Dopamin Hedge</h3>
+                            <span class="card-badge badge-high" data-key="badge_hedge">HIGH RISK STRATEGY</span>
+                        </div>
+                    </div>
+                    <div class="card-body" data-key="dopamin_short">
+                        24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-specs">MT5 · ALL PAIRS</span>
+                        <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="cluster-card" onclick="openModal('modal-phantom')">
+                    <div class="card-header">
+                        <img src="images/goldenphantom.jpg" alt="Phantom Logo" class="card-logo">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Golden Phantom</h3>
+                            <span class="card-badge badge-standard" data-key="badge_break">MULTI-TF BREAKOUT</span>
+                        </div>
+                    </div>
+                    <div class="card-body" data-key="phantom_short">
+                        Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-specs">MT5 · XAUUSD</span>
+                        <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="cluster-card" onclick="openModal('modal-spartan')">
+                    <div class="card-header">
+                        <img src="images/spartankiller.jpg" alt="Spartan Logo" class="card-logo">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Spartan Killer</h3>
+                            <span class="card-badge badge-standard" data-key="badge_vol">VOLATILITY TRADER</span>
+                        </div>
+                    </div>
+                    <div class="card-body" data-key="spartan_short">
+                        Aggressively captures Support & Resistance penetration momentum with high execution speed.
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-specs">MT5 · XAUUSD</span>
+                        <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
             </div>
             
             <!-- COPYTRADE -->
