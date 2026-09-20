@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,12 +110,17 @@
         .mql-growth-since { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
         .mql-growth-val { font-size: 2.2rem; font-weight: 800; line-height: 1; letter-spacing: -1px; transition: color 0.3s ease; margin-top: 6px;}
         
-        .btn-view {
+        /* Buttons in Card */
+        .mql-header-actions { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+        
+        .btn-view, .btn-connect-sm {
             background: rgba(37, 99, 235, 0.05); color: var(--primary); border: 1px solid rgba(37, 99, 235, 0.2);
-            padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; transition: 0.2s; white-space: nowrap;
+            padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-align: center;
+            cursor: pointer; transition: 0.2s; white-space: nowrap; 
+            display: inline-flex; justify-content: center; align-items: center;
         }
-        .btn-view:hover { background: var(--primary); color: #FFF; border-color: var(--primary); }
+        .btn-connect-sm { gap: 6px; }
+        .btn-view:hover, .btn-connect-sm:hover { background: var(--primary); color: #FFF; border-color: var(--primary); }
 
         /* Area Grafik */
         .mql-chart-container {
@@ -150,6 +155,7 @@
         .close-modal { position: absolute; top: 20px; right: 24px; font-size: 1.2rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; background: var(--bg-section); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--border); }
         .close-modal:hover { color: var(--danger); background: var(--danger-bg); border-color: rgba(239,68,68,0.3); }
         .modal-header { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; padding-bottom: 15px; border-bottom: 1px solid var(--border); letter-spacing: -0.5px;}
+        
         .tracker-stats-right { display: flex; flex-direction: column; gap: 16px; }
         .stat-item { display: grid; grid-template-columns: 110px 90px 1fr; align-items: center; gap: 16px; font-size: 0.9rem; }
         .stat-label { color: var(--text-muted); text-align: right; }
@@ -160,6 +166,33 @@
         .myfxbook-link { margin-top: 30px; display: block; text-align: center; background: rgba(37, 99, 235, 0.05); padding: 14px; border-radius: 8px; border: 1px dashed rgba(37, 99, 235, 0.3); transition: 0.2s; }
         .myfxbook-link:hover { background: rgba(37, 99, 235, 0.1); border-color: var(--primary); }
         .myfxbook-link a { color: var(--primary); font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
+
+        /* Connect Actions Modal Styling */
+        .btn-ct-action {
+            padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 600; 
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;
+        }
+        .btn-ct-action:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .btn-ct-register { background: #0F172A; color: #FFF; border: 1px solid #0F172A; }
+        .btn-ct-connect { background: var(--primary); color: #FFF; border: 1px solid var(--primary); }
+        
+        .ib-badge {
+            background: var(--bg-section); border: 1px dashed var(--border); padding: 8px 12px; border-radius: 6px;
+            font-size: 0.85rem; font-weight: 600; color: var(--text-dark); margin-bottom: 16px; display: inline-block;
+        }
+        
+        .steps-box {
+            text-align: left; background: var(--bg-section); padding: 14px 16px; border-radius: 8px;
+            font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; line-height: 1.6; border: 1px solid var(--border);
+        }
+        .steps-box ol { padding-left: 18px; margin: 0; }
+        .steps-box li { margin-bottom: 4px; }
+
+        .btn-ct-telegram {
+            color: var(--accent); text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-ct-telegram:hover { color: var(--primary-hover); text-decoration: underline; }
 
         /* --- 8. PROFESSIONAL FOOTER --- */
         .footer-professional {
@@ -182,13 +215,12 @@
         .footer-logo { color: #FFFFFF; font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -0.5px; }
         .footer-desc { line-height: 1.8; margin-bottom: 20px; font-size: 0.95rem; word-wrap: break-word;}
         
-        /* PERBAIKAN ICON TELEGRAM DI FOOTER */
         .social-links { display: flex; gap: 12px; }
         .social-links a {
             display: flex; align-items: center; justify-content: center; 
-            width: 42px; height: 42px; /* Diperbesar sedikit agar lebih proporsional */
+            width: 42px; height: 42px;
             border-radius: 50%; 
-            background: rgba(255,255,255,0.05); /* Soft background */
+            background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1); 
             color: var(--text-nav-muted); 
             font-size: 1.2rem; 
@@ -196,16 +228,10 @@
             text-decoration: none;
         }
         .social-links a:hover { 
-            background: #2AABEE; /* Warna resmi biru Telegram */
-            border-color: #2AABEE; 
-            color: #FFFFFF; 
-            box-shadow: 0 5px 15px rgba(42, 171, 238, 0.4); /* Efek glow */
-            transform: translateY(-3px); 
+            background: #2AABEE; border-color: #2AABEE; color: #FFFFFF; 
+            box-shadow: 0 5px 15px rgba(42, 171, 238, 0.4); transform: translateY(-3px); 
         }
-        /* Fix visual center untuk icon paper-plane */
-        .social-links a i.fa-telegram-plane {
-            transform: translate(-1px, 1px);
-        }
+        .social-links a i.fa-telegram-plane { transform: translate(-1px, 1px); }
         
         .footer-heading { color: #FFFFFF; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
         .footer-links { list-style: none; padding: 0; margin: 0; }
@@ -240,10 +266,9 @@
     </a>
     
     <button class="btn-lang" onclick="toggleLanguage()">
-        <i class="fas fa-globe"></i> <span id="lang-text">EN</span>
+        <i class="fas fa-globe"></i> <span id="lang-text">ID</span>
     </button>
 
-    <!-- WRAPPER UNTUK KONTEN (AGAR FOOTER FULL WIDTH) -->
     <div class="content-wrapper">
         <div class="dashboard-header">
             <h1><span class="live-indicator"></span> Signal Result</h1>
@@ -259,7 +284,9 @@
                         <div class="mql-growth-since" data-lang="growth_since">Growth since 2026</div>
                         <div class="mql-growth-val" id="track-growth_zenith">0.00%</div>
                     </div>
-                    <button class="btn-view" onclick="openModal('modal-zenith')" data-lang="view_details">View Details</button>
+                    <div class="mql-header-actions">
+                        <button class="btn-view" onclick="openModal('modal-zenith')" data-lang="view_details">View Details</button>
+                    </div>
                 </div>
                 <div class="mql-chart-container"><canvas id="growthChart_zenith"></canvas></div>
             </div>
@@ -272,7 +299,10 @@
                         <div class="mql-growth-since" data-lang="growth_since">Growth since 2026</div>
                         <div class="mql-growth-val" id="track-growth_phantom">0.00%</div>
                     </div>
-                    <button class="btn-view" onclick="openModal('modal-phantom')" data-lang="view_details">View Details</button>
+                    <div class="mql-header-actions">
+                        <button class="btn-view" onclick="openModal('modal-phantom')" data-lang="view_details">View Details</button>
+                        <button class="btn-connect-sm" onclick="openModal('modal-connect-phantom')"><i class="fas fa-link"></i> <span data-lang="connect_btn">Connect</span></button>
+                    </div>
                 </div>
                 <div class="mql-chart-container"><canvas id="growthChart_phantom"></canvas></div>
             </div>
@@ -285,7 +315,9 @@
                         <div class="mql-growth-since" data-lang="growth_since">Growth since 2026</div>
                         <div class="mql-growth-val" id="track-growth_spartan">0.00%</div>
                     </div>
-                    <button class="btn-view" onclick="openModal('modal-spartan')" data-lang="view_details">View Details</button>
+                    <div class="mql-header-actions">
+                        <button class="btn-view" onclick="openModal('modal-spartan')" data-lang="view_details">View Details</button>
+                    </div>
                 </div>
                 <div class="mql-chart-container"><canvas id="growthChart_spartan"></canvas></div>
             </div>
@@ -363,7 +395,7 @@
         </div>
     </div>
 
-    <!-- MODAL PHANTOM -->
+    <!-- MODAL PHANTOM VIEW DETAILS -->
     <div id="modal-phantom" class="modal">
         <div class="modal-content">
             <div class="close-modal" onclick="closeModal('modal-phantom')"><i class="fas fa-times"></i></div>
@@ -381,6 +413,51 @@
             </div>
             <div class="myfxbook-link">
                 <a href="https://www.myfxbook.com/members/Alves99/golden-phantom/12150334" target="_blank"><i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PHANTOM CONNECT -->
+    <div id="modal-connect-phantom" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <div class="close-modal" onclick="closeModal('modal-connect-phantom')"><i class="fas fa-times"></i></div>
+            <div class="modal-header" style="justify-content: center; border-bottom: none; margin-bottom: 5px;">
+                <i class="fas fa-robot" style="color: var(--primary); margin-right: 8px;"></i> Golden Phantom
+            </div>
+            
+            <!-- Kode IB -->
+            <div class="ib-badge">
+                <i class="fas fa-id-badge" style="color: var(--primary);"></i> IB Code: <strong>274801</strong>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;" data-lang="connect_phantom_desc">Steps to join Golden Phantom CopyTrade</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                <a href="https://gocxm.co/links/go/274801" target="_blank" class="btn-ct-action btn-ct-register">
+                    <i class="fas fa-user-plus"></i> <span data-lang="register_account">1. Register Account (IB)</span>
+                </a>
+                <a href="https://socialtradingregister.cxmys.com/portal/offers/30341" target="_blank" class="btn-ct-action btn-ct-connect">
+                    <i class="fas fa-plug"></i> <span data-lang="connect_account">2. Connect Account (CopyTrade)</span>
+                </a>
+            </div>
+
+            <!-- Panduan Langkah-Langkah Konek Akun -->
+            <div class="steps-box">
+                <strong style="display: block; margin-bottom: 6px; color: var(--text-dark);" data-lang="connect_steps_title">Connection Guide:</strong>
+                <ol>
+                    <li data-lang="step_1">Register as follower</li>
+                    <li data-lang="step_2">Server CXMDirect-MT5-Live1</li>
+                    <li data-lang="step_3">Enter real account ID & password</li>
+                    <li data-lang="step_4">Provider "Golden Phantom"</li>
+                    <li data-lang="step_5">Click offer</li>
+                    <li data-lang="step_6">Click register</li>
+                </ol>
+            </div>
+
+            <div style="padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border);">
+                <a href="#" class="gp-telegram-contact btn-ct-telegram" target="_blank">
+                    <i class="fab fa-telegram" style="font-size: 1.2rem;"></i> <span data-lang="more_info_telegram">More Information via Telegram</span>
+                </a>
             </div>
         </div>
     </div>
@@ -460,17 +537,27 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        let currentLang = 'id';
+        let currentLang = 'en'; 
         let globalDaysData = { zenith: 0, phantom: 0, spartan: 0, dopamin: 0 }; 
         let activeTelegram = "bangrioboomtrade";
         let agentName = "Boom Trade";
 
         const translations = {
             id: { 
-                home: "Beranda", view_details: "Lihat Detail", growth_since: "Pertumbuhan sejak 2026", 
+                home: "Beranda", view_details: "Lihat Detail", connect_btn: "Connect", growth_since: "Pertumbuhan sejak 2026", 
                 table_title: "Riwayat Trading (2026)", trading_system: "Expert Advisor", 
                 equity: "Ekuitas", profit: "Profit", deposit: "Deposit", withdrawal: "Penarikan", 
                 drawdown: "Max DD", view_myfx: "Lihat di MyFxBook", days: "Hari",
+                connect_phantom_desc: "Langkah untuk bergabung dengan CopyTrade Golden Phantom",
+                register_account: "1. Daftar Akun (IB)", connect_account: "2. Konek Akun (CopyTrade)",
+                connect_steps_title: "Panduan Koneksi:",
+                step_1: "Regist as follower",
+                step_2: "Server CXMDirect-MT5-Live1",
+                step_3: "Masukkan ID & Pass real account",
+                step_4: "Provider \"Golden Phantom\"",
+                step_5: "Lalu klik offer",
+                step_6: "Lalu klik register",
+                more_info_telegram: "Informasi lebih lanjut via Telegram",
                 nav_products: "Software", nav_contact: "Kontak",
                 footer_about: "Expert Advisor tingkat institusional yang dirancang untuk platform MetaTrader 5. Dibangun dengan manajemen risiko presisi tinggi untuk menavigasi volatilitas pasar secara otomatis dan konsisten.",
                 footer_ea: "EXPERT ADVISOR", footer_nav: "NAVIGASI",
@@ -478,10 +565,20 @@
                 footer_disc_2: "⚠ PENGUNGKAPAN RISIKO: TRADING VALUTA ASING PADA MARGIN MEMBAWA TINGKAT RISIKO YANG SANGAT TINGGI, DAN MUNGKIN TIDAK COCOK UNTUK SEMUA INVESTOR. TINGKAT LEVERAGE YANG TINGGI DAPAT BEKERJA MELAWAN ANDA MAUPUN UNTUK ANDA. SEBELUM MEMUTUSKAN UNTUK BERINVESTASI DALAM VALUTA ASING, ANDA HARUS MEMPERTIMBANGKAN DENGAN CERMAT TUJUAN INVESTASI, TINGKAT PENGALAMAN, DAN NAFSU RISIKO ANDA. KINERJA MASA LALU BUKANLAH INDIKASI HASIL DI MASA DEPAN."
             },
             en: { 
-                home: "Home", view_details: "View Details", growth_since: "Growth since 2026", 
+                home: "Home", view_details: "View Details", connect_btn: "Connect", growth_since: "Growth since 2026", 
                 table_title: "Trading History (2026)", trading_system: "Expert Advisor", 
                 equity: "Equity", profit: "Profit", deposit: "Deposit", withdrawal: "Withdrawals", 
                 drawdown: "Max DD", view_myfx: "View on MyFxBook", days: "Days",
+                connect_phantom_desc: "Steps to join Golden Phantom CopyTrade",
+                register_account: "1. Register Account (IB)", connect_account: "2. Connect Account (CopyTrade)",
+                connect_steps_title: "Connection Guide:",
+                step_1: "Register as follower",
+                step_2: "Server CXMDirect-MT5-Live1",
+                step_3: "Enter real account ID & password",
+                step_4: "Provider \"Golden Phantom\"",
+                step_5: "Click offer",
+                step_6: "Click register",
+                more_info_telegram: "More information via Telegram",
                 nav_products: "Algorithms", nav_contact: "Contact",
                 footer_about: "Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.",
                 footer_ea: "EXPERT ADVISORS", footer_nav: "NAVIGATION",
@@ -501,11 +598,16 @@
             document.querySelectorAll('.wa-link-contact').forEach(btn => {
                 btn.href = `https://t.me/${activeTelegram}`;
             });
+
+            // Pesan Telegram diubah ke Bahasa Inggris
+            const ctMessage = encodeURIComponent("Hello, I would like to ask about joining the Golden Phantom copytrade via website.");
+            document.querySelectorAll('.gp-telegram-contact').forEach(btn => {
+                btn.href = `https://t.me/${activeTelegram}?text=${ctMessage}`;
+            });
         }
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'id' ? 'en' : 'id';
-            document.getElementById('lang-text').innerText = currentLang === 'id' ? 'EN' : 'ID';
+        function applyLanguage() {
+            document.getElementById('lang-text').innerText = currentLang === 'en' ? 'ID' : 'EN';
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
                 if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
@@ -514,6 +616,11 @@
                 const dayEl = document.getElementById(`track-days_${prefix}`);
                 if (dayEl) dayEl.innerText = globalDaysData[prefix] + " " + translations[currentLang].days;
             });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'id' : 'en';
+            applyLanguage();
         }
 
         function openModal(modalId) {
@@ -535,6 +642,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             initializeAgent();
+            applyLanguage(); 
             
             const firebaseConfig = {
                 apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
