@@ -365,7 +365,7 @@
         <p data-key="hero_desc">Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.</p>
         
         <div class="hero-stats">
-            <div class="stat-box"><h4>5+</h4><span data-key="stat_1">Premium Algorithms</span></div>
+            <div class="stat-box"><h4>6+</h4><span data-key="stat_1">Premium Algorithms</span></div>
             <div class="stat-box"><h4>24/7</h4><span data-key="stat_2">Automated Execution</span></div>
             <div class="stat-box"><h4>MT5</h4><span data-key="stat_3">Platform Supported</span></div>
         </div>
@@ -490,8 +490,26 @@
                         <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
+
+                <!-- NEW EQUINOX CARD -->
+                <div class="cluster-card" onclick="openModal('modal-equinox')">
+                    <div class="card-header">
+                        <img src="images/equinox.jpg" alt="Equinox Logo" class="card-logo">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Equinox</h3>
+                            <span class="card-badge badge-standard" data-key="badge_multi">MULTI-STRATEGY</span>
+                        </div>
+                    </div>
+                    <div class="card-body" data-key="equinox_short">
+                        Advanced multi-strategy breakout EA equipped with Swing, Scalping, and Prop Firm modes. No Grid / No Martingale / No Recovery / No Hedging / Single Entry with SL / One Shot.
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-specs">MT5 · XAUUSD</span>
+                        <button class="btn-view-text" data-key="btn_view_specs">View Specs <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
                 
-                <!-- NEW FAST COPIER CARD -->
+                <!-- FAST COPIER CARD -->
                 <div class="cluster-card" onclick="openModal('modal-fastcopier')">
                     <div class="card-header">
                         <img src="images/fastcopier.jpg" alt="Fast Copier Logo" class="card-logo">
@@ -501,7 +519,7 @@
                         </div>
                     </div>
                     <div class="card-body" data-key="fastcopier_short">
-                        Ultra-fast local trade copier for MetaTrader 5. Duplicate trades between accounts with zero latency and advanced lot sizing.
+                        Ultra-fast trade copier for MetaTrader 5. Duplicate trades locally or across different PCs/VPSs with zero latency and advanced lot sizing.
                     </div>
                     <div class="card-footer">
                         <span class="card-specs">MT5 · ALL PAIRS</span>
@@ -633,7 +651,7 @@
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Trend Breakout</strong></div>
-                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>300 USD</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>300 USD/USC</strong></div>
                 </div>
 
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Golden Phantom" data-key="btn_purchase">Purchase License</a>
@@ -669,7 +687,7 @@
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Aggressive Breakout</strong></div>
-                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>500 USD</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>500 USD/USC</strong></div>
                 </div>
 
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Spartan Killer" data-key="btn_purchase">Purchase License</a>
@@ -678,19 +696,55 @@
         </div>
     </div>
 
-    <!-- Modal Fast Copier (MT5 Only) -->
+    <!-- Modal Equinox -->
+    <div id="modal-equinox" class="modal-overlay" onclick="closeOnOutside(event, 'modal-equinox')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-equinox')">&times;</span>
+            
+            <div class="modal-left">
+                <h2>Equinox</h2>
+                <div class="modal-subtitle" data-key="equinox_sub">Ultimate Multi-Strategy Breakout System</div>
+                <p class="modal-desc-full" data-key="equinox_desc">
+                    Equinox is a versatile, institutional-grade algorithm designed to adapt to any market condition. Featuring a multi-strategy breakout engine, it seamlessly switches between Swing and Scalping modes. Built with strict Risk-to-Reward (RR) parameters and advanced equity protection, it is highly optimized for both personal accounts and Prop Firm challenges.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <span data-key="equinox_li1">Swing & Scalping Modes</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="equinox_li2">Prop Firm Ready (Strict Drawdown Control)</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="equinox_li3">High Risk-to-Reward Ratio (RR)</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="equinox_li4">Dynamic Breakout Logic</span></li>
+                </ul>
+            </div>
+
+            <div class="modal-right">
+                <div class="price-tag">$499</div>
+                <div class="price-sub">Lifetime License. One-time payment.</div>
+                
+                <div class="technical-specs">
+                    <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
+                    <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
+                    <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Multi-Strategy Breakout</strong></div>
+                    <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>100 USD/USC</strong></div>
+                </div>
+
+                <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Equinox" data-key="btn_purchase">Purchase License</a>
+                <a href="signal.html#result-equinox" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Fast Copier -->
     <div id="modal-fastcopier" class="modal-overlay" onclick="closeOnOutside(event, 'modal-fastcopier')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-fastcopier')">&times;</span>
             
             <div class="modal-left">
                 <h2>Fast Copier Pro</h2>
-                <div class="modal-subtitle" data-key="fastcopier_sub">Professional Local Trade Copier</div>
+                <div class="modal-subtitle" data-key="fastcopier_sub">Professional Local & Remote Trade Copier</div>
                 <p class="modal-desc-full" data-key="fastcopier_desc">
-                    Fast Copier Pro is a high-speed utility designed to copy trades between multiple MetaTrader 5 accounts on the same VPS/PC. It supports advanced risk multipliers, symbol mapping, and filtering options to suit any portfolio management need.
+                    Fast Copier Pro is a high-speed utility designed to copy trades between multiple MetaTrader 5 accounts. Whether you are copying locally on the same VPS/PC or remotely across different networks, it supports advanced risk multipliers, symbol mapping, and filtering options to suit any portfolio management need.
                 </p>
                 <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li1">Zero-latency local copying</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li1">Zero-latency Local & Remote (Cross-VPS) copying</span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li2">Multiple MT5 Accounts Support</span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li3">Custom lot multiplier & risk scaling</span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li4">Auto symbol mapping and suffix support</span></li>
@@ -770,6 +824,7 @@
                         <li><a href="#" onclick="openModal('modal-dopamin'); return false;">Dopamin Hedge</a></li>
                         <li><a href="#" onclick="openModal('modal-phantom'); return false;">Golden Phantom</a></li>
                         <li><a href="#" onclick="openModal('modal-spartan'); return false;">Spartan Killer</a></li>
+                        <li><a href="#" onclick="openModal('modal-equinox'); return false;">Equinox</a></li>
                         <li><a href="#" onclick="openModal('modal-fastcopier'); return false;">Fast Copier Pro</a></li>
                     </ul>
                 </div>
@@ -846,14 +901,16 @@
                 dopamin_short: "24/7 Straddle Grid Hedge system equipped with an automated Smart Recovery Engine to neutralize floating minus quickly.",
                 phantom_short: "Analyzes Gold breakout movements across multiple timeframes independently and simultaneously for maximum accuracy.",
                 spartan_short: "Aggressively captures Support & Resistance penetration momentum with high execution speed.",
-                fastcopier_short: "Ultra-fast local trade copier for MetaTrader 5. Duplicate trades between accounts with zero latency and advanced lot sizing.",
+                equinox_short: "Advanced multi-strategy breakout EA equipped with Swing, Scalping, and Prop Firm modes. No Grid / No Martingale / No Recovery / No Hedging / Single Entry with SL / One Shot.",
+                fastcopier_short: "Ultra-fast trade copier for MetaTrader 5. Duplicate trades locally or across different PCs/VPSs with zero latency and advanced lot sizing.",
                 copy_short: "Exclusive wealth management service. Your trading account will copy all our algorithmic executions instantly. You rent the VPS, and our team handles the technical setup.",
 
                 zenith_desc: "Zenith Pro Scalper is exclusively designed to dominate XAUUSD (Gold). Utilizing an <strong>Adaptive Grid</strong> algorithm, the EA dynamically adjusts order spacing based on real-time market volatility. Equipped with auto-spread filters and advanced equity protection, Zenith turns minor price movements into consistent gains.",
                 dopamin_desc: "A breakthrough in continuous trading methodology. Dopamin Hedge employs a <strong>Straddle Grid</strong> strategy to open Buy and Sell positions simultaneously. Its advanced algorithm doesn't care which way the trend moves. When the market reverses extremely, the <em>Smart Recovery Engine</em> takes over instantly to mitigate drawdown and close the entire basket in a clean profit.",
                 phantom_desc: "An EA specifically engineered to catch massive momentum waves. Golden Phantom monitors H1, H4, and D1 timeframes simultaneously. Its algorithm only executes orders when it finds validated breakout probabilities (avoiding false breakouts), and features <em>Auto-Adaptive Risk</em> to secure maximum profit without using martingale.",
                 spartan_desc: "Created exclusively to handle the wildest market sessions (London & New York). Spartan Killer targets crucial Support & Resistance areas and aggressively executes orders milliseconds after those levels are breached. It relies purely on momentum spikes and execution speed to turn high volatility into take profit.",
-                fastcopier_desc: "Fast Copier Pro is a high-speed utility designed to copy trades between multiple MetaTrader 5 accounts on the same VPS/PC. It supports advanced risk multipliers, symbol mapping, and filtering options to suit any portfolio management need.",
+                equinox_desc: "Equinox is a versatile, institutional-grade algorithm designed to adapt to any market condition. Featuring a multi-strategy breakout engine, it seamlessly switches between Swing and Scalping modes. Built with strict Risk-to-Reward (RR) parameters and advanced equity protection, it is highly optimized for both personal accounts and Prop Firm challenges.",
+                fastcopier_desc: "Fast Copier Pro is a high-speed utility designed to copy trades between multiple MetaTrader 5 accounts. Whether you are copying locally on the same VPS/PC or remotely across different networks, it supports advanced risk multipliers, symbol mapping, and filtering options to suit any portfolio management need.",
                 copy_desc: "This is the most efficient solution for busy professionals. You simply rent a VPS, and we will handle the full technical setup to connect your account to the Boom Trade Master Server. Every transaction from our top algorithms will be copied automatically to your account.",
                 
                 zenith_li1: "Auto Spread & Slippage Filter",
@@ -875,8 +932,13 @@
                 spartan_li2: "High-Speed Order Execution",
                 spartan_li3: "Momentum Gap Tracking",
                 spartan_li4: "Optimal for Global Session Volatility",
+                
+                equinox_li1: "Swing & Scalping Modes",
+                equinox_li2: "Prop Firm Ready (Strict Drawdown Control)",
+                equinox_li3: "High Risk-to-Reward Ratio (RR)",
+                equinox_li4: "Dynamic Breakout Logic",
 
-                fastcopier_li1: "Zero-latency local copying",
+                fastcopier_li1: "Zero-latency Local & Remote (Cross-VPS) copying",
                 fastcopier_li2: "Multiple MT5 Accounts Support",
                 fastcopier_li3: "Custom lot multiplier & risk scaling",
                 fastcopier_li4: "Auto symbol mapping and suffix support",
@@ -901,13 +963,15 @@
                 badge_hedge: "HIGH RISK STRATEGY",
                 badge_break: "MULTI-TF BREAKOUT",
                 badge_vol: "VOLATILITY TRADER",
+                badge_multi: "MULTI-STRATEGY",
                 badge_utility: "TRADE COPIER",
                 badge_auto: "100% AUTO-PILOT",
                 zenith_sub: "Advanced XAUUSD Scalping Engine",
                 dopamin_sub: "24/7 Straddle & Recovery System",
                 phantom_sub: "Multi-Timeframe Breakout Specialist",
                 spartan_sub: "Aggressive Volatility Trader",
-                fastcopier_sub: "Professional Local Trade Copier",
+                equinox_sub: "Ultimate Multi-Strategy Breakout System",
+                fastcopier_sub: "Professional Local & Remote Trade Copier",
                 copy_sub: "100% Hands-Free Wealth Management",
                 
                 footer_about: "Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.",
@@ -940,14 +1004,16 @@
                 dopamin_short: "Sistem Straddle Grid Hedge 24/7 yang dilengkapi Smart Recovery Engine otomatis untuk menetralisir floating minus dengan cepat.",
                 phantom_short: "Menganalisa pergerakan breakout instrumen Gold di berbagai timeframe secara independen dan bersamaan untuk akurasi maksimal.",
                 spartan_short: "Menangkap secara agresif momentum penembusan level Support & Resistance dengan kecepatan eksekusi tinggi.",
-                fastcopier_short: "Trade copier lokal super cepat khusus MetaTrader 5. Salin transaksi antar akun tanpa latensi dengan pengaturan lot yang canggih.",
+                equinox_short: "EA breakout multi-strategi canggih yang dilengkapi mode Swing, Scalping, dan Prop Firm. No Grid / No Martingale / No Recovery / No Hedging / Single Entry with SL / One Shot.",
+                fastcopier_short: "Trade copier super cepat khusus MetaTrader 5. Salin transaksi secara lokal maupun jarak jauh antar PC/VPS tanpa latensi dengan pengaturan lot yang canggih.",
                 copy_short: "Layanan wealth management eksklusif. Akun trading Anda akan menyalin seluruh eksekusi algoritma kami secara instan. Klien menyewa VPS, dan tim kami yang mengurus instalasinya.",
 
                 zenith_desc: "Zenith Pro Scalper dirancang secara eksklusif untuk mendominasi instrumen XAUUSD (Gold). Menggunakan algoritma <strong>Adaptive Grid</strong>, EA ini secara dinamis menyesuaikan jarak order berdasarkan tingkat volatilitas pasar secara *real-time*. Dilengkapi dengan auto-spread filter dan fitur proteksi ekuitas tingkat lanjut, Zenith mampu mengubah pergerakan harga kecil menjadi keuntungan yang konsisten.",
                 dopamin_desc: "Terobosan dalam metodologi trading berkelanjutan. Dopamin Hedge menggunakan strategi <strong>Straddle Grid</strong> untuk membuka posisi Buy dan Sell secara bersamaan. Algoritma canggihnya tidak peduli ke mana arah tren bergerak. Saat pasar berbalik arah secara ekstrem, <em>Smart Recovery Engine</em> mengambil alih secara instan untuk memitigasi drawdown dan menutup seluruh siklus transaksi (*basket*) dalam keadaan profit bersih.",
                 phantom_desc: "EA yang direkayasa khusus untuk menangkap gelombang momentum besar. Golden Phantom memonitor timeframe H1, H4, and D1 secara simultan. Algoritmanya hanya akan mengeksekusi order ketika menemukan probabilitas breakout yang tervalidasi (menghindari <em>false breakout</em>), dan dilengkapi dengan <em>Auto-Adaptive Risk</em> untuk mengamankan profit semaksimal mungkin tanpa menggunakan martingale.",
                 spartan_desc: "Diciptakan secara eksklusif untuk menangani sesi market yang paling liar (London & New York). Spartan Killer menargetkan area Support & Resistance yang krusial, lalu mengeksekusi order dengan sangat agresif dalam hitungan milidetik setelah level tersebut tertembus. Murni mengandalkan lonjakan momentum dan kecepatan eksekusi untuk mengubah volatilitas tinggi menjadi *take profit*.",
-                fastcopier_desc: "Fast Copier Pro adalah utilitas berkecepatan tinggi yang dirancang untuk menyalin transaksi antar beberapa akun MetaTrader 5 di VPS/PC yang sama. Dilengkapi dengan pengali risiko canggih, pemetaan simbol otomatis, dan opsi filter untuk menyesuaikan kebutuhan manajemen portofolio Anda.",
+                equinox_desc: "Equinox adalah algoritma tingkat institusional yang serbaguna dan dirancang untuk beradaptasi dengan segala kondisi pasar. Menampilkan mesin breakout multi-strategi, EA ini secara dinamis beralih antara mode Swing dan Scalping. Dibangun dengan parameter Risk-to-Reward (RR) yang ketat serta perlindungan ekuitas tingkat lanjut, sangat dioptimalkan untuk akun pribadi maupun ujian Prop Firm.",
+                fastcopier_desc: "Fast Copier Pro adalah utilitas berkecepatan tinggi yang dirancang untuk menyalin transaksi antar beberapa akun MetaTrader 5. Baik untuk penyalinan lokal di VPS/PC yang sama maupun jarak jauh antar jaringan (Cross-VPS), utilitas ini dilengkapi dengan pengali risiko canggih, pemetaan simbol otomatis, dan opsi filter untuk menyesuaikan kebutuhan manajemen portofolio Anda.",
                 copy_desc: "Solusi paling efisien bagi Anda yang sibuk. Klien cukup menyewa VPS, dan tim kami yang akan melakukan instalasi serta menghubungkannya langsung ke Master Server Boom Trade. Setiap aktivitas transaksi dari algoritma kami akan disalin secara otomatis ke akun Anda.",
                 
                 zenith_li1: "Filter Spread & Slippage Otomatis",
@@ -970,7 +1036,12 @@
                 spartan_li3: "Momentum Gap Tracking",
                 spartan_li4: "Optimal untuk Volatilitas Sesi Global",
 
-                fastcopier_li1: "Penyalinan lokal tanpa latensi (Zero-latency)",
+                equinox_li1: "Mode Swing & Scalping",
+                equinox_li2: "Aman untuk Prop Firm (Kontrol Drawdown Ketat)",
+                equinox_li3: "Rasio Risk-to-Reward (RR) Tinggi",
+                equinox_li4: "Logika Breakout Dinamis",
+
+                fastcopier_li1: "Penyalinan Lokal & Jarak Jauh (Cross-VPS) tanpa latensi",
                 fastcopier_li2: "Mendukung Banyak Akun MT5 Sekaligus",
                 fastcopier_li3: "Pengali lot kustom & skala risiko",
                 fastcopier_li4: "Pemetaan simbol otomatis dan dukungan akhiran (suffix)",
@@ -995,13 +1066,15 @@
                 badge_hedge: "STRATEGI HIGH RISK",
                 badge_break: "MULTI-TF BREAKOUT",
                 badge_vol: "TRADER VOLATILITAS",
+                badge_multi: "MULTI-STRATEGI",
                 badge_utility: "TRADE COPIER",
                 badge_auto: "100% AUTO-PILOT",
                 zenith_sub: "Mesin Scalping XAUUSD Canggih",
                 dopamin_sub: "Sistem Straddle & Recovery 24/7",
                 phantom_sub: "Spesialis Breakout Multi-Timeframe",
                 spartan_sub: "Trader Volatilitas Agresif",
-                fastcopier_sub: "Professional Local Trade Copier",
+                equinox_sub: "Sistem Breakout Multi-Strategi",
+                fastcopier_sub: "Professional Local & Remote Trade Copier",
                 copy_sub: "100% Manajemen Aset Otomatis",
                 
                 footer_about: "Expert Advisor tingkat institusional yang dirancang untuk platform MetaTrader 5. Dibangun dengan manajemen risiko presisi tinggi untuk menavigasi volatilitas pasar secara otomatis dan konsisten.",
