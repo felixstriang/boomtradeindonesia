@@ -259,6 +259,85 @@
         .btn-signal-live { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dark); padding: 15px; text-align: center; border-radius: 8px; font-weight: 600; font-size: 1rem; transition: 0.3s; width: 100%; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
         .btn-signal-live:hover { border-color: var(--primary); color: var(--primary); }
 
+        /* --- TESTIMONIAL SECTION --- */
+        .testimonial-section { 
+            padding: 80px 5%; 
+            background: var(--bg-main); 
+            border-bottom: 1px solid var(--border); 
+            text-align: center; 
+        }
+        .testimonial-title { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            color: var(--text-dark); 
+            margin-bottom: 50px; 
+            letter-spacing: -0.5px; 
+        }
+        .testimonial-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .testimonial-card { 
+            background: var(--bg-card); 
+            padding: 35px 30px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03); 
+            text-align: left; 
+            position: relative;
+            transition: 0.3s;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
+            border-color: var(--primary);
+        }
+        .quote-icon { 
+            color: rgba(37, 99, 235, 0.15); 
+            font-size: 2.5rem; 
+            margin-bottom: 20px; 
+            display: block;
+        }
+        .testimonial-card p { 
+            font-size: 1rem; 
+            color: var(--text-muted); 
+            font-style: italic; 
+            margin-bottom: 25px; 
+            line-height: 1.7; 
+        }
+        .testimonial-client { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+        .testimonial-avatar { 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            background: var(--primary); 
+            color: #FFF; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 700; 
+            font-size: 1.2rem; 
+        }
+        .testimonial-info h4 { 
+            font-size: 1.05rem; 
+            color: var(--text-dark); 
+            margin: 0 0 3px 0; 
+        }
+        .testimonial-info span { 
+            font-size: 0.85rem; 
+            color: var(--accent); 
+            font-weight: 600; 
+        }
+
         /* --- 8. PROFESSIONAL FOOTER --- */
         .footer-professional {
             background-color: var(--bg-nav); 
@@ -545,6 +624,66 @@
                     <button class="btn-view-text" style="white-space: nowrap;" data-key="btn_view_details">View Details <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL SECTION -->
+    <section class="testimonial-section">
+        <h2 class="testimonial-title" data-key="testi_title">What Our Clients Say</h2>
+        <div class="testimonial-grid">
+            
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p data-key="testi_1_quote">"So far following Golden Phantom, as long as Gold has no brakes, it's very safe and satisfying. Drawdown is almost non-existent. Hopefully it lasts as a reliable source of income."</p>
+                <div class="testimonial-client">
+                    <div class="testimonial-avatar">C</div>
+                    <div class="testimonial-info">
+                        <h4>Client</h4>
+                        <span data-key="testi_1_role">Golden Phantom User</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p data-key="testi_2_quote">"So far so good, drawdown is well managed and profit is consistent. Hoping this becomes a long-term passive income source.. Keep up the great work! 💪🏼"</p>
+                <div class="testimonial-client">
+                    <div class="testimonial-avatar">C</div>
+                    <div class="testimonial-info">
+                        <h4>Client</h4>
+                        <span data-key="testi_2_role">Golden Phantom User</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p data-key="testi_3_quote">"Awesome EA! It really helped recover my account, thank you so much."</p>
+                <div class="testimonial-client">
+                    <div class="testimonial-avatar">C</div>
+                    <div class="testimonial-info">
+                        <h4>Client</h4>
+                        <span data-key="testi_3_role">Golden Phantom User</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p data-key="testi_4_quote">"Alhamdulillah after buying the Fast Copier bot, everything works normally. The setup is very easy and simple to understand... Thank you for the guidance."</p>
+                <div class="testimonial-client">
+                    <div class="testimonial-avatar">C</div>
+                    <div class="testimonial-info">
+                        <h4>Client</h4>
+                        <span data-key="testi_4_role">Fast Copier Pro User</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -905,6 +1044,16 @@
                 fastcopier_short: "Ultra-fast trade copier for MetaTrader 5. Duplicate trades locally or across different PCs/VPSs with zero latency and advanced lot sizing.",
                 copy_short: "Exclusive wealth management service. Your trading account will copy all our algorithmic executions instantly. You rent the VPS, and our team handles the technical setup.",
 
+                testi_title: "What Our Clients Say",
+                testi_1_quote: "\"So far following Golden Phantom, as long as Gold has no brakes, it's very safe and satisfying. Drawdown is almost non-existent. Hopefully it lasts as a reliable source of income.\"",
+                testi_1_role: "Golden Phantom User",
+                testi_2_quote: "\"So far so good, drawdown is well managed and profit is consistent. Hoping this becomes a long-term passive income source.. Keep up the great work! 💪🏼\"",
+                testi_2_role: "Golden Phantom User",
+                testi_3_quote: "\"Awesome EA! It really helped recover my account, thank you so much.\"",
+                testi_3_role: "Golden Phantom User",
+                testi_4_quote: "\"Alhamdulillah after buying the Fast Copier bot, everything works normally. The setup is very easy and simple to understand... Thank you for the guidance.\"",
+                testi_4_role: "Fast Copier Pro User",
+
                 zenith_desc: "Zenith Pro Scalper is exclusively designed to dominate XAUUSD (Gold). Utilizing an <strong>Adaptive Grid</strong> algorithm, the EA dynamically adjusts order spacing based on real-time market volatility. Equipped with auto-spread filters and advanced equity protection, Zenith turns minor price movements into consistent gains.",
                 dopamin_desc: "A breakthrough in continuous trading methodology. Dopamin Hedge employs a <strong>Straddle Grid</strong> strategy to open Buy and Sell positions simultaneously. Its advanced algorithm doesn't care which way the trend moves. When the market reverses extremely, the <em>Smart Recovery Engine</em> takes over instantly to mitigate drawdown and close the entire basket in a clean profit.",
                 phantom_desc: "An EA specifically engineered to catch massive momentum waves. Golden Phantom monitors H1, H4, and D1 timeframes simultaneously. Its algorithm only executes orders when it finds validated breakout probabilities (avoiding false breakouts), and features <em>Auto-Adaptive Risk</em> to secure maximum profit without using martingale.",
@@ -963,7 +1112,7 @@
                 badge_hedge: "HIGH RISK STRATEGY",
                 badge_break: "MULTI-TF BREAKOUT",
                 badge_vol: "VOLATILITY TRADER",
-                badge_multi: "MULTI-STRATEGY",
+                badge_multi: "MULTI-STRATEGI",
                 badge_utility: "TRADE COPIER",
                 badge_auto: "100% AUTO-PILOT",
                 zenith_sub: "Advanced XAUUSD Scalping Engine",
@@ -1007,6 +1156,16 @@
                 equinox_short: "EA breakout multi-strategi canggih yang dilengkapi mode Swing, Scalping, dan Prop Firm. No Grid / No Martingale / No Recovery / No Hedging / Single Entry with SL / One Shot.",
                 fastcopier_short: "Trade copier super cepat khusus MetaTrader 5. Salin transaksi secara lokal maupun jarak jauh antar PC/VPS tanpa latensi dengan pengaturan lot yang canggih.",
                 copy_short: "Layanan wealth management eksklusif. Akun trading Anda akan menyalin seluruh eksekusi algoritma kami secara instan. Klien menyewa VPS, dan tim kami yang mengurus instalasinya.",
+
+                testi_title: "Apa Kata Klien Kami",
+                testi_1_quote: "\"So far ngikut gold phantom selama XAU gak ada rem sangat2 aman dan memuaskan. DD nya hampir gak ada. Semoga awet jadi alternatif penghasilan.\"",
+                testi_1_role: "Pengguna Golden Phantom",
+                testi_2_quote: "\"Wah sejauh ini bagus om, DD terjaga dan konsisten profit, semoga menjadi passive income yang berkepanjangan.. Sukses trus om 💪🏼\"",
+                testi_2_role: "Pengguna Golden Phantom",
+                testi_3_quote: "\"Mantep banget bang EA nya, jadi kebantu buat recovery akun saya bang makasih banyak.\"",
+                testi_3_role: "Pengguna Golden Phantom",
+                testi_4_quote: "\"Alhamdulillah setelah saya beli bot fastcopier. Semua berjalan dengan normal. Dan setingan jga sangat gampang dan mudah di pahami... Trima kasih bang atas petunjuk nya.\"",
+                testi_4_role: "Pengguna Fast Copier Pro",
 
                 zenith_desc: "Zenith Pro Scalper dirancang secara eksklusif untuk mendominasi instrumen XAUUSD (Gold). Menggunakan algoritma <strong>Adaptive Grid</strong>, EA ini secara dinamis menyesuaikan jarak order berdasarkan tingkat volatilitas pasar secara *real-time*. Dilengkapi dengan auto-spread filter dan fitur proteksi ekuitas tingkat lanjut, Zenith mampu mengubah pergerakan harga kecil menjadi keuntungan yang konsisten.",
                 dopamin_desc: "Terobosan dalam metodologi trading berkelanjutan. Dopamin Hedge menggunakan strategi <strong>Straddle Grid</strong> untuk membuka posisi Buy dan Sell secara bersamaan. Algoritma canggihnya tidak peduli ke mana arah tren bergerak. Saat pasar berbalik arah secara ekstrem, <em>Smart Recovery Engine</em> mengambil alih secara instan untuk memitigasi drawdown dan menutup seluruh siklus transaksi (*basket*) dalam keadaan profit bersih.",
