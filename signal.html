@@ -15,26 +15,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style> 
-        /* --- 1. GLOBAL SETTINGS: LIGHT BONE WHITE THEME --- */ 
+        /* --- 1. GLOBAL SETTINGS --- */ 
         :root {
             --bg-main: #FAF9F6;        
             --bg-card: #FFFFFF;        
             --bg-section: #F1F5F9;     
-            
             --primary: #2563EB;        
             --primary-hover: #1D4ED8;
             --accent: #0284C7;         
-            
             --text-dark: #0F172A;      
             --text-muted: #475569;     
-            
             --success: #059669;
             --success-bg: rgba(5, 150, 105, 0.15);
             --danger: #DC2626;   
             --danger-bg: rgba(220, 38, 38, 0.15);
             --border: #E2E8F0;         
-
-            /* Tema Biru Navy (Khusus Footer) */
             --bg-nav: #0A192F;
             --text-nav-muted: #94A3B8;
             --accent-top: #38BDF8;
@@ -43,95 +38,61 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
+            background-color: var(--bg-main); color: var(--text-dark);
             display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; padding: 80px 0 0 0; 
-            scroll-behavior: smooth;
+            min-height: 100vh; padding: 80px 0 0 0; scroll-behavior: smooth;
             background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
             background-size: 30px 30px;
         }
 
-        /* Container Pembungkus Konten Atas (Selain Footer) */
-        .content-wrapper {
-            display: flex; flex-direction: column; align-items: center;
-            width: 100%; padding: 0 20px 40px; flex-grow: 1;
-        }
+        .content-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 20px 40px; flex-grow: 1; }
 
         /* Floating Controls */
         .btn-home, .btn-lang {
-            position: fixed; top: 24px; 
-            background: var(--bg-card); 
-            color: var(--primary); 
-            border: 1px solid var(--border); 
-            padding: 10px 20px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+            position: fixed; top: 24px; background: var(--bg-card); color: var(--primary); 
+            border: 1px solid var(--border); padding: 10px 20px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
             display: inline-flex; align-items: center; gap: 8px; text-decoration: none; 
-            transition: all 0.3s ease; z-index: 999; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease; z-index: 999; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .btn-home { left: 24px; }
-        .btn-lang { right: 24px; }
-        .btn-home:hover, .btn-lang:hover { 
-            background: var(--primary); border-color: var(--primary); color: #fff; 
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); transform: translateY(-2px); 
-        }
+        .btn-home { left: 24px; } .btn-lang { right: 24px; }
+        .btn-home:hover, .btn-lang:hover { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); transform: translateY(-2px); }
 
         /* Header */
         .dashboard-header { width: 100%; max-width: 1000px; margin-bottom: 30px; text-align: left; }
         .dashboard-header h1 { font-size: 1.8rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: var(--text-dark); letter-spacing: -0.5px; }
         .dashboard-header p { color: var(--text-muted); font-size: 0.95rem; margin-top: 5px; }
-        .live-indicator {
-            width: 10px; height: 10px; background-color: var(--success); border-radius: 50%;
-            display: inline-block; box-shadow: 0 0 10px var(--success); animation: pulse 1.5s infinite alternate;
-        }
+        .live-indicator { width: 10px; height: 10px; background-color: var(--success); border-radius: 50%; display: inline-block; box-shadow: 0 0 10px var(--success); animation: pulse 1.5s infinite alternate; }
         @keyframes pulse { 0% { opacity: 0.5; box-shadow: 0 0 5px var(--success); } 100% { opacity: 1; box-shadow: 0 0 12px var(--success); } }
 
         /* Cards Layout */
-        .cards-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
-            width: 100%; max-width: 1000px; margin-bottom: 40px;
-        }
+        .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; width: 100%; max-width: 1000px; margin-bottom: 40px; }
 
         .mql-card {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.03); position: relative; overflow: hidden; 
-            display: flex; flex-direction: column; padding: 24px; 
-            min-height: 220px; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column; padding: 24px; min-height: 220px; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .mql-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
         
-        /* Header Card */
-        .mql-header { 
-            display: flex; justify-content: space-between; align-items: flex-start; 
-            position: relative; z-index: 2; 
-        }
+        .mql-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
         .mql-author { display: flex; flex-direction: column; gap: 2px; }
         .mql-author-name { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); letter-spacing: -0.3px;}
         .mql-growth-since { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
         .mql-growth-val { font-size: 2.2rem; font-weight: 800; line-height: 1; letter-spacing: -1px; transition: color 0.3s ease; margin-top: 6px;}
         
-        /* Buttons in Card */
         .mql-header-actions { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
-        
         .btn-view, .btn-connect-sm {
             background: rgba(37, 99, 235, 0.05); color: var(--primary); border: 1px solid rgba(37, 99, 235, 0.2);
             padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-align: center;
-            cursor: pointer; transition: 0.2s; white-space: nowrap; 
-            display: inline-flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.2s; white-space: nowrap; display: inline-flex; justify-content: center; align-items: center;
         }
         .btn-connect-sm { gap: 6px; }
         .btn-view:hover, .btn-connect-sm:hover { background: var(--primary); color: #FFF; border-color: var(--primary); }
 
-        /* Area Grafik */
-        .mql-chart-container {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 110px; z-index: 1; pointer-events: none; opacity: 1; 
-        }
+        .mql-chart-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 110px; z-index: 1; pointer-events: none; opacity: 1; }
 
         /* SaaS Table */
-        .mql-table-container {
-            width: 100%; max-width: 1000px; background: var(--bg-card); border-radius: 12px;
-            padding: 28px; margin-bottom: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); border: 1px solid var(--border);
-        }
+        .mql-table-container { width: 100%; max-width: 1000px; background: var(--bg-card); border-radius: 12px; padding: 28px; margin-bottom: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); border: 1px solid var(--border); }
         .mql-table-container h3 { color: var(--text-dark); margin-bottom: 20px; font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
         .mql-grid-wrapper { overflow-x: auto; }
         .mql-table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: center; font-size: 0.85rem; }
@@ -167,85 +128,34 @@
         .myfxbook-link:hover { background: rgba(37, 99, 235, 0.1); border-color: var(--primary); }
         .myfxbook-link a { color: var(--primary); font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
 
-        /* Connect Actions Modal Styling */
-        .btn-ct-action {
-            padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 600; 
-            display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;
-        }
+        .btn-ct-action { padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
         .btn-ct-action:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .btn-ct-register { background: #0F172A; color: #FFF; border: 1px solid #0F172A; }
         .btn-ct-connect { background: var(--primary); color: #FFF; border: 1px solid var(--primary); }
         
-        .ib-badge {
-            background: var(--bg-section); border: 1px dashed var(--border); padding: 8px 12px; border-radius: 6px;
-            font-size: 0.85rem; font-weight: 600; color: var(--text-dark); margin-bottom: 16px; display: inline-block;
-        }
+        .ib-badge { background: var(--bg-section); border: 1px dashed var(--border); padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); margin-bottom: 16px; display: inline-block; }
         
-        .steps-box {
-            text-align: left; background: var(--bg-section); padding: 14px 16px; border-radius: 8px;
-            font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; line-height: 1.6; border: 1px solid var(--border);
-        }
-        .steps-box ol { padding-left: 18px; margin: 0; }
-        .steps-box li { margin-bottom: 4px; }
-
-        .btn-ct-telegram {
-            color: var(--accent); text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
-        }
+        .steps-box { text-align: left; background: var(--bg-section); padding: 14px 16px; border-radius: 8px; font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; line-height: 1.6; border: 1px solid var(--border); }
+        .steps-box ol { padding-left: 18px; margin: 0; } .steps-box li { margin-bottom: 4px; }
+        .btn-ct-telegram { color: var(--accent); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
         .btn-ct-telegram:hover { color: var(--primary-hover); text-decoration: underline; }
 
-        /* --- 8. PROFESSIONAL FOOTER --- */
-        .footer-professional {
-            width: 100%;
-            background-color: var(--bg-nav); 
-            color: var(--text-nav-muted); 
-            padding: 60px 0 30px;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: auto; 
-        }
+        /* Footer */
+        .footer-professional { width: 100%; background-color: var(--bg-nav); color: var(--text-nav-muted); padding: 60px 0 30px; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
         .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr; 
-            gap: 40px; margin-bottom: 50px;
-            text-align: left; 
-        }
-        
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 50px; text-align: left; }
         .footer-logo { color: #FFFFFF; font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -0.5px; }
         .footer-desc { line-height: 1.8; margin-bottom: 20px; font-size: 0.95rem; word-wrap: break-word;}
-        
         .social-links { display: flex; gap: 12px; }
-        .social-links a {
-            display: flex; align-items: center; justify-content: center; 
-            width: 42px; height: 42px;
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); 
-            color: var(--text-nav-muted); 
-            font-size: 1.2rem; 
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        .social-links a:hover { 
-            background: #2AABEE; border-color: #2AABEE; color: #FFFFFF; 
-            box-shadow: 0 5px 15px rgba(42, 171, 238, 0.4); transform: translateY(-3px); 
-        }
-        .social-links a i.fa-telegram-plane { transform: translate(-1px, 1px); }
-        
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-nav-muted); font-size: 1.2rem; transition: all 0.3s ease; text-decoration: none; }
+        .social-links a:hover { background: #2AABEE; border-color: #2AABEE; color: #FFFFFF; box-shadow: 0 5px 15px rgba(42, 171, 238, 0.4); transform: translateY(-3px); }
         .footer-heading { color: #FFFFFF; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
         .footer-links { list-style: none; padding: 0; margin: 0; }
         .footer-links li { margin-bottom: 12px; }
         .footer-links a { color: var(--text-nav-muted); text-decoration: none; transition: 0.3s; font-size: 0.9rem; word-wrap: break-word; cursor: pointer;}
         .footer-links a:hover { color: var(--accent-top); }
-
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; text-align: center; }
-        .footer-disclaimers { margin-bottom: 30px; }
-        .footer-disclaimers p {
-            font-size: 0.65rem; line-height: 1.8; color: #64748B; margin-bottom: 15px;
-            text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto;
-            text-transform: uppercase;
-        }
+        .footer-disclaimers p { font-size: 0.65rem; line-height: 1.8; color: #64748B; margin-bottom: 15px; text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto; text-transform: uppercase; }
         .footer-copy { font-size: 0.8rem; color: #64748B; }
 
         @media (max-width: 768px) {
@@ -284,9 +194,7 @@
                         <div class="mql-growth-since" data-lang="growth_since">Growth since 2026</div>
                         <div class="mql-growth-val" id="track-growth_zenith">0.00%</div>
                     </div>
-                    <div class="mql-header-actions">
-                        <button class="btn-view" onclick="openModal('modal-zenith')" data-lang="view_details">View Details</button>
-                    </div>
+                    <div class="mql-header-actions"><button class="btn-view" onclick="openModal('modal-zenith')" data-lang="view_details">View Details</button></div>
                 </div>
                 <div class="mql-chart-container"><canvas id="growthChart_zenith"></canvas></div>
             </div>
@@ -315,9 +223,7 @@
                         <div class="mql-growth-since" data-lang="growth_since">Growth since 2026</div>
                         <div class="mql-growth-val" id="track-growth_spartan">0.00%</div>
                     </div>
-                    <div class="mql-header-actions">
-                        <button class="btn-view" onclick="openModal('modal-spartan')" data-lang="view_details">View Details</button>
-                    </div>
+                    <div class="mql-header-actions"><button class="btn-view" onclick="openModal('modal-spartan')" data-lang="view_details">View Details</button></div>
                 </div>
                 <div class="mql-chart-container"><canvas id="growthChart_spartan"></canvas></div>
             </div>
@@ -330,9 +236,7 @@
                         <div class="mql-growth-since" data-lang="growth_since">Growth since 2026</div>
                         <div class="mql-growth-val" id="track-growth_equinox">0.00%</div>
                     </div>
-                    <div class="mql-header-actions">
-                        <button class="btn-view" onclick="openModal('modal-equinox')" data-lang="view_details">View Details</button>
-                    </div>
+                    <div class="mql-header-actions"><button class="btn-view" onclick="openModal('modal-equinox')" data-lang="view_details">View Details</button></div>
                 </div>
                 <div class="mql-chart-container"><canvas id="growthChart_equinox"></canvas></div>
             </div>
@@ -382,7 +286,6 @@
                             <td><div class="mql-cell" id="tb-nov_spartan"></div></td><td><div class="mql-cell" id="tb-dec_spartan"></div></td>
                             <td><div class="mql-cell" id="tb-ytd_spartan">0.00%</div></td>
                         </tr>
-                        <!-- Baris Data Equinox -->
                         <tr>
                             <td class="ea-col">Equinox</td>
                             <td><div class="mql-cell" id="tb-jan_equinox"></div></td><td><div class="mql-cell" id="tb-feb_equinox"></div></td>
@@ -397,7 +300,7 @@
                 </table>
             </div>
         </div>
-    </div> <!-- End Content Wrapper -->
+    </div> 
 
     <!-- MODAL ZENITH -->
     <div id="modal-zenith" class="modal">
@@ -451,23 +354,18 @@
                 <i class="fas fa-robot" style="color: var(--primary); margin-right: 8px;"></i> Golden Phantom
             </div>
             
-            <!-- Kode IB -->
-            <div class="ib-badge">
-                <i class="fas fa-id-badge" style="color: var(--primary);"></i> IB Code: <strong>274801</strong>
-            </div>
-
+            <div class="ib-badge"><i class="fas fa-id-badge" style="color: var(--primary);"></i> IB Code: <strong>274801</strong></div>
             <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;" data-lang="connect_phantom_desc">Steps to join Golden Phantom CopyTrade</p>
             
             <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
                 <a href="https://gocxm.co/links/go/274801" target="_blank" class="btn-ct-action btn-ct-register">
                     <i class="fas fa-user-plus"></i> <span data-lang="register_account">1. Register Account (IB)</span>
                 </a>
-                <a href="https://socialtradingranking.cxmid.com/widgets/ratings/23692?widgetKey=social_platform_ratings&lang=en&preview=P3U9Yjk2MzcxJmE9MjY3NDImcD0yMzY5MiZ3PTE%3D" target="_blank" class="btn-ct-action btn-ct-connect">
+                <a href="https://socialtradingregister.cxmys.com/portal/offers/30341" target="_blank" class="btn-ct-action btn-ct-connect">
                     <i class="fas fa-plug"></i> <span data-lang="connect_account">2. Connect Account (CopyTrade)</span>
                 </a>
             </div>
 
-            <!-- Panduan Langkah-Langkah Konek Akun -->
             <div class="steps-box">
                 <strong style="display: block; margin-bottom: 6px; color: var(--text-dark);" data-lang="connect_steps_title">Connection Guide:</strong>
                 <ol>
@@ -479,7 +377,6 @@
                     <li data-lang="step_6">Click register</li>
                 </ol>
             </div>
-
             <div style="padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border);">
                 <a href="#" class="gp-telegram-contact btn-ct-telegram" target="_blank">
                     <i class="fab fa-telegram" style="font-size: 1.2rem;"></i> <span data-lang="more_info_telegram">More Information via Telegram</span>
@@ -527,16 +424,15 @@
                 <div class="stat-item"><span class="stat-label" data-lang="drawdown">Max DD</span><span class="stat-val" id="track-drawdown_equinox">0.00%</span><div class="stat-bar"><div class="fill" id="bar-drawdown_equinox" style="width: 0%; background: var(--danger);"></div></div></div>
             </div>
             <div class="myfxbook-link">
-                <a href="https://www.myfxbook.com/portfolio/equinox/12216581" target="_blank"><i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span></a>
+                <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> <span data-lang="view_myfx">View on MyFxBook</span></a>
             </div>
         </div>
     </div>
 
-    <!-- === NEW PROFESSIONAL FOOTER === -->
+    <!-- FOOTER -->
     <footer class="footer-professional">
         <div class="footer-container">
             <div class="footer-grid">
-                <!-- Column 1: Brand Info -->
                 <div class="footer-col">
                     <h2 class="footer-logo">BOOM TRADE INDONESIA</h2>
                     <p class="footer-desc" data-lang="footer_about">
@@ -546,8 +442,6 @@
                         <a href="#" class="wa-link-contact" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
                     </div>
                 </div>
-
-                <!-- Column 2: Expert Advisors -->
                 <div class="footer-col">
                     <h3 class="footer-heading" data-lang="footer_ea">EXPERT ADVISORS</h3>
                     <ul class="footer-links">
@@ -557,8 +451,6 @@
                         <li><a href="#" onclick="openModal('modal-equinox'); return false;">Equinox</a></li>
                     </ul>
                 </div>
-
-                <!-- Column 3: Navigation & Features -->
                 <div class="footer-col">
                     <h3 class="footer-heading" data-lang="footer_nav">NAVIGATION</h3>
                     <ul class="footer-links">
@@ -568,15 +460,12 @@
                     </ul>
                 </div>
             </div>
-
             <div class="footer-bottom">
                 <div class="footer-disclaimers">
                     <p data-lang="footer_disc_1">⚠ NATURE OF BUSINESS DISCLAIMER: BOOM TRADE INDONESIA OPERATES AS A TECHNOLOGY PROVIDER OFFERING SOFTWARE-AS-A-SERVICE (SAAS) SOLUTIONS FOR AUTOMATED TRADING STRATEGIES. WE DO NOT PROVIDE FINANCIAL OR INVESTMENT ADVICE, PORTFOLIO MANAGEMENT, BROKERAGE SERVICES, OR ACT AS A FINANCIAL INTERMEDIARY. USERS RETAIN FULL CONTROL OVER THEIR TRADING ACCOUNTS AND FUNDS, AND ALL TRADING ACTIVITIES ARE CONDUCTED AT THEIR OWN DISCRETION AND RISK.</p>
                     <p data-lang="footer_disc_2">⚠ RISK DISCLOSURE: TRADING FOREIGN EXCHANGE ON MARGIN CARRIES A HIGH LEVEL OF RISK, AND MAY NOT BE SUITABLE FOR ALL INVESTORS. THE HIGH DEGREE OF LEVERAGE CAN WORK AGAINST YOU AS WELL AS FOR YOU. BEFORE DECIDING TO INVEST IN FOREIGN EXCHANGE YOU SHOULD CAREFULLY CONSIDER YOUR INVESTMENT OBJECTIVES, LEVEL OF EXPERIENCE, AND RISK APPETITE. PAST PERFORMANCE IS NOT INDICATIVE OF FUTURE RESULTS.</p>
                 </div>
-                <div class="footer-copy">
-                    &copy; 2026 Boom Trade Indonesia. All rights reserved.
-                </div>
+                <div class="footer-copy">&copy; 2026 Boom Trade Indonesia. All rights reserved.</div>
             </div>
         </div>
     </footer>
@@ -587,7 +476,6 @@
 
     <script>
         let currentLang = 'en'; 
-        // HAPUS dopamin AGAR TIDAK CRASH
         let globalDaysData = { zenith: 0, phantom: 0, spartan: 0, equinox: 0 }; 
         let activeTelegram = "bangrioboomtrade";
         let agentName = "Boom Trade";
@@ -601,18 +489,13 @@
                 connect_phantom_desc: "Langkah untuk bergabung dengan CopyTrade Golden Phantom",
                 register_account: "Daftar Akun (IB)", connect_account: "Konek Akun (CopyTrade)",
                 connect_steps_title: "Panduan Koneksi:",
-                step_1: "Regist as follower",
-                step_2: "Server CXMDirect-MT5-Live1",
-                step_3: "Masukkan ID & Pass real account",
-                step_4: "Provider \"Golden Phantom\"",
-                step_5: "Lalu klik offer",
-                step_6: "Lalu klik register",
-                more_info_telegram: "Informasi lebih lanjut via Telegram",
-                nav_products: "Software", nav_contact: "Kontak",
+                step_1: "Regist as follower", step_2: "Server CXMDirect-MT5-Live1", step_3: "Masukkan ID & Pass real account",
+                step_4: "Provider \"Golden Phantom\"", step_5: "Lalu klik offer", step_6: "Lalu klik register",
+                more_info_telegram: "Informasi lebih lanjut via Telegram", nav_products: "Software", nav_contact: "Kontak",
                 footer_about: "Expert Advisor tingkat institusional yang dirancang untuk platform MetaTrader 5. Dibangun dengan manajemen risiko presisi tinggi untuk menavigasi volatilitas pasar secara otomatis dan konsisten.",
                 footer_ea: "EXPERT ADVISOR", footer_nav: "NAVIGASI",
-                footer_disc_1: "⚠ SANGGAHAN SIFAT BISNIS: BOOM TRADE INDONESIA BEROPERASI SEBAGAI PENYEDIA TEKNOLOGI YANG MENAWARKAN SOLUSI PERANGKAT LUNAK (SAAS) UNTUK STRATEGI TRADING OTOMATIS. KAMI TIDAK MENYEDIAKAN NASIHAT KEUANGAN ATAU INVESTASI, MANAJEMEN PORTOFOLIO, LAYANAN BROKER, ATAU BERTINDAK SEBAGAI PERANTARA KEUANGAN. PENGGUNA MEMEGANG KENDALI PENUH ATAS AKUN TRADING DAN DANA MEREKA, DAN SEMUA AKTIVITAS TRADING DILAKUKAN ATAS KEBIJAKAN DAN RISIKO MEREKA SENDIRI.",
-                footer_disc_2: "⚠ PENGUNGKAPAN RISIKO: TRADING VALUTA ASING PADA MARGIN MEMBAWA TINGKAT RISIKO YANG SANGAT TINGGI, DAN MUNGKIN TIDAK COCOK UNTUK SEMUA INVESTOR. TINGKAT LEVERAGE YANG TINGGI DAPAT BEKERJA MELAWAN ANDA MAUPUN UNTUK ANDA. SEBELUM MEMUTUSKAN UNTUK BERINVESTASI DALAM VALUTA ASING, ANDA HARUS MEMPERTIMBANGKAN DENGAN CERMAT TUJUAN INVESTASI, TINGKAT PENGALAMAN, DAN NAFSU RISIKO ANDA. KINERJA MASA LALU BUKANLAH INDIKASI HASIL DI MASA DEPAN."
+                footer_disc_1: "⚠ SANGGAHAN SIFAT BISNIS: BOOM TRADE INDONESIA BEROPERASI SEBAGAI PENYEDIA TEKNOLOGI YANG MENAWARKAN SOLUSI PERANGKAT LUNAK (SAAS) UNTUK STRATEGI TRADING OTOMATIS. KAMI TIDAK MENYEDIAKAN NASIHAT KEUANGAN ATAU INVESTASI, MANAJEMEN PORTOFOLIO, LAYANAN BROKER, ATAU BERTINDAK SEBAGAI PERANTARA KEUANGAN.",
+                footer_disc_2: "⚠ PENGUNGKAPAN RISIKO: TRADING VALUTA ASING PADA MARGIN MEMBAWA TINGKAT RISIKO YANG SANGAT TINGGI, DAN MUNGKIN TIDAK COCOK UNTUK SEMUA INVESTOR. TINGKAT LEVERAGE YANG TINGGI DAPAT BEKERJA MELAWAN ANDA MAUPUN UNTUK ANDA."
             },
             en: { 
                 home: "Home", view_details: "View Details", connect_btn: "Connect", growth_since: "Growth since 2026", 
@@ -622,14 +505,9 @@
                 connect_phantom_desc: "Steps to join Golden Phantom CopyTrade",
                 register_account: "Register Account (IB)", connect_account: "Connect Account (CopyTrade)",
                 connect_steps_title: "Connection Guide:",
-                step_1: "Register as follower",
-                step_2: "Server CXMDirect-MT5-Live1",
-                step_3: "Enter real account ID & password",
-                step_4: "Provider \"Golden Phantom\"",
-                step_5: "Click offer",
-                step_6: "Click register",
-                more_info_telegram: "More information via Telegram",
-                nav_products: "Algorithms", nav_contact: "Contact",
+                step_1: "Register as follower", step_2: "Server CXMDirect-MT5-Live1", step_3: "Enter real account ID & password",
+                step_4: "Provider \"Golden Phantom\"", step_5: "Click offer", step_6: "Click register",
+                more_info_telegram: "More information via Telegram", nav_products: "Algorithms", nav_contact: "Contact",
                 footer_about: "Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.",
                 footer_ea: "EXPERT ADVISORS", footer_nav: "NAVIGATION",
                 footer_disc_1: "⚠ NATURE OF BUSINESS DISCLAIMER: BOOM TRADE INDONESIA OPERATES AS A TECHNOLOGY PROVIDER OFFERING SOFTWARE-AS-A-SERVICE (SAAS) SOLUTIONS FOR AUTOMATED TRADING STRATEGIES. WE DO NOT PROVIDE FINANCIAL OR INVESTMENT ADVICE, PORTFOLIO MANAGEMENT, BROKERAGE SERVICES, OR ACT AS A FINANCIAL INTERMEDIARY. USERS RETAIN FULL CONTROL OVER THEIR TRADING ACCOUNTS AND FUNDS, AND ALL TRADING ACTIVITIES ARE CONDUCTED AT THEIR OWN DISCRETION AND RISK.",
@@ -645,54 +523,42 @@
             activeTelegram = teamDirectory[agentKey] || "bangrioboomtrade";
             agentName = tradeParam ? tradeParam.toUpperCase() : "Boom Trade";
 
-            document.querySelectorAll('.wa-link-contact').forEach(btn => {
-                btn.href = `https://t.me/${activeTelegram}`;
-            });
-
+            document.querySelectorAll('.wa-link-contact').forEach(btn => { btn.href = `https://t.me/${activeTelegram}`; });
             const ctMessage = encodeURIComponent("Hello, I would like to ask about joining the Golden Phantom copytrade via website.");
-            document.querySelectorAll('.gp-telegram-contact').forEach(btn => {
-                btn.href = `https://t.me/${activeTelegram}?text=${ctMessage}`;
-            });
+            document.querySelectorAll('.gp-telegram-contact').forEach(btn => { btn.href = `https://t.me/${activeTelegram}?text=${ctMessage}`; });
         }
 
         function applyLanguage() {
             document.getElementById('lang-text').innerText = currentLang === 'en' ? 'ID' : 'EN';
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
-                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+                if (translations[currentLang] && translations[currentLang][key]) el.innerText = translations[currentLang][key];
             });
-            // HAPUS dopamin AGAR TIDAK CRASH
             ['zenith', 'phantom', 'spartan', 'equinox'].forEach(prefix => {
                 const dayEl = document.getElementById(`track-days_${prefix}`);
                 if (dayEl) dayEl.innerText = globalDaysData[prefix] + " " + translations[currentLang].days;
             });
         }
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'id' : 'en';
-            applyLanguage();
-        }
+        function toggleLanguage() { currentLang = currentLang === 'en' ? 'id' : 'en'; applyLanguage(); }
 
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('show');
-            document.body.style.overflow = 'hidden'; 
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-            document.body.style.overflow = 'auto'; 
-        }
+        function openModal(modalId) { document.getElementById(modalId).classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('show'); document.body.style.overflow = 'auto'; }
         window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('show');
-                document.body.style.overflow = 'auto';
-            }
+            if (event.target.classList.contains('modal')) { event.target.classList.remove('show'); document.body.style.overflow = 'auto'; }
         }
 
-        const baselineAgustus = { zenith: 7.58, phantom: 21.62, spartan: 5.92, equinox: 0 };
+        const historyData = {
+            zenith: { aug: 7.58, sep: 24.69 },
+            phantom: { aug: 21.62, sep: 20.56 },
+            spartan: { aug: 5.92, sep: -21.39 },
+            equinox: { aug: 0, sep: -8.44 }
+        };
+
+        const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
         document.addEventListener("DOMContentLoaded", function() {
-            initializeAgent();
-            applyLanguage(); 
+            initializeAgent(); applyLanguage(); 
             
             const firebaseConfig = {
                 apiKey: "AIzaSyDs5OHHuCm-XI9CcKHAqV1hP8VevK4L8Ss",
@@ -711,43 +577,20 @@
                 const canvas = document.getElementById(canvasId);
                 if(!canvas) return null;
                 const ctx = canvas.getContext('2d');
-                
                 let gradientFill = ctx.createLinearGradient(0, 0, 0, 110);
                 gradientFill.addColorStop(0, 'rgba(37, 99, 235, 0.2)'); 
                 gradientFill.addColorStop(1, 'rgba(37, 99, 235, 0.0)'); 
-                
                 return new Chart(ctx, {
                     type: 'line',
-                    data: { 
-                        labels: historyLabels, 
-                        datasets: [{ 
-                            data: curveShape.map(val => val * 0), 
-                            borderColor: '#2563EB', 
-                            backgroundColor: gradientFill, 
-                            borderWidth: 2.5, 
-                            fill: true, 
-                            tension: 0.4, 
-                            pointRadius: 0, 
-                            pointHoverRadius: 0 
-                        }] 
-                    },
-                    options: { 
-                        responsive: true, 
-                        maintainAspectRatio: false, 
-                        interaction: { mode: 'index', intersect: false }, 
-                        plugins: { legend: { display: false }, tooltip: { enabled: false } }, 
-                        scales: { x: { display: false }, y: { display: false } }, 
-                        layout: { padding: { top: 10, bottom: 0 } },
-                        animation: { duration: 1500, easing: 'easeOutQuart' }
-                    }
+                    data: { labels: historyLabels, datasets: [{ data: curveShape.map(val => val * 0), borderColor: '#2563EB', backgroundColor: gradientFill, borderWidth: 2.5, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 0 }] },
+                    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } }, layout: { padding: { top: 10, bottom: 0 } }, animation: { duration: 1500, easing: 'easeOutQuart' } }
                 });
             }
 
-            // HAPUS dopamin AGAR TIDAK CRASH
             const charts = { 
                 zenith: initChart('growthChart_zenith'), 
                 phantom: initChart('growthChart_phantom'), 
-                spartan: initChart('growthChart_spartan'),
+                spartan: initChart('growthChart_spartan'), 
                 equinox: initChart('growthChart_equinox') 
             };
 
@@ -774,10 +617,7 @@
                 if(data.leverage !== undefined && elLeverage) elLeverage.innerText = data.leverage;
                 
                 let elDays = document.getElementById(`track-days_${prefix}`);
-                if(data.days !== undefined && elDays) { 
-                    globalDaysData[prefix] = data.days; 
-                    elDays.innerText = data.days + " " + translations[currentLang].days; 
-                }
+                if(data.days !== undefined && elDays) { globalDaysData[prefix] = data.days; elDays.innerText = data.days + " " + translations[currentLang].days; }
                 
                 let elEquity = document.getElementById(`track-equity_${prefix}`);
                 if(data.equity !== undefined && elEquity) elEquity.innerText = data.equity.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + curr;
@@ -805,57 +645,59 @@
                     barProfit.style.width = (profitPercent > 100 ? 100 : (profitPercent < 0 ? 0 : profitPercent)) + '%';
                 }
 
+                const currentMonthIndex = new Date().getMonth(); 
+                const currentMonthStr = monthNames[currentMonthIndex];
+                let factorPrevMonths = 1;
+
+                for (let i = 0; i < currentMonthIndex; i++) {
+                    let mStr = monthNames[i];
+                    let val = (historyData[prefix] && historyData[prefix][mStr] !== undefined) ? historyData[prefix][mStr] : null;
+                    if (val !== null) {
+                        styleMqlCell(`tb-${mStr}_${prefix}`, val);
+                        factorPrevMonths *= (1 + (val / 100));
+                    }
+                }
+
                 if(data.growth !== undefined) {
-                    let profitAgustus = baselineAgustus[prefix] || 0; 
-                    let factorAug = 1 + (profitAgustus / 100);
+                    let profitYTD = data.growth;
+                    let expectedYTD = (factorPrevMonths - 1) * 100; 
 
-                    let profitSeptember = 0;
-                    let profitYTD = 0;
-                    let chartData = [];
-
-                    if (prefix === 'spartan') {
-                        profitSeptember = data.growth;
-                        let factorSep = 1 + (profitSeptember / 100);
-                        profitYTD = ((factorAug * factorSep) - 1) * 100;
-
-                        if (chartObj) {
-                            let chartArray = data.chart;
-                            if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
-                            if(Array.isArray(chartArray) && chartArray.length > 0) {
-                                chartData = chartArray.map(val => (((factorAug * (1 + (val / 100))) - 1) * 100));
-                                chartData.push(profitYTD);
-                            } else {
-                                chartData = curveShape.map(val => (((factorAug * (1 + ((val * profitSeptember) / 100))) - 1) * 100));
-                            }
-                        }
+                    if (Math.abs(profitYTD - expectedYTD) < 0.05) {
+                        styleMqlCell(`tb-${currentMonthStr}_${prefix}`, null); 
                     } else {
-                        profitYTD = data.growth;
-                        let factorYTD = 1 + (profitYTD / 100);
-                        profitSeptember = ((factorYTD / factorAug) - 1) * 100;
-
-                        if (chartObj) {
-                            let chartArray = data.chart;
-                            if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
-                            if(Array.isArray(chartArray) && chartArray.length > 0) {
-                                chartData = [...chartArray, profitYTD];
-                            } else {
-                                chartData = curveShape.map(val => val * profitYTD);
-                            }
-                        }
+                        let factorCurrent = (1 + (profitYTD / 100)) / factorPrevMonths;
+                        let profitCurrentMonth = (factorCurrent - 1) * 100;
+                        styleMqlCell(`tb-${currentMonthStr}_${prefix}`, profitCurrentMonth);
                     }
 
+                    styleMqlCell(`tb-ytd_${prefix}`, profitYTD, true);
+
+                    const growthEl = document.getElementById(`track-growth_${prefix}`);
+                    if (growthEl) {
+                        growthEl.innerText = profitYTD.toFixed(2) + '%';
+                        growthEl.style.color = profitYTD >= 0 ? 'var(--success)' : 'var(--danger)';
+                    }
+
+                    // --- RENDER GRAFIK KEMBALI KE CARD ---
                     if (chartObj) {
+                        let chartData = [];
+                        let chartArray = data.chart;
+                        if(typeof chartArray === 'string') { try { chartArray = JSON.parse(chartArray); } catch(e) {} }
+                        if(Array.isArray(chartArray) && chartArray.length > 0) {
+                            chartData = [...chartArray, profitYTD];
+                        } else {
+                            chartData = curveShape.map(val => val * profitYTD);
+                        }
+
                         const ctx = chartObj.ctx;
                         let gradient = ctx.createLinearGradient(0, 0, 0, 110);
                         
                         if (profitYTD >= 0) {
                             chartObj.data.datasets[0].borderColor = '#059669'; 
-                            gradient.addColorStop(0, 'rgba(5, 150, 105, 0.2)');
-                            gradient.addColorStop(1, 'rgba(5, 150, 105, 0.0)');
+                            gradient.addColorStop(0, 'rgba(5, 150, 105, 0.2)'); gradient.addColorStop(1, 'rgba(5, 150, 105, 0.0)');
                         } else {
                             chartObj.data.datasets[0].borderColor = '#DC2626'; 
-                            gradient.addColorStop(0, 'rgba(220, 38, 38, 0.2)');
-                            gradient.addColorStop(1, 'rgba(220, 38, 38, 0.0)');
+                            gradient.addColorStop(0, 'rgba(220, 38, 38, 0.2)'); gradient.addColorStop(1, 'rgba(220, 38, 38, 0.0)');
                         }
                         
                         chartObj.data.datasets[0].backgroundColor = gradient;
@@ -869,17 +711,6 @@
 
                         chartObj.update();
                     }
-
-                    // PENGAMAN ANTI-CRASH DITAMBAHKAN DI SINI
-                    const growthEl = document.getElementById(`track-growth_${prefix}`);
-                    if (growthEl) {
-                        growthEl.innerText = profitYTD.toFixed(2) + '%';
-                        growthEl.style.color = profitYTD >= 0 ? 'var(--success)' : 'var(--danger)';
-                    }
-
-                    styleMqlCell(`tb-aug_${prefix}`, baselineAgustus[prefix]); 
-                    styleMqlCell(`tb-sep_${prefix}`, profitSeptember); 
-                    styleMqlCell(`tb-ytd_${prefix}`, profitYTD, true);
                 }
             }
             
@@ -890,11 +721,9 @@
                     updateTrackerData(allData.zenith, 'zenith', charts.zenith);
                     updateTrackerData(allData.phantom, 'phantom', charts.phantom);
                     updateTrackerData(allData.spartan, 'spartan', charts.spartan);
-                    // HAPUS dopamin AGAR TIDAK CRASH
                     if (allData.equinox) { updateTrackerData(allData.equinox, 'equinox', charts.equinox); }
                 }
             });
-
         });
     </script>
 </body>
