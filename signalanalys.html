@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boom Trade Signal | XAUUSD Analysis</title>
+    <meta name="description" content="Boom Trade Indonesia Signal Dashboard. Analisa XAUUSD multi-timeframe dan fundamental berbasis algoritma. Alat analisa, bukan jaminan profit.">
+    <link rel="icon" type="image/png" href="images/boomtrade2.png">
+    <!-- ✏️ NEW: Font Awesome untuk icon Home -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bt-bg-main: #FAF9F6;
+            --bt-bg-card: #FFFFFF;
+            --bt-bg-subtle: #F1F5F9;
+            --bt-primary: #2563EB;
+            --bt-primary-hover: #1D4ED8;
+            --bt-accent: #0284C7;
+            --bt-text: #0F172A;
+            --bt-text-muted: #475569;
+            --bt-text-dim: #94A3B8;
+            --bt-border: #E2E8F0;
+
+            --bt-navy-900: #FAF9F6;
+            --bt-navy-800: #FFFFFF;
+            --bt-navy-700: #F1F5F9;
+            --bt-navy-600: #E2E8F0;
+            --bt-gold: #2563EB;
+            --bt-gold-hover: #1D4ED8;
+            --bt-gold-muted: #0284C7;
+            --bt-gold-dim: rgba(37, 99, 235, 0.1);
+            --bt-gold-border: rgba(37, 99, 235, 0.3);
+        }
+
+        html, body {
+            background: var(--bt-bg-main);
+            color: var(--bt-text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-image: radial-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: var(--bt-bg-card);
+            border: 1px solid var(--bt-border);
+            border-radius: 12px;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+        .card:hover { border-color: var(--bt-primary); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); }
+
+        .badge-strong-buy { background: #ECFDF5; color: #047857; border: 1px solid #10B981; font-weight: 700; }
+        .badge-buy        { background: #F0FDF4; color: #16A34A; border: 1px solid #86EFAC; }
+        .badge-sell       { background: #FEF2F2; color: #DC2626; border: 1px solid #FCA5A5; }
+        .badge-strong-sell{ background: #FEE2E2; color: #B91C1C; border: 1px solid #EF4444; font-weight: 700; }
+        .badge-wait       { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
+
+        .loading { opacity: 0.5; pointer-events: none; }
+        .spinner {
+            border: 3px solid #E2E8F0;
+            border-top: 3px solid #2563EB;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 0.8s linear infinite;
+        }
+        #fetchBtn .spinner { border: 3px solid rgba(255,255,255,0.35); border-top: 3px solid #FFFFFF; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .accuracy-bar { height: 6px; border-radius: 3px; background: #E2E8F0; overflow: hidden; }
+        .accuracy-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+
+        .badge-pre-buy  { background: rgba(37,99,235,0.08); color: #1D4ED8; border: 1px solid rgba(37,99,235,0.3); }
+        .badge-pre-sell { background: rgba(249,115,22,0.08); color: #C2410C; border: 1px solid rgba(249,115,22,0.3); }
+        .badge-pre-wait { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
+
+        .cat-badge {
+            font-size: 8px; padding: 1px 5px; border-radius: 3px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--bt-primary);
+            border: 1px solid rgba(37, 99, 235, 0.25);
+        }
+        .admin-badge {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--bt-primary);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        .admin-badge:hover { background: var(--bt-primary); color: #FFFFFF; }
+
+        /* ✏️ NEW: Home button style */
+        .btn-home {
+            background: #FFFFFF;
+            color: #0F172A;
+            border: 1px solid #E2E8F0;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-home:hover {
+            border-color: #2563EB;
+            color: #2563EB;
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateY(-1px);
+        }
+        .btn-home i { font-size: 0.85rem; }
+
+        /* ✏️ NEW: Link back to home on login overlay */
+        .back-home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64748B;
+            font-size: 11px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .back-home-link:hover { color: #2563EB; }
+        .back-home-link i { font-size: 10px; }
+
+        .bt-risk-banner {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-left: 3px solid #DC2626;
+            color: #991B1B;
+            font-size: 11px;
+            line-height: 1.5;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        .bt-risk-banner strong { color: #7F1D1D; font-weight: 700; }
+
+        .brand-line {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--bt-primary);
+            margin-right: 8px;
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+        }
+
+        .bg-gray-800,
+        .bg-gray-800\/50,
+        .bg-gray-800\/30     { background-color: #F1F5F9 !important; }
+        .bg-gray-900,
+        .bg-gray-900\/40,
+        .bg-gray-900\/50,
+        .bg-gray-900\/60     { background-color: #F8FAFC !important; }
+        .bg-gray-700         { background-color: #E2E8F0 !important; }
+        .hover\:bg-gray-700:hover { background-color: #E2E8F0 !important; }
+        .hover\:bg-gray-800\/30:hover { background-color: #F8FAFC !important; }
+
+        .border-gray-700,
+        .border-gray-800     { border-color: #E2E8F0 !important; }
+
+        .text-gray-300       { color: #475569 !important; }
+        .text-gray-400       { color: #475569 !important; }
+        .text-gray-500       { color: #64748B !important; }
+        .text-gray-600       { color: #94A3B8 !important; }
+
+        .text-green-400, .text-green-300 { color: #059669 !important; }
+        .text-red-400,   .text-red-300   { color: #DC2626 !important; }
+        .text-yellow-400 { color: #D97706 !important; }
+        .text-amber-400  { color: #D97706 !important; }
+        .text-orange-400 { color: #EA580C !important; }
+        .text-cyan-400   { color: #2563EB !important; }
+        .text-blue-400, .text-blue-300, .text-blue-500 { color: #2563EB !important; }
+
+        .bg-red-900\/40   { background-color: #FEE2E2 !important; }
+        .bg-green-900\/40 { background-color: #DCFCE7 !important; }
+
+        .card .text-white { color: #0F172A !important; }
+        #dashboard > header h1 { color: #0F172A !important; }
+
+        #countdownDisplay { border-color: rgba(37,99,235,0.3) !important; color: #2563EB !important; background: #F1F5F9 !important; }
+
+        #fetchBtn { background: #2563EB !important; color: #FFFFFF !important; }
+        #fetchBtn:hover { background: #1D4ED8 !important; }
+
+        #loginLicenseKey {
+            background-color: #FFFFFF !important;
+            border-color: #E2E8F0 !important;
+            color: #0F172A !important;
+        }
+        #loginLicenseKey::placeholder { color: #94A3B8 !important; }
+        #loginLicenseKey:focus {
+            border-color: #2563EB !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
+            outline: none;
+        }
+
+        .filter-btn.bg-blue-600 { background: #2563EB !important; color: #FFFFFF !important; font-weight: 700; }
+        .filter-btn.bg-blue-600:hover { background: #1D4ED8 !important; }
+        button.bg-blue-600 { background: #2563EB !important; color: #FFFFFF !important; font-weight: 700; }
+        .bg-blue-600 { background-color: #2563EB !important; color: #FFFFFF !important; font-weight: 700; }
+        .bg-blue-900\/50, .bg-blue-900 { background-color: rgba(37,99,235,0.1) !important; }
+        .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08) !important; }
+        .border-blue-500\/30 { border-color: rgba(37,99,235,0.3) !important; }
+        .border-blue-500 { border-color: #2563EB !important; }
+
+        .border-cyan-500\/30 { border-color: rgba(37,99,235,0.3) !important; }
+        .bg-cyan-500\/10 { background-color: rgba(37,99,235,0.08) !important; }
+
+        .bg-amber-500\/10 { background-color: rgba(37,99,235,0.1) !important; }
+        .border-amber-500\/40 { border-color: rgba(37,99,235,0.3) !important; }
+
+        #loginOverlay, #adminPanel { background-color: rgba(15, 23, 42, 0.72) !important; }
+        #loginOverlay .card h1 { color: #0F172A !important; }
+        #adminPanel .card h2 { color: #0F172A !important; }
+
+        footer .text-\[10px\] { color: #94A3B8 !important; }
+
+        .shadow-lg { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #F1F5F9; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-6">
+
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay" class="fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm p-4">
+        <div class="card p-8 w-full max-w-md relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full" style="height:3px;background:linear-gradient(90deg, transparent, #2563EB, transparent);"></div>
+
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center mb-3">
+                    <img src="images/boomtrade2.png" alt="Boom Trade" style="height:44px;" onerror="this.style.display='none'">
+                </div>
+                <h1 class="text-xl font-black tracking-tight" style="color:#0F172A;">BOOM TRADE SIGNAL ACCESS</h1>
+                <div class="flex items-center justify-center gap-1.5 mt-1.5">
+                    <span class="brand-line"></span>
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-bold" style="color:#2563EB;">XAUUSD Analysis Terminal</p>
+                    <span class="brand-line"></span>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Login dengan License Key Anda</p>
+                <p class="text-[10px] mt-2" style="color:#2563EB;">⚠️ 1 license = 1 device (Admin dapat memutus sesi)</p>
+            </div>
+
+            <div class="bt-risk-banner mb-4">
+                <strong>⚠️ Catatan:</strong> Analisa ini adalah alat bantu, bukan jaminan profit. Trading memiliki risiko kehilangan modal.
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wider font-semibold">🔑 License Key</label>
+                <input id="loginLicenseKey" type="text" placeholder="Masukkan License Key Anda..."
+                    class="w-full border rounded-lg px-4 py-3 text-sm transition"
+                    autocomplete="off">
+            </div>
+            <button onclick="doLogin()"
+                class="w-full font-bold px-5 py-3 rounded-lg transition flex items-center justify-center gap-2"
+                style="background:#2563EB;color:#FFFFFF;">
+                <span>Masuk</span><span>→</span>
+            </button>
+            <p id="loginError" class="text-xs mt-3 text-center min-h-[16px]" style="color:#DC2626;"></p>
+
+            <!-- ✏️ NEW: Back to Home link -->
+            <div class="text-center mt-4">
+                <a href="index.html" class="back-home-link">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Website Utama
+                </a>
+            </div>
+
+            <p class="text-[9px] text-center mt-3 leading-relaxed" style="color:#94A3B8;">
+                © 2026 Boom Trade Indonesia · Technology Provider (SaaS)<br>
+                Bukan nasihat keuangan · Past performance does not guarantee future results
+            </p>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="max-w-7xl mx-auto hidden">
+        <header class="mb-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight" style="color:#0F172A;">
+                        <span style="color:#2563EB;">Boom Trade Signal</span> - XAUUSD
+                        <span class="text-[10px] px-2 py-0.5 rounded font-mono" style="background:rgba(37,99,235,0.1);color:#2563EB;border:1px solid rgba(37,99,235,0.3);">v1.7</span>
+                    </h1>
+                    <p class="text-sm text-gray-500 mt-1">
+                        © BOOM TRADE INDONESIA
+                        <span id="licenseDisplay" class="text-[10px] px-2 py-0.5 rounded font-mono ml-1" style="background:rgba(37,99,235,0.1);color:#2563EB;border:1px solid rgba(37,99,235,0.2);"></span>
+                    </p>
+                    <p class="text-sm text-gray-500 mt-1">M5 Scalping · M15 Intraday · H4 Swing · Fundamental</p>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <div id="countdownDisplay" class="text-xs font-mono px-3 py-2 rounded-lg border" style="background:#F1F5F9;color:#2563EB;border-color:rgba(37,99,235,0.3);">Auto-refresh: 15:00</div>
+                    <button id="adminBtn" onclick="openAdminPanel()" style="display:none"
+                        class="admin-badge text-xs font-semibold px-3 py-2 rounded-lg transition">🔧 Admin</button>
+                    <!-- ✏️ NEW: Home button -->
+                    <a href="index.html" class="btn-home" title="Kembali ke halaman utama">
+                        <i class="fas fa-house"></i> Home
+                    </a>
+                    <button id="fetchBtn" onclick="loadSignals()"
+                        class="font-bold px-5 py-2 rounded-lg text-sm transition flex items-center gap-2"
+                        style="background:#2563EB;color:#FFFFFF;">
+                        <span id="btnText">Refresh Sekarang</span>
+                        <span id="btnSpinner" class="spinner hidden"></span>
+                    </button>
+                    <button onclick="logout()"
+                        class="bg-red-600/80 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition">
+                        ⎋ Keluar
+                    </button>
+                </div>
+            </div>
+            <div class="mt-3 flex flex-wrap items-center gap-4 text-xs text-gray-500">
+                <span id="statusMsg" style="color:#2563EB;"></span>
+            </div>
+        </header>
+
+        <div class="bt-risk-banner">
+            <strong>⚠️ RISK WARNING:</strong> Sinyal dan analisa ini adalah alat bantu teknis (SaaS), bukan rekomendasi investasi. Kinerja masa lalu tidak menjamin hasil masa depan. Trading leveraged produk seperti XAUUSD dan Forex mengandung risiko tinggi kehilangan modal. Gunakan hanya dengan modal yang siap Anda kehilangan.
+        </div>
+
+        <div class="mb-4 flex flex-wrap items-center gap-2">
+            <span class="text-xs text-gray-500 uppercase tracking-wider">Filter:</span>
+            <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-600 text-white">Semua</button>
+            <button onclick="setFilter('scalping')" id="filter-scalping" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700">Scalping</button>
+            <button onclick="setFilter('intraday')" id="filter-intraday" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700">Intraday</button>
+            <button onclick="setFilter('swing')" id="filter-swing" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700">Swing</button>
+            <button onclick="setFilter('fundamental')" id="filter-fundamental" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700">Fundamental</button>
+        </div>
+
+        <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-6"></div>
+        <div id="fundamentalSection" class="w-full mt-6 hidden"></div>
+        <div id="emptyState" class="text-center py-20 text-gray-500 hidden">
+            <p class="text-lg mb-2">👋 Tidak ada data yang cocok dengan filter.</p>
+        </div>
+
+        <footer class="mt-8 text-xs text-gray-600 text-center max-w-3xl mx-auto space-y-2">
+            <p class="leading-relaxed">
+                ⚠️ <strong class="text-gray-500">DISCLAIMER:</strong> Sinyal ini adalah alat bantu teknis (SaaS) dari Boom Trade Indonesia. Bukan nasihat keuangan, bukan manajemen portofolio, dan tidak menjamin profit. Kinerja masa lalu tidak mengindikasikan hasil masa depan.
+            </p>
+            <p class="text-[10px] leading-relaxed uppercase tracking-wider" style="color:#94A3B8;">
+                Trading foreign exchange and CFDs on margin carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results. You may lose some or all of your invested capital.
+            </p>
+            <p>© 2026 Boom Trade Indonesia. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminPanel" class="fixed inset-0 z-50 hidden items-start justify-center backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="card p-6 w-full max-w-5xl my-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full" style="height:3px;background:linear-gradient(90deg, transparent, #2563EB, transparent);"></div>
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h2 class="text-xl font-bold" style="color:#0F172A;">🔧 Admin Panel · Boom Trade</h2>
+                    <p class="text-xs text-gray-500 mt-1">Pantau, putuskan, atau aktifkan kembali sesi pengguna</p>
+                </div>
+                <button onclick="closeAdminPanel()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
+            </div>
+            <div class="bg-gray-50 rounded overflow-hidden border border-gray-200">
+                <table class="w-full text-xs">
+                    <thead class="bg-gray-100 text-gray-600">
+                        <tr>
+                            <th class="text-left p-2">License</th>
+                            <th class="text-left p-2">Fingerprint Device</th>
+                            <th class="text-left p-2">Waktu Login</th>
+                            <th class="text-center p-2">Status / Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="licenseTableBody" class="text-gray-700">
+                        <tr><td colspan="4" class="text-center p-4">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIREBASE SDK & APP LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBehNAnLmLSmq_L7kZ3TLVvxMJ7P37c0n0",
+            authDomain: "profesional-analys.firebaseapp.com",
+            projectId: "profesional-analys",
+            storageBucket: "profesional-analys.firebasestorage.app",
+            messagingSenderId: "672481603276",
+            appId: "1:672481603276:web:fec2039253fd1806759c69",
+            measurementId: "G-TPH19HTXDH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const ENCODED_API_KEY = "NzRmMWJlNjRiYjMwNDY5NjllODM4ODI5MzkyM2ZiMzQ=";
+        const SHARED_API_KEY = atob(ENCODED_API_KEY);
+        const ENCODED_ADMIN_PASS = "Qm9vbVRyYWRlMjAyNiE=";
+
+        let licenseKey = '';
+        let isAdmin = false;
+        let deviceFingerprint = '';
+        let apiKey = SHARED_API_KEY;
+        let currentFilter = 'all';
+        let allResults = {};
+        let fundamentalResult = null;
+
+        const REFRESH_INTERVAL = 15 * 60 * 1000;
+        let refreshCountdown = REFRESH_INTERVAL;
+        let countdownInterval = null;
+        let nextEventTimerInterval = null;
+        let isFetching = false;
+
+        const PIP_SIZE = 0.1;
+        const PIP_CONFIG = {
+            scalping: { sl: 30,  tp1: 30,  tp2: 60,  tp3: 100 },
+            intraday: { sl: 100, tp1: 60,  tp2: 120, tp3: 200 },
+            swing:    { sl: 200, tp1: 200, tp2: 400, tp3: 600 },
+        };
+        const PULLBACK_CONFIG = {
+            scalping: { lookback: 20, emaPeriod: 21, fibMin: 0.500, fibMax: 0.618 },
+            intraday: { lookback: 30, emaPeriod: 30, fibMin: 0.500, fibMax: 0.618 },
+            swing:    { lookback: 50, emaPeriod: 50, fibMin: 0.500, fibMax: 0.618 },
+        };
+        const TIMEFRAMES = [
+            { interval: '5min',  label: 'M5',  type: 'scalping', outputsize: 200, minCandles: 20 },
+            { interval: '15min', label: 'M15', type: 'intraday', outputsize: 200, minCandles: 30 },
+            { interval: '4h',    label: 'H4',  type: 'swing',    outputsize: 200, minCandles: 50 },
+        ];
+        const US_COUNTRY_CODES = new Set(['US', 'USD', 'USA', 'UNITED STATES', 'UNITED_STATES', 'UNITEDSTATES', 'AMERICA']);
+        const CALENDAR_API = 'https://biquote.io/api/calendar';
+        let calendarCache = { data: null, timestamp: 0, endpoint: null };
+        const CALENDAR_CACHE_TTL = 5 * 60 * 1000;
+
+        async function computeFingerprint() {
+            const parts = [
+                screen.width + 'x' + screen.height + 'x' + (screen.colorDepth || 24),
+                screen.availWidth + 'x' + screen.availHeight,
+                Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
+                navigator.platform || 'unknown',
+                String(navigator.hardwareConcurrency || 0),
+                window.devicePixelRatio ? window.devicePixelRatio.toFixed(2) : '1',
+            ];
+            const raw = parts.join('|');
+            try {
+                const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+                return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+            } catch (e) {
+                return 'fb' + Math.random().toString(36).substring(2, 15);
+            }
+        }
+
+        window.doLogin = async function() {
+            const input = document.getElementById('loginLicenseKey');
+            const errEl = document.getElementById('loginError');
+            const licenseValue = input.value.trim();
+
+            if (!licenseValue) { errEl.textContent = '⚠️ License key tidak boleh kosong.'; return; }
+            errEl.textContent = '⏳ Menghubungi database...';
+            deviceFingerprint = await computeFingerprint();
+
+            if (licenseValue.toLowerCase() === 'admin') {
+                const inputPass = prompt("🔒 KEAMANAN ADMIN\n\nSilakan masukkan Password Admin:");
+                if (inputPass) {
+                    const cleanPass = inputPass.trim();
+                    const realAdminPass = atob(ENCODED_ADMIN_PASS);
+                    if (cleanPass === realAdminPass) {
+                        licenseKey = 'admin';
+                        isAdmin = true;
+                        localStorage.setItem('active_session_key', 'admin');
+                        errEl.textContent = '';
+                        showDashboard();
+                        loadSignals();
+                        startAutoRefresh();
+                    } else {
+                        errEl.textContent = '❌ Password Admin salah. Akses ditolak.';
+                        input.value = '';
+                    }
+                }
+                return;
+            }
+
+            try {
+                const docRef = doc(db, "licenses", licenseValue);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.status === 'revoked') { errEl.textContent = '❌ Sesi Anda telah diputus oleh Admin.'; return; }
+                    if (data.fingerprint && data.fingerprint !== deviceFingerprint) { errEl.textContent = `❌ License sudah dipakai di device lain.`; return; }
+                    if (!data.fingerprint) { await setDoc(docRef, { fingerprint: deviceFingerprint, loginAt: Date.now() }, { merge: true }); }
+                } else {
+                    errEl.textContent = '❌ License key tidak valid atau tidak terdaftar.';
+                    return;
+                }
+
+                licenseKey = licenseValue;
+                isAdmin = false;
+                localStorage.setItem('active_session_key', licenseKey);
+                localStorage.setItem('active_session_fp', deviceFingerprint);
+                errEl.textContent = '';
+                showDashboard();
+                loadSignals();
+                startAutoRefresh();
+            } catch (e) {
+                console.error(e);
+                errEl.textContent = '⚠️ Gagal terhubung ke database.';
+            }
+        }
+
+        window.logout = function() {
+            if (!confirm('Keluar dari aplikasi?')) return;
+            localStorage.removeItem('active_session_key');
+            localStorage.removeItem('active_session_fp');
+            location.reload();
+        }
+
+        async function checkRevokeStatus() {
+            if (isAdmin) return true;
+            try {
+                const docSnap = await getDoc(doc(db, "licenses", licenseKey));
+                if (docSnap.exists() && docSnap.data().status === 'revoked') {
+                    alert("Sesi Anda diputus oleh Admin!");
+                    localStorage.removeItem('active_session_key');
+                    location.reload();
+                    return false;
+                }
+            } catch(e) {}
+            return true;
+        }
+
+        window.openAdminPanel = function() {
+            if (!isAdmin) return;
+            document.getElementById('adminPanel').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('flex');
+            loadAdminData();
+        }
+        window.closeAdminPanel = function() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('flex');
+        }
+
+        async function loadAdminData() {
+            const tbody = document.getElementById('licenseTableBody');
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4">Memuat data...</td></tr>';
+            try {
+                const querySnapshot = await getDocs(collection(db, "licenses"));
+                let html = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const lic = doc.id;
+                    const isRevoked = data.status === 'revoked';
+                    const statusBadge = isRevoked
+                        ? '<span class="text-[10px] px-2 py-0.5 rounded bg-red-900/40 text-red-300">REVOKED</span>'
+                        : '<span class="text-[10px] px-2 py-0.5 rounded bg-green-900/40 text-green-300">ACTIVE</span>';
+                    const actionBtn = isRevoked
+                        ? `<button onclick="toggleLicenseStatus('${lic}', 'revoked')" class="ml-2 bg-green-600 text-white px-2 py-1 rounded text-[10px] hover:bg-green-700">Aktifkan</button>`
+                        : `<button onclick="toggleLicenseStatus('${lic}', 'active')" class="ml-2 bg-red-600 text-white px-2 py-1 rounded text-[10px] hover:bg-red-700">Putuskan</button>`;
+                    const loginTime = data.loginAt ? new Date(data.loginAt).toLocaleString('id-ID') : '-';
+                    html += `<tr class="border-t border-gray-200 hover:bg-gray-50">
+                        <td class="p-2 font-mono">${lic}</td>
+                        <td class="p-2 font-mono text-[10px]">${data.fingerprint || '-'}</td>
+                        <td class="p-2">${loginTime}</td>
+                        <td class="p-2 text-center">${statusBadge}${actionBtn}</td>
+                    </tr>`;
+                });
+                tbody.innerHTML = html || '<tr><td colspan="4" class="text-center p-4">Belum ada data license.</td></tr>';
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-red-400">Gagal memuat data.</td></tr>';
+            }
+        }
+
+        window.toggleLicenseStatus = async function(lic, currentStatus) {
+            const newStatus = currentStatus === 'active' ? 'revoked' : 'active';
+            const actionText = newStatus === 'revoked' ? 'Putuskan' : 'Aktifkan Kembali';
+            if (!confirm(`Yakin ingin ${actionText} sesi untuk license ${lic}?`)) return;
+            try {
+                const docRef = doc(db, "licenses", lic);
+                await setDoc(docRef, { status: newStatus }, { merge: true });
+                alert(`✅ Sesi berhasil di-${actionText.toLowerCase()}.`);
+                loadAdminData();
+            } catch (e) {
+                alert(`❌ Gagal memproses.`);
+            }
+        }
+
+        window.showDashboard = function() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+            document.getElementById('loginOverlay').classList.remove('flex');
+            document.getElementById('dashboard').classList.remove('hidden');
+            const licEl = document.getElementById('licenseDisplay');
+            if (licEl) licEl.textContent = licenseKey ? `🔑 ${licenseKey}${isAdmin ? ' ⚡' : ''}` : '';
+            document.getElementById('adminBtn').style.display = isAdmin ? 'inline-block' : 'none';
+        }
+
+        // ==================== ANALISA ====================
+        function num(v, fallback = 0) { const n = Number(v); return Number.isFinite(n) ? n : fallback; }
+        function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+
+        function parseEventDate(raw) {
+            if (raw === null || raw === undefined) return null;
+            if (typeof raw === 'number' || /^\d+$/.test(String(raw))) { let n = Number(raw); if (n < 10000000000) n *= 1000; const d = new Date(n); return isNaN(d.getTime()) ? null : d; }
+            const s = String(raw).trim(); if (!s) return null;
+            let d = new Date(s); if (!isNaN(d.getTime())) return d;
+            d = new Date(s.replace(' ', 'T')); if (!isNaN(d.getTime())) return d;
+            const m = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})\s+(\d{1,2}):(\d{2})/);
+            if (m) { d = new Date(Number(m[3]), Number(m[2])-1, Number(m[1]), Number(m[4]), Number(m[5])); if (!isNaN(d.getTime())) return d; }
+            return null;
+        }
+        async function fetchWithTimeout(url, timeoutMs) {
+            const c = new AbortController(); const t = setTimeout(() => c.abort(), timeoutMs);
+            try { const r = await fetch(url, { signal: c.signal }); clearTimeout(t); return r; } catch (e) { clearTimeout(t); throw e; }
+        }
+
+        async function fetchEconomicCalendar() {
+            const now = Date.now();
+            if (calendarCache.data && (now - calendarCache.timestamp) < CALENDAR_CACHE_TTL) return calendarCache.data;
+            const url = `${CALENDAR_API}?countries=US&importance=high&limit=1000`;
+            try {
+                const res = await fetchWithTimeout(url, 20000);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                if (!Array.isArray(data)) throw new Error('Bukan array');
+                calendarCache = { data, timestamp: Date.now(), endpoint: 'filtered-api' };
+                return data;
+            } catch (e) { return []; }
+        }
+
+        function computeEMA(values, period) {
+            const r = new Array(values.length).fill(null);
+            if (values.length < period) return r;
+            let sum = 0; for (let i = 0; i < period; i++) sum += values[i];
+            let prev = sum / period; r[period-1] = prev;
+            const mult = 2 / (period + 1);
+            for (let i = period; i < values.length; i++) { prev = ((values[i]-prev)*mult)+prev; r[i] = prev; }
+            return r;
+        }
+        function computeRSI(v, p = 14) {
+            const r = new Array(v.length).fill(null);
+            if (v.length <= p) return r;
+            let g = 0, l = 0;
+            for (let i = 1; i <= p; i++) { const c = v[i]-v[i-1]; if (c >= 0) g += c; else l += Math.abs(c); }
+            let ag = g/p, al = l/p;
+            r[p] = al === 0 ? 100 : 100 - (100/(1+(ag/al)));
+            for (let i = p+1; i < v.length; i++) {
+                const c = v[i]-v[i-1];
+                ag = ((ag*(p-1))+(c>0?c:0))/p;
+                al = ((al*(p-1))+(c<0?Math.abs(c):0))/p;
+                r[i] = al === 0 ? 100 : 100 - (100/(1+(ag/al)));
+            }
+            return r;
+        }
+        function computeATR(c, p = 14) {
+            const r = new Array(c.length).fill(null);
+            if (c.length <= p) return r;
+            const tr = new Array(c.length).fill(null);
+            for (let i = 0; i < c.length; i++) {
+                if (i === 0) { tr[i] = c[i].high - c[i].low; continue; }
+                tr[i] = Math.max(c[i].high-c[i].low, Math.abs(c[i].high-c[i-1].close), Math.abs(c[i].low-c[i-1].close));
+            }
+            let sum = 0; for (let i = 1; i <= p; i++) sum += tr[i];
+            let atr = sum/p; r[p] = atr;
+            for (let i = p+1; i < c.length; i++) { atr = ((atr*(p-1))+tr[i])/p; r[i] = atr; }
+            return r;
+        }
+        function computeMACD(v, fast = 12, slow = 26, sigP = 9) {
+            const fE = computeEMA(v, fast), sE = computeEMA(v, slow);
+            const m = new Array(v.length).fill(null);
+            const comp = [];
+            for (let i = 0; i < v.length; i++) { if (fE[i] !== null && sE[i] !== null) { m[i] = fE[i]-sE[i]; comp.push(m[i]); } }
+            const sc = computeEMA(comp, sigP);
+            const sl = new Array(v.length).fill(null);
+            let ci = 0;
+            for (let i = 0; i < v.length; i++) { if (m[i] !== null) { if (sc[ci] !== null) sl[i] = sc[ci]; ci++; } }
+            return { macd: m, signal: sl };
+        }
+
+        function computeEntryLevels(price, dir, mode, candles, emaValue) {
+            const cfg = PULLBACK_CONFIG[mode];
+            const pipsCfg = PIP_CONFIG[mode];
+            if (!cfg || !pipsCfg || (!dir.includes('BUY') && !dir.includes('SELL'))) return { entry: null, stopLoss: null, tp1: null, tp2: null, tp3: null, pips: pipsCfg };
+            const recent = candles.slice(-cfg.lookback);
+            const swingHigh = Math.max(...recent.map(c => c.high));
+            const swingLow = Math.min(...recent.map(c => c.low));
+            const range = swingHigh - swingLow;
+            let zoneMin, zoneMax;
+            if (dir.includes('BUY')) { zoneMin = swingHigh - range*cfg.fibMax; zoneMax = swingHigh - range*cfg.fibMin; }
+            else { zoneMin = swingLow + range*cfg.fibMin; zoneMax = swingLow + range*cfg.fibMax; }
+            const emaInZone = emaValue && emaValue >= zoneMin && emaValue <= zoneMax;
+            const entry = emaInZone ? emaValue : (zoneMin + zoneMax)/2;
+            const sl = pipsCfg.sl*PIP_SIZE, t1 = pipsCfg.tp1*PIP_SIZE, t2 = pipsCfg.tp2*PIP_SIZE, t3 = pipsCfg.tp3*PIP_SIZE;
+            let stopLoss, tp1, tp2, tp3;
+            if (dir.includes('BUY')) { stopLoss = entry-sl; tp1 = entry+t1; tp2 = entry+t2; tp3 = entry+t3; }
+            else { stopLoss = entry+sl; tp1 = entry-t1; tp2 = entry-t2; tp3 = entry-t3; }
+            return { entry, stopLoss, tp1, tp2, tp3, pips: pipsCfg, zoneMin, zoneMax, zoneDisplay: `${zoneMin.toFixed(2)} - ${zoneMax.toFixed(2)}` };
+        }
+
+        function analyzeCandles(candles, mode) {
+            const closes = candles.map(c => c.close);
+            const price = closes[closes.length-1];
+            const last = closes.length-1;
+
+            if (mode === 'swing') {
+                const ema20 = computeEMA(closes, Math.min(20, closes.length-1));
+                const ema50 = computeEMA(closes, Math.min(50, closes.length-1));
+                const e20 = ema20[last] || price, e50 = ema50[last] || price;
+                const rsi = computeRSI(closes, 14)[last] || 50;
+                const macd = computeMACD(closes, 12, 26, 9);
+                const mVal = macd.macd[last] || 0, sVal = macd.signal[last] || 0;
+                let conc = 0;
+                if (price > e20) conc++; if (e20 > e50) conc++; if (mVal > sVal) conc++; if (rsi >= 55 || rsi <= 45) conc++;
+                const acc = clamp(Math.round(50 + conc*10.5), 50, 95);
+                let sig = 'WAIT';
+                if (conc >= 3 && price > e20) sig = 'STRONG BUY';
+                else if (conc >= 2 && price > e20) sig = 'BUY';
+                else if (conc >= 3 && price < e20) sig = 'STRONG SELL';
+                else if (conc >= 2 && price < e20) sig = 'SELL';
+                const lv = computeEntryLevels(price, sig, 'swing', candles, e50);
+                return { mode: 'SWING', price, signal: sig, score: acc, candle_count: candles.length, levels: { entry: lv.entry, stop_loss: lv.stopLoss, tp1: lv.tp1, tp2: lv.tp2, tp3: lv.tp3, pips: lv.pips } };
+            }
+            if (mode === 'intraday') {
+                const ema10 = computeEMA(closes, Math.min(10, closes.length-1));
+                const ema30 = computeEMA(closes, Math.min(30, closes.length-1));
+                const e10 = ema10[last] || price, e30 = ema30[last] || price;
+                const rsi = computeRSI(closes, 14)[last] || 50;
+                const macd = computeMACD(closes, 12, 26, 9);
+                const mVal = macd.macd[last] || 0, sVal = macd.signal[last] || 0;
+                let conc = 0;
+                if (price > e10) conc++; if (e10 > e30) conc++; if (mVal > sVal) conc++; if (rsi >= 52 || rsi <= 48) conc++;
+                const acc = clamp(Math.round(52 + conc*10), 50, 94);
+                let sig = 'WAIT';
+                if (conc >= 3 && price > e10) sig = 'STRONG BUY';
+                else if (conc >= 2 && price > e10) sig = 'BUY';
+                else if (conc >= 3 && price < e10) sig = 'STRONG SELL';
+                else if (conc >= 2 && price < e10) sig = 'SELL';
+                const lv = computeEntryLevels(price, sig, 'intraday', candles, e30);
+                return { mode: 'INTRADAY', price, signal: sig, score: acc, candle_count: candles.length, levels: { entry: lv.entry, stop_loss: lv.stopLoss, tp1: lv.tp1, tp2: lv.tp2, tp3: lv.tp3, pips: lv.pips } };
+            }
+            const ema9 = computeEMA(closes, Math.min(9, closes.length-1));
+            const ema21 = computeEMA(closes, Math.min(21, closes.length-1));
+            const e9 = ema9[last] || price, e21 = ema21[last] || price;
+            const rsi = computeRSI(closes, 14)[last] || 50;
+            const macd = computeMACD(closes, 12, 26, 9);
+            const mVal = macd.macd[last] || 0, sVal = macd.signal[last] || 0;
+            let conc = 0;
+            if (price > e9) conc++; if (e9 > e21) conc++; if (mVal > sVal) conc++; if (rsi >= 53 || rsi <= 47) conc++;
+            const acc = clamp(Math.round(52 + conc*10), 50, 94);
+            let sig = 'WAIT';
+            if (conc >= 3 && price > e9) sig = 'STRONG BUY';
+            else if (conc >= 2 && price > e9) sig = 'BUY';
+            else if (conc >= 3 && price < e9) sig = 'STRONG SELL';
+            else if (conc >= 2 && price < e9) sig = 'SELL';
+            const lv = computeEntryLevels(price, sig, 'scalping', candles, e21);
+            return { mode: 'SCALPING', price, signal: sig, score: acc, candle_count: candles.length, levels: { entry: lv.entry, stop_loss: lv.stopLoss, tp1: lv.tp1, tp2: lv.tp2, tp3: lv.tp3, pips: lv.pips } };
+        }
+
+        function isUSEvent(e) { const c = String(e.countryCode || e.country || '').toUpperCase().trim(); return US_COUNTRY_CODES.has(c); }
+        function isHighImpact(e) { const imp = String(e.importance || e.impact || '').toLowerCase().trim(); return imp === 'high' || imp === '3' || imp === 'red'; }
+        function isTargetFundamentalNews(name) { return true; }
+
+        function getCategory(name) {
+            const t = (name || '').toLowerCase();
+            if (t.includes('non-farm') || t.includes('nonfarm') || t.includes('nfp')) return 'NFP';
+            if (t.includes('cpi') || t.includes('consumer price')) return 'CPI';
+            if (t.includes('ppi') || t.includes('producer price')) return 'PPI';
+            if (t.includes('fomc') || t.includes('federal funds') || t.includes('fed funds')) return 'FOMC';
+            return 'Economic Data';
+        }
+        function classifyPre(title, forecast, previous) {
+            if (forecast == null || previous == null) return 'NEUTRAL';
+            const f = parseFloat(String(forecast).replace('%','').replace('K','000').replace('M','000000'));
+            const p = parseFloat(String(previous).replace('%','').replace('K','000').replace('M','000000'));
+            if (isNaN(f) || isNaN(p)) return 'NEUTRAL';
+            const t = title.toLowerCase();
+            if (t.includes('unemployment')) { if (f > p) return 'BUY'; if (f < p) return 'SELL'; }
+            else if (t.includes('cpi') || t.includes('ppi') || t.includes('consumer price') || t.includes('producer price')) { if (f > p) return 'SELL'; if (f < p) return 'BUY'; }
+            else if (t.includes('non-farm') || t.includes('nonfarm') || t.includes('nfp')) { if (f > p) return 'SELL'; if (f < p) return 'BUY'; }
+            else if (t.includes('rate decision') || t.includes('interest rate') || t.includes('fomc') || t.includes('federal funds') || t.includes('fed funds')) { if (f > p) return 'SELL'; if (f < p) return 'BUY'; }
+            if (f > p) return 'SELL';
+            if (f < p) return 'BUY';
+            return 'NEUTRAL';
+        }
+        function classifyRel(title, actual, forecast) {
+            if (actual == null || forecast == null) return 'NEUTRAL';
+            const a = parseFloat(String(actual).replace('%','').replace('K','000').replace('M','000000'));
+            const f = parseFloat(String(forecast).replace('%','').replace('K','000').replace('M','000000'));
+            if (isNaN(a) || isNaN(f)) return 'NEUTRAL';
+            const t = title.toLowerCase();
+            if (t.includes('cpi') || t.includes('ppi') || t.includes('consumer price') || t.includes('producer price')) { if (a > f) return 'SELL'; if (a < f) return 'BUY'; }
+            else if (t.includes('non-farm') || t.includes('nonfarm') || t.includes('nfp')) { if (a > f) return 'SELL'; if (a < f) return 'BUY'; }
+            else if (t.includes('rate decision') || t.includes('interest rate') || t.includes('fomc') || t.includes('federal funds') || t.includes('fed funds')) { if (a > f) return 'SELL'; if (a < f) return 'BUY'; }
+            if (a > f) return 'SELL';
+            if (a < f) return 'BUY';
+            return 'NEUTRAL';
+        }
+
+        function analyzeFundamental(events, currentPrice, atrValue) {
+            const now = new Date();
+            const debug = { total: events.length, usCount: 0, usHigh: 0, matched: 0, endpoint: calendarCache.endpoint, allUSHigh: [], sampleTimes: [] };
+            events.slice(0,5).forEach(e => debug.sampleTimes.push({ raw: e.time, parsed: parseEventDate(e.time)?.toISOString() || 'INVALID' }));
+            const usOnly = events.filter(isUSEvent); debug.usCount = usOnly.length;
+            const usHigh = usOnly.filter(isHighImpact); debug.usHigh = usHigh.length;
+            const usHighSorted = usHigh.slice().sort((a,b) => (parseEventDate(a.time)?.getTime()||0)-(parseEventDate(b.time)?.getTime()||0));
+            debug.allUSHigh = usHighSorted.slice(0,25).map(e => ({ name: e.name, time: e.time, parsedTime: parseEventDate(e.time)?.toISOString() || 'INVALID', forecast: e.forecast, previous: e.previous, actual: e.actual }));
+            const matched = usHigh.filter(e => isTargetFundamentalNews(e.name || '')); debug.matched = matched.length;
+
+            const upcoming = [], released = [];
+            for (const e of matched) {
+                const evDate = parseEventDate(e.time); if (!evDate) continue;
+                const item = {
+                    title: e.name || 'Event', impact: 'High',
+                    forecast: e.forecast != null && String(e.forecast).trim() !== '' ? String(e.forecast) : '-',
+                    previous: e.previous != null && String(e.previous).trim() !== '' ? String(e.previous) : '-',
+                    actual: e.actual != null && String(e.actual).trim() !== '' ? String(e.actual) : null,
+                    date: evDate, rawTime: e.time,
+                    timeStr: evDate.toLocaleString('id-ID', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }) + ' WIB',
+                    category: getCategory(e.name || ''),
+                };
+                if (evDate > now) upcoming.push(item);
+                else if (e.actual != null && String(e.actual).trim() !== '') released.push(item);
+            }
+            upcoming.sort((a,b) => a.date - b.date);
+            released.sort((a,b) => b.date - a.date);
+            debug.upcomingTotal = upcoming.length;
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth()+1, 0, 23, 59, 59, 999);
+            let upcomingThisMonth = upcoming.filter(u => u.date <= endOfMonth);
+            debug.upcomingThisMonth = upcomingThisMonth.length;
+            let usedFallback = false;
+            if (upcomingThisMonth.length === 0 && upcoming.length > 0) { upcomingThisMonth = upcoming; usedFallback = true; }
+
+            let buyScore = 0, sellScore = 0; const signals = [];
+            for (const r of released.slice(0,10)) {
+                const sent = classifyRel(r.title, r.actual, r.forecast);
+                if (sent === 'BUY') { buyScore += 2; signals.push({ ...r, sent: 'BUY' }); }
+                else if (sent === 'SELL') { sellScore += 2; signals.push({ ...r, sent: 'SELL' }); }
+                else signals.push({ ...r, sent: 'NEUTRAL' });
+            }
+            let fundamentalSignal = 'WAIT', confidence = 0;
+            if (buyScore > sellScore && buyScore >= 2) { fundamentalSignal = 'BUY'; confidence = Math.min(95, 50+buyScore*10); }
+            else if (sellScore > buyScore && sellScore >= 2) { fundamentalSignal = 'SELL'; confidence = Math.min(95, 50+sellScore*10); }
+
+            let preBuy = 0, preSell = 0; const upcomingWithPred = [];
+            for (const u of upcomingThisMonth) {
+                const hasF = u.forecast !== '-', hasP = u.previous !== '-';
+                const canAnalyze = hasF && hasP && !isNaN(parseFloat(String(u.forecast).replace('%','').replace('K','000'))) && !isNaN(parseFloat(String(u.previous).replace('%','').replace('K','000')));
+                const sent = canAnalyze ? classifyPre(u.title, u.forecast, u.previous) : 'NEUTRAL';
+                const enriched = { ...u, preSent: sent, canAnalyze };
+                upcomingWithPred.push(enriched);
+                if (sent === 'BUY') preBuy += 2; else if (sent === 'SELL') preSell += 2;
+            }
+            let preSignal = 'WAIT', preConf = 0;
+            if (preBuy > preSell && preBuy >= 2) { preSignal = 'BUY'; preConf = Math.min(95, 50+preBuy*10); }
+            else if (preSell > preBuy && preSell >= 2) { preSignal = 'SELL'; preConf = Math.min(95, 50+preSell*10); }
+
+            let effSignal = fundamentalSignal, effConf = confidence, entrySource = 'released';
+            if (fundamentalSignal === 'WAIT' && preSignal !== 'WAIT') { effSignal = preSignal; effConf = preConf; entrySource = 'pre-release'; }
+            else if (fundamentalSignal !== 'WAIT' && preSignal === fundamentalSignal) { effConf = Math.min(95, confidence+10); entrySource = 'confirmed'; }
+            else if (fundamentalSignal !== 'WAIT' && preSignal !== 'WAIT' && fundamentalSignal !== preSignal) { entrySource = 'released (conflict)'; }
+
+            let entry = null, sl = null, tp1 = null, tp2 = null;
+            if (effSignal !== 'WAIT' && currentPrice && atrValue) {
+                const buf = atrValue*1.5;
+                entry = effSignal === 'BUY' ? currentPrice - buf*0.5 : currentPrice + buf*0.5;
+                sl = effSignal === 'BUY' ? entry - buf : entry + buf;
+                tp1 = effSignal === 'BUY' ? entry + buf*1.5 : entry - buf*1.5;
+                tp2 = effSignal === 'BUY' ? entry + buf*2.5 : entry - buf*2.5;
+            }
+            return { mode: 'FUNDAMENTAL', signal: fundamentalSignal, confidence, buyScore, sellScore, released: signals.slice(0,5), allReleasedCount: released.length, preSignal, preConfidence: preConf, preBuyScore: preBuy, preSellScore: preSell, upcoming: upcomingWithPred, allUpcomingCount: upcomingThisMonth.length, effectiveSignal: effSignal, effectiveConfidence: effConf, entrySource, levels: { entry, stop_loss: sl, tp1, tp2 }, debug, usedFallback };
+        }
+
+        window.loadSignals = async function(fromAutoRefresh = false) {
+            if (!apiKey) { document.getElementById('statusMsg').textContent = '⚠️ API key belum diset.'; return; }
+            if (!(await checkRevokeStatus())) return;
+
+            if (isFetching) return;
+            isFetching = true; resetCountdown(); setLoading(true);
+            if (nextEventTimerInterval) clearInterval(nextEventTimerInterval);
+            document.getElementById('statusMsg').textContent = fromAutoRefresh ? '🔄 Auto-refresh Boom Trade Signal...' : 'Mengambil sinyal Boom Trade...';
+            allResults = {}; fundamentalResult = null;
+
+            let m5Candles = null, m5Atr = null;
+            for (const tf of TIMEFRAMES) {
+                try {
+                    document.getElementById('statusMsg').textContent = `Mengambil ${tf.label}...`;
+                    const url = `https://api.twelvedata.com/time_series?symbol=XAU/USD&interval=${tf.interval}&outputsize=${tf.outputsize}&apikey=${apiKey}`;
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const json = await res.json();
+                    if (json.status === 'error') throw new Error(json.message || 'API error');
+                    if (!json.values || json.values.length === 0) throw new Error('Tidak ada data.');
+
+                    const candles = json.values.slice().reverse().map(v => ({
+                        time: new Date(v.datetime).getTime(),
+                        open: num(v.open), high: num(v.high), low: num(v.low), close: num(v.close), volume: num(v.volume),
+                    }));
+
+                    if (candles.length < tf.minCandles) throw new Error(`Candle ${tf.label} kurang.`);
+                    const analysis = analyzeCandles(candles, tf.type);
+                    allResults[tf.interval] = { tf, analysis, timestamp: new Date(candles[candles.length-1].time).toISOString() };
+                    if (tf.type === 'scalping') { m5Candles = candles; const atrArr = computeATR(candles, 14); m5Atr = atrArr[atrArr.length-1]; }
+                } catch (err) { allResults[tf.interval] = { tf, error: err.message }; }
+                await new Promise(r => setTimeout(r, 300));
+            }
+            document.getElementById('statusMsg').textContent = 'Mengambil kalender ekonomi...';
+            try {
+                const events = await fetchEconomicCalendar();
+                const price = m5Candles ? m5Candles[m5Candles.length-1].close : null;
+                fundamentalResult = analyzeFundamental(events, price, m5Atr);
+            } catch (err) { fundamentalResult = { mode: 'FUNDAMENTAL', error: err.message }; }
+            isFetching = false; setLoading(false);
+
+            if (fundamentalResult && fundamentalResult.error) document.getElementById('statusMsg').textContent = `⚠️ Fundamental gagal: ${fundamentalResult.error.slice(0, 80)}`;
+            else document.getElementById('statusMsg').textContent = `✅ Analisa Sukses · ${licenseKey}`;
+            renderResults();
+        }
+
+        function setLoading(isLoading) {
+            const btn = document.getElementById('fetchBtn'), spinner = document.getElementById('btnSpinner'), btnText = document.getElementById('btnText');
+            if (isLoading) { btn.classList.add('loading'); spinner.classList.remove('hidden'); btnText.textContent = 'Memuat...'; }
+            else { btn.classList.remove('loading'); spinner.classList.add('hidden'); btnText.textContent = 'Refresh Sekarang'; }
+        }
+
+        function getBadgeClass(sig) {
+            switch (sig) {
+                case 'STRONG BUY': return 'badge-strong-buy';
+                case 'BUY': return 'badge-buy';
+                case 'STRONG SELL': return 'badge-strong-sell';
+                case 'SELL': return 'badge-sell';
+                default: return 'badge-wait';
+            }
+        }
+        function getPreBadge(sig) {
+            switch (sig) { case 'BUY': return 'badge-pre-buy'; case 'SELL': return 'badge-pre-sell'; default: return 'badge-pre-wait'; }
+        }
+
+        function startNextEventCountdown(targetDateStr) {
+            if (nextEventTimerInterval) clearInterval(nextEventTimerInterval);
+            const el = document.getElementById('nextEventCountdown');
+            if (!el) return;
+            const targetTime = new Date(targetDateStr).getTime();
+
+            function update() {
+                const now = Date.now();
+                const diff = targetTime - now;
+                if (diff <= 0) {
+                    el.textContent = "Rilis";
+                    el.style.color = '#DC2626';
+                    el.style.borderColor = 'rgba(220, 38, 38, 0.3)';
+                    el.style.background = 'rgba(220, 38, 38, 0.08)';
+                    clearInterval(nextEventTimerInterval);
+                    return;
+                }
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                let str = "";
+                if (days > 0) str += `${days}d `;
+                str += `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                el.textContent = str;
+            }
+            update();
+            nextEventTimerInterval = setInterval(update, 1000);
+        }
+
+        window.setFilter = function(type) { currentFilter = type; updateFilterUI(); renderResults(); }
+        function updateFilterUI() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-800', 'text-gray-300');
+            });
+            const active = document.getElementById(`filter-${currentFilter}`);
+            if (active) { active.classList.remove('bg-gray-800', 'text-gray-300'); active.classList.add('bg-blue-600', 'text-white'); }
+        }
+
+        function renderResults() {
+            const grid = document.getElementById('resultsGrid');
+            const fundSection = document.getElementById('fundamentalSection');
+            const empty = document.getElementById('emptyState');
+
+            grid.innerHTML = '';
+            fundSection.innerHTML = '';
+
+            const showFund = (currentFilter === 'all' || currentFilter === 'fundamental');
+            const showTech = (currentFilter === 'all' || currentFilter === 'scalping' || currentFilter === 'intraday' || currentFilter === 'swing');
+
+            let hasTech = false;
+            let hasFund = false;
+
+            if (showTech) {
+                const entries = Object.values(allResults).filter(r => currentFilter === 'all' || r.tf.type === currentFilter);
+                if (entries.length > 0) {
+                    hasTech = true;
+                    grid.classList.remove('hidden');
+                    entries.forEach(r => {
+                        const card = document.createElement('div'); card.className = 'card p-4';
+                        if (r.error) {
+                            card.innerHTML = `<div class="flex justify-between mb-2"><span class="font-bold text-white">${r.tf.label}</span><span class="badge-wait text-xs px-2 py-0.5 rounded">Error</span></div><p class="text-xs text-red-400">${r.error}</p>`;
+                            grid.appendChild(card);
+                            return;
+                        }
+                        const a = r.analysis, L = a.levels, P = L.pips || {};
+                        const badge = getBadgeClass(a.signal);
+                        const typeLabel = { scalping: 'Scalping', intraday: 'Intraday', swing: 'Swing' }[r.tf.type];
+                        const accVal = a.score;
+                        const accColor = accVal >= 80 ? 'text-emerald-600' : accVal >= 70 ? 'text-amber-600' : 'text-orange-600';
+                        const barColor = accVal >= 80 ? 'bg-emerald-500' : accVal >= 70 ? 'bg-amber-500' : 'bg-orange-500';
+
+                        let levelsHTML = '';
+                        if (L.stop_loss !== null) {
+                            const risk = Math.abs(L.entry - L.stop_loss);
+                            const rr = risk > 0 ? (Math.abs(L.tp1-L.entry)/risk).toFixed(2) : '-';
+                            levelsHTML = `<div class="mt-2 bg-gray-50 rounded-lg p-2.5 border border-gray-200">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] uppercase text-gray-500 font-semibold">📍 Setup Trade</span>
+                                    <div class="flex gap-2"><span class="text-[10px] font-mono text-amber-600">Risk $${risk.toFixed(2)}</span><span class="text-[10px] font-mono text-blue-500">RR 1:${rr}</span></div>
+                                </div>
+                                <div class="space-y-1.5 text-xs">
+                                    <div class="flex justify-between items-center bg-blue-500/10 border-l-2 border-blue-500 rounded px-2 py-1.5"><span class="text-gray-500 text-[10px] uppercase">Entry</span><span class="font-mono text-blue-700 font-bold text-sm">${L.entry.toFixed(2)}</span></div>
+                                    <div class="flex justify-between bg-red-500/10 border-l-2 border-red-500 rounded px-2 py-1.5"><span class="text-gray-500 text-[10px] uppercase">SL (${P.sl}p)</span><span class="font-mono text-red-600 font-bold text-sm">${L.stop_loss.toFixed(2)}</span></div>
+                                    <div class="grid grid-cols-3 gap-1">
+                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1.5 py-1.5"><span class="text-gray-500 text-[9px] block">TP1 (${P.tp1}p)</span><span class="font-mono text-emerald-600 text-xs font-bold">${L.tp1.toFixed(2)}</span></div>
+                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1.5 py-1.5"><span class="text-gray-500 text-[9px] block">TP2 (${P.tp2}p)</span><span class="font-mono text-emerald-600 text-xs font-bold">${L.tp2.toFixed(2)}</span></div>
+                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1.5 py-1.5"><span class="text-gray-500 text-[9px] block">TP3 (${P.tp3}p)</span><span class="font-mono text-emerald-600 text-xs font-bold">${L.tp3.toFixed(2)}</span></div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        } else {
+                            levelsHTML = `<div class="mt-2 bg-gray-50 rounded-lg p-3 border border-dashed border-gray-300"><p class="text-[11px] text-gray-500 text-center">WAIT · Tidak ada setup valid</p></div>`;
+                        }
+
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start mb-2">
+                                <div><span class="font-bold text-white text-lg">${r.tf.label}</span><span class="text-[10px] text-gray-500 ml-1 uppercase">${typeLabel}</span></div>
+                                <div class="flex flex-col items-end gap-1"><span class="${badge} text-xs font-bold px-2.5 py-1 rounded-md">${a.signal}</span><span class="text-[11px] font-mono font-bold ${accColor}">Akurasi: ${accVal}%</span></div>
+                            </div>
+                            <div class="flex justify-between bg-gray-100 rounded px-2 py-1.5 mb-2"><span class="text-[10px] text-gray-500 uppercase">Harga Saat Ini</span><span class="font-mono text-gray-900 font-bold">${a.price.toFixed(2)}</span></div>
+                            <div class="mb-3"><div class="accuracy-bar"><div class="accuracy-fill ${barColor}" style="width: ${accVal}%"></div></div></div>
+                            ${levelsHTML}`;
+                        grid.appendChild(card);
+                    });
+                } else {
+                    grid.classList.add('hidden');
+                }
+            } else {
+                grid.classList.add('hidden');
+            }
+
+            if (showFund && fundamentalResult) {
+                hasFund = true;
+                fundSection.classList.remove('hidden');
+
+                const f = fundamentalResult;
+                const card = document.createElement('div');
+                card.className = 'card p-4 md:p-6';
+
+                let nextEvent = null;
+
+                if (f.error) {
+                    card.innerHTML = `<div class="flex justify-between mb-2"><span class="font-bold text-white text-lg">📰 Fundamental</span><span class="badge-wait text-xs px-2 py-0.5 rounded">Error</span></div><p class="text-xs text-red-400 mb-2">${f.error}</p>`;
+                } else {
+                    const direction = f.effectiveSignal || 'WAIT';
+                    const directionColor = direction.includes('BUY') ? 'text-emerald-600' : direction.includes('SELL') ? 'text-red-600' : 'text-gray-500';
+                    nextEvent = f.upcoming && f.upcoming.length > 0 ? f.upcoming[0] : null;
+
+                    const formatDateShort = (dateObj) => {
+                        const d = new Date(dateObj);
+                        return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }).toUpperCase();
+                    };
+
+                    const getUsdBias = (goldSent) => {
+                        if (goldSent === 'BUY') return { text: 'Bearish USD', color: 'text-red-600', bg: 'bg-red-100', border: 'border-red-200' };
+                        if (goldSent === 'SELL') return { text: 'Bullish USD', color: 'text-emerald-600', bg: 'bg-emerald-100', border: 'border-emerald-200' };
+                        return { text: 'Neutral USD', color: 'text-gray-500', bg: 'bg-gray-100', border: 'border-gray-200' };
+                    };
+
+                    let directionHTML = `
+                        <div class="rounded-xl p-4 relative overflow-hidden h-full flex flex-col justify-center"
+                             style="border:1px solid rgba(37,99,235,0.3); background:linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);">
+                            <div class="absolute top-0 left-0 w-full" style="height:3px;background:linear-gradient(90deg, #93C5FD, #2563EB, #93C5FD);"></div>
+                            <div class="flex items-center gap-1 mb-2">
+                                <span style="color:#2563EB;" class="text-xs">⭐</span>
+                                <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#2563EB;">Boom Trade Priority Signal</span>
+                            </div>
+                            <div class="text-sm font-bold text-white mb-2">XAUUSD Direction Today</div>
+                            <div class="text-3xl font-black ${directionColor} mb-1">${direction}</div>
+                            <div class="text-[10px] text-gray-500 font-mono">H1 Find Continuation ${direction.includes('BUY') ? 'Buy' : direction.includes('SELL') ? 'Sell' : 'Wait'}</div>
+                        </div>
+                    `;
+
+                    let nextEventHTML = '';
+                    if (nextEvent) {
+                        const usdBias = getUsdBias(nextEvent.preSent);
+                        const goldSignalText = nextEvent.preSent === 'BUY' ? 'Buy' : nextEvent.preSent === 'SELL' ? 'Sell' : 'Wait';
+                        const goldSignalColor = nextEvent.preSent === 'BUY' ? 'text-emerald-600' : nextEvent.preSent === 'SELL' ? 'text-red-600' : 'text-gray-500';
+
+                        nextEventHTML = `
+                            <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg h-full flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">next high-impact event</span>
+                                        <span id="nextEventCountdown" class="text-[10px] font-mono px-2 py-0.5 rounded-full" style="color:#2563EB;border:1px solid rgba(37,99,235,0.3);background:rgba(37,99,235,0.08);">Loading...</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-1 leading-tight">${nextEvent.title}</h3>
+                                    <p class="text-[11px] text-gray-500 mb-3">${nextEvent.timeStr}</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-gray-50 rounded-lg p-2 border border-gray-200">
+                                        <div class="text-[9px] text-gray-500 uppercase tracking-wider mb-1">AI Bias</div>
+                                        <div class="text-sm font-bold ${usdBias.color}">${usdBias.text}</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-2 border border-gray-200">
+                                        <div class="text-[9px] text-gray-500 uppercase tracking-wider mb-1">XAUUSD Signal</div>
+                                        <div class="text-sm font-bold ${goldSignalColor}">${goldSignalText}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    let upcomingHTML = `
+                        <div class="text-xs text-gray-500 font-semibold mb-3 mt-4">Upcoming economic events</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    `;
+
+                    const eventsToShow = f.upcoming ? f.upcoming.slice(0, 4) : [];
+
+                    if (eventsToShow.length === 0) {
+                        upcomingHTML += `<div class="text-center text-xs text-gray-500 py-4 col-span-full">Tidak ada news dalam waktu dekat.</div>`;
+                    } else {
+                        for (const ev of eventsToShow) {
+                            const usdBias = getUsdBias(ev.preSent);
+                            const goldSignalText = ev.preSent === 'BUY' ? 'Buy' : ev.preSent === 'SELL' ? 'Sell' : 'Wait';
+                            const goldSignalColor = ev.preSent === 'BUY' ? 'text-emerald-600 border-emerald-300 bg-emerald-50' : ev.preSent === 'SELL' ? 'text-red-600 border-red-300 bg-red-50' : 'text-gray-500 border-gray-300 bg-gray-50';
+                            const borderLeft = ev.preSent === 'BUY' ? 'border-l-4 border-emerald-500' : ev.preSent === 'SELL' ? 'border-l-4 border-red-500' : 'border-l-4 border-gray-400';
+
+                            upcomingHTML += `
+                                <div class="bg-white ${borderLeft} rounded-r-lg p-3 border-y border-r border-gray-200 flex gap-3 items-center">
+                                    <div class="flex flex-col items-center justify-center min-w-[40px]">
+                                        <span class="text-lg font-bold text-white leading-none">${formatDateShort(ev.date).split(' ')[0]}</span>
+                                        <span class="text-[9px] text-gray-500 uppercase font-semibold">${formatDateShort(ev.date).split(' ')[1]}</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-sm font-bold text-white mb-0.5">${ev.title}</div>
+                                        <div class="text-[10px] text-gray-500 mb-2">${ev.category ? ev.category : 'Economic Data'}</div>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="text-[9px] font-bold px-2 py-0.5 rounded ${usdBias.bg} ${usdBias.color} border ${usdBias.border}">${ev.preSent === 'BUY' ? '▼' : '▲'} ${usdBias.text}</span>
+                                            <span class="text-[9px] font-bold px-2 py-0.5 rounded border ${goldSignalColor}">XAUUSD ${goldSignalText}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                    upcomingHTML += `</div>`;
+
+                    const debugInfo = `
+                        <details class="mt-4 border-t border-gray-200 pt-2">
+                            <summary class="text-[9px] text-gray-500 cursor-pointer hover:text-gray-700 text-center">Lihat Detail Data & Diagnostik</summary>
+                            <div class="mt-2 text-[9px] font-mono text-gray-500 bg-gray-50 p-2 rounded border border-gray-200 text-center">
+                                Total:${f.debug.total||0} · US:${f.debug.usCount||0} · High:${f.debug.usHigh||0} · Match:${f.debug.matched||0} · Upcoming:${f.debug.upcomingThisMonth||0}
+                            </div>
+                        </details>
+                    `;
+
+                    card.innerHTML = `
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-2">
+                            ${directionHTML}
+                            ${nextEventHTML}
+                        </div>
+                        ${upcomingHTML}
+                        ${debugInfo}
+                    `;
+                }
+                fundSection.appendChild(card);
+
+                if (nextEvent) startNextEventCountdown(nextEvent.date);
+                else if (nextEventTimerInterval) clearInterval(nextEventTimerInterval);
+            } else {
+                fundSection.classList.add('hidden');
+                if (nextEventTimerInterval) clearInterval(nextEventTimerInterval);
+            }
+
+            if (!hasTech && !hasFund) empty.classList.remove('hidden');
+            else empty.classList.add('hidden');
+        }
+
+        function startAutoRefresh() {
+            if (countdownInterval) clearInterval(countdownInterval);
+            refreshCountdown = REFRESH_INTERVAL;
+            updateCountdownDisplay();
+            countdownInterval = setInterval(() => {
+                refreshCountdown -= 1000;
+                if (refreshCountdown <= 0) { refreshCountdown = REFRESH_INTERVAL; updateCountdownDisplay(); if (apiKey) window.loadSignals(true); }
+                else updateCountdownDisplay();
+            }, 1000);
+        }
+        function resetCountdown() { refreshCountdown = REFRESH_INTERVAL; updateCountdownDisplay(); }
+        function updateCountdownDisplay() {
+            const el = document.getElementById('countdownDisplay');
+            if (!el) return;
+            const mins = Math.floor(refreshCountdown / 60000);
+            const secs = Math.floor((refreshCountdown % 60000) / 1000);
+            el.textContent = `Auto-refresh: ${mins}:${String(secs).padStart(2, '0')}`;
+        }
+
+        async function initApp() {
+            document.getElementById('loginLicenseKey').addEventListener('keydown', (e) => { if (e.key === 'Enter') window.doLogin(); });
+            updateFilterUI();
+
+            const sessionKey = localStorage.getItem('active_session_key');
+            const sessionFp = localStorage.getItem('active_session_fp');
+
+            if (!sessionKey) {
+                document.getElementById('loginOverlay').classList.remove('hidden');
+                document.getElementById('loginOverlay').classList.add('flex');
+                return;
+            }
+
+            if (sessionKey === 'admin') {
+                licenseKey = 'admin';
+                isAdmin = true;
+                window.showDashboard();
+                window.loadSignals();
+                startAutoRefresh();
+                return;
+            }
+
+            deviceFingerprint = await computeFingerprint();
+            if (sessionFp !== deviceFingerprint) {
+                localStorage.clear();
+                location.reload();
+                return;
+            }
+
+            try {
+                const docSnap = await getDoc(doc(db, "licenses", sessionKey));
+                if (docSnap.exists() && docSnap.data().status === 'active') {
+                    licenseKey = sessionKey;
+                    window.showDashboard();
+                    window.loadSignals();
+                    startAutoRefresh();
+                } else {
+                    localStorage.clear();
+                    location.reload();
+                }
+            } catch (e) {
+                document.getElementById('loginOverlay').classList.remove('hidden');
+                document.getElementById('loginOverlay').classList.add('flex');
+            }
+        }
+
+        initApp();
+    </script>
+</body>
+</html>
