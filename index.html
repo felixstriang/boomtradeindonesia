@@ -4,21 +4,16 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Meta Title (Judul Pencarian Google Bilingual) -->
     <title>BOOM TRADE INDONESIA | Best Expert Advisor</title> 
 
-    <!-- Meta Description (Deskripsi di Google - Gabungan EN & ID) -->
     <meta name="description" content="Boom Trade Indonesia provides institutional-grade MT5 Expert Advisors (EA), automated trading robots, and Premium Copytrade services. Solusi robot trading XAUUSD dan Forex otomatis terbaik tanpa emosi.">
     
-    <!-- Meta Keywords (KATA KUNCI BAHASA INGGRIS & INDONESIA) -->
     <meta name="keywords" content="forex trading robot, best MT5 expert advisor, gold trading robot, EA XAUUSD terbaik, robot trading forex, algorithmic trading systems, automated forex copytrade, copytrade forex otomatis, Boom Trade Indonesia, robot forex anti MC, best MT5 EA, gold scalper EA, hedge EA, robot trading profit konsisten, auto trading MT5">
     
-    <!-- Meta Author -->
     <meta name="author" content="Boom Trade Indonesia">
 
     <meta name="google-site-verification" content="UdXtn7fesX2PU1F1DC98NNOe_Po_ctucKZFOeYPbK3g" />
 
-    <!-- Open Graph Meta Tags (Agar tampilan bagus saat link di-share di WhatsApp, Facebook, Telegram) -->
     <meta property="og:title" content="Boom Trade Indonesia | Algorithmic Trading Systems">
     <meta property="og:description" content="Best MT5 Expert Advisors and automated trading robots for Forex and Gold. Solusi trading otomatis 24/7 tanpa emosi.">
     <meta property="og:image" content="images/boomtrade2.png">
@@ -29,7 +24,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. GLOBAL SETTINGS: LIGHT BONE WHITE THEME --- */ 
         :root {
             --bg-main: #FAF9F6;        
             --bg-card: #FFFFFF;        
@@ -46,7 +40,6 @@
             --danger: #DC2626;   
             --border: #E2E8F0;         
 
-            /* Tema Biru Navy (Khusus Header) */
             --bg-nav: #0A192F;
             --text-nav: #F8FAFC;
             --text-nav-muted: #94A3B8;
@@ -69,7 +62,6 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* --- 2. HEADER & NAVIGATION --- */
         header {
             background-color: rgba(10, 25, 47, 0.98); 
             padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
@@ -88,12 +80,12 @@
         }
         .lang-switch:hover { background: rgba(56, 189, 248, 0.1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); color: #FFF;}
         
+        /* Semua menu item identik — tidak ada styling khusus Signal Access */
         nav ul { display: flex; gap: 35px; align-items: center; }
         nav ul li a { color: var(--text-nav-muted); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         nav ul li a:hover { color: var(--accent-top); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent-top); }
 
-        /* --- 3. PROFESSIONAL STOREFRONT HERO --- */
         .hero {
             padding: 180px 5% 100px; text-align: center;
             background-color: var(--bg-main); 
@@ -118,41 +110,23 @@
         .stat-box h4 { font-size: 2rem; color: var(--primary); font-weight: 800; }
         .stat-box span { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: block; margin-top: 5px;}
 
-        /* --- 4. ABOUT US SECTION --- */
-        .about-section {
-            padding: 100px 5%; background: var(--bg-card); border-bottom: 1px solid var(--border);
-        }
-        .about-container { 
-            max-width: 1200px; margin: 0 auto; 
-            display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; 
-        }
+        .about-section { padding: 100px 5%; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+        .about-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
         .about-text { text-align: left; }
         .about-text h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px; letter-spacing: -0.5px;}
         .about-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
-        .about-img-wrapper img { 
-            width: 100%; border-radius: 12px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
-            border: 1px solid var(--border);
-            object-fit: cover;
-        }
+        .about-img-wrapper img { width: 100%; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid var(--border); object-fit: cover; }
 
-        /* --- 5. PROMO SECTION --- */
         .promo-section { padding: 100px 5%; background: var(--bg-main); border-bottom: 1px solid var(--border); margin-bottom: 40px;}
         .promo-container { max-width: 1200px; margin: 0 auto; text-align: center; }
         .promo-header h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 15px; letter-spacing: -0.5px;}
         .promo-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 30px; line-height: 1.8; }
         
         .promo-disclaimer-box {
-            background: rgba(37, 99, 235, 0.05);
-            border-left: 4px solid var(--primary);
-            padding: 15px 20px;
-            border-radius: 6px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 850px;
-            margin: 0 auto 50px;
-            text-align: left;
-            line-height: 1.6;
+            background: rgba(37, 99, 235, 0.05); border-left: 4px solid var(--primary);
+            padding: 15px 20px; border-radius: 6px; color: var(--text-muted);
+            font-size: 0.95rem; max-width: 850px; margin: 0 auto 50px;
+            text-align: left; line-height: 1.6;
         }
 
         .promo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
@@ -162,18 +136,11 @@
         .promo-card h3 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 700; }
         .promo-card p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
 
-        /* --- 6. CATALOG CARDS (STATIC GRID) --- */
         .catalog-section { padding: 80px 0 40px; background: var(--bg-section); }
         .catalog-title { text-align: center; margin-bottom: 4rem; font-size: 2.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px;}
         .container { width: 95%; max-width: 1400px; margin: auto; padding-bottom: 0; }
 
-        .catalog-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-            padding: 20px 0; 
-            width: 100%; 
-        }
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 20px 0; width: 100%; }
 
         .cluster-card {
             background: var(--bg-card); border-radius: 12px; padding: 35px; 
@@ -198,18 +165,13 @@
         .btn-view-text { background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 5px;}
         .btn-view-text:hover { color: var(--primary-hover); transform: translateX(3px); }
 
-        /* --- COPYTRADE SECTION --- */
         .copytrade-wrapper { display: flex; justify-content: center; margin-top: 30px; padding-bottom: 80px; width: 100%; box-sizing: border-box;}
-        
-        .copytrade-card {
-            width: 100%; max-width: 750px; flex-direction: row; align-items: center; gap: 30px; box-sizing: border-box;
-        }
+        .copytrade-card { width: 100%; max-width: 750px; flex-direction: row; align-items: center; gap: 30px; box-sizing: border-box; }
         .copytrade-card .card-logo { width: 80px; height: 80px; margin: 0; }
         .copytrade-card-content { flex-grow: 1; }
         .copytrade-card-title { display: flex; gap: 15px; align-items: center; margin-bottom: 8px; }
         .copytrade-card-title h3 { margin: 0; }
 
-        /* --- 7. MODAL (DETAILED PRODUCT PAGE STYLE) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.7); z-index: 2000;
@@ -234,7 +196,6 @@
         }
         .close-btn:hover { color: var(--danger); background: #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-        /* Bagian Kiri Modal */
         .modal-left { padding: 45px; background: var(--bg-card); }
         .modal-left h2 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; line-height: 1.2; letter-spacing: -0.5px;}
         .modal-subtitle { font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px;}
@@ -244,7 +205,6 @@
         .feature-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 500;}
         .feature-list li i { color: var(--success); margin-top: 4px; font-size: 1.1rem;}
 
-        /* Bagian Kanan Modal */
         .modal-right { background: var(--bg-section); border-left: 1px solid var(--border); padding: 45px; display: flex; flex-direction: column; }
         .price-tag { font-size: 3rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; letter-spacing: -1px;}
         .price-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid var(--border); }
@@ -259,129 +219,41 @@
         .btn-signal-live { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dark); padding: 15px; text-align: center; border-radius: 8px; font-weight: 600; font-size: 1rem; transition: 0.3s; width: 100%; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
         .btn-signal-live:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* --- TESTIMONIAL SECTION --- */
-        .testimonial-section { 
-            padding: 80px 5%; 
-            background: var(--bg-main); 
-            border-bottom: 1px solid var(--border); 
-            text-align: center; 
-        }
-        .testimonial-title { 
-            font-size: 2.5rem; 
-            font-weight: 800; 
-            color: var(--text-dark); 
-            margin-bottom: 50px; 
-            letter-spacing: -0.5px; 
-        }
-        .testimonial-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        .testimonial-card { 
-            background: var(--bg-card); 
-            padding: 35px 30px; 
-            border-radius: 12px; 
-            border: 1px solid var(--border); 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03); 
-            text-align: left; 
-            position: relative;
-            transition: 0.3s;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
-            border-color: var(--primary);
-        }
-        .quote-icon { 
-            color: rgba(37, 99, 235, 0.15); 
-            font-size: 2.5rem; 
-            margin-bottom: 20px; 
-            display: block;
-        }
-        .testimonial-card p { 
-            font-size: 1rem; 
-            color: var(--text-muted); 
-            font-style: italic; 
-            margin-bottom: 25px; 
-            line-height: 1.7; 
-        }
-        .testimonial-client { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-        }
-        .testimonial-avatar { 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            background: var(--primary); 
-            color: #FFF; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: 700; 
-            font-size: 1.2rem; 
-        }
-        .testimonial-info h4 { 
-            font-size: 1.05rem; 
-            color: var(--text-dark); 
-            margin: 0 0 3px 0; 
-        }
-        .testimonial-info span { 
-            font-size: 0.85rem; 
-            color: var(--accent); 
-            font-weight: 600; 
-        }
+        .testimonial-section { padding: 80px 5%; background: var(--bg-main); border-bottom: 1px solid var(--border); text-align: center; }
+        .testimonial-title { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 50px; letter-spacing: -0.5px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .testimonial-card { background: var(--bg-card); padding: 35px 30px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.03); text-align: left; position: relative; transition: 0.3s; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: var(--primary); }
+        .quote-icon { color: rgba(37, 99, 235, 0.15); font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .testimonial-card p { font-size: 1rem; color: var(--text-muted); font-style: italic; margin-bottom: 25px; line-height: 1.7; }
+        .testimonial-client { display: flex; align-items: center; gap: 15px; border-top: 1px solid var(--border); padding-top: 20px; }
+        .testimonial-avatar { width: 45px; height: 45px; border-radius: 50%; background: var(--primary); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .testimonial-info h4 { font-size: 1.05rem; color: var(--text-dark); margin: 0 0 3px 0; }
+        .testimonial-info span { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
 
-        /* --- 8. PROFESSIONAL FOOTER --- */
         .footer-professional {
-            background-color: var(--bg-nav); 
-            color: var(--text-nav-muted); 
-            padding: 60px 0 30px;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 0; 
+            background-color: var(--bg-nav); color: var(--text-nav-muted); 
+            padding: 60px 0 30px; font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0; 
         }
         .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr; 
-            gap: 40px; margin-bottom: 50px;
-            text-align: left; 
-        }
-        
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 50px; text-align: left; }
         .footer-logo { color: #FFFFFF; font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -0.5px; }
         .footer-desc { line-height: 1.8; margin-bottom: 20px; font-size: 0.95rem; word-wrap: break-word;}
-        
         .social-links { display: flex; gap: 12px; }
-        .social-links a {
-            display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
-            border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); color: var(--text-nav-muted); font-size: 1rem; transition: 0.3s;
-        }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); color: var(--text-nav-muted); font-size: 1rem; transition: 0.3s; }
         .social-links a:hover { border-color: var(--accent-top); color: #FFFFFF; background: rgba(56, 189, 248, 0.1); }
-        
         .footer-heading { color: #FFFFFF; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
         .mt-20 { margin-top: 30px; }
         .footer-links { list-style: none; padding: 0; margin: 0; }
         .footer-links li { margin-bottom: 12px; }
         .footer-links a { color: var(--text-nav-muted); text-decoration: none; transition: 0.3s; font-size: 0.9rem; word-wrap: break-word;}
         .footer-links a:hover { color: var(--accent-top); }
-
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; text-align: center; }
         .footer-disclaimers { margin-bottom: 30px; }
-        .footer-disclaimers p {
-            font-size: 0.65rem; line-height: 1.8; color: #64748B; margin-bottom: 15px;
-            text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto;
-            text-transform: uppercase;
-        }
+        .footer-disclaimers p { font-size: 0.65rem; line-height: 1.8; color: #64748B; margin-bottom: 15px; text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto; text-transform: uppercase; }
         .footer-copy { font-size: 0.8rem; color: #64748B; }
 
-        /* --- MOBILE RESPONSIVENESS FIXES --- */
         @media (max-width: 768px) {
             .hero { padding: 120px 5% 60px; }
             .hero h1 { font-size: 2.2rem; }
@@ -394,13 +266,11 @@
             .promo-header h2 { font-size: 1.8rem; }
             .promo-disclaimer-box { font-size: 0.85rem; text-align: left; padding: 15px; box-sizing: border-box; width: 100%;}
             
-            /* Copytrade Card Mobile Fix */
             .copytrade-card { flex-direction: column; text-align: center; padding: 30px 20px; gap: 15px; width: 100%; box-sizing: border-box;}
             .copytrade-card .card-logo { margin: 0 auto; }
             .copytrade-card-title { flex-direction: column; gap: 5px; justify-content: center; }
             .copytrade-card .btn-view-text { justify-content: center; margin-top: 10px; width: 100%; }
 
-            /* Modal Mobile Fix */
             .modal-content { grid-template-columns: 1fr; padding: 0; width: 100%; overflow-x: hidden; border-radius: 12px;}
             .modal-left { padding: 30px 20px; }
             .modal-right { padding: 30px 20px; border-left: none; border-top: 1px solid var(--border); }
@@ -432,6 +302,8 @@
             <ul id="nav-list">
                 <li><a href="#home" data-key="nav_home">Home</a></li>
                 <li><a href="#products" data-key="nav_products">Algorithms</a></li>
+                <!-- Signal Access: 100% PLAIN — identik dengan menu lain -->
+                <li><a href="signalanalys.html" data-key="nav_signal">Signal Access</a></li>
                 <li><a href="signal.html" data-key="nav_result">Performance</a></li>
                 <li><a href="#" class="wa-link-contact" target="_blank" data-key="nav_contact">Contact</a></li>
             </ul>
@@ -570,7 +442,6 @@
                     </div>
                 </div>
 
-                <!-- NEW EQUINOX CARD -->
                 <div class="cluster-card" onclick="openModal('modal-equinox')">
                     <div class="card-header">
                         <img src="images/equinox.jpg" alt="Equinox Logo" class="card-logo">
@@ -588,7 +459,6 @@
                     </div>
                 </div>
                 
-                <!-- FAST COPIER CARD -->
                 <div class="cluster-card" onclick="openModal('modal-fastcopier')">
                     <div class="card-header">
                         <img src="images/fastcopier.jpg" alt="Fast Copier Logo" class="card-logo">
@@ -632,7 +502,6 @@
         <h2 class="testimonial-title" data-key="testi_title">What Our Clients Say</h2>
         <div class="testimonial-grid">
             
-            <!-- Testimonial 1 -->
             <div class="testimonial-card">
                 <i class="fas fa-quote-left quote-icon"></i>
                 <p data-key="testi_1_quote">"So far following Golden Phantom, as long as Gold has no brakes, it's very safe and satisfying. Drawdown is almost non-existent. Hopefully it lasts as a reliable source of income."</p>
@@ -645,7 +514,6 @@
                 </div>
             </div>
 
-            <!-- Testimonial 2 -->
             <div class="testimonial-card">
                 <i class="fas fa-quote-left quote-icon"></i>
                 <p data-key="testi_2_quote">"So far so good, drawdown is well managed and profit is consistent. Hoping this becomes a long-term passive income source.. Keep up the great work! 💪🏼"</p>
@@ -658,7 +526,6 @@
                 </div>
             </div>
 
-            <!-- Testimonial 3 -->
             <div class="testimonial-card">
                 <i class="fas fa-quote-left quote-icon"></i>
                 <p data-key="testi_3_quote">"Awesome EA! It really helped recover my account, thank you so much."</p>
@@ -671,7 +538,6 @@
                 </div>
             </div>
 
-            <!-- Testimonial 4 -->
             <div class="testimonial-card">
                 <i class="fas fa-quote-left quote-icon"></i>
                 <p data-key="testi_4_quote">"Alhamdulillah after buying the Fast Copier bot, everything works normally. The setup is very easy and simple to understand... Thank you for the guidance."</p>
@@ -688,14 +554,13 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- MODAL POPUPS (DETAILED PROMO STYLE)        -->
+    <!-- MODAL POPUPS                                -->
     <!-- ========================================== -->
     
     <!-- Modal Zenith -->
     <div id="modal-zenith" class="modal-overlay" onclick="closeOnOutside(event, 'modal-zenith')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-zenith')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Zenith Pro Scalper</h2>
                 <div class="modal-subtitle" data-key="zenith_sub">Advanced XAUUSD Scalping Engine</div>
@@ -709,18 +574,15 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="zenith_li4">Smart Recovery Mechanism</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">$499</div>
                 <div class="price-sub">Lifetime License. One-time payment.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Grid Scalping</strong></div>
                     <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>500 USD/USC</strong></div>
                 </div>
-
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Zenith Pro Scalper" data-key="btn_purchase">Purchase License</a>
                 <a href="signal.html#result-zenith" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
@@ -731,7 +593,6 @@
     <div id="modal-dopamin" class="modal-overlay" onclick="closeOnOutside(event, 'modal-dopamin')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-dopamin')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Dopamin Hedge</h2>
                 <div class="modal-subtitle" data-key="dopamin_sub">24/7 Straddle & Recovery System</div>
@@ -745,18 +606,15 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="dopamin_li4">Supports All Currency Pairs</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">$499</div>
                 <div class="price-sub">Lifetime License. One-time payment.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>All Pairs</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Hedge & Grid Recovery</strong></div>
                     <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>2000 USD/USC</strong></div>
                 </div>
-
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Dopamin Hedge" data-key="btn_purchase">Purchase License</a>
                 <a href="signal.html#result-dopamin" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
@@ -767,7 +625,6 @@
     <div id="modal-phantom" class="modal-overlay" onclick="closeOnOutside(event, 'modal-phantom')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-phantom')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Golden Phantom</h2>
                 <div class="modal-subtitle" data-key="phantom_sub">Multi-Timeframe Breakout Specialist</div>
@@ -781,18 +638,15 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="phantom_li4">Strict Risk Management (Single Entry)</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">$499</div>
                 <div class="price-sub">Lifetime License. One-time payment.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Trend Breakout</strong></div>
                     <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>300 USD/USC</strong></div>
                 </div>
-
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Golden Phantom" data-key="btn_purchase">Purchase License</a>
                 <a href="signal.html#result-phantom" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
@@ -803,7 +657,6 @@
     <div id="modal-spartan" class="modal-overlay" onclick="closeOnOutside(event, 'modal-spartan')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-spartan')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Spartan Killer</h2>
                 <div class="modal-subtitle" data-key="spartan_sub">Aggressive Volatility Trader</div>
@@ -817,18 +670,15 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="spartan_li4">Optimal for Global Session Volatility</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">$499</div>
                 <div class="price-sub">Lifetime License. One-time payment.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Aggressive Breakout</strong></div>
                     <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>500 USD/USC</strong></div>
                 </div>
-
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Spartan Killer" data-key="btn_purchase">Purchase License</a>
                 <a href="signal.html#result-spartan" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
@@ -839,7 +689,6 @@
     <div id="modal-equinox" class="modal-overlay" onclick="closeOnOutside(event, 'modal-equinox')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-equinox')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Equinox</h2>
                 <div class="modal-subtitle" data-key="equinox_sub">Ultimate Multi-Strategy Breakout System</div>
@@ -853,18 +702,15 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="equinox_li4">Dynamic Breakout Logic</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">$499</div>
                 <div class="price-sub">Lifetime License. One-time payment.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>XAUUSD</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Multi-Strategy Breakout</strong></div>
                     <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>100 USD/USC</strong></div>
                 </div>
-
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Equinox" data-key="btn_purchase">Purchase License</a>
                 <a href="signal.html#result-equinox" class="btn-signal-live" data-key="btn_live_perf"><i class="fas fa-chart-line"></i> View Live Performance</a>
             </div>
@@ -875,7 +721,6 @@
     <div id="modal-fastcopier" class="modal-overlay" onclick="closeOnOutside(event, 'modal-fastcopier')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-fastcopier')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Fast Copier Pro</h2>
                 <div class="modal-subtitle" data-key="fastcopier_sub">Professional Local & Remote Trade Copier</div>
@@ -889,18 +734,15 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="fastcopier_li4">Auto symbol mapping and suffix support</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">$55</div>
                 <div class="price-sub">Lifetime License. One-time payment.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_pairs">Pairs:</span> <strong>All Pairs</strong></div>
                     <div class="spec-row"><span data-key="lbl_strategy">Strategy:</span> <strong>Utility Copier</strong></div>
                     <div class="spec-row"><span data-key="lbl_min_depo">Min. Deposit:</span> <strong>Any</strong></div>
                 </div>
-
                 <a href="#" class="btn-order wa-link-order" target="_blank" data-product="Fast Copier Pro" data-key="btn_purchase">Purchase License</a>
             </div>
         </div>
@@ -910,7 +752,6 @@
     <div id="modal-copytrade" class="modal-overlay" onclick="closeOnOutside(event, 'modal-copytrade')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-copytrade')">&times;</span>
-            
             <div class="modal-left">
                 <h2>Premium Copytrade</h2>
                 <div class="modal-subtitle" data-key="copy_sub">100% Hands-Free Wealth Management</div>
@@ -924,17 +765,14 @@
                     <li><i class="fas fa-check-circle"></i> <span data-key="copy_li4">You rent the VPS, we handle the full technical setup</span></li>
                 </ul>
             </div>
-
             <div class="modal-right">
                 <div class="price-tag">80 / 20</div>
                 <div class="price-sub">Profit Sharing. Fair & Transparent.</div>
-                
                 <div class="technical-specs">
                     <div class="spec-row"><span data-key="lbl_platform">Platform:</span> <strong>MetaTrader 5</strong></div>
                     <div class="spec-row"><span data-key="lbl_est_return">Est. Return:</span> <strong>10% - 20% / Month</strong></div>
                     <div class="spec-row"><span data-key="lbl_control">Control:</span> <strong>100% Client Rights</strong></div>
                 </div>
-
                 <a href="index2.html" class="btn-order wa-link-copy" target="_blank" style="margin-top: 10px;" data-key="btn_register_copy">Register Copytrade Now</a>
             </div>
         </div>
@@ -944,7 +782,6 @@
     <footer id="contact" class="footer-professional">
         <div class="footer-container">
             <div class="footer-grid">
-                <!-- Column 1: Brand Info -->
                 <div class="footer-col">
                     <h2 class="footer-logo">BOOM TRADE INDONESIA</h2>
                     <p class="footer-desc" data-key="footer_about">
@@ -955,7 +792,6 @@
                     </div>
                 </div>
 
-                <!-- Column 2: Expert Advisors -->
                 <div class="footer-col">
                     <h3 class="footer-heading">EXPERT ADVISORS</h3>
                     <ul class="footer-links">
@@ -968,12 +804,12 @@
                     </ul>
                 </div>
 
-                <!-- Column 3: Navigation & Features -->
                 <div class="footer-col">
                     <h3 class="footer-heading">NAVIGATION</h3>
                     <ul class="footer-links">
                         <li><a href="#home" data-key="nav_home">Home</a></li>
                         <li><a href="#products" data-key="nav_products">Algorithms</a></li>
+                        <li><a href="signal.html" data-key="nav_signal">Signal Access</a></li>
                         <li><a href="signal.html" data-key="nav_result">Performance</a></li>
                         <li><a href="#" class="wa-link-contact" target="_blank" data-key="nav_contact">Contact</a></li>
                     </ul>
@@ -1013,10 +849,10 @@
             document.getElementById('nav-list').classList.toggle('active');
         }
 
-        // Teks Bilingual Lengkap (Default English)
         const translations = {
             en: {
                 nav_home: "Home", nav_products: "Software", nav_result: "Performance", nav_contact: "Contact",
+                nav_signal: "Signal Access",
                 hero_title: "Automated Algorithmic <span>Trading Systems</span>",
                 hero_desc: "Institutional-grade Expert Advisors developed for the MetaTrader 5 platform. Engineered with high-precision risk management to navigate market volatility automatically and consistently.",
                 stat_1: "Premium Algorithms", stat_2: "Automated Execution", stat_3: "MT5 Platform Supported",
@@ -1130,6 +966,7 @@
             },
             id: {
                 nav_home: "Beranda", nav_products: "Software", nav_result: "Kinerja", nav_contact: "Kontak",
+                nav_signal: "Akses Signal",
                 hero_title: "Sistem Trading <span>Algoritmik Otomatis</span>",
                 hero_desc: "Expert Advisor tingkat institusional yang dirancang untuk platform MetaTrader 5. Dibangun dengan manajemen risiko presisi tinggi untuk menavigasi volatilitas pasar secara otomatis dan konsisten.",
                 stat_1: "Algoritma Premium", stat_2: "Eksekusi Otomatis", stat_3: "Support Platform MT5",
@@ -1290,7 +1127,6 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             initializeAgent();
-            // Force Default Language to English First
             applyLanguage('en');
         });
     </script>
