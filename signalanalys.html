@@ -6,7 +6,6 @@
     <title>Profesional Analysis</title>
     <meta name="description" content="Boom Trade Indonesia Signal Dashboard. Analisa XAUUSD multi-timeframe dan fundamental berbasis algoritma. Alat analisa, bukan jaminan profit.">
     <link rel="icon" type="image/png" href="images/boomtrade2.png">
-    <!-- ✏️ NEW: Font Awesome untuk icon Home -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -21,7 +20,6 @@
             --bt-text-muted: #475569;
             --bt-text-dim: #94A3B8;
             --bt-border: #E2E8F0;
-
             --bt-navy-900: #FAF9F6;
             --bt-navy-800: #FFFFFF;
             --bt-navy-700: #F1F5F9;
@@ -91,7 +89,6 @@
         }
         .admin-badge:hover { background: var(--bt-primary); color: #FFFFFF; }
 
-        /* ✏️ NEW: Home button style */
         .btn-home {
             background: #FFFFFF;
             color: #0F172A;
@@ -115,7 +112,6 @@
         }
         .btn-home i { font-size: 0.85rem; }
 
-        /* ✏️ NEW: Link back to home on login overlay */
         .back-home-link {
             display: inline-flex;
             align-items: center;
@@ -128,6 +124,42 @@
         }
         .back-home-link:hover { color: #2563EB; }
         .back-home-link i { font-size: 10px; }
+
+        /* ✏️ ADDED: Telegram Contact Button */
+        .telegram-contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 10px 14px;
+            background: #229ED9;
+            color: #FFFFFF !important;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(34, 158, 217, 0.25);
+        }
+        .telegram-contact-btn:hover {
+            background: #1E88BA;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(34, 158, 217, 0.35);
+        }
+        .telegram-contact-btn i { font-size: 16px; }
+
+        /* ✏️ ADDED: History card styles */
+        .history-signal-card {
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            transition: 0.15s;
+        }
+        .history-signal-card.win  { border-color: #86EFAC; background: #F0FDF4; }
+        .history-signal-card.loss { border-color: #FCA5A5; background: #FEF2F2; }
+        .history-signal-card.open { border-color: #CBD5E1; background: #F8FAFC; }
 
         .bt-risk-banner {
             background: #FEF2F2;
@@ -269,7 +301,15 @@
             </button>
             <p id="loginError" class="text-xs mt-3 text-center min-h-[16px]" style="color:#DC2626;"></p>
 
-            <!-- ✏️ NEW: Back to Home link -->
+            <!-- ✏️ ADDED: Hubungi Admin via Telegram -->
+            <div class="mt-4 p-3 rounded-lg" style="background:rgba(34,158,217,0.06); border:1px solid rgba(34,158,217,0.25);">
+                <p class="text-[11px] text-gray-600 mb-2 text-center font-semibold">Belum punya License Key?</p>
+                <a href="https://t.me/bangrioboomtrade?text=Halo%20Admin%2C%20saya%20ingin%20mendapatkan%20License%20Key%20untuk%20mengakses%20Profesional%20Analys%20Signal.%20Terima%20kasih."
+                   target="_blank" rel="noopener noreferrer" class="telegram-contact-btn">
+                    <i class="fab fa-telegram-plane"></i> Hubungi Admin via Telegram
+                </a>
+            </div>
+
             <div class="text-center mt-4">
                 <a href="index.html" class="back-home-link">
                     <i class="fas fa-arrow-left"></i> Kembali ke Website Utama
@@ -290,7 +330,7 @@
                 <div>
                     <h1 class="text-2xl md:text-3xl font-bold tracking-tight" style="color:#0F172A;">
                         <span style="color:#2563EB;">Profesional Analys</span> - XAUUSD
-                        <span class="text-[10px] px-2 py-0.5 rounded font-mono" style="background:rgba(37,99,235,0.1);color:#2563EB;border:1px solid rgba(37,99,235,0.3);">v1.7</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded font-mono" style="background:rgba(37,99,235,0.1);color:#2563EB;border:1px solid rgba(37,99,235,0.3);">v1.8</span>
                     </h1>
                     <p class="text-sm text-gray-500 mt-1">
                         © 2026 - BOOM TRADE INDONESIA
@@ -302,7 +342,6 @@
                     <div id="countdownDisplay" class="text-xs font-mono px-3 py-2 rounded-lg border" style="background:#F1F5F9;color:#2563EB;border-color:rgba(37,99,235,0.3);">Auto-refresh: 15:00</div>
                     <button id="adminBtn" onclick="openAdminPanel()" style="display:none"
                         class="admin-badge text-xs font-semibold px-3 py-2 rounded-lg transition">🔧 Admin</button>
-                    <!-- ✏️ NEW: Home button -->
                     <a href="index.html" class="btn-home" title="Kembali ke halaman utama">
                         <i class="fas fa-house"></i> Home
                     </a>
@@ -336,7 +375,12 @@
             <button onclick="setFilter('fundamental')" id="filter-fundamental" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700">Fundamental</button>
         </div>
 
-        <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-6"></div>
+        <!-- ✏️ MODIFIED: gap-4 → gap-3 untuk card lebih compact -->
+        <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 mb-4"></div>
+
+        <!-- ✏️ ADDED: Today's Signal History + Win Rate -->
+        <div id="historySection" class="mb-6"></div>
+
         <div id="fundamentalSection" class="w-full mt-6 hidden"></div>
         <div id="emptyState" class="text-center py-20 text-gray-500 hidden">
             <p class="text-lg mb-2">👋 Tidak ada data yang cocok dengan filter.</p>
@@ -438,6 +482,120 @@
         const CALENDAR_API = 'https://biquote.io/api/calendar';
         let calendarCache = { data: null, timestamp: 0, endpoint: null };
         const CALENDAR_CACHE_TTL = 5 * 60 * 1000;
+
+        // ============================================================
+        // ✏️ ADDED: SIGNAL HISTORY MANAGEMENT
+        // ============================================================
+        const HISTORY_KEY = 'boomtrade_signal_history_v1';
+        const HISTORY_MAX_DAYS = 7;
+
+        function getTodayKey() {
+            const n = new Date();
+            return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+        }
+        function loadHistory() {
+            try { const raw = localStorage.getItem(HISTORY_KEY); return raw ? JSON.parse(raw) : {}; } catch (e) { return {}; }
+        }
+        function saveHistory(hist) {
+            try { localStorage.setItem(HISTORY_KEY, JSON.stringify(hist)); } catch (e) {}
+        }
+        function getTodayHistory() {
+            const hist = loadHistory();
+            const today = getTodayKey();
+            if (!hist[today]) hist[today] = {};
+            return { hist, today };
+        }
+        function cleanupHistory() {
+            try {
+                const hist = loadHistory();
+                const keys = Object.keys(hist).sort().reverse();
+                if (keys.length > HISTORY_MAX_DAYS) {
+                    const cleaned = {};
+                    for (const k of keys.slice(0, HISTORY_MAX_DAYS)) cleaned[k] = hist[k];
+                    saveHistory(cleaned);
+                }
+            } catch (e) {}
+        }
+
+        // ✏️ ADDED: record new signal (BUY & SELL terpisah)
+        function recordSignal(tf, analysis, lastCandleTime) {
+            if (!analysis || !analysis.signal) return;
+            if (analysis.signal !== 'BUY' && analysis.signal !== 'SELL' &&
+                analysis.signal !== 'STRONG BUY' && analysis.signal !== 'STRONG SELL') return;
+            const L = analysis.levels;
+            if (L.entry == null || L.stop_loss == null || L.tp1 == null) return;
+
+            const currentDir = analysis.signal.includes('BUY') ? 'BUY' : 'SELL';
+            const { hist, today } = getTodayHistory();
+            if (!hist[today][tf.interval]) hist[today][tf.interval] = [];
+            const sigs = hist[today][tf.interval];
+
+            // Skip hanya jika arah SAMA dan masih OPEN (duplicate)
+            // Jika arah berbeda, TETAP buat card baru (BUY & SELL tampil terpisah)
+            const last = sigs[sigs.length - 1];
+            if (last && last.direction === currentDir && last.status === 'OPEN') return;
+
+            sigs.push({
+                id: `${Date.now()}-${tf.interval}-${currentDir}`,
+                tfInterval: tf.interval,
+                tfLabel: tf.label,
+                tfType: tf.type,
+                signal: analysis.signal,
+                direction: currentDir,
+                timestamp: Date.now(),
+                candleTime: lastCandleTime,
+                entry: L.entry,
+                stopLoss: L.stop_loss,
+                tp1: L.tp1,
+                tp2: L.tp2,
+                tp3: L.tp3,
+                pips: L.pips,
+                status: 'OPEN',
+                closedAt: null,
+                closedPrice: null
+            });
+            saveHistory(hist);
+        }
+
+        // ✏️ ADDED: evaluasi WIN/LOSS berdasarkan candle berikutnya
+        function evaluateSignals(candles, tf) {
+            const { hist, today } = getTodayHistory();
+            if (!hist[today][tf.interval]) return;
+            const sigs = hist[today][tf.interval];
+            let updated = false;
+
+            for (const sig of sigs) {
+                if (sig.status !== 'OPEN') continue;
+                if (sig.candleTime == null) continue;
+                const after = candles.filter(c => c.time > sig.candleTime);
+                if (after.length === 0) continue;
+
+                for (const candle of after) {
+                    if (sig.direction === 'BUY') {
+                        if (candle.low <= sig.stopLoss) { sig.status = 'LOSS'; sig.closedAt = candle.time; sig.closedPrice = sig.stopLoss; updated = true; break; }
+                        if (candle.high >= sig.tp1)     { sig.status = 'WIN';  sig.closedAt = candle.time; sig.closedPrice = sig.tp1;     updated = true; break; }
+                    } else {
+                        if (candle.high >= sig.stopLoss) { sig.status = 'LOSS'; sig.closedAt = candle.time; sig.closedPrice = sig.stopLoss; updated = true; break; }
+                        if (candle.low <= sig.tp1)       { sig.status = 'WIN';  sig.closedAt = candle.time; sig.closedPrice = sig.tp1;     updated = true; break; }
+                    }
+                }
+            }
+            if (updated) saveHistory(hist);
+        }
+
+        // ✏️ ADDED: win rate calculator (exclude OPEN dari perhitungan)
+        function computeWinRate(signals) {
+            let wins = 0, losses = 0, open = 0;
+            for (const s of signals) {
+                if (s.status === 'WIN') wins++;
+                else if (s.status === 'LOSS') losses++;
+                else open++;
+            }
+            const total = wins + losses + open;
+            const decided = wins + losses;
+            const winRate = decided > 0 ? Math.round((wins / decided) * 100) : 0;
+            return { wins, losses, open, total, winRate, decided };
+        }
 
         async function computeFingerprint() {
             const parts = [
@@ -903,7 +1061,13 @@
 
                     if (candles.length < tf.minCandles) throw new Error(`Candle ${tf.label} kurang.`);
                     const analysis = analyzeCandles(candles, tf.type);
-                    allResults[tf.interval] = { tf, analysis, timestamp: new Date(candles[candles.length-1].time).toISOString() };
+                    const lastCandleTime = candles[candles.length - 1].time;
+                    allResults[tf.interval] = { tf, analysis, timestamp: new Date(lastCandleTime).toISOString() };
+
+                    // ✏️ ADDED: history recording & evaluation (2 baris tambahan)
+                    recordSignal(tf, analysis, lastCandleTime);
+                    evaluateSignals(candles, tf);
+
                     if (tf.type === 'scalping') { m5Candles = candles; const atrArr = computeATR(candles, 14); m5Atr = atrArr[atrArr.length-1]; }
                 } catch (err) { allResults[tf.interval] = { tf, error: err.message }; }
                 await new Promise(r => setTimeout(r, 300));
@@ -919,6 +1083,7 @@
             if (fundamentalResult && fundamentalResult.error) document.getElementById('statusMsg').textContent = `⚠️ Fundamental gagal: ${fundamentalResult.error.slice(0, 80)}`;
             else document.getElementById('statusMsg').textContent = `✅ Analisa Sukses · ${licenseKey}`;
             renderResults();
+            renderHistory(); // ✏️ ADDED
         }
 
         function setLoading(isLoading) {
@@ -970,7 +1135,7 @@
             nextEventTimerInterval = setInterval(update, 1000);
         }
 
-        window.setFilter = function(type) { currentFilter = type; updateFilterUI(); renderResults(); }
+        window.setFilter = function(type) { currentFilter = type; updateFilterUI(); renderResults(); renderHistory(); } // ✏️ ADDED renderHistory
         function updateFilterUI() {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white');
@@ -1000,7 +1165,8 @@
                     hasTech = true;
                     grid.classList.remove('hidden');
                     entries.forEach(r => {
-                        const card = document.createElement('div'); card.className = 'card p-4';
+                        // ✏️ MODIFIED: p-4 → p-3 (card lebih kecil)
+                        const card = document.createElement('div'); card.className = 'card p-3';
                         if (r.error) {
                             card.innerHTML = `<div class="flex justify-between mb-2"><span class="font-bold text-white">${r.tf.label}</span><span class="badge-wait text-xs px-2 py-0.5 rounded">Error</span></div><p class="text-xs text-red-400">${r.error}</p>`;
                             grid.appendChild(card);
@@ -1013,36 +1179,38 @@
                         const accColor = accVal >= 80 ? 'text-emerald-600' : accVal >= 70 ? 'text-amber-600' : 'text-orange-600';
                         const barColor = accVal >= 80 ? 'bg-emerald-500' : accVal >= 70 ? 'bg-amber-500' : 'bg-orange-500';
 
+                        // ✏️ MODIFIED: Setup box p-2.5 → p-2, font sizes slightly smaller
                         let levelsHTML = '';
                         if (L.stop_loss !== null) {
                             const risk = Math.abs(L.entry - L.stop_loss);
                             const rr = risk > 0 ? (Math.abs(L.tp1-L.entry)/risk).toFixed(2) : '-';
-                            levelsHTML = `<div class="mt-2 bg-gray-50 rounded-lg p-2.5 border border-gray-200">
-                                <div class="flex justify-between items-center mb-2">
-                                    <span class="text-[10px] uppercase text-gray-500 font-semibold">📍 Setup Trade</span>
-                                    <div class="flex gap-2"><span class="text-[10px] font-mono text-amber-600">Risk $${risk.toFixed(2)}</span><span class="text-[10px] font-mono text-blue-500">RR 1:${rr}</span></div>
+                            levelsHTML = `<div class="mt-2 bg-gray-50 rounded-lg p-2 border border-gray-200">
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <span class="text-[9px] uppercase text-gray-500 font-semibold">📍 Setup Trade</span>
+                                    <div class="flex gap-2"><span class="text-[9px] font-mono text-amber-600">Risk $${risk.toFixed(2)}</span><span class="text-[9px] font-mono text-blue-500">RR 1:${rr}</span></div>
                                 </div>
-                                <div class="space-y-1.5 text-xs">
-                                    <div class="flex justify-between items-center bg-blue-500/10 border-l-2 border-blue-500 rounded px-2 py-1.5"><span class="text-gray-500 text-[10px] uppercase">Entry</span><span class="font-mono text-blue-700 font-bold text-sm">${L.entry.toFixed(2)}</span></div>
-                                    <div class="flex justify-between bg-red-500/10 border-l-2 border-red-500 rounded px-2 py-1.5"><span class="text-gray-500 text-[10px] uppercase">SL (${P.sl}p)</span><span class="font-mono text-red-600 font-bold text-sm">${L.stop_loss.toFixed(2)}</span></div>
+                                <div class="space-y-1 text-xs">
+                                    <div class="flex justify-between items-center bg-blue-500/10 border-l-2 border-blue-500 rounded px-1.5 py-1"><span class="text-gray-500 text-[9px] uppercase">Entry</span><span class="font-mono text-blue-700 font-bold text-xs">${L.entry.toFixed(2)}</span></div>
+                                    <div class="flex justify-between bg-red-500/10 border-l-2 border-red-500 rounded px-1.5 py-1"><span class="text-gray-500 text-[9px] uppercase">SL (${P.sl}p)</span><span class="font-mono text-red-600 font-bold text-xs">${L.stop_loss.toFixed(2)}</span></div>
                                     <div class="grid grid-cols-3 gap-1">
-                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1.5 py-1.5"><span class="text-gray-500 text-[9px] block">TP1 (${P.tp1}p)</span><span class="font-mono text-emerald-600 text-xs font-bold">${L.tp1.toFixed(2)}</span></div>
-                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1.5 py-1.5"><span class="text-gray-500 text-[9px] block">TP2 (${P.tp2}p)</span><span class="font-mono text-emerald-600 text-xs font-bold">${L.tp2.toFixed(2)}</span></div>
-                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1.5 py-1.5"><span class="text-gray-500 text-[9px] block">TP3 (${P.tp3}p)</span><span class="font-mono text-emerald-600 text-xs font-bold">${L.tp3.toFixed(2)}</span></div>
+                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1 py-1"><span class="text-gray-500 text-[8px] block">TP1 (${P.tp1}p)</span><span class="font-mono text-emerald-600 text-[10px] font-bold">${L.tp1.toFixed(2)}</span></div>
+                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1 py-1"><span class="text-gray-500 text-[8px] block">TP2 (${P.tp2}p)</span><span class="font-mono text-emerald-600 text-[10px] font-bold">${L.tp2.toFixed(2)}</span></div>
+                                        <div class="bg-green-500/10 border-l-2 border-green-500 rounded px-1 py-1"><span class="text-gray-500 text-[8px] block">TP3 (${P.tp3}p)</span><span class="font-mono text-emerald-600 text-[10px] font-bold">${L.tp3.toFixed(2)}</span></div>
                                     </div>
                                 </div>
                             </div>`;
                         } else {
-                            levelsHTML = `<div class="mt-2 bg-gray-50 rounded-lg p-3 border border-dashed border-gray-300"><p class="text-[11px] text-gray-500 text-center">WAIT · Tidak ada setup valid</p></div>`;
+                            levelsHTML = `<div class="mt-2 bg-gray-50 rounded-lg p-2 border border-dashed border-gray-300"><p class="text-[10px] text-gray-500 text-center">WAIT · Tidak ada setup valid</p></div>`;
                         }
 
+                        // ✏️ MODIFIED: header sizes slightly reduced
                         card.innerHTML = `
-                            <div class="flex justify-between items-start mb-2">
-                                <div><span class="font-bold text-white text-lg">${r.tf.label}</span><span class="text-[10px] text-gray-500 ml-1 uppercase">${typeLabel}</span></div>
-                                <div class="flex flex-col items-end gap-1"><span class="${badge} text-xs font-bold px-2.5 py-1 rounded-md">${a.signal}</span><span class="text-[11px] font-mono font-bold ${accColor}">Akurasi: ${accVal}%</span></div>
+                            <div class="flex justify-between items-start mb-1.5">
+                                <div><span class="font-bold text-white text-base">${r.tf.label}</span><span class="text-[9px] text-gray-500 ml-1 uppercase">${typeLabel}</span></div>
+                                <div class="flex flex-col items-end gap-1"><span class="${badge} text-[10px] font-bold px-2 py-0.5 rounded">${a.signal}</span><span class="text-[10px] font-mono font-bold ${accColor}">Akurasi: ${accVal}%</span></div>
                             </div>
-                            <div class="flex justify-between bg-gray-100 rounded px-2 py-1.5 mb-2"><span class="text-[10px] text-gray-500 uppercase">Harga Saat Ini</span><span class="font-mono text-gray-900 font-bold">${a.price.toFixed(2)}</span></div>
-                            <div class="mb-3"><div class="accuracy-bar"><div class="accuracy-fill ${barColor}" style="width: ${accVal}%"></div></div></div>
+                            <div class="flex justify-between bg-gray-100 rounded px-2 py-1 mb-1.5"><span class="text-[9px] text-gray-500 uppercase">Harga</span><span class="font-mono text-gray-900 font-bold text-xs">${a.price.toFixed(2)}</span></div>
+                            <div class="mb-2"><div class="accuracy-bar"><div class="accuracy-fill ${barColor}" style="width: ${accVal}%"></div></div></div>
                             ${levelsHTML}`;
                         grid.appendChild(card);
                     });
@@ -1192,6 +1360,143 @@
             else empty.classList.add('hidden');
         }
 
+        // ============================================================
+        // ✏️ ADDED: RENDER HISTORY + WIN RATE
+        // ============================================================
+        function renderHistory() {
+            const section = document.getElementById('historySection');
+            if (!section) return;
+
+            if (currentFilter === 'fundamental') { section.innerHTML = ''; return; }
+
+            const hist = loadHistory();
+            const today = getTodayKey();
+            const todayHist = hist[today] || {};
+
+            let tfFilter = null;
+            if (currentFilter === 'scalping') tfFilter = '5min';
+            else if (currentFilter === 'intraday') tfFilter = '15min';
+            else if (currentFilter === 'swing') tfFilter = '4h';
+
+            const all = [];
+            for (const [interval, arr] of Object.entries(todayHist)) {
+                if (tfFilter && interval !== tfFilter) continue;
+                all.push(...arr);
+            }
+
+            const todayStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+
+            if (all.length === 0) {
+                section.innerHTML = `
+                    <div class="card p-4 text-center">
+                        <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mb-1">📊 Signal History · ${todayStr}</div>
+                        <p class="text-xs text-gray-400 py-2">Belum ada signal hari ini. History akan muncul setelah signal BUY/SELL pertama terdeteksi.</p>
+                    </div>`;
+                return;
+            }
+
+            const overall = computeWinRate(all);
+            const overallRateColor = overall.winRate >= 70 ? 'text-emerald-600' : overall.winRate >= 50 ? 'text-amber-600' : 'text-red-600';
+            const overallRateBar = overall.winRate >= 70 ? 'bg-emerald-500' : overall.winRate >= 50 ? 'bg-amber-500' : 'bg-red-500';
+
+            const tfOrder = ['5min', '15min', '4h'];
+            const tfLabels = { '5min': 'M5', '15min': 'M15', '4h': 'H4' };
+            const tfFullNames = { '5min': 'Scalping', '15min': 'Intraday', '4h': 'Swing' };
+
+            let tfSectionsHTML = '';
+            for (const interval of tfOrder) {
+                if (tfFilter && interval !== tfFilter) continue;
+                const sigs = (todayHist[interval] || []).slice().sort((a, b) => b.timestamp - a.timestamp);
+                if (sigs.length === 0) continue;
+
+                const wr = computeWinRate(sigs);
+                const wrColor = wr.winRate >= 70 ? 'text-emerald-600' : wr.winRate >= 50 ? 'text-amber-600' : 'text-red-600';
+                const wrBar = wr.winRate >= 70 ? 'bg-emerald-500' : wr.winRate >= 50 ? 'bg-amber-500' : 'bg-red-500';
+
+                let cardsHTML = '';
+                for (const sig of sigs) {
+                    const time = new Date(sig.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                    const dirIsBuy = sig.direction === 'BUY';
+                    const dirBadge = dirIsBuy ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : 'bg-red-50 text-red-700 border-red-300';
+
+                    let statusBadge = '', statusText = '', statusColor = '';
+                    if (sig.status === 'WIN') { statusBadge = 'bg-emerald-50 text-emerald-700 border-emerald-300'; statusText = '✓ WIN'; statusColor = 'text-emerald-600'; }
+                    else if (sig.status === 'LOSS') { statusBadge = 'bg-red-50 text-red-700 border-red-300'; statusText = '✗ LOSS'; statusColor = 'text-red-600'; }
+                    else { statusBadge = 'bg-gray-50 text-gray-600 border-gray-300'; statusText = '⏳ OPEN'; statusColor = 'text-gray-500'; }
+
+                    let pipsText = '';
+                    if (sig.status !== 'OPEN' && sig.closedPrice) {
+                        const diff = Math.abs(sig.closedPrice - sig.entry) / PIP_SIZE;
+                        pipsText = sig.status === 'WIN' ? `+${diff.toFixed(1)}p` : `-${diff.toFixed(1)}p`;
+                    }
+
+                    const cardClass = sig.status === 'WIN' ? 'history-signal-card win' : sig.status === 'LOSS' ? 'history-signal-card loss' : 'history-signal-card open';
+
+                    cardsHTML += `
+                        <div class="${cardClass}">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-[9px] font-mono text-gray-400">${time}</span>
+                                <span class="text-[8px] font-bold px-1.5 py-0.5 rounded border ${statusBadge}">${statusText}</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${dirBadge}">${sig.direction}</span>
+                                ${pipsText ? `<span class="text-[9px] font-mono font-bold ${statusColor}">${pipsText}</span>` : ''}
+                            </div>
+                            <div class="text-[8px] text-gray-500 font-mono space-y-0.5">
+                                <div class="flex justify-between"><span>E</span><span class="font-bold text-gray-700">${sig.entry.toFixed(2)}</span></div>
+                                <div class="flex justify-between"><span>TP1</span><span class="font-bold text-emerald-600">${sig.tp1.toFixed(2)}</span></div>
+                                <div class="flex justify-between"><span>SL</span><span class="font-bold text-red-600">${sig.stopLoss.toFixed(2)}</span></div>
+                            </div>
+                        </div>`;
+                }
+
+                tfSectionsHTML += `
+                    <div class="card p-3 mb-3">
+                        <div class="flex justify-between items-center mb-2 flex-wrap gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-sm">${tfLabels[interval]}</span>
+                                <span class="text-[9px] text-gray-500 uppercase">${tfFullNames[interval]}</span>
+                                <span class="text-[9px] text-gray-400">(${sigs.length} signal)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] text-gray-500">Win Rate:</span>
+                                <span class="text-[11px] font-bold ${wrColor}">${wr.winRate}%</span>
+                                <span class="text-[9px] text-gray-400">(${wr.wins}W/${wr.losses}L${wr.open > 0 ? '/'+wr.open+'O' : ''})</span>
+                            </div>
+                        </div>
+                        <div class="accuracy-bar mb-2"><div class="accuracy-fill ${wrBar}" style="width: ${wr.winRate}%"></div></div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+                            ${cardsHTML}
+                        </div>
+                    </div>`;
+            }
+
+            section.innerHTML = `
+                <div class="card p-3 mb-3" style="background:linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 100%); border-color:rgba(37,99,235,0.3);">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div class="flex items-center gap-2">
+                            <span style="color:#2563EB;" class="text-base">📊</span>
+                            <div>
+                                <div class="text-sm font-bold text-white">Signal History · Today</div>
+                                <div class="text-[10px] text-gray-500">${todayStr}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <div class="text-center"><div class="text-[9px] text-gray-500 uppercase">Total</div><div class="text-base font-bold text-white">${overall.total}</div></div>
+                            <div class="text-center"><div class="text-[9px] text-emerald-600 uppercase">Win</div><div class="text-base font-bold text-emerald-600">${overall.wins}</div></div>
+                            <div class="text-center"><div class="text-[9px] text-red-600 uppercase">Loss</div><div class="text-base font-bold text-red-600">${overall.losses}</div></div>
+                            <div class="text-center"><div class="text-[9px] text-gray-500 uppercase">Open</div><div class="text-base font-bold text-gray-500">${overall.open}</div></div>
+                            <div class="text-center pl-3" style="border-left:1px solid rgba(37,99,235,0.2);">
+                                <div class="text-[9px] text-gray-500 uppercase">Win Rate</div>
+                                <div class="text-xl font-black ${overallRateColor}">${overall.winRate}%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accuracy-bar mt-2"><div class="accuracy-fill ${overallRateBar}" style="width: ${overall.winRate}%"></div></div>
+                </div>
+                ${tfSectionsHTML}`;
+        }
+
         function startAutoRefresh() {
             if (countdownInterval) clearInterval(countdownInterval);
             refreshCountdown = REFRESH_INTERVAL;
@@ -1214,6 +1519,7 @@
         async function initApp() {
             document.getElementById('loginLicenseKey').addEventListener('keydown', (e) => { if (e.key === 'Enter') window.doLogin(); });
             updateFilterUI();
+            cleanupHistory(); // ✏️ ADDED
 
             const sessionKey = localStorage.getItem('active_session_key');
             const sessionFp = localStorage.getItem('active_session_fp');
